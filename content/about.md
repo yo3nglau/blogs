@@ -43,4 +43,4 @@ Artificial Intelligence for Healthcare
 
 ## Contact
 
-Contact this email if you are willing to collaborate: lyang22@mails.tsinghua.edu.cn
+Contact this email if you are willing to collaborate: lyang22ATmails.tsinghua.edu.cn
