@@ -2,45 +2,45 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on yo3nglau academic website</title>
-    <link>/categories/</link>
+    <link>https://yo3nglau.github.io/blogs/categories/</link>
     <description>Recent content in Categories on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/categories/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/categories/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Daily Reading</title>
-      <link>/categories/daily-reading/</link>
+      <link>https://yo3nglau.github.io/blogs/categories/daily-reading/</link>
       <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/categories/daily-reading/</guid>
+      <guid>https://yo3nglau.github.io/blogs/categories/daily-reading/</guid>
       <description></description>
     </item>
     <item>
       <title>Computer Technology</title>
-      <link>/categories/computer-technology/</link>
+      <link>https://yo3nglau.github.io/blogs/categories/computer-technology/</link>
       <pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/categories/computer-technology/</guid>
+      <guid>https://yo3nglau.github.io/blogs/categories/computer-technology/</guid>
       <description></description>
     </item>
     <item>
       <title>Deep Learning</title>
-      <link>/categories/deep-learning/</link>
+      <link>https://yo3nglau.github.io/blogs/categories/deep-learning/</link>
       <pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/categories/deep-learning/</guid>
+      <guid>https://yo3nglau.github.io/blogs/categories/deep-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Movies</title>
-      <link>/categories/movies/</link>
+      <link>https://yo3nglau.github.io/blogs/categories/movies/</link>
       <pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/categories/movies/</guid>
+      <guid>https://yo3nglau.github.io/blogs/categories/movies/</guid>
       <description></description>
     </item>
     <item>
       <title>Daily Writing</title>
-      <link>/categories/daily-writing/</link>
+      <link>https://yo3nglau.github.io/blogs/categories/daily-writing/</link>
       <pubDate>Mon, 22 May 2023 00:00:00 +0000</pubDate>
-      <guid>/categories/daily-writing/</guid>
+      <guid>https://yo3nglau.github.io/blogs/categories/daily-writing/</guid>
       <description></description>
     </item>
   </channel>

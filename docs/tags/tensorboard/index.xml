@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>TensorBoard on yo3nglau academic website</title>
-    <link>/tags/tensorboard/</link>
+    <link>https://yo3nglau.github.io/blogs/tags/tensorboard/</link>
     <description>Recent content in TensorBoard on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 11 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/tags/tensorboard/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/tensorboard/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Run TensorBoard on a Remote Server and View It Locally</title>
-      <link>/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</link>
+      <link>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</link>
       <pubDate>Tue, 11 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</guid>
+      <guid>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</guid>
       <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;When training machine learning models on remote servers, monitoring metrics such as loss, accuracy, and learning rate becomes essential. TensorBoard is a powerful visualization toolkit from TensorFlow that makes this possible. However, since training often takes place on remote machines without direct GUI access, developers must forward TensorBoard to their local browser. Fortunately, this is simple with secure SSH tunneling.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-run-tensorboard-remotely&#34;&gt;Why Run TensorBoard Remotely?&lt;/h2&gt;&#xA;&lt;p&gt;Many training workloads:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Require powerful GPUs only available on remote servers&lt;/li&gt;&#xA;&lt;li&gt;Run for long periods and need continuous observation&lt;/li&gt;&#xA;&lt;li&gt;Produce logs that are easiest to analyze visually&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Instead of transferring logs back to your local machine, it is more efficient to stream the TensorBoard UI directly to your browser.&lt;/p&gt;</description>
     </item>
   </channel>

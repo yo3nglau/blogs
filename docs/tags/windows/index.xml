@@ -2,31 +2,31 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Windows on yo3nglau academic website</title>
-    <link>/tags/windows/</link>
+    <link>https://yo3nglau.github.io/blogs/tags/windows/</link>
     <description>Recent content in Windows on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 21 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/tags/windows/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/windows/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Understanding hiberfil.sys in Windows</title>
-      <link>/post/understanding-hiberfil.sys-in-windows/</link>
+      <link>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</link>
       <pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/post/understanding-hiberfil.sys-in-windows/</guid>
+      <guid>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</guid>
       <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Windows relies on several hidden system files to deliver smooth user experiences, especially when managing power states. One of the most important among them is &lt;code&gt;hiberfil.sys&lt;/code&gt;, a file directly tied to the operating system’s Hibernate and Fast Startup features. Although it typically remains invisible to everyday users, knowing its purpose can help you manage disk space, optimize system behavior, and troubleshoot power-related issues.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-hiberfilsys&#34;&gt;What Is &lt;code&gt;hiberfil.sys&lt;/code&gt;?&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;hiberfil.sys&lt;/code&gt; is a system file used by Windows to store the contents of your system’s memory (RAM) when the machine enters &lt;strong&gt;Hibernate&lt;/strong&gt; mode. During hibernation, Windows saves the entire memory state—including open documents, running applications, and system context—to this file before shutting down. When the system powers back on, it restores the saved data and resumes exactly where you left off.&lt;/p&gt;</description>
     </item>
     <item>
       <title>Add Application Shortcuts to the Start Menu in Windows</title>
-      <link>/post/add-application-shortcuts-to-the-start-menu-in-windows/</link>
+      <link>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</link>
       <pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/post/add-application-shortcuts-to-the-start-menu-in-windows/</guid>
+      <guid>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</guid>
       <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Keeping your Start menu organized is an easy way to boost your productivity and access your applications quickly. Whether you want to pin frequently used programs or create custom folders, Windows provides simple methods to add and manage Start menu shortcuts. This introductory guide walks you through the essentials in a clear and practical way.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-add-shortcuts-to-the-start-menu&#34;&gt;Why Add Shortcuts to the Start Menu?&lt;/h2&gt;&#xA;&lt;p&gt;The Start menu serves as the central hub for applications, system settings, and search. Adding your own shortcuts helps you:&lt;/p&gt;</description>
     </item>
     <item>
       <title>Understanding pagefile.sys in Windows</title>
-      <link>/post/understanding-pagefile.sys-in-windows/</link>
+      <link>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</link>
       <pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/post/understanding-pagefile.sys-in-windows/</guid>
+      <guid>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</guid>
       <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Efficient memory management is essential for maintaining system stability and performance. In Windows, one of the core components enabling this is &lt;code&gt;pagefile.sys&lt;/code&gt;—a hidden system file that acts as an extension of your physical memory. Although it typically works silently in the background, understanding its purpose and proper configuration can help you optimize system performance and troubleshoot memory-related issues.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-pagefilesys&#34;&gt;What Is &lt;code&gt;pagefile.sys&lt;/code&gt;?&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;pagefile.sys&lt;/code&gt; is Windows’ &lt;strong&gt;virtual memory&lt;/strong&gt; file. When your system’s physical RAM is fully utilized, Windows uses this file as overflow space to temporarily store data that does not need to remain in active memory. By doing so, the operating system can continue running applications smoothly even when RAM usage peaks.&lt;/p&gt;</description>
     </item>
   </channel>

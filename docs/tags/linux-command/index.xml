@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Linux Command on yo3nglau academic website</title>
-    <link>/tags/linux-command/</link>
+    <link>https://yo3nglau.github.io/blogs/tags/linux-command/</link>
     <description>Recent content in Linux Command on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Mon, 10 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/tags/linux-command/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/linux-command/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Long-Running Process Management with screen Command</title>
-      <link>/post/long-running-process-management-with-screen-command/</link>
+      <link>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</link>
       <pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/post/long-running-process-management-with-screen-command/</guid>
+      <guid>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</guid>
       <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;When managing long-running processes in a Linux environment, maintaining persistent terminal sessions becomes essential—especially when working over SSH connections. Accidental disconnections can interrupt tasks, terminate important jobs, and disrupt your workflow. This is where the &lt;code&gt;screen&lt;/code&gt; command proves invaluable. It allows users to create detachable terminal sessions that continue running even after the connection is closed.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;screen&lt;/code&gt; is a terminal multiplexer commonly used in Linux systems. It enables multiple shell sessions to run within a single terminal window. More importantly, it provides the ability to detach from a session without stopping the underlying processes, and later reattach to it seamlessly.&lt;/p&gt;</description>
     </item>
   </channel>

@@ -2,101 +2,101 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on yo3nglau academic website</title>
-    <link>/tags/</link>
+    <link>https://yo3nglau.github.io/blogs/tags/</link>
     <description>Recent content in Tags on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 25 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Classical Chinese</title>
-      <link>/tags/classical-chinese/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/classical-chinese/</link>
       <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/classical-chinese/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/classical-chinese/</guid>
       <description></description>
     </item>
     <item>
       <title>Guide</title>
-      <link>/tags/guide/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/guide/</link>
       <pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/guide/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/guide/</guid>
       <description></description>
     </item>
     <item>
       <title>Windows</title>
-      <link>/tags/windows/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/windows/</link>
       <pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/windows/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/windows/</guid>
       <description></description>
     </item>
     <item>
       <title>Mirror</title>
-      <link>/tags/mirror/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/mirror/</link>
       <pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/mirror/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/mirror/</guid>
       <description></description>
     </item>
     <item>
       <title>NumPy</title>
-      <link>/tags/numpy/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/numpy/</link>
       <pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/numpy/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/numpy/</guid>
       <description></description>
     </item>
     <item>
       <title>Remote Server</title>
-      <link>/tags/remote-server/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/remote-server/</link>
       <pubDate>Tue, 11 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/remote-server/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/remote-server/</guid>
       <description></description>
     </item>
     <item>
       <title>TensorBoard</title>
-      <link>/tags/tensorboard/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/tensorboard/</link>
       <pubDate>Tue, 11 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/tensorboard/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/tensorboard/</guid>
       <description></description>
     </item>
     <item>
       <title>Linux Command</title>
-      <link>/tags/linux-command/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/linux-command/</link>
       <pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/linux-command/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/linux-command/</guid>
       <description></description>
     </item>
     <item>
       <title>LOTR</title>
-      <link>/tags/lotr/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/lotr/</link>
       <pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/lotr/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/lotr/</guid>
       <description></description>
     </item>
     <item>
       <title>Counseling</title>
-      <link>/tags/counseling/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/counseling/</link>
       <pubDate>Tue, 04 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/counseling/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/counseling/</guid>
       <description></description>
     </item>
     <item>
       <title>Psychology</title>
-      <link>/tags/psychology/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/psychology/</link>
       <pubDate>Tue, 04 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>/tags/psychology/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/psychology/</guid>
       <description></description>
     </item>
     <item>
       <title>PhD</title>
-      <link>/tags/phd/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/phd/</link>
       <pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>/tags/phd/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/phd/</guid>
       <description></description>
     </item>
     <item>
       <title>Google Chrome</title>
-      <link>/tags/google-chrome/</link>
+      <link>https://yo3nglau.github.io/blogs/tags/google-chrome/</link>
       <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
-      <guid>/tags/google-chrome/</guid>
+      <guid>https://yo3nglau.github.io/blogs/tags/google-chrome/</guid>
       <description></description>
     </item>
   </channel>
