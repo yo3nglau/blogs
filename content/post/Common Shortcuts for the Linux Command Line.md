@@ -59,6 +59,8 @@ These shortcuts shine when editing long commands. For example, after pressing `â
 | `!$`     | Last argument of the previous command |
 | `Alt+.`  | Insert last argument of the previous command |
 
+Most of the above are Readline keybindings; `!!` and `!$` are Bash history expansions typed literally at the prompt.
+
 `Ctrl+R` is arguably the most powerful shortcut in this list. Press it, start typing any part of a previous command, and Bash finds the most recent match instantly. Press `Ctrl+R` again to cycle to older matches.
 
 `!$` and `Alt+.` save you from retyping long file paths. After running `vim /etc/nginx/nginx.conf`, you can run `cat !$` to print the same file.
@@ -88,7 +90,7 @@ If your terminal appears frozen and stops responding to input, `Ctrl+S` is often
 
 ## Quick Reference
 
-| Shortcut | Action | Category |
+| Shortcut / Command | Action | Category |
 |----------|--------|----------|
 | `Ctrl+A` | Move to beginning of line | Cursor |
 | `Ctrl+E` | Move to end of line | Cursor |
@@ -112,12 +114,12 @@ If your terminal appears frozen and stops responding to input, `Ctrl+S` is often
 | `!!`     | Repeat last command | History |
 | `!$`     | Last argument of previous command | History |
 | `Alt+.`  | Insert last argument of previous command | History |
-| `Ctrl+C` | Interrupt current process | Process |
-| `Ctrl+Z` | Suspend current process | Process |
-| `Ctrl+D` | Send EOF / exit shell (empty line only) | Process |
-| `fg`     | Resume suspended job in foreground | Process |
-| `bg`     | Resume suspended job in background | Process |
-| `jobs`   | List current jobs | Process |
+| `Ctrl+C` | Interrupt current process | Process/Job |
+| `Ctrl+Z` | Suspend current process | Process/Job |
+| `Ctrl+D` | Send EOF / exit shell (empty line only) | Process/Job |
+| `fg`     | Resume suspended job in foreground | Process/Job |
+| `bg`     | Resume suspended job in background | Process/Job |
+| `jobs`   | List current jobs | Process/Job |
 | `Ctrl+L` | Clear terminal screen | Terminal |
 | `Ctrl+S` | Pause terminal output | Terminal |
 | `Ctrl+Q` | Resume terminal output | Terminal |
