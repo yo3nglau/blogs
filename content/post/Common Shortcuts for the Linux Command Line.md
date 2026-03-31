@@ -41,11 +41,10 @@ These shortcuts shine when editing long commands. For example, after pressing `â
 | `Ctrl+K` | Delete from cursor to end of line |
 | `Ctrl+U` | Delete from cursor to beginning of line |
 | `Ctrl+Y` | Paste (yank) last deleted text |
-| `Ctrl+_` | Undo last edit |
 | `Alt+U`  | Uppercase word after cursor |
 | `Alt+L`  | Lowercase word after cursor |
 
-`Ctrl+K` and `Ctrl+U` are especially useful together: they act as a cut operation. Delete part of a command with `Ctrl+K`, correct what remains, then restore the deleted portion with `Ctrl+Y`.
+`Ctrl+K` and `Ctrl+U` are especially useful together: they act as a cut operation. Delete part of a command with `Ctrl+K` and `Ctrl+U`, correct what remains, then restore the deleted portion with `Ctrl+Y`.
 
 ## Command History
 
@@ -104,7 +103,6 @@ If your terminal appears frozen and stops responding to input, `Ctrl+S` is often
 | `Ctrl+K` | Delete from cursor to end of line | Editing |
 | `Ctrl+U` | Delete from cursor to beginning of line | Editing |
 | `Ctrl+Y` | Paste (yank) last deleted text | Editing |
-| `Ctrl+_` | Undo last edit | Editing |
 | `Alt+U`  | Uppercase word after cursor | Editing |
 | `Alt+L`  | Lowercase word after cursor | Editing |
 | `â†‘` / `Ctrl+P` | Previous command | History |
@@ -126,7 +124,7 @@ If your terminal appears frozen and stops responding to input, `Ctrl+S` is often
 
 ## Conclusion
 
-You don't need to memorize all of these at once. Start with the highest-return shortcuts: `Ctrl+R` for history search, `Ctrl+A`/`Ctrl+E` for line navigation, and `Ctrl+K`/`Ctrl+Y` for cut-and-paste editing. The rest will become natural over time as you encounter the situations they solve.
+You don't need to memorize all of these at once. Start with the highest-return shortcuts: `Ctrl+R` for history search, `Ctrl+A`/`Ctrl+E` for line navigation, and `Ctrl+U`/`Ctrl+K`/`Ctrl+Y` for cut-and-paste editing. The rest will become natural over time as you encounter the situations they solve.
 
 ## Resources
 
