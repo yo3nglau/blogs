@@ -132,3 +132,67 @@ Empirically, Mamba2 achieves comparable or better language modeling quality than
 This duality has deep implications. Standard softmax attention uses an n × n attention matrix A_{ij} = exp(q_i^T k_j) / Z; linear attention approximates this by removing the softmax and computing attention as a matrix product, which can be reorganized into a recurrence. The SSD framework shows that SSMs like Mamba2 are a specific instantiation of this linear attention family with a particular structured (causal, decaying) attention pattern.
 
 The practical consequence is architectural flexibility: the SSD layer can be implemented as a recurrence (for autoregressive inference, O(1) memory), as a chunked algorithm (for training, processing blocks of tokens in SRAM), or in principle as attention (for very short sequences). This makes Mamba2 more hardware-friendly than Mamba's custom selective scan and opens the door to hybrid implementations that use the most efficient algorithm for each context length.
+
+---
+
+## Mamba vs Transformer
+
+### Q11 [Basic] How do Mamba and Transformer compare in efficiency?
+
+**Q:** What are the key efficiency differences between Mamba and Transformer architectures?
+
+**A:** The efficiency comparison between Mamba and Transformer depends on whether you are comparing training or inference, and at what sequence length.
+
+During training, Transformer attention has O(n^2) time and O(n^2) memory complexity with respect to sequence length n — the attention matrix is n × n. Mamba's parallel scan has O(n log n) time and O(n · d_state) memory, which is substantially better for long sequences. In practice, for sequences up to around 2,000 tokens, highly optimized Transformer kernels (FlashAttention) can match or outpace Mamba; beyond 8,000 tokens, Mamba's advantage becomes pronounced.
+
+During inference (autoregressive generation), the gap is even more significant. A Transformer decoder must maintain a KV cache that grows as O(n · d_model) — storing all past key and value vectors. Attending to this cache at each step costs O(n) per token, and memory grows unboundedly with context length. Mamba at inference maintains a fixed-size hidden state of O(d_state) regardless of how many tokens have been processed, and each generation step costs O(d) — truly constant in sequence length. This makes Mamba particularly attractive for long-context inference and streaming applications where Transformer's KV cache memory becomes prohibitive.
+
+---
+
+### Q12 [Basic] How do Mamba and Transformer differ in their inductive biases?
+
+**Q:** What are the fundamental inductive bias differences between Mamba and Transformer?
+
+**A:** Transformer attention has minimal sequential inductive bias: it treats all positions symmetrically and uses explicit positional encodings to inject order information. Attention can, in principle, assign equal weight to any two positions regardless of their distance. This makes Transformers flexible but requires learning positional relationships from data.
+
+Mamba has a strong sequential inductive bias through its recurrent structure: information flows from left to right (in standard causal models), and the influence of a past token on the current output decays as a function of the learned Δ parameters and the intervening tokens. Recent tokens naturally have stronger influence on the hidden state than distant tokens, unless the model explicitly learns to preserve them. This recency bias is implicit in the architecture, unlike Transformers where recency must be learned through positional encodings and attention patterns.
+
+Additionally, Mamba processes information through a fixed-size bottleneck (the hidden state), which forces it to compress context — a useful inductive bias for tasks requiring summarization, but a limitation for tasks requiring exact recall of specific past tokens. Transformers, by caching all past key-value pairs, have no such compression bottleneck and can retrieve any past token with full precision. This fundamental difference in memory structure is the main driver of the performance trade-offs observed between the two architectures.
+
+---
+
+### Q13 [Advanced] What are Mamba's advantages and limitations on long-sequence tasks?
+
+**Q:** Where does Mamba excel and where does it struggle compared to Transformers on long-sequence tasks?
+
+**A:** Mamba's primary advantage on long sequences is efficiency: both training memory (linear vs. quadratic) and inference memory (constant vs. linear) scale dramatically better than Transformers. This makes Mamba feasible for sequence lengths of 100K tokens or more that would be prohibitively expensive for standard Transformers. Domains where this matters include genomics (very long DNA sequences), audio processing (long waveforms), and long-document language modeling.
+
+For tasks that benefit from compression of long contexts — such as summarization, extraction of global patterns, or time-series forecasting — Mamba's recurrent structure is a good fit. The hidden state naturally accumulates a compressed representation of the entire history, and the selective mechanism allows relevant information to be preserved while irrelevant signals are filtered out.
+
+However, Mamba has a well-documented weakness on tasks requiring precise retrieval of specific tokens from the distant past. Research on "needle in a haystack" benchmarks (finding a specific fact buried in a long document) and associative recall tasks (given a key, retrieve the associated value seen earlier) shows that Mamba's fixed-size state struggles to retain all past information faithfully. Transformer attention, which stores all past tokens in the KV cache, can retrieve any past token exactly. Mamba must hope that the relevant information was encoded into its finite-dimensional state and not overwritten by subsequent inputs. This is the core limitation that makes Mamba less suitable for retrieval-augmented generation and multi-hop reasoning over long contexts.
+
+---
+
+### Q14 [Advanced] When should you choose Mamba over Transformer, and vice versa?
+
+**Q:** In practice, how do you decide between a Mamba-based and a Transformer-based architecture?
+
+**A:** The decision hinges on three factors: sequence length, the nature of the task, and deployment constraints.
+
+For very long sequences (beyond 8K–16K tokens), Mamba's linear inference memory and sub-quadratic training complexity make it practically feasible in contexts where Transformers become prohibitively expensive. Applications in genomics, audio, long-context document understanding, and streaming inference are natural fits. If your use case requires processing 100K+ tokens and you do not have access to very large GPU clusters, Mamba (or a Mamba-based hybrid) is likely the only viable option.
+
+For tasks requiring precise token-level retrieval — such as few-shot in-context learning, multi-hop question answering over long contexts, or retrieval-augmented generation — Transformer attention's exact KV cache has a structural advantage. Mamba's compressed state may lose the specific information needed for retrieval, leading to lower accuracy. Similarly, if you need to leverage large pretrained Transformer checkpoints (which vastly outnumber available Mamba checkpoints), fine-tuning a Transformer is the pragmatic choice.
+
+For general-purpose language modeling at moderate context lengths (2K–32K), the two architectures are more competitive, and hybrid designs (interleaving Mamba and attention layers) often provide the best trade-off: Mamba layers handle efficient compression across most of the sequence, while attention layers provide precise retrieval capability at key points. When in doubt, a hybrid with a small fraction of attention layers (e.g., 1 in 8) captures most of Mamba's efficiency gains while recovering most of Transformer's retrieval ability.
+
+---
+
+### Q15 [Advanced] Can Mamba replace Transformer?
+
+**Q:** Is Mamba a replacement for Transformer, or are they complementary?
+
+**A:** As of 2024, Mamba is best understood as complementary to Transformer rather than a replacement. At equivalent parameter counts and training compute, Mamba achieves competitive language modeling perplexity with Transformers and outperforms them on throughput-sensitive long-context benchmarks. However, Transformers retain advantages in instruction following, few-shot in-context learning, and precise retrieval tasks — capabilities that are central to the most practically valuable applications of large language models today.
+
+The ecosystem gap is also significant: Transformers have years of pretraining scale, infrastructure tooling, and fine-tuning research behind them. Mamba's largest pretrained models (as of early 2024) are at the 3B parameter scale, while the leading Transformer models are at hundreds of billions of parameters. Closing this gap requires substantial investment that the community is only beginning to make.
+
+The most promising near-term direction is hybrid architectures. Models like Jamba (AI21 Labs) and Zamba interleave Mamba layers with a small number of Transformer attention layers, achieving most of Mamba's efficiency while recovering Transformer's retrieval and in-context learning capabilities. These hybrids demonstrate that the two architectures are not competing paradigms but complementary tools that can be combined. The longer-term question — whether pure SSM architectures can match Transformers at scale with appropriate training — remains open, but the hybrid approach already delivers practical benefits today.
