@@ -1,19 +1,12 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>LOTR on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/tags/lotr/</link>
-    <description>Recent content in LOTR on yo3nglau academic website</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Wed, 05 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/tags/lotr/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>The Lord of the Rings</title>
-      <link>https://yo3nglau.github.io/blogs/post/the-lord-of-the-rings/</link>
-      <pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/the-lord-of-the-rings/</guid>
-      <description>&lt;style&gt;&#xD;&#xA;@font-face{&#xD;&#xA;  font-family: &#34;TOLKIEN.TTF&#34;;&#xD;&#xA;  src: url(&#34;/blogs/fonts/TOLKIEN.TTF&#34;) format(&#34;truetype&#34;);&#xD;&#xA;  font-display: swap;&#xD;&#xA;}&#xD;&#xA;&lt;/style&gt;&lt;span style=&#34;font-family: &#39;TOLKIEN.TTF&#39;, serif;&#34;&gt;&lt;h1 id=&#34;the-lord-of-the-rings-the-fellowship-of-the-ring&#34;&gt;The Lord of the Rings: The Fellowship of the Ring&lt;/h1&gt;&#xA;&lt;/span&gt;&#xA;&lt;img src=&#34;https://s21.ax1x.com/2025/11/05/pZS7C01.png&#34; style=&#34;zoom:60%;&#34; /&gt;&#xD;&#xA;&lt;h2 id=&#34;film&#34;&gt;Film&lt;/h2&gt;&#xA;&lt;p&gt;The Lord of the Rings: The Fellowship of the Ring is the first film of Peter Jackson&amp;rsquo;s The Lord of the Rings film series. It is directed by &lt;strong&gt;Peter Jackson&lt;/strong&gt;, while it&amp;rsquo;s screenplay is written by Peter Jackson, Philippa Boyens, Fran Walsh and Stephen Sinclair.&lt;/p&gt;&#xA;&lt;p&gt;The film retells the adventures of the Fellowship of the Ring, taking its story from the first part, The Fellowship of the Ring, and the first chapter of The Two Towers.&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>LOTR on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/tags/lotr/</link><description>Recent content in LOTR on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 05 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/tags/lotr/index.xml" rel="self" type="application/rss+xml"/><item><title>The Lord of the Rings</title><link>https://yo3nglau.github.io/blogs/post/the-lord-of-the-rings/</link><pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/the-lord-of-the-rings/</guid><description>&lt;style&gt;
+@font-face{
+ font-family: "TOLKIEN.TTF";
+ src: url("/blogs/fonts/TOLKIEN.TTF") format("truetype");
+ font-display: swap;
+}
+&lt;/style&gt;&lt;span style="font-family: 'TOLKIEN.TTF', serif;"&gt;&lt;h1 id="the-lord-of-the-rings-the-fellowship-of-the-ring"&gt;The Lord of the Rings: The Fellowship of the Ring&lt;/h1&gt;
+&lt;/span&gt;
+&lt;img src="https://s21.ax1x.com/2025/11/05/pZS7C01.png" style="zoom:60%;" /&gt;
+&lt;h2 id="film"&gt;Film&lt;/h2&gt;
+&lt;p&gt;The Lord of the Rings: The Fellowship of the Ring is the first film of Peter Jackson&amp;rsquo;s The Lord of the Rings film series. It is directed by &lt;strong&gt;Peter Jackson&lt;/strong&gt;, while it&amp;rsquo;s screenplay is written by Peter Jackson, Philippa Boyens, Fran Walsh and Stephen Sinclair.&lt;/p&gt;
+&lt;p&gt;The film retells the adventures of the Fellowship of the Ring, taking its story from the first part, The Fellowship of the Ring, and the first chapter of The Two Towers.&lt;/p&gt;</description></item></channel></rss>

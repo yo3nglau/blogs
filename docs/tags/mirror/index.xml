@@ -1,19 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Mirror on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/tags/mirror/</link>
-    <description>Recent content in Mirror on yo3nglau academic website</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Sun, 16 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/tags/mirror/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Mirrors for pip, conda, and uv</title>
-      <link>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</link>
-      <pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Efficient Python development often relies on fast and stable package downloads. Network latency or regional restrictions can slow down installations from default repositories. Configuring &lt;strong&gt;mirror sources&lt;/strong&gt; for &lt;code&gt;pip&lt;/code&gt; and &lt;code&gt;conda&lt;/code&gt; is a simple and powerful way to speed up package installations, improve reliability, and standardize environments.&lt;/p&gt;&#xA;&lt;p&gt;This post provides a concise introduction to why mirrors matter and how to configure, add, remove, and inspect them using practical commands.&lt;/p&gt;&#xA;&lt;h2 id=&#34;advantages-of-mirrors&#34;&gt;Advantages of Mirrors&lt;/h2&gt;&#xA;&lt;p&gt;Mirror sources are synchronized replicas of official package repositories. Common benefits include:&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Mirror on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/tags/mirror/</link><description>Recent content in Mirror on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Sun, 16 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/tags/mirror/index.xml" rel="self" type="application/rss+xml"/><item><title>Mirrors for pip, conda, and uv</title><link>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</link><pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Efficient Python development often relies on fast and stable package downloads. Network latency or regional restrictions can slow down installations from default repositories. Configuring &lt;strong&gt;mirror sources&lt;/strong&gt; for &lt;code&gt;pip&lt;/code&gt; and &lt;code&gt;conda&lt;/code&gt; is a simple and powerful way to speed up package installations, improve reliability, and standardize environments.&lt;/p&gt;
+&lt;p&gt;This post provides a concise introduction to why mirrors matter and how to configure, add, remove, and inspect them using practical commands.&lt;/p&gt;
+&lt;h2 id="advantages-of-mirrors"&gt;Advantages of Mirrors&lt;/h2&gt;
+&lt;p&gt;Mirror sources are synchronized replicas of official package repositories. Common benefits include:&lt;/p&gt;</description></item></channel></rss>

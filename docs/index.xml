@@ -1,180 +1,525 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Home on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/</link>
-    <description>Recent content in Home on yo3nglau academic website</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Common Shortcuts for the Linux Command Line</title>
-      <link>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</link>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Bash uses the GNU Readline library to handle command-line input. By default, it follows an Emacs-style keybinding scheme, which makes a rich set of shortcuts available for editing commands, navigating history, and controlling the terminal—without touching the mouse.&lt;/p&gt;&#xA;&lt;p&gt;This post covers the most useful shortcuts across five areas: cursor movement, text editing, command history, process and job control, and terminal control. A consolidated quick-reference table is provided at the end.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Large Language Models: Interview Questions and Answers</title>
-      <link>https://yo3nglau.github.io/blogs/post/large-language-models-interview-questions-and-answers/</link>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/large-language-models-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;pretraining--architecture&#34;&gt;Pretraining &amp;amp; Architecture&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-what-is-the-pretraining-objective-of-large-language-models&#34;&gt;Q1 [Basic] What is the pretraining objective of large language models?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What training objective do LLMs like GPT use during pretraining, and why is it effective?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; The dominant pretraining objective for autoregressive LLMs is next token prediction, also called causal language modeling. Given a sequence of tokens x_1, x_2, &amp;hellip;, x_{t-1}, the model learns to predict the next token x_t by minimizing cross-entropy loss over the vocabulary. This is applied at every position in the sequence simultaneously during training, making it highly data-efficient: a single document of n tokens provides n-1 training examples.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Mamba and State Space Models: Interview Questions and Answers</title>
-      <link>https://yo3nglau.github.io/blogs/post/mamba-and-state-space-models-interview-questions-and-answers/</link>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/mamba-and-state-space-models-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;ssm--mamba-fundamentals&#34;&gt;SSM &amp;amp; Mamba Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-what-is-a-state-space-model&#34;&gt;Q1 [Basic] What is a State Space Model?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What is a State Space Model (SSM) and how does it apply to sequence modeling?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; A State Space Model is a mathematical framework that maps an input sequence to an output sequence through a latent hidden state. In its continuous form, it is defined by two equations: a state equation dx/dt = Ax + Bu (describing how the hidden state evolves over time) and an output equation y = Cx + Du (describing how the output is generated from the state). Here, A is the state transition matrix, B maps inputs to state updates, C maps the state to outputs, and D is an optional skip connection.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Temporal Action Detection: Interview Questions and Answers</title>
-      <link>https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/</link>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;tad-fundamentals--detection-pipelines&#34;&gt;TAD Fundamentals &amp;amp; Detection Pipelines&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-how-does-temporal-action-detection-differ-from-action-recognition&#34;&gt;Q1 [Basic] How does Temporal Action Detection differ from Action Recognition?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What is Temporal Action Detection, and how does it differ from action recognition in both task formulation and difficulty?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Action Recognition operates on trimmed video clips where a single action occupies the entire clip. Given a short clip as input, the model outputs a single class label. The task assumes the action boundaries are already known and provided externally. This makes it primarily a classification problem over a fixed-duration input.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Transformer and Vision Transformer: Interview Questions and Answers</title>
-      <link>https://yo3nglau.github.io/blogs/post/transformer-and-vision-transformer-interview-questions-and-answers/</link>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/transformer-and-vision-transformer-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;transformer-fundamentals&#34;&gt;Transformer Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-what-is-the-self-attention-mechanism&#34;&gt;Q1 [Basic] What is the Self-Attention mechanism?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Can you explain what the Self-Attention mechanism is and how it works?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Self-Attention allows each token in a sequence to attend to every other token, enabling the model to capture dependencies regardless of distance. For each position, the mechanism computes a weighted sum of all values in the sequence, where the weights reflect how relevant each position is to the current one.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>滕王阁序</title>
-      <link>https://yo3nglau.github.io/blogs/post/%E6%BB%95%E7%8E%8B%E9%98%81%E5%BA%8F/</link>
-      <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/%E6%BB%95%E7%8E%8B%E9%98%81%E5%BA%8F/</guid>
-      <description>&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;《滕王阁序》，原题作《滕王阁诗序》，全名《秋日登洪府滕王阁饯别序》，初唐四杰之一王勃作品，作于唐高宗上元二年九月九日（675年10月3日），是古今传诵的骈文名篇。&lt;/p&gt;&#xA;&lt;h2 id=&#34;创作背景&#34;&gt;创作背景&lt;/h2&gt;&#xA;&lt;p&gt;上元二年（675年）九月九日重阳节王勃探亲路过南昌，正值洪州都督（洪州牧）阎伯屿重修滕王阁毕，于阁上大宴宾客，饯别新任新州刺史宇文氏一行。阎已命其女婿吴子章备好序文以为夸耀，席上假意邀请在座宾客为滕王阁写作序文，众宾客推辞，岂不料王勃竟提笔大作。&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;王勃著《滕王阁序》时年仅十四。都督阎公不之信。勃虽在座，而阎公意属子婿孟学士者为之，已宿构矣。及以纸笔巡让宾客，勃不辞让。公大怒，拂衣而起，专令人伺其下笔。第一报云“豫章故郡，洪都新府”，公曰：“是亦老生谈。”又报云“星分翼轸，地接衡庐”，公闻之，沈吟不言。又云“落霞与孤鹜齐飞，秋水共长天一色”，公矍然而起，曰：“此真天才，当垂不朽矣！”遂亟请宴所，极欢而罢。&lt;/p&gt;&#xA;&lt;p&gt;——《唐摭言》（卷五）&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;center&gt;秋日登洪府滕王閣餞別序&lt;/center&gt;&#xD;&#xA;&lt;center&gt;作者：王勃　唐&lt;/center&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊彩星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休暇，胜友如云。千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区。童子何知？躬逢胜饯。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖𬴂于上路，访风景于崇阿。临帝子之长洲，得仙人之旧馆。层台耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;披绣闼，俯雕甍。山原旷其盈视，川泽纡其骇瞩。闾阎扑地，钟鸣鼎食之家；舸舰弥津，青雀黄龙之舳。云销雨霁，彩彻区明。落霞与孤鹜齐飞，秋水共长天一色。渔舟唱晚，响穷彭蠡之滨；雁阵惊寒，声断衡阳之浦。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;遥襟甫畅，逸兴遄飞。爽籁发而清风生，纤歌凝而白云遏。睢园绿竹，气凌彭泽之樽；邺水朱华，光照临川之笔。四美具，二难并。穷睇眄于中天，极娱游于暇日。天高地迥，觉宇宙之无穷；兴尽悲来，识盈虚之有数。望长安于日下，目吴会于云间。地势极而南溟深，天柱高而北辰远。关山难越，谁悲失路之人；萍水相逢，尽是他乡之客。怀帝阍而不见，奉宣室以何年？&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;嗟乎！时运不齐，命途多舛。冯唐易老，李广难封。屈贾谊于长沙，非无圣主；窜梁鸿于海曲，岂乏明时？所赖君子安贫，达人知命。老当益壮，宁移白首之心；穷且益坚，不坠青云之志。酌贪泉而觉爽，处涸辙以犹懽。北海虽赊，扶摇可接；东隅已逝，桑榆非晚。孟尝高洁，空馀报国之心；阮籍猖狂，岂效穷途之哭？&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;勃，三尺微命，一介书生，无路请缨，等终军之弱冠；有怀投笔，慕宗悫之长风。舍簪笏于百龄，奉晨昏于万里。非谢家之宝树，接孟氏之芳邻。他日趋庭，叨陪鲤对；今兹捧袂，喜托龙门。杨意不逢，抚凌云而自惜；锺期既遇，奏流水以何惭？&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;呜呼！胜地不常，盛筵难再。兰亭已矣，梓泽丘墟。临别赠言，幸承恩于伟饯；登高作赋，是所望于群公。敢竭鄙诚，恭疏短引。一言均赋，四韵俱成。请洒潘江，各倾陆海云尔。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;details&gt;&#xD;&#xA;&#x9;&lt;summary&gt;繁体中文版本&lt;/summary&gt;&#xD;&#xA;&#x9;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;豫章故郡，洪都新府。星分翼軫，地接衡廬。襟三江而帶五湖，控蠻荊而引甌越。物華天寶，龍光射牛斗之墟；人傑地靈，徐孺下陳蕃之榻。雄州霧列，俊彩星馳。臺隍枕夷夏之交，賓主盡東南之美。都督閻公之雅望，棨戟遙臨；宇文新州之懿範，襜帷暫駐。十旬休暇，勝友如雲。千里逢迎，高朋滿座。騰蛟起鳳，孟學士之詞宗；紫電青霜，王將軍之武庫。家君作宰，路出名區。童子何知？躬逢勝餞。&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;時維九月，序屬三秋。潦水盡而寒潭清，煙光凝而暮山紫。儼驂騑於上路，訪風景於崇阿。臨帝子之長洲，得仙人之舊館。層臺聳翠，上出重霄；飛閣流丹，下臨無地。鶴汀鳧渚，窮島嶼之縈廻；桂殿蘭宮，即岡巒之體勢。&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;披繡闥，俯雕甍。山原曠其盈視，川澤紆其駭矚。閭閻撲地，鐘鳴鼎食之家；舸艦弥津，青雀黃龍之舳。雲銷雨霽，彩徹區明。落霞與孤鶩齊飛[3]，秋水共長天一色。漁舟唱晚，響窮彭蠡之濱；雁陣驚寒，聲斷衡陽之浦。&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;遙襟甫暢，逸興遄飛。爽籟發而清風生，纖歌凝而白雲遏。睢園綠竹，氣凌彭澤之樽；鄴水朱華，光照臨川之筆。四美具，二難并。窮睇眄於中天，極娛遊於暇日。天高地迥，覺宇宙之無窮；興盡悲來，識盈虛之有數。望長安於日下，目吳會於雲間。地勢極而南溟深，天柱高而北辰遠。關山難越，誰悲失路之人；萍水相逢，盡是他鄉之客。懷帝閽而不見，奉宣室以何年？&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;嗟乎！時運不齊，命途多舛。馮唐易老，李廣難封。屈賈誼於長沙，非無聖主；竄梁鴻於海曲，豈乏明時？所賴君子安貧，達人知命。老當益壯，寧移白首之心；窮且益堅，不墜青雲之志。酌貪泉而覺爽，處涸轍以猶懽。北海雖賒，扶搖可接；東隅已逝，桑榆非晚。孟嘗高潔，空餘報國之心；阮籍猖狂，豈效窮途之哭？&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;勃，三尺微命，一介書生，無路請纓，等終軍之弱冠；有懷投筆，慕宗慤之長風。捨簪笏於百齡，奉晨昏於萬里。非謝家之寶樹，接孟氏之芳鄰。他日趨庭，叨陪鯉對；今茲捧袂，喜托龍門。楊意不逢，撫凌雲而自惜；鍾期既遇，奏流水以何慚？&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;嗚呼！勝地不常，盛筵難再。蘭亭已矣，梓澤丘墟。臨別贈言，幸承恩於偉餞；登高作賦，是所望於群公。敢竭鄙誠，恭疏短引。一言均賦，四韻俱成。請灑潘江，各傾陸海云爾。&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;&lt;/details&gt;&#xD;&#xA;&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://zh.wikisource.org/zh/%E6%BB%95%E7%8E%8B%E9%96%A3%E5%BA%8F&#34;&gt;滕王閣序，维基文库&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。</title>
-      <link>https://yo3nglau.github.io/blogs/post/%E7%89%A9%E5%8D%8E%E5%A4%A9%E5%AE%9D%E9%BE%99%E5%85%89%E5%B0%84%E7%89%9B%E6%96%97%E4%B9%8B%E5%A2%9F%E4%BA%BA%E6%9D%B0%E5%9C%B0%E7%81%B5%E5%BE%90%E5%AD%BA%E4%B8%8B%E9%99%88%E8%95%83%E4%B9%8B%E6%A6%BB/</link>
-      <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/%E7%89%A9%E5%8D%8E%E5%A4%A9%E5%AE%9D%E9%BE%99%E5%85%89%E5%B0%84%E7%89%9B%E6%96%97%E4%B9%8B%E5%A2%9F%E4%BA%BA%E6%9D%B0%E5%9C%B0%E7%81%B5%E5%BE%90%E5%AD%BA%E4%B8%8B%E9%99%88%E8%95%83%E4%B9%8B%E6%A6%BB/</guid>
-      <description>&lt;h2 id=&#34;来源&#34;&gt;来源&lt;/h2&gt;&#xA;&lt;center&gt;晋书&lt;/center&gt;&#xD;&#xA;&lt;center&gt;卷三十六 列传第六&lt;/center&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;    初，吴之未灭也，斗牛之间常有紫气，道术者皆以吴方强盛，未可图也，惟华以为不然。及吴平之后，紫气愈明。华闻豫章人雷焕妙达纬象，乃要焕宿，屏人曰：“可共寻天文，知将来吉凶。”因登楼仰观，焕曰：“仆察之久矣，惟斗牛之间颇有异气。”华曰：“是何祥也？”焕曰：“宝剑之精，上彻于天耳。”华曰：“君言得之。吾少时有相者言，吾年出六十，位登三事，当得宝剑佩之。斯言岂效与！”因问曰：“在何郡？”焕曰：“在豫章丰城。”华曰：“欲屈君为宰，密共寻之，可乎？”焕许之。华大喜，即补焕为丰城令。焕到县，掘狱屋基，入地四丈馀，得一石函，光气非常，中有双剑，并刻题，一曰龙泉，一曰太阿。其夕，斗牛间气不复见焉。焕以南昌西山北岩下土以拭剑，光芒艳发。大盆盛水，置剑其上，视之者精芒炫目。遣使送一剑并土与华，留一自佩。或谓焕曰：“得两送一，张公岂可欺乎？”焕曰：“本朝将乱，张公当受其祸。此剑当系徐君墓树耳。灵异之物，终当化去，不永为人服也。”华得剑，宝爱之，常置坐侧。华以南昌土不如华阴赤土，报焕书曰：“详观剑文，乃干将也，莫邪何复不至？虽然，天生神物，终当合耳。”因以华阴土一斤致焕。焕更以拭剑，倍益精明。华诛，失剑所在。焕卒，子华为州从事，持剑行经延平津，剑忽于腰间跃出堕水，使人没水取之，不见剑，但见两龙各长数丈，蟠萦有文章，没者惧而反。须臾光彩照水，波浪惊沸，于是失剑。华叹曰：“先君化去之言，张公终合之论，此其验乎！”华之博物多此类，不可详载焉。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;details&gt;&#xD;&#xA;&#x9;&lt;summary&gt;繁体中文版本&lt;/summary&gt;&#xD;&#xA;&#x9;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;        初，吳之未滅也，斗牛之間常有紫氣，道術者皆以吳方強盛，未可圖也，惟華以為不然。及吳平之後，紫氣愈明。華聞豫章人雷煥妙達緯象，乃要煥宿，屏人曰：「可共尋天文，知將來吉凶。」因登樓仰觀，煥曰：「僕察之久矣，惟斗牛之間頗有異氣。」華曰：「是何祥也？」煥曰：「寶劍之精，上徹於天耳。」華曰：「君言得之。吾少時有相者言，吾年出六十，位登三事，當得寶劍佩之。斯言豈效與！」因問曰：「在何郡？」煥曰：「在豫章豐城。」華曰：「欲屈君為宰，密共尋之，可乎？」煥許之。華大喜，即補煥為豐城令。煥到縣，掘獄屋基，入地四丈餘，得一石函，光氣非常，中有雙劍，並刻題，一曰龍泉，一曰太阿。其夕，斗牛間氣不復見焉。煥以南昌西山北巖下土以拭劍，光芒豔發。大盆盛水，置劍其上，視之者精芒炫目。遣使送一劍並土與華，留一自佩。或謂煥曰：「得兩送一，張公豈可欺乎？」煥曰：「本朝將亂，張公當受其禍。此劍當繫徐君墓樹耳。靈異之物，終當化去，不永為人服也。」華得劍，寶愛之，常置坐側。華以南昌土不如華陰赤土，報煥書曰：「詳觀劍文，乃干將也，莫邪何復不至？雖然，天生神物，終當合耳。」因以華陰土一斤致煥。煥更以拭劍，倍益精明。華誅，失劍所在。煥卒，子華為州從事，持劍行經延平津，劍忽於腰間躍出墮水，使人沒水取之，不見劍，但見兩龍各長數丈，蟠縈有文章，沒者懼而反。須臾光彩照水，波浪驚沸，於是失劍。華歎曰：「先君化去之言，張公終合之論，此其驗乎！」華之博物多此類，不可詳載焉。&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;&lt;/details&gt;&#xD;&#xA;&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://zh.wikisource.org/zh-hans/%E6%99%89%E6%9B%B8/%E5%8D%B7036#%E5%BC%B5%E8%8F%AF&#34;&gt;晉書/卷036，维基文库&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Understanding hiberfil.sys in Windows</title>
-      <link>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</link>
-      <pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Windows relies on several hidden system files to deliver smooth user experiences, especially when managing power states. One of the most important among them is &lt;code&gt;hiberfil.sys&lt;/code&gt;, a file directly tied to the operating system’s Hibernate and Fast Startup features. Although it typically remains invisible to everyday users, knowing its purpose can help you manage disk space, optimize system behavior, and troubleshoot power-related issues.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-hiberfilsys&#34;&gt;What Is &lt;code&gt;hiberfil.sys&lt;/code&gt;?&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;hiberfil.sys&lt;/code&gt; is a system file used by Windows to store the contents of your system’s memory (RAM) when the machine enters &lt;strong&gt;Hibernate&lt;/strong&gt; mode. During hibernation, Windows saves the entire memory state—including open documents, running applications, and system context—to this file before shutting down. When the system powers back on, it restores the saved data and resumes exactly where you left off.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Add Application Shortcuts to the Start Menu in Windows</title>
-      <link>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</link>
-      <pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Keeping your Start menu organized is an easy way to boost your productivity and access your applications quickly. Whether you want to pin frequently used programs or create custom folders, Windows provides simple methods to add and manage Start menu shortcuts. This introductory guide walks you through the essentials in a clear and practical way.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-add-shortcuts-to-the-start-menu&#34;&gt;Why Add Shortcuts to the Start Menu?&lt;/h2&gt;&#xA;&lt;p&gt;The Start menu serves as the central hub for applications, system settings, and search. Adding your own shortcuts helps you:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Understanding pagefile.sys in Windows</title>
-      <link>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</link>
-      <pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Efficient memory management is essential for maintaining system stability and performance. In Windows, one of the core components enabling this is &lt;code&gt;pagefile.sys&lt;/code&gt;—a hidden system file that acts as an extension of your physical memory. Although it typically works silently in the background, understanding its purpose and proper configuration can help you optimize system performance and troubleshoot memory-related issues.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-pagefilesys&#34;&gt;What Is &lt;code&gt;pagefile.sys&lt;/code&gt;?&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;pagefile.sys&lt;/code&gt; is Windows’ &lt;strong&gt;virtual memory&lt;/strong&gt; file. When your system’s physical RAM is fully utilized, Windows uses this file as overflow space to temporarily store data that does not need to remain in active memory. By doing so, the operating system can continue running applications smoothly even when RAM usage peaks.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Mirrors for pip, conda, and uv</title>
-      <link>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</link>
-      <pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Efficient Python development often relies on fast and stable package downloads. Network latency or regional restrictions can slow down installations from default repositories. Configuring &lt;strong&gt;mirror sources&lt;/strong&gt; for &lt;code&gt;pip&lt;/code&gt; and &lt;code&gt;conda&lt;/code&gt; is a simple and powerful way to speed up package installations, improve reliability, and standardize environments.&lt;/p&gt;&#xA;&lt;p&gt;This post provides a concise introduction to why mirrors matter and how to configure, add, remove, and inspect them using practical commands.&lt;/p&gt;&#xA;&lt;h2 id=&#34;advantages-of-mirrors&#34;&gt;Advantages of Mirrors&lt;/h2&gt;&#xA;&lt;p&gt;Mirror sources are synchronized replicas of official package repositories. Common benefits include:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>OpenBLAS vs. MKL NumPy</title>
-      <link>https://yo3nglau.github.io/blogs/post/openblas-vs.-mkl-numpy/</link>
-      <pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/openblas-vs.-mkl-numpy/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;When working with scientific computing or machine learning in Python, NumPy is one of the core dependencies for numerical operations. Behind the scenes, NumPy relies on optimized linear algebra libraries—primarily &lt;strong&gt;OpenBLAS&lt;/strong&gt; or &lt;strong&gt;Intel MKL (Math Kernel Library)&lt;/strong&gt;—to accelerate matrix multiplications, convolutions, decompositions, and other dense numerical routines.&#xA;This article provides a clear comparison between the OpenBLAS-based and MKL-based NumPy distributions, helping you make an informed choice for your development environment.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Fast Python Package and Project Management with uv</title>
-      <link>https://yo3nglau.github.io/blogs/post/fast-python-package-and-project-management-with-uv/</link>
-      <pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/fast-python-package-and-project-management-with-uv/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;In today’s Python ecosystem, managing dependencies, virtual environments, project configuration and publishing can involve a variety of tools—&lt;code&gt;pip&lt;/code&gt;, &lt;code&gt;virtualenv/venv&lt;/code&gt;, &lt;code&gt;pyenv&lt;/code&gt;, &lt;code&gt;poetry&lt;/code&gt;, &lt;code&gt;pip‑tools&lt;/code&gt;, and more. The tool &lt;code&gt;uv&lt;/code&gt; is designed to unify and simplify that workflow into a single high-performance solution.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;uv&lt;/code&gt; is an extremely fast Python package and project manager, written in &lt;code&gt;Rust&lt;/code&gt;.&#xA;It aims to serve as a drop-in replacement for &lt;code&gt;pip&lt;/code&gt; and related tooling, offering additional features such as managed virtual environments, Python version handling, universal lock-files, and project scaffolding.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Run TensorBoard on a Remote Server and View It Locally</title>
-      <link>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</link>
-      <pubDate>Tue, 11 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;When training machine learning models on remote servers, monitoring metrics such as loss, accuracy, and learning rate becomes essential. TensorBoard is a powerful visualization toolkit from TensorFlow that makes this possible. However, since training often takes place on remote machines without direct GUI access, developers must forward TensorBoard to their local browser. Fortunately, this is simple with secure SSH tunneling.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-run-tensorboard-remotely&#34;&gt;Why Run TensorBoard Remotely?&lt;/h2&gt;&#xA;&lt;p&gt;Many training workloads:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Require powerful GPUs only available on remote servers&lt;/li&gt;&#xA;&lt;li&gt;Run for long periods and need continuous observation&lt;/li&gt;&#xA;&lt;li&gt;Produce logs that are easiest to analyze visually&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Instead of transferring logs back to your local machine, it is more efficient to stream the TensorBoard UI directly to your browser.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Long-Running Process Management with screen Command</title>
-      <link>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</link>
-      <pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;When managing long-running processes in a Linux environment, maintaining persistent terminal sessions becomes essential—especially when working over SSH connections. Accidental disconnections can interrupt tasks, terminate important jobs, and disrupt your workflow. This is where the &lt;code&gt;screen&lt;/code&gt; command proves invaluable. It allows users to create detachable terminal sessions that continue running even after the connection is closed.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;screen&lt;/code&gt; is a terminal multiplexer commonly used in Linux systems. It enables multiple shell sessions to run within a single terminal window. More importantly, it provides the ability to detach from a session without stopping the underlying processes, and later reattach to it seamlessly.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Diagnose Issues of Deep Learning Computing Performance</title>
-      <link>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</link>
-      <pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-10&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Training deep learning models can sometimes feel like waiting for water to boil—it tests your patience. When your model is training slower than expected, a systematic approach is key to identifying the bottleneck. Here is a step-by-step guide to diagnosing and fixing these performance issues.&lt;/p&gt;&#xA;&lt;h2 id=&#34;step-0-the-first-check---gpu-utilization&#34;&gt;Step 0: The First Check - GPU Utilization&lt;/h2&gt;&#xA;&lt;p&gt;Your first command should always be to check if the GPU is even being used.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>大丈夫处世，当埽除天下，安事一室乎！</title>
-      <link>https://yo3nglau.github.io/blogs/post/%E5%A4%A7%E4%B8%88%E5%A4%AB%E5%A4%84%E4%B8%96%E5%BD%93%E5%9F%BD%E9%99%A4%E5%A4%A9%E4%B8%8B%E5%AE%89%E4%BA%8B%E4%B8%80%E5%AE%A4%E4%B9%8E/</link>
-      <pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/%E5%A4%A7%E4%B8%88%E5%A4%AB%E5%A4%84%E4%B8%96%E5%BD%93%E5%9F%BD%E9%99%A4%E5%A4%A9%E4%B8%8B%E5%AE%89%E4%BA%8B%E4%B8%80%E5%AE%A4%E4%B9%8E/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;最新更新：2025年11月25日&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;“一屋不扫，何以扫天下。”为后人杜撰语句。其可靠来源有二：一自陈蕃，一自刘蓉（其父）。&lt;/p&gt;&#xA;&lt;h2 id=&#34;来源&#34;&gt;来源&lt;/h2&gt;&#xA;&lt;center&gt;后汉书　卷六十六&lt;/center&gt;&#xD;&#xA;&lt;center&gt;陈王列传　第五十六&lt;/center&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;    陈蕃字仲举，汝南平舆人也。祖河东太守。蕃年十五，尝闲处一室，而庭宇芜秽。父友同郡薛勤来候之，谓蕃曰：“孺子何不洒埽以待宾客？”蕃曰：&lt;b&gt;“大丈夫处世，当埽除天下，安事一室乎！”&lt;/b&gt;勤知其有清世志，甚奇之。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;details&gt;&#xD;&#xA;&#x9;&lt;summary&gt;繁体中文版本&lt;/summary&gt;&#xD;&#xA;&#x9;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;        陳蕃字仲舉，汝南平輿人也。祖河東太守。蕃年十五，嘗閒處一室，而庭宇蕪穢。父友同郡薛勤來候之，謂蕃曰：「孺子何不灑埽以待賓客？」蕃曰：&lt;b&gt;「大丈夫處世，當埽除天下，安事一室乎！」&lt;/b&gt;勤知其有清世志，甚奇之。&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;&lt;/details&gt;&#xD;&#xA;&lt;center&gt;习惯说&lt;/center&gt;&#xD;&#xA;&lt;center&gt;作者：刘蓉　清&lt;/center&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;        蓉少时，读书养晦堂之西偏一室。俛而读，仰而思；思而弗得，辄起，绕室以旋。室有洼径尺，浸淫日广，每履之，足苦踬焉。既久而遂安之。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;    一日，父来室中，顾而笑曰：&lt;b&gt;“一室之不治，何以天下国家为？”&lt;/b&gt;命童子取土平之。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;    后蓉履其地，蹴然以惊，如土忽隆起者；俯视地，坦然则既平矣。已而复然，又久而后安之。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;    噫！习之中人甚矣哉！足履平地，不与洼适也；及其久而洼者若平。至使久而即乎其故，则反窒焉而不宁。故君子之学贵慎始。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;details&gt;&#xD;&#xA;    &lt;summary&gt;繁体中文版本&lt;/summary&gt;&#xD;&#xA;    &lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;&#x9;蓉少時，讀書養晦堂之西偏一室。俛而讀，仰而思；思而弗得，輒起，繞室以旋。室有窪徑尺，浸淫日廣，每履之，足苦躓焉。既久而遂安之。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;    一日，父來室中，顧而笑曰：&lt;b&gt;「一室之不治，何以天下國家為？」&lt;/b&gt;命童子取土平之。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;&#x9;後蓉履其地，蹴然以驚，如土忽隆起者；俯視地，坦然則既平矣。已而復然，又久而後安之。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;div style=&#34;font-family: KaiTi, STKaiti, &#39;楷体&#39;; text-indent: 2em;&#34;&gt;&#xD;&#xA;&#x9;噫！習之中人甚矣哉！足履平地，不與窪適也；及其久而窪者若平。至使久而即乎其故，則反窒焉而不寧。故君子之學貴慎始。&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&lt;/details&gt;&#xD;&#xA;&lt;h2 id=&#34;感想&#34;&gt;感想&lt;/h2&gt;&#xA;&lt;p&gt;后人杜撰出“一屋不扫，何以扫天下”，重在点滴积累，先成小事再成大事。然陈蕃言「大丈夫处世，当埽除天下，安事一室乎！」乃表其扫除天下奸佞之心，刘蓉其父顾蓉勤学而忽环境之弊言「一室之不治，何以天下国家为？」私以为当附陈蕃之志，着眼天下为先，然自省一屋。警惕“一屋不扫”限于“只扫一屋”，失壮志凌云。望达者兼具，有偏有倚。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>The Lord of the Rings</title>
-      <link>https://yo3nglau.github.io/blogs/post/the-lord-of-the-rings/</link>
-      <pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/the-lord-of-the-rings/</guid>
-      <description>&lt;style&gt;&#xD;&#xA;@font-face{&#xD;&#xA;  font-family: &#34;TOLKIEN.TTF&#34;;&#xD;&#xA;  src: url(&#34;/blogs/fonts/TOLKIEN.TTF&#34;) format(&#34;truetype&#34;);&#xD;&#xA;  font-display: swap;&#xD;&#xA;}&#xD;&#xA;&lt;/style&gt;&lt;span style=&#34;font-family: &#39;TOLKIEN.TTF&#39;, serif;&#34;&gt;&lt;h1 id=&#34;the-lord-of-the-rings-the-fellowship-of-the-ring&#34;&gt;The Lord of the Rings: The Fellowship of the Ring&lt;/h1&gt;&#xA;&lt;/span&gt;&#xA;&lt;img src=&#34;https://s21.ax1x.com/2025/11/05/pZS7C01.png&#34; style=&#34;zoom:60%;&#34; /&gt;&#xD;&#xA;&lt;h2 id=&#34;film&#34;&gt;Film&lt;/h2&gt;&#xA;&lt;p&gt;The Lord of the Rings: The Fellowship of the Ring is the first film of Peter Jackson&amp;rsquo;s The Lord of the Rings film series. It is directed by &lt;strong&gt;Peter Jackson&lt;/strong&gt;, while it&amp;rsquo;s screenplay is written by Peter Jackson, Philippa Boyens, Fran Walsh and Stephen Sinclair.&lt;/p&gt;&#xA;&lt;p&gt;The film retells the adventures of the Fellowship of the Ring, taking its story from the first part, The Fellowship of the Ring, and the first chapter of The Two Towers.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>刘润，底层逻辑</title>
-      <link>https://yo3nglau.github.io/blogs/post/%E5%88%98%E6%B6%A6%E5%BA%95%E5%B1%82%E9%80%BB%E8%BE%91/</link>
-      <pubDate>Tue, 04 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/%E5%88%98%E6%B6%A6%E5%BA%95%E5%B1%82%E9%80%BB%E8%BE%91/</guid>
-      <description>&lt;h2 id=&#34;摘录&#34;&gt;摘录&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;“底层逻辑”来源于不同中的相同，变化背后的不变。只有掌握了底层逻辑，只有探寻到万物中的不变，才能动态地、持续地看清事物的本质。&lt;/li&gt;&#xA;&lt;li&gt;底层逻辑 + 环境变量 = 方法论&lt;/li&gt;&#xA;&lt;li&gt;“课题分离”理论由奥地利心理学家阿尔弗雷德·阿德勒提出，原意指要解决人际关系的烦恼，就要区分什么是你的课题，什么是我的课题。&lt;/li&gt;&#xA;&lt;li&gt;浪费同样的时间，我的损失大——“谁的损失大，就是谁的错”。&lt;/li&gt;&#xA;&lt;li&gt;一个人心中，应该有三种“对错观”：①法学家的对错观（谁证据确凿谁的错），②经济学家的对错观（谁社会总成本低谁的错），③商人的对错观（谁损失大谁的错）。&lt;/li&gt;&#xA;&lt;li&gt;学会选择，常常就是学会放弃：选择一个，放弃其他。选择有时比努力更重要，但放弃有时比选择更重要。我们应勇敢选择，然后享受好处，承担坏处。&lt;/li&gt;&#xA;&lt;li&gt;学习经济学，一定要兼听。&lt;/li&gt;&#xA;&lt;li&gt;验证自己是否真的理解一个经济学观点，不仅要看你是否能认同证明它的例子，更要看你是否理解能推翻它的例子。&lt;/li&gt;&#xA;&lt;li&gt;记住每个理论的前提，是学习经济学的基本素养。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://book.douban.com/subject/35620025/&#34;&gt;豆瓣读书&lt;/a&gt;&lt;/p&gt;&#xA;&lt;img src=&#34;https://s21.ax1x.com/2025/11/04/pZSw96H.png&#34; style=&#34;zoom:60%;&#34; /&gt;</description>
-    </item>
-    <item>
-      <title>曹保平，烈日灼心</title>
-      <link>https://yo3nglau.github.io/blogs/post/%E6%9B%B9%E4%BF%9D%E5%B9%B3%E7%83%88%E6%97%A5%E7%81%BC%E5%BF%83/</link>
-      <pubDate>Tue, 04 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/%E6%9B%B9%E4%BF%9D%E5%B9%B3%E7%83%88%E6%97%A5%E7%81%BC%E5%BF%83/</guid>
-      <description>&lt;h2 id=&#34;台词&#34;&gt;台词&lt;/h2&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;人是神性和动物性的总和，就是他有你想象不到的好，更有你想象不到的恶，没有对错，这就是人。&lt;/li&gt;&#xA;&lt;li&gt;法律特别可爱。它不管你能好到哪儿，就限制你不能恶到没边儿。它清楚每个人心里都有那么点脏事儿，想想可以，但做出来不行。法律更像人性的低保，是一种强制性的修养。它不像宗教要求你眼高手低，就踏踏实实的告诉你，至少应该是什么样儿。又讲人情，又残酷无情。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://movie.douban.com/subject/24719063/&#34;&gt;豆瓣电影&lt;/a&gt;&lt;/p&gt;&#xA;&lt;img src=&#34;https://s21.ax1x.com/2025/11/04/pZSwt9U.png&#34; style=&#34;zoom:60%;&#34; /&gt;</description>
-    </item>
-    <item>
-      <title>王汎森，如果讓我重做一次研究生</title>
-      <link>https://yo3nglau.github.io/blogs/post/%E7%8E%8B%E6%B1%8E%E6%A3%AE%E5%A6%82%E6%9E%9C%E8%AE%93%E6%88%91%E9%87%8D%E5%81%9A%E4%B8%80%E6%AC%A1%E7%A0%94%E7%A9%B6%E7%94%9F/</link>
-      <pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/%E7%8E%8B%E6%B1%8E%E6%A3%AE%E5%A6%82%E6%9E%9C%E8%AE%93%E6%88%91%E9%87%8D%E5%81%9A%E4%B8%80%E6%AC%A1%E7%A0%94%E7%A9%B6%E7%94%9F/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;最新更新：2025年11月4日&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;前言&#34;&gt;前言&lt;/h2&gt;&#xA;&lt;p&gt;这篇文章是王汎森院士在 2005 年于中央研究院历史语言研究所完成的，主题是呈现自己对硕士、博士两个阶段的经验分享。&lt;/p&gt;&#xA;&lt;h2 id=&#34;感想&#34;&gt;感想&lt;/h2&gt;&#xA;&lt;p&gt;由接受知识到创造知识，博士论文是个人所有武功的总集合，要提出一个重要的问题，跨越一个重要的领域，对人类的知识有所创新。去挑战原来的自己，不一定能做到的事情。写论文，清楚是最高指导原则。论文最关键的是那一个统摄性的重要概念，往往需要跨越学科去发现。要寻找一个有意义、有延展性、可控制、可以经营的问题，而且不要太难。唯有选定题目以后，你的所有训练跟努力才有价值。一天总也要留一些时间好好思考、慢慢沉淀。学习跳到比你所看到的东西更高一点的层次去思考。&lt;/p&gt;&#xA;&lt;h2 id=&#34;摘录&#34;&gt;摘录&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;注：这一部分摘取触发笔者的语句，为句意通顺，可能存在适当删改。&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;王汎森先生在美国获得博士学位的毕业证书上有这样的拉丁文：&lt;u&gt;恭喜你对人类的知识有所创新，因此授予你这个学位。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;作为研究生，不只是要完全乐在其中，更要从而接受各种有趣的知识，进入制造知识的阶段，也就是说你的论文应该有所创新。&lt;u&gt;由接受知识到创造知识&lt;/u&gt;，是身为一个研究生最大的特色。&lt;/li&gt;&#xA;&lt;li&gt;体认自己不再是个容器，等着老师把某些东西倒在茶杯里，而是要&lt;u&gt;开始逐步发展和开发自己&lt;/u&gt;。&lt;/li&gt;&#xA;&lt;li&gt;到了硕士生和博士生，有一个最终的目的，就是要完成论文，&lt;u&gt;那篇论文是你个人所有武功的总集合&lt;/u&gt;，所有这时候必须要有个问题取向的学习。&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;提出一个重要的问题，跨越一个重要的领域，将决定你未来的成败。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;必须选定一个有兴趣与关注的主题为出发点，来探究这些知识，产生有机的循环。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;学习是一种 self-help。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;Learn how to learn。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;慢慢学习把目标放在一个标准上，而这一个标准就是你将来要完成硕士或博士论文，这一篇论文可能要和全世界做同一件问题的人相比较，你的标准不能单单只是放在旁边几个人而已，而应该是&lt;u&gt;要放在领域的普遍人里面&lt;/u&gt;。&lt;/li&gt;&#xA;&lt;li&gt;search 是寻找，而 research 是再寻找。&lt;/li&gt;&#xA;&lt;li&gt;学生呈现被动或是懈怠的时候，会用毛泽东的「革命不是请客吃饭」来讲：「&lt;u&gt;作研究生不是请客吃饭&lt;/u&gt;」。&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;不停的念书、不停的报告，不停的逼自己吸收，这是进入一个陌生的领域最快，又最方便的办法。&lt;/u&gt;运用这样的方式慢慢训练，有一天不再研究它时，发现自己仍然有自我生产及蓄发的能力，这个学问大概是怎么样的轮廓，碰到问题也有能力去查询相关的资料，&lt;u&gt;努力让自己的学习产生自发的延展性是很重要的&lt;/u&gt;。&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;警惕沉浸在细节里不能自拔，进而失去全景，导致见树不见林。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;为了完成一个大的、完整的、有机的架构模型，必须要&lt;u&gt;从小规模的篇幅慢慢练习&lt;/u&gt;，这是一个最有效的办法。&lt;/li&gt;&#xA;&lt;li&gt;写论文时很重要的一点是，文笔一定要清楚，不要花俏、不必漂亮，&lt;u&gt;清楚是最高指导原则&lt;/u&gt;。&lt;/li&gt;&#xA;&lt;li&gt;文采像个人的生命一样，英文叫 style，style 本身就像个人一样带有一点点天生。&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;要每隔一段时间就给自己一个挑战&lt;/u&gt;，挑战一个你做不到的东西，你不一定要求自己每次都能顺利克服那个挑战，但是要努力去尝试。&lt;u&gt;去挑战原来的你，不一定能做到的事情。&lt;/u&gt;不过也要切记，硕士生是刚开始进入这一个领域的新手，如果一开始问题太小，或是问题大到不能控制，都会造成以后研究的困难。&lt;/li&gt;&#xA;&lt;li&gt;硕士跟博士是一个训练的过程，硕士跟博士不是写经典之作的过程。不一定要可以强求，要有这是一个训练过程的信念，&lt;u&gt;应该清楚知道从哪里开始，也要知道从哪里放手，不要无限的追下去&lt;/u&gt;。是自然而然形成的，应该要坚定的告诉自己，所要完成的是一份结构严谨、论述清楚与言之有物的论文，不要一开始就期待它是经典之作。&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;一定要构建一个属于自己的知识树&lt;/u&gt;，才能在那棵树挂相关的东西，但千万不要不断的挂不相关的东西，而且要慢慢地舍掉一些挂不上去的东西，再随着你的问题跟关心的领域，&lt;u&gt;让这棵知识树有主干和枝叶&lt;/u&gt;。&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;生也有涯，知也无涯，阅读太多不是自己所关心的领域的知识，它对于你来说只是一地的散钱。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;应该把跨学科的学习当作是一件很重要的事&lt;/u&gt;，但是跨学科涉及的东西必须要对你这棵知识树有助益，要学会到别的领域稍微偷打几枪，&lt;u&gt;到别的领域去摄取一些概念，对于本身关心的问题产生另一种不同的启发，可是不要泛滥无所归&lt;/u&gt;。&lt;u&gt;近几十年来，人们发现不管是科学或人文，最有创新的部分是发生在学科交会的地方。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;常常一篇硕士论文或博士论文最重要、最关键的，是那一个统摄性的重要概念，而通常你在本学科里面抓不到，是因为你已经泡在这个学科里面太久了，你已经拿着手电筒在这个小仓库里面照来照去照太久了，而忘了还有别的东西可以更好解释你这些材料的现象，不过这些东西可遇而不可求。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;对一个硕士生或博士生来说，如果选错了题目，就是失败，题目选对了，还有百分之七十胜利的机会。这个问题值得研一、博一的学生好好思考。你的第一年其实就是要花在这上面，你要不断的跟老师商量&lt;u&gt;寻找一个有意义、有延展性的问题，而且不要太难&lt;/u&gt;。&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;读、写任何语言一定要练习到你能带着三分随意，那时候你才可以说对于这一个语言完全理解与静熟，如果你还无法达到三分的随意，就表示你还在摸索。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;唯有选定题目以后，你的所有训练跟努力才有价值。&lt;/u&gt;选题的工作要尽早做，所选的题目所要处理的材料最好要集中，不要太分散。如果你的材料太不集中，读书或看资料可能就要花掉你大部分的时间，让你没有余力思考。&lt;/li&gt;&#xA;&lt;li&gt;一个最基本的训练，就是平时不管你写一万字、三万字、五万字都要&lt;u&gt;养成遵照学术规范的习惯，要让他自然天成&lt;/u&gt;。要尽早学会中英文的写作规范，慢慢练习，最后随性下笔，就能写出符合规范的文章。&lt;/li&gt;&#xA;&lt;li&gt;切记不重要的不要花很多时间去看，生活在信息泛滥的时代，要能有所取舍。&lt;/li&gt;&#xA;&lt;li&gt;要给自己保留一些思考的时间。&lt;u&gt;一个论文能不能出神入化、能不能引人入胜，很重要的是在现象之上作概念性的思考。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;&lt;u&gt;conceptualize 你所看到的东西&lt;/u&gt;，真切去了解，你所看到的是什么？整体意义是什么？整体的轮廓是什么？千万不要被枝节淹没，虽然枝节是你最重要的开始，但是你&lt;u&gt;一天总也要留一些时间好好思考、慢慢沉淀&lt;/u&gt;。在被很多材料和枝节淹没的时候，要适时跳出来想一想，所看到的东西有哪些意义？这个意义有没有广泛连结到更大层面的知识价值。&lt;/li&gt;&#xA;&lt;li&gt;至少每天要留个三十分钟、一小时思考，想一想你看到了什么？&lt;u&gt;学习跳到比你所看到的东西更高一点的层次去思考。&lt;/u&gt;&lt;/li&gt;&#xA;&lt;li&gt;好好的把一位大师的作品读完，开始模仿和学习他，是入门最好的方法，逐步的，你也开写出自己的东西。&lt;/li&gt;&#xA;&lt;li&gt;我们的人生是两只脚，我们不是靠一只脚走路，另外一只脚是要学习培养一、两种兴趣或嗜好，用来好好的调解或是排遣自己。&lt;/li&gt;&#xA;&lt;li&gt;一定要有很大的责任感，去写出好的东西，如果责任感还不够强，还要有一个罪恶感，你会觉得如果今天如果没有好好做几个小时的工作的话，会有很大的罪恶感。&lt;/li&gt;&#xA;&lt;li&gt;一个卓越的大学、一个好的大学、一个好的学习环境，表示里面有一个共同关心的焦点，如果没有的话，这个学校就不可能成为好的大学。&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h2 id=&#34;待探索&#34;&gt;待探索&lt;/h2&gt;&#xA;&lt;p&gt;美国普林斯顿大学、英国剑桥大学、美国柏克莱大学&lt;/p&gt;&#xA;&lt;p&gt;人文科学、社会科学、自然科学&lt;/p&gt;&#xA;&lt;p&gt;蒋百里、傅斯年&lt;/p&gt;&#xA;&lt;p&gt;Pavarotti&lt;/p&gt;&#xA;&lt;h2 id=&#34;参考&#34;&gt;参考&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;http://homepage.ntu.edu.tw/~ylwang2008/a-wangvonsen.pdf&#34;&gt;王汎森，〈如果讓我重做一次研究生〉&lt;/a&gt;&lt;/p&gt;&#xA;&lt;script type=&#34;text/javascript&#34; src=&#39;https://yo3nglau.github.io/blogs/js/pdf-js/build/pdf.js&#39;&gt;&lt;/script&gt;&#xD;&#xA;&#xD;&#xA;&lt;style&gt;&#xD;&#xA;  #embed-pdf-container {&#xD;&#xA;    position: relative;&#xD;&#xA;    width: 100%;&#xD;&#xA;    height: auto;&#xD;&#xA;    min-height: 20vh;&#xD;&#xA;     &#xD;&#xA;  }&#xD;&#xA;  &#xD;&#xA;  .pdf-canvas {&#xD;&#xA;    border: 1px solid black;&#xD;&#xA;    direction: ltr;&#xD;&#xA;    width: 100%;&#xD;&#xA;    height: auto;&#xD;&#xA;    display: none;&#xD;&#xA;  }&#xD;&#xA;  &#xD;&#xA;  #the-canvas {&#xD;&#xA;    border: 1px solid black;&#xD;&#xA;    direction: ltr;&#xD;&#xA;    width: 100%;&#xD;&#xA;    height: auto;&#xD;&#xA;    display: none;&#xD;&#xA;  }&#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;  .pdf-loadingWrapper {&#xD;&#xA;    display: none;&#xD;&#xA;    justify-content: center;&#xD;&#xA;    align-items: center;&#xD;&#xA;    width: 100%;&#xD;&#xA;    height: 350px;&#xD;&#xA;  }&#xD;&#xA;  &#xD;&#xA;  .pdf-loading {&#xD;&#xA;    display: inline-block;&#xD;&#xA;    width: 50px;&#xD;&#xA;    height: 50px;&#xD;&#xA;    border: 3px solid #d2d0d0;;&#xD;&#xA;    border-radius: 50%;&#xD;&#xA;    border-top-color: #383838;&#xD;&#xA;    animation: spin 1s ease-in-out infinite;&#xD;&#xA;    -webkit-animation: spin 1s ease-in-out infinite;&#xD;&#xA;  }&#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;  #overlayText {&#xD;&#xA;    word-wrap: break-word;&#xD;&#xA;    display: grid;&#xD;&#xA;    justify-content: end;&#xD;&#xA;  }&#xD;&#xA;  &#xD;&#xA;  #overlayText a {&#xD;&#xA;    position: relative;&#xD;&#xA;    top: 10px;&#xD;&#xA;    right: 4px;&#xD;&#xA;    color: #000;&#xD;&#xA;    margin: auto;&#xD;&#xA;    background-color: #eeeeee;&#xD;&#xA;    padding: 0.3em 1em;&#xD;&#xA;    border: solid 2px;&#xD;&#xA;    border-radius: 12px;&#xD;&#xA;    border-color: #00000030;&#xD;&#xA;    text-decoration: none;&#xD;&#xA;  }&#xD;&#xA;  &#xD;&#xA;  #overlayText svg {&#xD;&#xA;    height: clamp(1em, 2vw, 1.4em);&#xD;&#xA;    width:  clamp(1em, 2vw, 1.4em);&#xD;&#xA;  }&#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;  &#xD;&#xA;  @keyframes spin {&#xD;&#xA;    to { -webkit-transform: rotate(360deg); }&#xD;&#xA;  }&#xD;&#xA;  @-webkit-keyframes spin {&#xD;&#xA;    to { -webkit-transform: rotate(360deg); }&#xD;&#xA;  }&#xD;&#xA;  &lt;/style&gt;&lt;div class=&#34;embed-pdf-container&#34; id=&#34;embed-pdf-container-5e751873&#34;&gt;&#xD;&#xA;    &lt;div class=&#34;pdf-loadingWrapper&#34; id=&#34;pdf-loadingWrapper-5e751873&#34;&gt;&#xD;&#xA;        &lt;div class=&#34;pdf-loading&#34; id=&#34;pdf-loading-5e751873&#34;&gt;&lt;/div&gt;&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;div id=&#34;overlayText&#34;&gt;&#xD;&#xA;      &lt;a href=&#34;../../pdfs/%e5%a6%82%e6%9e%9c%e8%ae%93%e6%88%91%e9%87%8d%e5%81%9a%e4%b8%80%e6%ac%a1%e7%a0%94%e7%a9%b6%e7%94%9f_%e7%8e%8b%e6%b1%8e%e6%a3%ae.pdf&#34; aria-label=&#34;Download&#34; download&gt;&#xD;&#xA;        &lt;svg aria-hidden=&#34;true&#34; xmlns=&#34;http://www.w3.org/2000/svg&#34; viewBox=&#34;0 0 18 18&#34;&gt;&#xD;&#xA;            &lt;path d=&#34;M9 13c.3 0 .5-.1.7-.3L15.4 7 14 5.6l-4 4V1H8v8.6l-4-4L2.6 7l5.7 5.7c.2.2.4.3.7.3zm-7 2h14v2H2z&#34; /&gt;&#xD;&#xA;        &lt;/svg&gt;&#xD;&#xA;      &lt;/a&gt;&#xD;&#xA;    &lt;/div&gt;&#xD;&#xA;    &lt;canvas class=&#34;pdf-canvas&#34; id=&#34;pdf-canvas-5e751873&#34;&gt;&lt;/canvas&gt;&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&#xD;&#xA;&lt;div class=&#34;pdf-paginator&#34; id=&#34;pdf-paginator-5e751873&#34;&gt;&#xD;&#xA;    &lt;button id=&#34;pdf-prev-5e751873&#34;&gt;Previous&lt;/button&gt;&#xD;&#xA;    &lt;button id=&#34;pdf-next-5e751873&#34;&gt;Next&lt;/button&gt; &amp;nbsp; &amp;nbsp;&#xD;&#xA;    &lt;span&gt;&#xD;&#xA;      &lt;span class=&#34;pdf-pagenum&#34; id=&#34;pdf-pagenum-5e751873&#34;&gt;&lt;/span&gt; / &lt;span class=&#34;pdf-pagecount&#34; id=&#34;pdf-pagecount-5e751873&#34;&gt;&lt;/span&gt;&#xD;&#xA;    &lt;/span&gt;&#xD;&#xA;    &lt;a class=&#34;pdf-source&#34; id=&#34;pdf-source-5e751873&#34; href=&#34;../../pdfs/%e5%a6%82%e6%9e%9c%e8%ae%93%e6%88%91%e9%87%8d%e5%81%9a%e4%b8%80%e6%ac%a1%e7%a0%94%e7%a9%b6%e7%94%9f_%e7%8e%8b%e6%b1%8e%e6%a3%ae.pdf&#34;&gt;[pdf]&lt;/a&gt;&#xD;&#xA;&lt;/div&gt;&#xD;&#xA;&#xD;&#xA;&lt;noscript&gt;&#xD;&#xA;View the PDF file &lt;a class=&#34;pdf-source&#34; id=&#34;pdf-source-noscript-5e751873&#34; href=&#34;../../pdfs/%e5%a6%82%e6%9e%9c%e8%ae%93%e6%88%91%e9%87%8d%e5%81%9a%e4%b8%80%e6%ac%a1%e7%a0%94%e7%a9%b6%e7%94%9f_%e7%8e%8b%e6%b1%8e%e6%a3%ae.pdf&#34;&gt;here&lt;/a&gt;.&#xD;&#xA;&lt;/noscript&gt;&#xD;&#xA;&#xD;&#xA;&lt;script type=&#34;text/javascript&#34;&gt;&#xD;&#xA;    (function(){&#xD;&#xA;    var url = &#39;..\/..\/pdfs\/如果讓我重做一次研究生_王汎森.pdf&#39;;&#xD;&#xA;&#xD;&#xA;    var hidePaginator = &#34;&#34; === &#34;true&#34;;&#xD;&#xA;    var hideLoader = &#34;&#34; === &#34;true&#34;;&#xD;&#xA;    var selectedPageNum = parseInt(&#34;&#34;) || 1;&#xD;&#xA;&#xD;&#xA;    &#xD;&#xA;    var pdfjsLib = window[&#39;pdfjs-dist/build/pdf&#39;];&#xD;&#xA;&#xD;&#xA;    &#xD;&#xA;    if (pdfjsLib.GlobalWorkerOptions.workerSrc == &#39;&#39;)&#xD;&#xA;      pdfjsLib.GlobalWorkerOptions.workerSrc = &#34;https:\/\/yo3nglau.github.io\/blogs\/&#34; + &#39;js/pdf-js/build/pdf.worker.js&#39;;&#xD;&#xA;&#xD;&#xA;    &#xD;&#xA;    var pdfDoc = null,&#xD;&#xA;        pageNum = selectedPageNum,&#xD;&#xA;        pageRendering = false,&#xD;&#xA;        pageNumPending = null,&#xD;&#xA;        scale = 3,&#xD;&#xA;        canvas = document.getElementById(&#39;pdf-canvas-5e751873&#39;),&#xD;&#xA;        ctx = canvas.getContext(&#39;2d&#39;),&#xD;&#xA;        paginator = document.getElementById(&#34;pdf-paginator-5e751873&#34;),&#xD;&#xA;        loadingWrapper = document.getElementById(&#39;pdf-loadingWrapper-5e751873&#39;);&#xD;&#xA;&#xD;&#xA;&#xD;&#xA;    &#xD;&#xA;    showPaginator();&#xD;&#xA;    showLoader();&#xD;&#xA;&#xD;&#xA;    &#xA;&#xD;&#xA;    function renderPage(num) {&#xD;&#xA;      pageRendering = true;&#xD;&#xA;      &#xD;&#xA;      pdfDoc.getPage(num).then(function(page) {&#xD;&#xA;        var viewport = page.getViewport({scale: scale});&#xD;&#xA;        canvas.height = viewport.height;&#xD;&#xA;        canvas.width = viewport.width;&#xD;&#xA;&#xD;&#xA;        &#xD;&#xA;        var renderContext = {&#xD;&#xA;          canvasContext: ctx,&#xD;&#xA;          viewport: viewport&#xD;&#xA;        };&#xD;&#xA;        var renderTask = page.render(renderContext);&#xD;&#xA;&#xD;&#xA;        &#xD;&#xA;        renderTask.promise.then(function() {&#xD;&#xA;          pageRendering = false;&#xD;&#xA;          showContent();&#xD;&#xA;&#xD;&#xA;          if (pageNumPending !== null) {&#xD;&#xA;            &#xD;&#xA;            renderPage(pageNumPending);&#xD;&#xA;            pageNumPending = null;&#xD;&#xA;          }&#xD;&#xA;        });&#xD;&#xA;      });&#xD;&#xA;&#xD;&#xA;      &#xD;&#xA;      document.getElementById(&#39;pdf-pagenum-5e751873&#39;).textContent = num;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    &#xA;&#xD;&#xA;    function showContent() {&#xD;&#xA;      loadingWrapper.style.display = &#39;none&#39;;&#xD;&#xA;      canvas.style.display = &#39;block&#39;;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    &#xA;&#xD;&#xA;    function showLoader() {&#xD;&#xA;      if(hideLoader) return&#xD;&#xA;      loadingWrapper.style.display = &#39;flex&#39;;&#xD;&#xA;      canvas.style.display = &#39;none&#39;;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    &#xA;&#xD;&#xA;    function showPaginator() {&#xD;&#xA;      if(hidePaginator) return&#xD;&#xA;      paginator.style.display = &#39;block&#39;;&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    &#xA;&#xD;&#xA;    function queueRenderPage(num) {&#xD;&#xA;      if (pageRendering) {&#xD;&#xA;        pageNumPending = num;&#xD;&#xA;      } else {&#xD;&#xA;        renderPage(num);&#xD;&#xA;      }&#xD;&#xA;    }&#xD;&#xA;&#xD;&#xA;    &#xA;&#xD;&#xA;    function onPrevPage() {&#xD;&#xA;      if (pageNum &lt;= 1) {&#xD;&#xA;        return;&#xD;&#xA;      }&#xD;&#xA;      pageNum--;&#xD;&#xA;      queueRenderPage(pageNum);&#xD;&#xA;    }&#xD;&#xA;    document.getElementById(&#39;pdf-prev-5e751873&#39;).addEventListener(&#39;click&#39;, onPrevPage);&#xD;&#xA;&#xD;&#xA;    &#xA;&#xD;&#xA;    function onNextPage() {&#xD;&#xA;      if (pageNum &gt;= pdfDoc.numPages) {&#xD;&#xA;        return;&#xD;&#xA;      }&#xD;&#xA;      pageNum++;&#xD;&#xA;      queueRenderPage(pageNum);&#xD;&#xA;    }&#xD;&#xA;    document.getElementById(&#39;pdf-next-5e751873&#39;).addEventListener(&#39;click&#39;, onNextPage);&#xD;&#xA;&#xD;&#xA;    &#xA;&#xD;&#xA;    pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {&#xD;&#xA;      pdfDoc = pdfDoc_;&#xD;&#xA;      var numPages = pdfDoc.numPages;&#xD;&#xA;      document.getElementById(&#39;pdf-pagecount-5e751873&#39;).textContent = numPages;&#xD;&#xA;&#xD;&#xA;      &#xD;&#xA;      if(pageNum &gt; numPages) {&#xD;&#xA;        pageNum = numPages&#xD;&#xA;      }&#xD;&#xA;&#xD;&#xA;      &#xD;&#xA;      renderPage(pageNum);&#xD;&#xA;    });&#xD;&#xA;    })();&#xD;&#xA;&lt;/script&gt;</description>
-    </item>
-    <item>
-      <title>Clear Specific Website Cache in Google Chrome</title>
-      <link>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</link>
-      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-07&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;method&#34;&gt;Method&lt;/h2&gt;&#xA;&lt;ol start=&#34;0&#34;&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Press &lt;kbd&gt;F12&lt;/kbd&gt; to reach &lt;em&gt;developer toolbox&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Choose &lt;em&gt;Network&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&amp;#x2705; Disable cache&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Press and hold &lt;em&gt;reload button&lt;/em&gt; on the left top of Chrome&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Choose &lt;em&gt;Empty Cache and Hard Reload&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
-    </item>
-    <item>
-      <title>Categories and Tags in Blogs</title>
-      <link>https://yo3nglau.github.io/blogs/post/categories-and-tags-in-blogs/</link>
-      <pubDate>Mon, 22 May 2023 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/categories-and-tags-in-blogs/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-04&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Categories&lt;/strong&gt; are broad topics that help you organize your blog posts, and help readers find the information they’re seeking on your site.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Tags&lt;/strong&gt; are a simple way to drill down on the topic of any given blog post that’s part of a category.&lt;/p&gt;&#xA;&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;&#xA;&lt;p&gt;These two words may be used interchangeably, but they are not the same thing. The difference is simple: A category is a broad topic you cover in your blog. It acts as the umbrella to a bunch of smaller topics. Blog tags are one small idea in an overarching topic.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>About me</title>
-      <link>https://yo3nglau.github.io/blogs/about/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/about/</guid>
-      <description>&lt;h2 id=&#34;interest&#34;&gt;Interest&lt;/h2&gt;&#xA;&lt;p&gt;Artificial Intelligence for Healthcare&lt;/p&gt;&#xA;&lt;h2 id=&#34;education&#34;&gt;Education&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Tsinghua University&lt;/strong&gt;, Biomedical Engineering, Ph.D. Student, 2022 - Present&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Shandong University&lt;/strong&gt;, Computer Science and Technology, Bachelor of Engineering, 2018 – 2022&lt;/p&gt;&#xA;&lt;h2 id=&#34;publications&#34;&gt;Publications&lt;/h2&gt;&#xA;&lt;p&gt;[1] &lt;strong&gt;Liu, Y.†&lt;/strong&gt;, Zhao, K.†, Luo, L., Zhang, Z., Qian, Z., Jiang, C., &amp;hellip; &amp;amp; Ji, J. (&lt;strong&gt;2025&lt;/strong&gt;). Diagnosing pathologic myopia by identifying morphologic patterns using ultra widefield images with deep learning. &lt;em&gt;&lt;strong&gt;NPJ Digital Medicine&lt;/strong&gt;&lt;/em&gt;. &lt;a href=&#34;https://doi.org/10.1038/s41746-025-01849-y&#34;&gt;DOI&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;[2] &lt;strong&gt;Liu, Y.&lt;/strong&gt;, Zhong, X., Zhai, S., Du, Z., Gao, Z., Huang, Q., &amp;hellip; &amp;amp; Qin, P. (&lt;strong&gt;2023&lt;/strong&gt;). Prompt-enhanced hierarchical transformer elevating cardiopulmonary resuscitation instruction via temporal action segmentation. &lt;em&gt;&lt;strong&gt;Computers in biology and medicine&lt;/strong&gt;&lt;/em&gt;. &lt;a href=&#34;https://doi.org/10.1016/j.compbiomed.2023.107672&#34;&gt;DOI&lt;/a&gt;&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/</link><description>Recent content in Home on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/index.xml" rel="self" type="application/rss+xml"/><item><title>Common Shortcuts for the Linux Command Line</title><link>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Bash uses the GNU Readline library to handle command-line input. By default, it follows an Emacs-style keybinding scheme, which makes a rich set of shortcuts available for editing commands, navigating history, and controlling the terminal—without touching the mouse.&lt;/p&gt;
+&lt;p&gt;This post covers the most useful shortcuts across five areas: cursor movement, text editing, command history, process and job control, and terminal control. A consolidated quick-reference table is provided at the end.&lt;/p&gt;</description></item><item><title>Large Language Models: Interview Questions and Answers</title><link>https://yo3nglau.github.io/blogs/post/large-language-models-interview-questions-and-answers/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/large-language-models-interview-questions-and-answers/</guid><description>&lt;h2 id="pretraining--architecture"&gt;Pretraining &amp;amp; Architecture&lt;/h2&gt;
+&lt;h3 id="q1-basic-what-is-the-pretraining-objective-of-large-language-models"&gt;Q1 [Basic] What is the pretraining objective of large language models?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What training objective do LLMs like GPT use during pretraining, and why is it effective?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; The dominant pretraining objective for autoregressive LLMs is next token prediction, also called causal language modeling. Given a sequence of tokens x_1, x_2, &amp;hellip;, x_{t-1}, the model learns to predict the next token x_t by minimizing cross-entropy loss over the vocabulary. This is applied at every position in the sequence simultaneously during training, making it highly data-efficient: a single document of n tokens provides n-1 training examples.&lt;/p&gt;</description></item><item><title>Mamba and State Space Models: Interview Questions and Answers</title><link>https://yo3nglau.github.io/blogs/post/mamba-and-state-space-models-interview-questions-and-answers/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/mamba-and-state-space-models-interview-questions-and-answers/</guid><description>&lt;h2 id="ssm--mamba-fundamentals"&gt;SSM &amp;amp; Mamba Fundamentals&lt;/h2&gt;
+&lt;h3 id="q1-basic-what-is-a-state-space-model"&gt;Q1 [Basic] What is a State Space Model?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What is a State Space Model (SSM) and how does it apply to sequence modeling?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; A State Space Model is a mathematical framework that maps an input sequence to an output sequence through a latent hidden state. In its continuous form, it is defined by two equations: a state equation dx/dt = Ax + Bu (describing how the hidden state evolves over time) and an output equation y = Cx + Du (describing how the output is generated from the state). Here, A is the state transition matrix, B maps inputs to state updates, C maps the state to outputs, and D is an optional skip connection.&lt;/p&gt;</description></item><item><title>Multi-label Learning: Interview Questions and Answers</title><link>https://yo3nglau.github.io/blogs/post/multi-label-learning-interview-questions-and-answers/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/multi-label-learning-interview-questions-and-answers/</guid><description>&lt;h2 id="fundamentals"&gt;Fundamentals&lt;/h2&gt;
+&lt;h3 id="q1-basic-what-is-multi-label-image-classification-and-how-does-it-differ-from-multi-class-and-multi-task-classification"&gt;Q1 [Basic] What is multi-label image classification, and how does it differ from multi-class and multi-task classification?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Can you explain the problem formulation of multi-label image classification and how it differs from related settings?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; In multi-class image classification, each image belongs to exactly one of $L$ mutually exclusive categories. A softmax output enforces a probability distribution that sums to 1, and a single cross-entropy loss drives the model toward one dominant class. Examples include ImageNet classification and digit recognition.&lt;/p&gt;</description></item><item><title>Temporal Action Detection: Interview Questions and Answers</title><link>https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/</guid><description>&lt;h2 id="tad-fundamentals--detection-pipelines"&gt;TAD Fundamentals &amp;amp; Detection Pipelines&lt;/h2&gt;
+&lt;h3 id="q1-basic-how-does-temporal-action-detection-differ-from-action-recognition"&gt;Q1 [Basic] How does Temporal Action Detection differ from Action Recognition?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What is Temporal Action Detection, and how does it differ from action recognition in both task formulation and difficulty?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Action Recognition operates on trimmed video clips where a single action occupies the entire clip. Given a short clip as input, the model outputs a single class label. The task assumes the action boundaries are already known and provided externally. This makes it primarily a classification problem over a fixed-duration input.&lt;/p&gt;</description></item><item><title>Transformer and Vision Transformer: Interview Questions and Answers</title><link>https://yo3nglau.github.io/blogs/post/transformer-and-vision-transformer-interview-questions-and-answers/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/transformer-and-vision-transformer-interview-questions-and-answers/</guid><description>&lt;h2 id="transformer-fundamentals"&gt;Transformer Fundamentals&lt;/h2&gt;
+&lt;h3 id="q1-basic-what-is-the-self-attention-mechanism"&gt;Q1 [Basic] What is the Self-Attention mechanism?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Can you explain what the Self-Attention mechanism is and how it works?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Self-Attention allows each token in a sequence to attend to every other token, enabling the model to capture dependencies regardless of distance. For each position, the mechanism computes a weighted sum of all values in the sequence, where the weights reflect how relevant each position is to the current one.&lt;/p&gt;</description></item><item><title>滕王阁序</title><link>https://yo3nglau.github.io/blogs/post/%E6%BB%95%E7%8E%8B%E9%98%81%E5%BA%8F/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/%E6%BB%95%E7%8E%8B%E9%98%81%E5%BA%8F/</guid><description>&lt;h2 id="前言"&gt;前言&lt;/h2&gt;
+&lt;p&gt;《滕王阁序》，原题作《滕王阁诗序》，全名《秋日登洪府滕王阁饯别序》，初唐四杰之一王勃作品，作于唐高宗上元二年九月九日（675年10月3日），是古今传诵的骈文名篇。&lt;/p&gt;
+&lt;h2 id="创作背景"&gt;创作背景&lt;/h2&gt;
+&lt;p&gt;上元二年（675年）九月九日重阳节王勃探亲路过南昌，正值洪州都督（洪州牧）阎伯屿重修滕王阁毕，于阁上大宴宾客，饯别新任新州刺史宇文氏一行。阎已命其女婿吴子章备好序文以为夸耀，席上假意邀请在座宾客为滕王阁写作序文，众宾客推辞，岂不料王勃竟提笔大作。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;王勃著《滕王阁序》时年仅十四。都督阎公不之信。勃虽在座，而阎公意属子婿孟学士者为之，已宿构矣。及以纸笔巡让宾客，勃不辞让。公大怒，拂衣而起，专令人伺其下笔。第一报云“豫章故郡，洪都新府”，公曰：“是亦老生谈。”又报云“星分翼轸，地接衡庐”，公闻之，沈吟不言。又云“落霞与孤鹜齐飞，秋水共长天一色”，公矍然而起，曰：“此真天才，当垂不朽矣！”遂亟请宴所，极欢而罢。&lt;/p&gt;
+&lt;p&gt;——《唐摭言》（卷五）&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;center&gt;秋日登洪府滕王閣餞別序&lt;/center&gt;
+&lt;center&gt;作者：王勃　唐&lt;/center&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+豫章故郡，洪都新府。星分翼轸，地接衡庐。襟三江而带五湖，控蛮荆而引瓯越。物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。雄州雾列，俊彩星驰。台隍枕夷夏之交，宾主尽东南之美。都督阎公之雅望，棨戟遥临；宇文新州之懿范，襜帷暂驻。十旬休暇，胜友如云。千里逢迎，高朋满座。腾蛟起凤，孟学士之词宗；紫电青霜，王将军之武库。家君作宰，路出名区。童子何知？躬逢胜饯。
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+时维九月，序属三秋。潦水尽而寒潭清，烟光凝而暮山紫。俨骖𬴂于上路，访风景于崇阿。临帝子之长洲，得仙人之旧馆。层台耸翠，上出重霄；飞阁流丹，下临无地。鹤汀凫渚，穷岛屿之萦回；桂殿兰宫，即冈峦之体势。
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+披绣闼，俯雕甍。山原旷其盈视，川泽纡其骇瞩。闾阎扑地，钟鸣鼎食之家；舸舰弥津，青雀黄龙之舳。云销雨霁，彩彻区明。落霞与孤鹜齐飞，秋水共长天一色。渔舟唱晚，响穷彭蠡之滨；雁阵惊寒，声断衡阳之浦。
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+遥襟甫畅，逸兴遄飞。爽籁发而清风生，纤歌凝而白云遏。睢园绿竹，气凌彭泽之樽；邺水朱华，光照临川之笔。四美具，二难并。穷睇眄于中天，极娱游于暇日。天高地迥，觉宇宙之无穷；兴尽悲来，识盈虚之有数。望长安于日下，目吴会于云间。地势极而南溟深，天柱高而北辰远。关山难越，谁悲失路之人；萍水相逢，尽是他乡之客。怀帝阍而不见，奉宣室以何年？
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+嗟乎！时运不齐，命途多舛。冯唐易老，李广难封。屈贾谊于长沙，非无圣主；窜梁鸿于海曲，岂乏明时？所赖君子安贫，达人知命。老当益壮，宁移白首之心；穷且益坚，不坠青云之志。酌贪泉而觉爽，处涸辙以犹懽。北海虽赊，扶摇可接；东隅已逝，桑榆非晚。孟尝高洁，空馀报国之心；阮籍猖狂，岂效穷途之哭？
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+勃，三尺微命，一介书生，无路请缨，等终军之弱冠；有怀投笔，慕宗悫之长风。舍簪笏于百龄，奉晨昏于万里。非谢家之宝树，接孟氏之芳邻。他日趋庭，叨陪鲤对；今兹捧袂，喜托龙门。杨意不逢，抚凌云而自惜；锺期既遇，奏流水以何惭？
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+呜呼！胜地不常，盛筵难再。兰亭已矣，梓泽丘墟。临别赠言，幸承恩于伟饯；登高作赋，是所望于群公。敢竭鄙诚，恭疏短引。一言均赋，四韵俱成。请洒潘江，各倾陆海云尔。
+&lt;/div&gt;
+&lt;details&gt;
+	&lt;summary&gt;繁体中文版本&lt;/summary&gt;
+	&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+豫章故郡，洪都新府。星分翼軫，地接衡廬。襟三江而帶五湖，控蠻荊而引甌越。物華天寶，龍光射牛斗之墟；人傑地靈，徐孺下陳蕃之榻。雄州霧列，俊彩星馳。臺隍枕夷夏之交，賓主盡東南之美。都督閻公之雅望，棨戟遙臨；宇文新州之懿範，襜帷暫駐。十旬休暇，勝友如雲。千里逢迎，高朋滿座。騰蛟起鳳，孟學士之詞宗；紫電青霜，王將軍之武庫。家君作宰，路出名區。童子何知？躬逢勝餞。
+ &lt;/div&gt;
+ &lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+時維九月，序屬三秋。潦水盡而寒潭清，煙光凝而暮山紫。儼驂騑於上路，訪風景於崇阿。臨帝子之長洲，得仙人之舊館。層臺聳翠，上出重霄；飛閣流丹，下臨無地。鶴汀鳧渚，窮島嶼之縈廻；桂殿蘭宮，即岡巒之體勢。
+ &lt;/div&gt;
+ &lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+披繡闥，俯雕甍。山原曠其盈視，川澤紆其駭矚。閭閻撲地，鐘鳴鼎食之家；舸艦弥津，青雀黃龍之舳。雲銷雨霽，彩徹區明。落霞與孤鶩齊飛[3]，秋水共長天一色。漁舟唱晚，響窮彭蠡之濱；雁陣驚寒，聲斷衡陽之浦。
+ &lt;/div&gt;
+ &lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+遙襟甫暢，逸興遄飛。爽籟發而清風生，纖歌凝而白雲遏。睢園綠竹，氣凌彭澤之樽；鄴水朱華，光照臨川之筆。四美具，二難并。窮睇眄於中天，極娛遊於暇日。天高地迥，覺宇宙之無窮；興盡悲來，識盈虛之有數。望長安於日下，目吳會於雲間。地勢極而南溟深，天柱高而北辰遠。關山難越，誰悲失路之人；萍水相逢，盡是他鄉之客。懷帝閽而不見，奉宣室以何年？
+ &lt;/div&gt;
+ &lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+嗟乎！時運不齊，命途多舛。馮唐易老，李廣難封。屈賈誼於長沙，非無聖主；竄梁鴻於海曲，豈乏明時？所賴君子安貧，達人知命。老當益壯，寧移白首之心；窮且益堅，不墜青雲之志。酌貪泉而覺爽，處涸轍以猶懽。北海雖賒，扶搖可接；東隅已逝，桑榆非晚。孟嘗高潔，空餘報國之心；阮籍猖狂，豈效窮途之哭？
+ &lt;/div&gt;
+ &lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+勃，三尺微命，一介書生，無路請纓，等終軍之弱冠；有懷投筆，慕宗慤之長風。捨簪笏於百齡，奉晨昏於萬里。非謝家之寶樹，接孟氏之芳鄰。他日趨庭，叨陪鯉對；今茲捧袂，喜托龍門。楊意不逢，撫凌雲而自惜；鍾期既遇，奏流水以何慚？
+ &lt;/div&gt;
+ &lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+嗚呼！勝地不常，盛筵難再。蘭亭已矣，梓澤丘墟。臨別贈言，幸承恩於偉餞；登高作賦，是所望於群公。敢竭鄙誠，恭疏短引。一言均賦，四韻俱成。請灑潘江，各傾陸海云爾。
+ &lt;/div&gt;
+&lt;/details&gt;
+&lt;h2 id="参考"&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://zh.wikisource.org/zh/%E6%BB%95%E7%8E%8B%E9%96%A3%E5%BA%8F"&gt;滕王閣序，维基文库&lt;/a&gt;&lt;/p&gt;</description></item><item><title>物华天宝，龙光射牛斗之墟；人杰地灵，徐孺下陈蕃之榻。</title><link>https://yo3nglau.github.io/blogs/post/%E7%89%A9%E5%8D%8E%E5%A4%A9%E5%AE%9D%E9%BE%99%E5%85%89%E5%B0%84%E7%89%9B%E6%96%97%E4%B9%8B%E5%A2%9F%E4%BA%BA%E6%9D%B0%E5%9C%B0%E7%81%B5%E5%BE%90%E5%AD%BA%E4%B8%8B%E9%99%88%E8%95%83%E4%B9%8B%E6%A6%BB/</link><pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/%E7%89%A9%E5%8D%8E%E5%A4%A9%E5%AE%9D%E9%BE%99%E5%85%89%E5%B0%84%E7%89%9B%E6%96%97%E4%B9%8B%E5%A2%9F%E4%BA%BA%E6%9D%B0%E5%9C%B0%E7%81%B5%E5%BE%90%E5%AD%BA%E4%B8%8B%E9%99%88%E8%95%83%E4%B9%8B%E6%A6%BB/</guid><description>&lt;h2 id="来源"&gt;来源&lt;/h2&gt;
+&lt;center&gt;晋书&lt;/center&gt;
+&lt;center&gt;卷三十六 列传第六&lt;/center&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+ 初，吴之未灭也，斗牛之间常有紫气，道术者皆以吴方强盛，未可图也，惟华以为不然。及吴平之后，紫气愈明。华闻豫章人雷焕妙达纬象，乃要焕宿，屏人曰：“可共寻天文，知将来吉凶。”因登楼仰观，焕曰：“仆察之久矣，惟斗牛之间颇有异气。”华曰：“是何祥也？”焕曰：“宝剑之精，上彻于天耳。”华曰：“君言得之。吾少时有相者言，吾年出六十，位登三事，当得宝剑佩之。斯言岂效与！”因问曰：“在何郡？”焕曰：“在豫章丰城。”华曰：“欲屈君为宰，密共寻之，可乎？”焕许之。华大喜，即补焕为丰城令。焕到县，掘狱屋基，入地四丈馀，得一石函，光气非常，中有双剑，并刻题，一曰龙泉，一曰太阿。其夕，斗牛间气不复见焉。焕以南昌西山北岩下土以拭剑，光芒艳发。大盆盛水，置剑其上，视之者精芒炫目。遣使送一剑并土与华，留一自佩。或谓焕曰：“得两送一，张公岂可欺乎？”焕曰：“本朝将乱，张公当受其祸。此剑当系徐君墓树耳。灵异之物，终当化去，不永为人服也。”华得剑，宝爱之，常置坐侧。华以南昌土不如华阴赤土，报焕书曰：“详观剑文，乃干将也，莫邪何复不至？虽然，天生神物，终当合耳。”因以华阴土一斤致焕。焕更以拭剑，倍益精明。华诛，失剑所在。焕卒，子华为州从事，持剑行经延平津，剑忽于腰间跃出堕水，使人没水取之，不见剑，但见两龙各长数丈，蟠萦有文章，没者惧而反。须臾光彩照水，波浪惊沸，于是失剑。华叹曰：“先君化去之言，张公终合之论，此其验乎！”华之博物多此类，不可详载焉。
+&lt;/div&gt;
+&lt;details&gt;
+	&lt;summary&gt;繁体中文版本&lt;/summary&gt;
+	&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+ 初，吳之未滅也，斗牛之間常有紫氣，道術者皆以吳方強盛，未可圖也，惟華以為不然。及吳平之後，紫氣愈明。華聞豫章人雷煥妙達緯象，乃要煥宿，屏人曰：「可共尋天文，知將來吉凶。」因登樓仰觀，煥曰：「僕察之久矣，惟斗牛之間頗有異氣。」華曰：「是何祥也？」煥曰：「寶劍之精，上徹於天耳。」華曰：「君言得之。吾少時有相者言，吾年出六十，位登三事，當得寶劍佩之。斯言豈效與！」因問曰：「在何郡？」煥曰：「在豫章豐城。」華曰：「欲屈君為宰，密共尋之，可乎？」煥許之。華大喜，即補煥為豐城令。煥到縣，掘獄屋基，入地四丈餘，得一石函，光氣非常，中有雙劍，並刻題，一曰龍泉，一曰太阿。其夕，斗牛間氣不復見焉。煥以南昌西山北巖下土以拭劍，光芒豔發。大盆盛水，置劍其上，視之者精芒炫目。遣使送一劍並土與華，留一自佩。或謂煥曰：「得兩送一，張公豈可欺乎？」煥曰：「本朝將亂，張公當受其禍。此劍當繫徐君墓樹耳。靈異之物，終當化去，不永為人服也。」華得劍，寶愛之，常置坐側。華以南昌土不如華陰赤土，報煥書曰：「詳觀劍文，乃干將也，莫邪何復不至？雖然，天生神物，終當合耳。」因以華陰土一斤致煥。煥更以拭劍，倍益精明。華誅，失劍所在。煥卒，子華為州從事，持劍行經延平津，劍忽於腰間躍出墮水，使人沒水取之，不見劍，但見兩龍各長數丈，蟠縈有文章，沒者懼而反。須臾光彩照水，波浪驚沸，於是失劍。華歎曰：「先君化去之言，張公終合之論，此其驗乎！」華之博物多此類，不可詳載焉。
+ &lt;/div&gt;
+&lt;/details&gt;
+&lt;h2 id="参考"&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://zh.wikisource.org/zh-hans/%E6%99%89%E6%9B%B8/%E5%8D%B7036#%E5%BC%B5%E8%8F%AF"&gt;晉書/卷036，维基文库&lt;/a&gt;&lt;/p&gt;</description></item><item><title>Understanding hiberfil.sys in Windows</title><link>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</link><pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Windows relies on several hidden system files to deliver smooth user experiences, especially when managing power states. One of the most important among them is &lt;code&gt;hiberfil.sys&lt;/code&gt;, a file directly tied to the operating system’s Hibernate and Fast Startup features. Although it typically remains invisible to everyday users, knowing its purpose can help you manage disk space, optimize system behavior, and troubleshoot power-related issues.&lt;/p&gt;
+&lt;h2 id="what-is-hiberfilsys"&gt;What Is &lt;code&gt;hiberfil.sys&lt;/code&gt;?&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;hiberfil.sys&lt;/code&gt; is a system file used by Windows to store the contents of your system’s memory (RAM) when the machine enters &lt;strong&gt;Hibernate&lt;/strong&gt; mode. During hibernation, Windows saves the entire memory state—including open documents, running applications, and system context—to this file before shutting down. When the system powers back on, it restores the saved data and resumes exactly where you left off.&lt;/p&gt;</description></item><item><title>Add Application Shortcuts to the Start Menu in Windows</title><link>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</link><pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Keeping your Start menu organized is an easy way to boost your productivity and access your applications quickly. Whether you want to pin frequently used programs or create custom folders, Windows provides simple methods to add and manage Start menu shortcuts. This introductory guide walks you through the essentials in a clear and practical way.&lt;/p&gt;
+&lt;h2 id="why-add-shortcuts-to-the-start-menu"&gt;Why Add Shortcuts to the Start Menu?&lt;/h2&gt;
+&lt;p&gt;The Start menu serves as the central hub for applications, system settings, and search. Adding your own shortcuts helps you:&lt;/p&gt;</description></item><item><title>Understanding pagefile.sys in Windows</title><link>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</link><pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Efficient memory management is essential for maintaining system stability and performance. In Windows, one of the core components enabling this is &lt;code&gt;pagefile.sys&lt;/code&gt;—a hidden system file that acts as an extension of your physical memory. Although it typically works silently in the background, understanding its purpose and proper configuration can help you optimize system performance and troubleshoot memory-related issues.&lt;/p&gt;
+&lt;h2 id="what-is-pagefilesys"&gt;What Is &lt;code&gt;pagefile.sys&lt;/code&gt;?&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;pagefile.sys&lt;/code&gt; is Windows’ &lt;strong&gt;virtual memory&lt;/strong&gt; file. When your system’s physical RAM is fully utilized, Windows uses this file as overflow space to temporarily store data that does not need to remain in active memory. By doing so, the operating system can continue running applications smoothly even when RAM usage peaks.&lt;/p&gt;</description></item><item><title>Mirrors for pip, conda, and uv</title><link>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</link><pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Efficient Python development often relies on fast and stable package downloads. Network latency or regional restrictions can slow down installations from default repositories. Configuring &lt;strong&gt;mirror sources&lt;/strong&gt; for &lt;code&gt;pip&lt;/code&gt; and &lt;code&gt;conda&lt;/code&gt; is a simple and powerful way to speed up package installations, improve reliability, and standardize environments.&lt;/p&gt;
+&lt;p&gt;This post provides a concise introduction to why mirrors matter and how to configure, add, remove, and inspect them using practical commands.&lt;/p&gt;
+&lt;h2 id="advantages-of-mirrors"&gt;Advantages of Mirrors&lt;/h2&gt;
+&lt;p&gt;Mirror sources are synchronized replicas of official package repositories. Common benefits include:&lt;/p&gt;</description></item><item><title>OpenBLAS vs. MKL NumPy</title><link>https://yo3nglau.github.io/blogs/post/openblas-vs.-mkl-numpy/</link><pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/openblas-vs.-mkl-numpy/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;When working with scientific computing or machine learning in Python, NumPy is one of the core dependencies for numerical operations. Behind the scenes, NumPy relies on optimized linear algebra libraries—primarily &lt;strong&gt;OpenBLAS&lt;/strong&gt; or &lt;strong&gt;Intel MKL (Math Kernel Library)&lt;/strong&gt;—to accelerate matrix multiplications, convolutions, decompositions, and other dense numerical routines.
+This article provides a clear comparison between the OpenBLAS-based and MKL-based NumPy distributions, helping you make an informed choice for your development environment.&lt;/p&gt;</description></item><item><title>Fast Python Package and Project Management with uv</title><link>https://yo3nglau.github.io/blogs/post/fast-python-package-and-project-management-with-uv/</link><pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/fast-python-package-and-project-management-with-uv/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;In today’s Python ecosystem, managing dependencies, virtual environments, project configuration and publishing can involve a variety of tools—&lt;code&gt;pip&lt;/code&gt;, &lt;code&gt;virtualenv/venv&lt;/code&gt;, &lt;code&gt;pyenv&lt;/code&gt;, &lt;code&gt;poetry&lt;/code&gt;, &lt;code&gt;pip‑tools&lt;/code&gt;, and more. The tool &lt;code&gt;uv&lt;/code&gt; is designed to unify and simplify that workflow into a single high-performance solution.&lt;/p&gt;
+&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;uv&lt;/code&gt; is an extremely fast Python package and project manager, written in &lt;code&gt;Rust&lt;/code&gt;.
+It aims to serve as a drop-in replacement for &lt;code&gt;pip&lt;/code&gt; and related tooling, offering additional features such as managed virtual environments, Python version handling, universal lock-files, and project scaffolding.&lt;/p&gt;</description></item><item><title>Run TensorBoard on a Remote Server and View It Locally</title><link>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</link><pubDate>Tue, 11 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;When training machine learning models on remote servers, monitoring metrics such as loss, accuracy, and learning rate becomes essential. TensorBoard is a powerful visualization toolkit from TensorFlow that makes this possible. However, since training often takes place on remote machines without direct GUI access, developers must forward TensorBoard to their local browser. Fortunately, this is simple with secure SSH tunneling.&lt;/p&gt;
+&lt;h2 id="why-run-tensorboard-remotely"&gt;Why Run TensorBoard Remotely?&lt;/h2&gt;
+&lt;p&gt;Many training workloads:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Require powerful GPUs only available on remote servers&lt;/li&gt;
+&lt;li&gt;Run for long periods and need continuous observation&lt;/li&gt;
+&lt;li&gt;Produce logs that are easiest to analyze visually&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Instead of transferring logs back to your local machine, it is more efficient to stream the TensorBoard UI directly to your browser.&lt;/p&gt;</description></item><item><title>Long-Running Process Management with screen Command</title><link>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;When managing long-running processes in a Linux environment, maintaining persistent terminal sessions becomes essential—especially when working over SSH connections. Accidental disconnections can interrupt tasks, terminate important jobs, and disrupt your workflow. This is where the &lt;code&gt;screen&lt;/code&gt; command proves invaluable. It allows users to create detachable terminal sessions that continue running even after the connection is closed.&lt;/p&gt;
+&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;screen&lt;/code&gt; is a terminal multiplexer commonly used in Linux systems. It enables multiple shell sessions to run within a single terminal window. More importantly, it provides the ability to detach from a session without stopping the underlying processes, and later reattach to it seamlessly.&lt;/p&gt;</description></item><item><title>Diagnose Issues of Deep Learning Computing Performance</title><link>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</link><pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</guid><description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-10&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Training deep learning models can sometimes feel like waiting for water to boil—it tests your patience. When your model is training slower than expected, a systematic approach is key to identifying the bottleneck. Here is a step-by-step guide to diagnosing and fixing these performance issues.&lt;/p&gt;
+&lt;h2 id="step-0-the-first-check---gpu-utilization"&gt;Step 0: The First Check - GPU Utilization&lt;/h2&gt;
+&lt;p&gt;Your first command should always be to check if the GPU is even being used.&lt;/p&gt;</description></item><item><title>大丈夫处世，当埽除天下，安事一室乎！</title><link>https://yo3nglau.github.io/blogs/post/%E5%A4%A7%E4%B8%88%E5%A4%AB%E5%A4%84%E4%B8%96%E5%BD%93%E5%9F%BD%E9%99%A4%E5%A4%A9%E4%B8%8B%E5%AE%89%E4%BA%8B%E4%B8%80%E5%AE%A4%E4%B9%8E/</link><pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/%E5%A4%A7%E4%B8%88%E5%A4%AB%E5%A4%84%E4%B8%96%E5%BD%93%E5%9F%BD%E9%99%A4%E5%A4%A9%E4%B8%8B%E5%AE%89%E4%BA%8B%E4%B8%80%E5%AE%A4%E4%B9%8E/</guid><description>&lt;p&gt;&lt;strong&gt;最新更新：2025年11月25日&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="前言"&gt;前言&lt;/h2&gt;
+&lt;p&gt;“一屋不扫，何以扫天下。”为后人杜撰语句。其可靠来源有二：一自陈蕃，一自刘蓉（其父）。&lt;/p&gt;
+&lt;h2 id="来源"&gt;来源&lt;/h2&gt;
+&lt;center&gt;后汉书　卷六十六&lt;/center&gt;
+&lt;center&gt;陈王列传　第五十六&lt;/center&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+ 陈蕃字仲举，汝南平舆人也。祖河东太守。蕃年十五，尝闲处一室，而庭宇芜秽。父友同郡薛勤来候之，谓蕃曰：“孺子何不洒埽以待宾客？”蕃曰：&lt;b&gt;“大丈夫处世，当埽除天下，安事一室乎！”&lt;/b&gt;勤知其有清世志，甚奇之。
+&lt;/div&gt;
+&lt;details&gt;
+	&lt;summary&gt;繁体中文版本&lt;/summary&gt;
+	&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+ 陳蕃字仲舉，汝南平輿人也。祖河東太守。蕃年十五，嘗閒處一室，而庭宇蕪穢。父友同郡薛勤來候之，謂蕃曰：「孺子何不灑埽以待賓客？」蕃曰：&lt;b&gt;「大丈夫處世，當埽除天下，安事一室乎！」&lt;/b&gt;勤知其有清世志，甚奇之。
+ &lt;/div&gt;
+&lt;/details&gt;
+&lt;center&gt;习惯说&lt;/center&gt;
+&lt;center&gt;作者：刘蓉　清&lt;/center&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+ 蓉少时，读书养晦堂之西偏一室。俛而读，仰而思；思而弗得，辄起，绕室以旋。室有洼径尺，浸淫日广，每履之，足苦踬焉。既久而遂安之。
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+ 一日，父来室中，顾而笑曰：&lt;b&gt;“一室之不治，何以天下国家为？”&lt;/b&gt;命童子取土平之。
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+ 后蓉履其地，蹴然以惊，如土忽隆起者；俯视地，坦然则既平矣。已而复然，又久而后安之。
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+ 噫！习之中人甚矣哉！足履平地，不与洼适也；及其久而洼者若平。至使久而即乎其故，则反窒焉而不宁。故君子之学贵慎始。
+&lt;/div&gt;
+&lt;details&gt;
+ &lt;summary&gt;繁体中文版本&lt;/summary&gt;
+ &lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+	蓉少時，讀書養晦堂之西偏一室。俛而讀，仰而思；思而弗得，輒起，繞室以旋。室有窪徑尺，浸淫日廣，每履之，足苦躓焉。既久而遂安之。
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+ 一日，父來室中，顧而笑曰：&lt;b&gt;「一室之不治，何以天下國家為？」&lt;/b&gt;命童子取土平之。
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+	後蓉履其地，蹴然以驚，如土忽隆起者；俯視地，坦然則既平矣。已而復然，又久而後安之。
+&lt;/div&gt;
+&lt;div style="font-family: KaiTi, STKaiti, '楷体'; text-indent: 2em;"&gt;
+	噫！習之中人甚矣哉！足履平地，不與窪適也；及其久而窪者若平。至使久而即乎其故，則反窒焉而不寧。故君子之學貴慎始。
+&lt;/div&gt;
+&lt;/details&gt;
+&lt;h2 id="感想"&gt;感想&lt;/h2&gt;
+&lt;p&gt;后人杜撰出“一屋不扫，何以扫天下”，重在点滴积累，先成小事再成大事。然陈蕃言「大丈夫处世，当埽除天下，安事一室乎！」乃表其扫除天下奸佞之心，刘蓉其父顾蓉勤学而忽环境之弊言「一室之不治，何以天下国家为？」私以为当附陈蕃之志，着眼天下为先，然自省一屋。警惕“一屋不扫”限于“只扫一屋”，失壮志凌云。望达者兼具，有偏有倚。&lt;/p&gt;</description></item><item><title>The Lord of the Rings</title><link>https://yo3nglau.github.io/blogs/post/the-lord-of-the-rings/</link><pubDate>Wed, 05 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/the-lord-of-the-rings/</guid><description>&lt;style&gt;
+@font-face{
+ font-family: "TOLKIEN.TTF";
+ src: url("/blogs/fonts/TOLKIEN.TTF") format("truetype");
+ font-display: swap;
+}
+&lt;/style&gt;&lt;span style="font-family: 'TOLKIEN.TTF', serif;"&gt;&lt;h1 id="the-lord-of-the-rings-the-fellowship-of-the-ring"&gt;The Lord of the Rings: The Fellowship of the Ring&lt;/h1&gt;
+&lt;/span&gt;
+&lt;img src="https://s21.ax1x.com/2025/11/05/pZS7C01.png" style="zoom:60%;" /&gt;
+&lt;h2 id="film"&gt;Film&lt;/h2&gt;
+&lt;p&gt;The Lord of the Rings: The Fellowship of the Ring is the first film of Peter Jackson&amp;rsquo;s The Lord of the Rings film series. It is directed by &lt;strong&gt;Peter Jackson&lt;/strong&gt;, while it&amp;rsquo;s screenplay is written by Peter Jackson, Philippa Boyens, Fran Walsh and Stephen Sinclair.&lt;/p&gt;
+&lt;p&gt;The film retells the adventures of the Fellowship of the Ring, taking its story from the first part, The Fellowship of the Ring, and the first chapter of The Two Towers.&lt;/p&gt;</description></item><item><title>刘润，底层逻辑</title><link>https://yo3nglau.github.io/blogs/post/%E5%88%98%E6%B6%A6%E5%BA%95%E5%B1%82%E9%80%BB%E8%BE%91/</link><pubDate>Tue, 04 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/%E5%88%98%E6%B6%A6%E5%BA%95%E5%B1%82%E9%80%BB%E8%BE%91/</guid><description>&lt;h2 id="摘录"&gt;摘录&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;“底层逻辑”来源于不同中的相同，变化背后的不变。只有掌握了底层逻辑，只有探寻到万物中的不变，才能动态地、持续地看清事物的本质。&lt;/li&gt;
+&lt;li&gt;底层逻辑 + 环境变量 = 方法论&lt;/li&gt;
+&lt;li&gt;“课题分离”理论由奥地利心理学家阿尔弗雷德·阿德勒提出，原意指要解决人际关系的烦恼，就要区分什么是你的课题，什么是我的课题。&lt;/li&gt;
+&lt;li&gt;浪费同样的时间，我的损失大——“谁的损失大，就是谁的错”。&lt;/li&gt;
+&lt;li&gt;一个人心中，应该有三种“对错观”：①法学家的对错观（谁证据确凿谁的错），②经济学家的对错观（谁社会总成本低谁的错），③商人的对错观（谁损失大谁的错）。&lt;/li&gt;
+&lt;li&gt;学会选择，常常就是学会放弃：选择一个，放弃其他。选择有时比努力更重要，但放弃有时比选择更重要。我们应勇敢选择，然后享受好处，承担坏处。&lt;/li&gt;
+&lt;li&gt;学习经济学，一定要兼听。&lt;/li&gt;
+&lt;li&gt;验证自己是否真的理解一个经济学观点，不仅要看你是否能认同证明它的例子，更要看你是否理解能推翻它的例子。&lt;/li&gt;
+&lt;li&gt;记住每个理论的前提，是学习经济学的基本素养。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="参考"&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://book.douban.com/subject/35620025/"&gt;豆瓣读书&lt;/a&gt;&lt;/p&gt;
+&lt;img src="https://s21.ax1x.com/2025/11/04/pZSw96H.png" style="zoom:60%;" /&gt;</description></item><item><title>曹保平，烈日灼心</title><link>https://yo3nglau.github.io/blogs/post/%E6%9B%B9%E4%BF%9D%E5%B9%B3%E7%83%88%E6%97%A5%E7%81%BC%E5%BF%83/</link><pubDate>Tue, 04 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/%E6%9B%B9%E4%BF%9D%E5%B9%B3%E7%83%88%E6%97%A5%E7%81%BC%E5%BF%83/</guid><description>&lt;h2 id="台词"&gt;台词&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;人是神性和动物性的总和，就是他有你想象不到的好，更有你想象不到的恶，没有对错，这就是人。&lt;/li&gt;
+&lt;li&gt;法律特别可爱。它不管你能好到哪儿，就限制你不能恶到没边儿。它清楚每个人心里都有那么点脏事儿，想想可以，但做出来不行。法律更像人性的低保，是一种强制性的修养。它不像宗教要求你眼高手低，就踏踏实实的告诉你，至少应该是什么样儿。又讲人情，又残酷无情。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="参考"&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://movie.douban.com/subject/24719063/"&gt;豆瓣电影&lt;/a&gt;&lt;/p&gt;
+&lt;img src="https://s21.ax1x.com/2025/11/04/pZSwt9U.png" style="zoom:60%;" /&gt;</description></item><item><title>王汎森，如果讓我重做一次研究生</title><link>https://yo3nglau.github.io/blogs/post/%E7%8E%8B%E6%B1%8E%E6%A3%AE%E5%A6%82%E6%9E%9C%E8%AE%93%E6%88%91%E9%87%8D%E5%81%9A%E4%B8%80%E6%AC%A1%E7%A0%94%E7%A9%B6%E7%94%9F/</link><pubDate>Thu, 01 Jun 2023 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/%E7%8E%8B%E6%B1%8E%E6%A3%AE%E5%A6%82%E6%9E%9C%E8%AE%93%E6%88%91%E9%87%8D%E5%81%9A%E4%B8%80%E6%AC%A1%E7%A0%94%E7%A9%B6%E7%94%9F/</guid><description>&lt;p&gt;&lt;strong&gt;最新更新：2025年11月4日&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="前言"&gt;前言&lt;/h2&gt;
+&lt;p&gt;这篇文章是王汎森院士在 2005 年于中央研究院历史语言研究所完成的，主题是呈现自己对硕士、博士两个阶段的经验分享。&lt;/p&gt;
+&lt;h2 id="感想"&gt;感想&lt;/h2&gt;
+&lt;p&gt;由接受知识到创造知识，博士论文是个人所有武功的总集合，要提出一个重要的问题，跨越一个重要的领域，对人类的知识有所创新。去挑战原来的自己，不一定能做到的事情。写论文，清楚是最高指导原则。论文最关键的是那一个统摄性的重要概念，往往需要跨越学科去发现。要寻找一个有意义、有延展性、可控制、可以经营的问题，而且不要太难。唯有选定题目以后，你的所有训练跟努力才有价值。一天总也要留一些时间好好思考、慢慢沉淀。学习跳到比你所看到的东西更高一点的层次去思考。&lt;/p&gt;
+&lt;h2 id="摘录"&gt;摘录&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;注：这一部分摘取触发笔者的语句，为句意通顺，可能存在适当删改。&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;王汎森先生在美国获得博士学位的毕业证书上有这样的拉丁文：&lt;u&gt;恭喜你对人类的知识有所创新，因此授予你这个学位。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;作为研究生，不只是要完全乐在其中，更要从而接受各种有趣的知识，进入制造知识的阶段，也就是说你的论文应该有所创新。&lt;u&gt;由接受知识到创造知识&lt;/u&gt;，是身为一个研究生最大的特色。&lt;/li&gt;
+&lt;li&gt;体认自己不再是个容器，等着老师把某些东西倒在茶杯里，而是要&lt;u&gt;开始逐步发展和开发自己&lt;/u&gt;。&lt;/li&gt;
+&lt;li&gt;到了硕士生和博士生，有一个最终的目的，就是要完成论文，&lt;u&gt;那篇论文是你个人所有武功的总集合&lt;/u&gt;，所有这时候必须要有个问题取向的学习。&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;提出一个重要的问题，跨越一个重要的领域，将决定你未来的成败。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;必须选定一个有兴趣与关注的主题为出发点，来探究这些知识，产生有机的循环。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;学习是一种 self-help。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;Learn how to learn。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;慢慢学习把目标放在一个标准上，而这一个标准就是你将来要完成硕士或博士论文，这一篇论文可能要和全世界做同一件问题的人相比较，你的标准不能单单只是放在旁边几个人而已，而应该是&lt;u&gt;要放在领域的普遍人里面&lt;/u&gt;。&lt;/li&gt;
+&lt;li&gt;search 是寻找，而 research 是再寻找。&lt;/li&gt;
+&lt;li&gt;学生呈现被动或是懈怠的时候，会用毛泽东的「革命不是请客吃饭」来讲：「&lt;u&gt;作研究生不是请客吃饭&lt;/u&gt;」。&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;不停的念书、不停的报告，不停的逼自己吸收，这是进入一个陌生的领域最快，又最方便的办法。&lt;/u&gt;运用这样的方式慢慢训练，有一天不再研究它时，发现自己仍然有自我生产及蓄发的能力，这个学问大概是怎么样的轮廓，碰到问题也有能力去查询相关的资料，&lt;u&gt;努力让自己的学习产生自发的延展性是很重要的&lt;/u&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;警惕沉浸在细节里不能自拔，进而失去全景，导致见树不见林。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;为了完成一个大的、完整的、有机的架构模型，必须要&lt;u&gt;从小规模的篇幅慢慢练习&lt;/u&gt;，这是一个最有效的办法。&lt;/li&gt;
+&lt;li&gt;写论文时很重要的一点是，文笔一定要清楚，不要花俏、不必漂亮，&lt;u&gt;清楚是最高指导原则&lt;/u&gt;。&lt;/li&gt;
+&lt;li&gt;文采像个人的生命一样，英文叫 style，style 本身就像个人一样带有一点点天生。&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;要每隔一段时间就给自己一个挑战&lt;/u&gt;，挑战一个你做不到的东西，你不一定要求自己每次都能顺利克服那个挑战，但是要努力去尝试。&lt;u&gt;去挑战原来的你，不一定能做到的事情。&lt;/u&gt;不过也要切记，硕士生是刚开始进入这一个领域的新手，如果一开始问题太小，或是问题大到不能控制，都会造成以后研究的困难。&lt;/li&gt;
+&lt;li&gt;硕士跟博士是一个训练的过程，硕士跟博士不是写经典之作的过程。不一定要可以强求，要有这是一个训练过程的信念，&lt;u&gt;应该清楚知道从哪里开始，也要知道从哪里放手，不要无限的追下去&lt;/u&gt;。是自然而然形成的，应该要坚定的告诉自己，所要完成的是一份结构严谨、论述清楚与言之有物的论文，不要一开始就期待它是经典之作。&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;一定要构建一个属于自己的知识树&lt;/u&gt;，才能在那棵树挂相关的东西，但千万不要不断的挂不相关的东西，而且要慢慢地舍掉一些挂不上去的东西，再随着你的问题跟关心的领域，&lt;u&gt;让这棵知识树有主干和枝叶&lt;/u&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;生也有涯，知也无涯，阅读太多不是自己所关心的领域的知识，它对于你来说只是一地的散钱。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;应该把跨学科的学习当作是一件很重要的事&lt;/u&gt;，但是跨学科涉及的东西必须要对你这棵知识树有助益，要学会到别的领域稍微偷打几枪，&lt;u&gt;到别的领域去摄取一些概念，对于本身关心的问题产生另一种不同的启发，可是不要泛滥无所归&lt;/u&gt;。&lt;u&gt;近几十年来，人们发现不管是科学或人文，最有创新的部分是发生在学科交会的地方。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;常常一篇硕士论文或博士论文最重要、最关键的，是那一个统摄性的重要概念，而通常你在本学科里面抓不到，是因为你已经泡在这个学科里面太久了，你已经拿着手电筒在这个小仓库里面照来照去照太久了，而忘了还有别的东西可以更好解释你这些材料的现象，不过这些东西可遇而不可求。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;对一个硕士生或博士生来说，如果选错了题目，就是失败，题目选对了，还有百分之七十胜利的机会。这个问题值得研一、博一的学生好好思考。你的第一年其实就是要花在这上面，你要不断的跟老师商量&lt;u&gt;寻找一个有意义、有延展性的问题，而且不要太难&lt;/u&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;读、写任何语言一定要练习到你能带着三分随意，那时候你才可以说对于这一个语言完全理解与静熟，如果你还无法达到三分的随意，就表示你还在摸索。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;唯有选定题目以后，你的所有训练跟努力才有价值。&lt;/u&gt;选题的工作要尽早做，所选的题目所要处理的材料最好要集中，不要太分散。如果你的材料太不集中，读书或看资料可能就要花掉你大部分的时间，让你没有余力思考。&lt;/li&gt;
+&lt;li&gt;一个最基本的训练，就是平时不管你写一万字、三万字、五万字都要&lt;u&gt;养成遵照学术规范的习惯，要让他自然天成&lt;/u&gt;。要尽早学会中英文的写作规范，慢慢练习，最后随性下笔，就能写出符合规范的文章。&lt;/li&gt;
+&lt;li&gt;切记不重要的不要花很多时间去看，生活在信息泛滥的时代，要能有所取舍。&lt;/li&gt;
+&lt;li&gt;要给自己保留一些思考的时间。&lt;u&gt;一个论文能不能出神入化、能不能引人入胜，很重要的是在现象之上作概念性的思考。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;&lt;u&gt;conceptualize 你所看到的东西&lt;/u&gt;，真切去了解，你所看到的是什么？整体意义是什么？整体的轮廓是什么？千万不要被枝节淹没，虽然枝节是你最重要的开始，但是你&lt;u&gt;一天总也要留一些时间好好思考、慢慢沉淀&lt;/u&gt;。在被很多材料和枝节淹没的时候，要适时跳出来想一想，所看到的东西有哪些意义？这个意义有没有广泛连结到更大层面的知识价值。&lt;/li&gt;
+&lt;li&gt;至少每天要留个三十分钟、一小时思考，想一想你看到了什么？&lt;u&gt;学习跳到比你所看到的东西更高一点的层次去思考。&lt;/u&gt;&lt;/li&gt;
+&lt;li&gt;好好的把一位大师的作品读完，开始模仿和学习他，是入门最好的方法，逐步的，你也开写出自己的东西。&lt;/li&gt;
+&lt;li&gt;我们的人生是两只脚，我们不是靠一只脚走路，另外一只脚是要学习培养一、两种兴趣或嗜好，用来好好的调解或是排遣自己。&lt;/li&gt;
+&lt;li&gt;一定要有很大的责任感，去写出好的东西，如果责任感还不够强，还要有一个罪恶感，你会觉得如果今天如果没有好好做几个小时的工作的话，会有很大的罪恶感。&lt;/li&gt;
+&lt;li&gt;一个卓越的大学、一个好的大学、一个好的学习环境，表示里面有一个共同关心的焦点，如果没有的话，这个学校就不可能成为好的大学。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id="待探索"&gt;待探索&lt;/h2&gt;
+&lt;p&gt;美国普林斯顿大学、英国剑桥大学、美国柏克莱大学&lt;/p&gt;
+&lt;p&gt;人文科学、社会科学、自然科学&lt;/p&gt;
+&lt;p&gt;蒋百里、傅斯年&lt;/p&gt;
+&lt;p&gt;Pavarotti&lt;/p&gt;
+&lt;h2 id="参考"&gt;参考&lt;/h2&gt;
+&lt;p&gt;&lt;a href="http://homepage.ntu.edu.tw/~ylwang2008/a-wangvonsen.pdf"&gt;王汎森，〈如果讓我重做一次研究生〉&lt;/a&gt;&lt;/p&gt;
+&lt;script type="text/javascript" src='https://yo3nglau.github.io/blogs/js/pdf-js/build/pdf.js'&gt;&lt;/script&gt;
+
+&lt;style&gt;
+ #embed-pdf-container {
+ position: relative;
+ width: 100%;
+ height: auto;
+ min-height: 20vh;
+ 
+ }
+ 
+ .pdf-canvas {
+ border: 1px solid black;
+ direction: ltr;
+ width: 100%;
+ height: auto;
+ display: none;
+ }
+ 
+ #the-canvas {
+ border: 1px solid black;
+ direction: ltr;
+ width: 100%;
+ height: auto;
+ display: none;
+ }
+ 
+ 
+ .pdf-loadingWrapper {
+ display: none;
+ justify-content: center;
+ align-items: center;
+ width: 100%;
+ height: 350px;
+ }
+ 
+ .pdf-loading {
+ display: inline-block;
+ width: 50px;
+ height: 50px;
+ border: 3px solid #d2d0d0;;
+ border-radius: 50%;
+ border-top-color: #383838;
+ animation: spin 1s ease-in-out infinite;
+ -webkit-animation: spin 1s ease-in-out infinite;
+ }
+ 
+ 
+ 
+ 
+ 
+ #overlayText {
+ word-wrap: break-word;
+ display: grid;
+ justify-content: end;
+ }
+ 
+ #overlayText a {
+ position: relative;
+ top: 10px;
+ right: 4px;
+ color: #000;
+ margin: auto;
+ background-color: #eeeeee;
+ padding: 0.3em 1em;
+ border: solid 2px;
+ border-radius: 12px;
+ border-color: #00000030;
+ text-decoration: none;
+ }
+ 
+ #overlayText svg {
+ height: clamp(1em, 2vw, 1.4em);
+ width: clamp(1em, 2vw, 1.4em);
+ }
+ 
+ 
+ 
+ @keyframes spin {
+ to { -webkit-transform: rotate(360deg); }
+ }
+ @-webkit-keyframes spin {
+ to { -webkit-transform: rotate(360deg); }
+ }
+ &lt;/style&gt;&lt;div class="embed-pdf-container" id="embed-pdf-container-5e751873"&gt;
+ &lt;div class="pdf-loadingWrapper" id="pdf-loadingWrapper-5e751873"&gt;
+ &lt;div class="pdf-loading" id="pdf-loading-5e751873"&gt;&lt;/div&gt;
+ &lt;/div&gt;
+ &lt;div id="overlayText"&gt;
+ &lt;a href="../../pdfs/%e5%a6%82%e6%9e%9c%e8%ae%93%e6%88%91%e9%87%8d%e5%81%9a%e4%b8%80%e6%ac%a1%e7%a0%94%e7%a9%b6%e7%94%9f_%e7%8e%8b%e6%b1%8e%e6%a3%ae.pdf" aria-label="Download" download&gt;
+ &lt;svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18"&gt;
+ &lt;path d="M9 13c.3 0 .5-.1.7-.3L15.4 7 14 5.6l-4 4V1H8v8.6l-4-4L2.6 7l5.7 5.7c.2.2.4.3.7.3zm-7 2h14v2H2z" /&gt;
+ &lt;/svg&gt;
+ &lt;/a&gt;
+ &lt;/div&gt;
+ &lt;canvas class="pdf-canvas" id="pdf-canvas-5e751873"&gt;&lt;/canvas&gt;
+&lt;/div&gt;
+
+&lt;div class="pdf-paginator" id="pdf-paginator-5e751873"&gt;
+ &lt;button id="pdf-prev-5e751873"&gt;Previous&lt;/button&gt;
+ &lt;button id="pdf-next-5e751873"&gt;Next&lt;/button&gt; &amp;nbsp; &amp;nbsp;
+ &lt;span&gt;
+ &lt;span class="pdf-pagenum" id="pdf-pagenum-5e751873"&gt;&lt;/span&gt; / &lt;span class="pdf-pagecount" id="pdf-pagecount-5e751873"&gt;&lt;/span&gt;
+ &lt;/span&gt;
+ &lt;a class="pdf-source" id="pdf-source-5e751873" href="../../pdfs/%e5%a6%82%e6%9e%9c%e8%ae%93%e6%88%91%e9%87%8d%e5%81%9a%e4%b8%80%e6%ac%a1%e7%a0%94%e7%a9%b6%e7%94%9f_%e7%8e%8b%e6%b1%8e%e6%a3%ae.pdf"&gt;[pdf]&lt;/a&gt;
+&lt;/div&gt;
+
+&lt;noscript&gt;
+View the PDF file &lt;a class="pdf-source" id="pdf-source-noscript-5e751873" href="../../pdfs/%e5%a6%82%e6%9e%9c%e8%ae%93%e6%88%91%e9%87%8d%e5%81%9a%e4%b8%80%e6%ac%a1%e7%a0%94%e7%a9%b6%e7%94%9f_%e7%8e%8b%e6%b1%8e%e6%a3%ae.pdf"&gt;here&lt;/a&gt;.
+&lt;/noscript&gt;
+
+&lt;script type="text/javascript"&gt;
+ (function(){
+ var url = '..\/..\/pdfs\/如果讓我重做一次研究生_王汎森.pdf';
+
+ var hidePaginator = "" === "true";
+ var hideLoader = "" === "true";
+ var selectedPageNum = parseInt("") || 1;
+
+ 
+ var pdfjsLib = window['pdfjs-dist/build/pdf'];
+
+ 
+ if (pdfjsLib.GlobalWorkerOptions.workerSrc == '')
+ pdfjsLib.GlobalWorkerOptions.workerSrc = "https:\/\/yo3nglau.github.io\/blogs\/" + 'js/pdf-js/build/pdf.worker.js';
+
+ 
+ var pdfDoc = null,
+ pageNum = selectedPageNum,
+ pageRendering = false,
+ pageNumPending = null,
+ scale = 3,
+ canvas = document.getElementById('pdf-canvas-5e751873'),
+ ctx = canvas.getContext('2d'),
+ paginator = document.getElementById("pdf-paginator-5e751873"),
+ loadingWrapper = document.getElementById('pdf-loadingWrapper-5e751873');
+
+
+ 
+ showPaginator();
+ showLoader();
+
+ 
+
+ function renderPage(num) {
+ pageRendering = true;
+ 
+ pdfDoc.getPage(num).then(function(page) {
+ var viewport = page.getViewport({scale: scale});
+ canvas.height = viewport.height;
+ canvas.width = viewport.width;
+
+ 
+ var renderContext = {
+ canvasContext: ctx,
+ viewport: viewport
+ };
+ var renderTask = page.render(renderContext);
+
+ 
+ renderTask.promise.then(function() {
+ pageRendering = false;
+ showContent();
+
+ if (pageNumPending !== null) {
+ 
+ renderPage(pageNumPending);
+ pageNumPending = null;
+ }
+ });
+ });
+
+ 
+ document.getElementById('pdf-pagenum-5e751873').textContent = num;
+ }
+
+ 
+
+ function showContent() {
+ loadingWrapper.style.display = 'none';
+ canvas.style.display = 'block';
+ }
+
+ 
+
+ function showLoader() {
+ if(hideLoader) return
+ loadingWrapper.style.display = 'flex';
+ canvas.style.display = 'none';
+ }
+
+ 
+
+ function showPaginator() {
+ if(hidePaginator) return
+ paginator.style.display = 'block';
+ }
+
+ 
+
+ function queueRenderPage(num) {
+ if (pageRendering) {
+ pageNumPending = num;
+ } else {
+ renderPage(num);
+ }
+ }
+
+ 
+
+ function onPrevPage() {
+ if (pageNum &lt;= 1) {
+ return;
+ }
+ pageNum--;
+ queueRenderPage(pageNum);
+ }
+ document.getElementById('pdf-prev-5e751873').addEventListener('click', onPrevPage);
+
+ 
+
+ function onNextPage() {
+ if (pageNum &gt;= pdfDoc.numPages) {
+ return;
+ }
+ pageNum++;
+ queueRenderPage(pageNum);
+ }
+ document.getElementById('pdf-next-5e751873').addEventListener('click', onNextPage);
+
+ 
+
+ pdfjsLib.getDocument(url).promise.then(function(pdfDoc_) {
+ pdfDoc = pdfDoc_;
+ var numPages = pdfDoc.numPages;
+ document.getElementById('pdf-pagecount-5e751873').textContent = numPages;
+
+ 
+ if(pageNum &gt; numPages) {
+ pageNum = numPages
+ }
+
+ 
+ renderPage(pageNum);
+ });
+ })();
+&lt;/script&gt;</description></item><item><title>Clear Specific Website Cache in Google Chrome</title><link>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</link><pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</guid><description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-07&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="method"&gt;Method&lt;/h2&gt;
+&lt;ol start="0"&gt;
+&lt;li&gt;
+&lt;p&gt;Press &lt;kbd&gt;F12&lt;/kbd&gt; to reach &lt;em&gt;developer toolbox&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Choose &lt;em&gt;Network&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;#x2705; Disable cache&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press and hold &lt;em&gt;reload button&lt;/em&gt; on the left top of Chrome&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Choose &lt;em&gt;Empty Cache and Hard Reload&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description></item><item><title>Categories and Tags in Blogs</title><link>https://yo3nglau.github.io/blogs/post/categories-and-tags-in-blogs/</link><pubDate>Mon, 22 May 2023 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/categories-and-tags-in-blogs/</guid><description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-04&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="tldr"&gt;TL;DR&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Categories&lt;/strong&gt; are broad topics that help you organize your blog posts, and help readers find the information they’re seeking on your site.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tags&lt;/strong&gt; are a simple way to drill down on the topic of any given blog post that’s part of a category.&lt;/p&gt;
+&lt;h2 id="description"&gt;Description&lt;/h2&gt;
+&lt;p&gt;These two words may be used interchangeably, but they are not the same thing. The difference is simple: A category is a broad topic you cover in your blog. It acts as the umbrella to a bunch of smaller topics. Blog tags are one small idea in an overarching topic.&lt;/p&gt;</description></item><item><title>About me</title><link>https://yo3nglau.github.io/blogs/about/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/about/</guid><description>&lt;h2 id="interest"&gt;Interest&lt;/h2&gt;
+&lt;p&gt;Artificial Intelligence for Healthcare&lt;/p&gt;
+&lt;h2 id="education"&gt;Education&lt;/h2&gt;
+&lt;p&gt;&lt;strong&gt;Tsinghua University&lt;/strong&gt;, Biomedical Engineering, Ph.D. Student, 2022 - Present&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Shandong University&lt;/strong&gt;, Computer Science and Technology, Bachelor of Engineering, 2018 – 2022&lt;/p&gt;
+&lt;h2 id="publications"&gt;Publications&lt;/h2&gt;
+&lt;p&gt;[1] &lt;strong&gt;Liu, Y.†&lt;/strong&gt;, Zhao, K.†, Luo, L., Zhang, Z., Qian, Z., Jiang, C., &amp;hellip; &amp;amp; Ji, J. (&lt;strong&gt;2025&lt;/strong&gt;). Diagnosing pathologic myopia by identifying morphologic patterns using ultra widefield images with deep learning. &lt;em&gt;&lt;strong&gt;NPJ Digital Medicine&lt;/strong&gt;&lt;/em&gt;. &lt;a href="https://doi.org/10.1038/s41746-025-01849-y"&gt;DOI&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;[2] &lt;strong&gt;Liu, Y.&lt;/strong&gt;, Zhong, X., Zhai, S., Du, Z., Gao, Z., Huang, Q., &amp;hellip; &amp;amp; Qin, P. (&lt;strong&gt;2023&lt;/strong&gt;). Prompt-enhanced hierarchical transformer elevating cardiopulmonary resuscitation instruction via temporal action segmentation. &lt;em&gt;&lt;strong&gt;Computers in biology and medicine&lt;/strong&gt;&lt;/em&gt;. &lt;a href="https://doi.org/10.1016/j.compbiomed.2023.107672"&gt;DOI&lt;/a&gt;&lt;/p&gt;</description></item></channel></rss>

@@ -1,19 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Temporal Action Detection on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/tags/temporal-action-detection/</link>
-    <description>Recent content in Temporal Action Detection on yo3nglau academic website</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/tags/temporal-action-detection/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Temporal Action Detection: Interview Questions and Answers</title>
-      <link>https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/</link>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;tad-fundamentals--detection-pipelines&#34;&gt;TAD Fundamentals &amp;amp; Detection Pipelines&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-how-does-temporal-action-detection-differ-from-action-recognition&#34;&gt;Q1 [Basic] How does Temporal Action Detection differ from Action Recognition?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What is Temporal Action Detection, and how does it differ from action recognition in both task formulation and difficulty?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Action Recognition operates on trimmed video clips where a single action occupies the entire clip. Given a short clip as input, the model outputs a single class label. The task assumes the action boundaries are already known and provided externally. This makes it primarily a classification problem over a fixed-duration input.&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Temporal Action Detection on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/tags/temporal-action-detection/</link><description>Recent content in Temporal Action Detection on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/tags/temporal-action-detection/index.xml" rel="self" type="application/rss+xml"/><item><title>Temporal Action Detection: Interview Questions and Answers</title><link>https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/</guid><description>&lt;h2 id="tad-fundamentals--detection-pipelines"&gt;TAD Fundamentals &amp;amp; Detection Pipelines&lt;/h2&gt;
+&lt;h3 id="q1-basic-how-does-temporal-action-detection-differ-from-action-recognition"&gt;Q1 [Basic] How does Temporal Action Detection differ from Action Recognition?&lt;/h3&gt;
+&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What is Temporal Action Detection, and how does it differ from action recognition in both task formulation and difficulty?&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Action Recognition operates on trimmed video clips where a single action occupies the entire clip. Given a short clip as input, the model outputs a single class label. The task assumes the action boundaries are already known and provided externally. This makes it primarily a classification problem over a fixed-duration input.&lt;/p&gt;</description></item></channel></rss>

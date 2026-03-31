@@ -1,26 +1,6 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Linux Command on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/tags/linux-command/</link>
-    <description>Recent content in Linux Command on yo3nglau academic website</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/tags/linux-command/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Common Shortcuts for the Linux Command Line</title>
-      <link>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</link>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Bash uses the GNU Readline library to handle command-line input. By default, it follows an Emacs-style keybinding scheme, which makes a rich set of shortcuts available for editing commands, navigating history, and controlling the terminal—without touching the mouse.&lt;/p&gt;&#xA;&lt;p&gt;This post covers the most useful shortcuts across five areas: cursor movement, text editing, command history, process and job control, and terminal control. A consolidated quick-reference table is provided at the end.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Long-Running Process Management with screen Command</title>
-      <link>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</link>
-      <pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;When managing long-running processes in a Linux environment, maintaining persistent terminal sessions becomes essential—especially when working over SSH connections. Accidental disconnections can interrupt tasks, terminate important jobs, and disrupt your workflow. This is where the &lt;code&gt;screen&lt;/code&gt; command proves invaluable. It allows users to create detachable terminal sessions that continue running even after the connection is closed.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;screen&lt;/code&gt; is a terminal multiplexer commonly used in Linux systems. It enables multiple shell sessions to run within a single terminal window. More importantly, it provides the ability to detach from a session without stopping the underlying processes, and later reattach to it seamlessly.&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Linux Command on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/tags/linux-command/</link><description>Recent content in Linux Command on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/tags/linux-command/index.xml" rel="self" type="application/rss+xml"/><item><title>Common Shortcuts for the Linux Command Line</title><link>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Bash uses the GNU Readline library to handle command-line input. By default, it follows an Emacs-style keybinding scheme, which makes a rich set of shortcuts available for editing commands, navigating history, and controlling the terminal—without touching the mouse.&lt;/p&gt;
+&lt;p&gt;This post covers the most useful shortcuts across five areas: cursor movement, text editing, command history, process and job control, and terminal control. A consolidated quick-reference table is provided at the end.&lt;/p&gt;</description></item><item><title>Long-Running Process Management with screen Command</title><link>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;When managing long-running processes in a Linux environment, maintaining persistent terminal sessions becomes essential—especially when working over SSH connections. Accidental disconnections can interrupt tasks, terminate important jobs, and disrupt your workflow. This is where the &lt;code&gt;screen&lt;/code&gt; command proves invaluable. It allows users to create detachable terminal sessions that continue running even after the connection is closed.&lt;/p&gt;
+&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;screen&lt;/code&gt; is a terminal multiplexer commonly used in Linux systems. It enables multiple shell sessions to run within a single terminal window. More importantly, it provides the ability to detach from a session without stopping the underlying processes, and later reattach to it seamlessly.&lt;/p&gt;</description></item></channel></rss>

@@ -1,19 +1,5 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Deep Learning on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/categories/deep-learning/</link>
-    <description>Recent content in Deep Learning on yo3nglau academic website</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Fri, 07 Nov 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/categories/deep-learning/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Diagnose Issues of Deep Learning Computing Performance</title>
-      <link>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</link>
-      <pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-10&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Training deep learning models can sometimes feel like waiting for water to boil—it tests your patience. When your model is training slower than expected, a systematic approach is key to identifying the bottleneck. Here is a step-by-step guide to diagnosing and fixing these performance issues.&lt;/p&gt;&#xA;&lt;h2 id=&#34;step-0-the-first-check---gpu-utilization&#34;&gt;Step 0: The First Check - GPU Utilization&lt;/h2&gt;&#xA;&lt;p&gt;Your first command should always be to check if the GPU is even being used.&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Deep Learning on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/categories/deep-learning/</link><description>Recent content in Deep Learning on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Fri, 07 Nov 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/categories/deep-learning/index.xml" rel="self" type="application/rss+xml"/><item><title>Diagnose Issues of Deep Learning Computing Performance</title><link>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</link><pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</guid><description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-10&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Training deep learning models can sometimes feel like waiting for water to boil—it tests your patience. When your model is training slower than expected, a systematic approach is key to identifying the bottleneck. Here is a step-by-step guide to diagnosing and fixing these performance issues.&lt;/p&gt;
+&lt;h2 id="step-0-the-first-check---gpu-utilization"&gt;Step 0: The First Check - GPU Utilization&lt;/h2&gt;
+&lt;p&gt;Your first command should always be to check if the GPU is even being used.&lt;/p&gt;</description></item></channel></rss>

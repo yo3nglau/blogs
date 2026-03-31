@@ -1,89 +1,56 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Computer Technology on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/categories/computer-technology/</link>
-    <description>Recent content in Computer Technology on yo3nglau academic website</description>
-    <generator>Hugo</generator>
-    <language>en-us</language>
-    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/categories/computer-technology/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Common Shortcuts for the Linux Command Line</title>
-      <link>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</link>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Bash uses the GNU Readline library to handle command-line input. By default, it follows an Emacs-style keybinding scheme, which makes a rich set of shortcuts available for editing commands, navigating history, and controlling the terminal—without touching the mouse.&lt;/p&gt;&#xA;&lt;p&gt;This post covers the most useful shortcuts across five areas: cursor movement, text editing, command history, process and job control, and terminal control. A consolidated quick-reference table is provided at the end.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Understanding hiberfil.sys in Windows</title>
-      <link>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</link>
-      <pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Windows relies on several hidden system files to deliver smooth user experiences, especially when managing power states. One of the most important among them is &lt;code&gt;hiberfil.sys&lt;/code&gt;, a file directly tied to the operating system’s Hibernate and Fast Startup features. Although it typically remains invisible to everyday users, knowing its purpose can help you manage disk space, optimize system behavior, and troubleshoot power-related issues.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-hiberfilsys&#34;&gt;What Is &lt;code&gt;hiberfil.sys&lt;/code&gt;?&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;hiberfil.sys&lt;/code&gt; is a system file used by Windows to store the contents of your system’s memory (RAM) when the machine enters &lt;strong&gt;Hibernate&lt;/strong&gt; mode. During hibernation, Windows saves the entire memory state—including open documents, running applications, and system context—to this file before shutting down. When the system powers back on, it restores the saved data and resumes exactly where you left off.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Add Application Shortcuts to the Start Menu in Windows</title>
-      <link>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</link>
-      <pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Keeping your Start menu organized is an easy way to boost your productivity and access your applications quickly. Whether you want to pin frequently used programs or create custom folders, Windows provides simple methods to add and manage Start menu shortcuts. This introductory guide walks you through the essentials in a clear and practical way.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-add-shortcuts-to-the-start-menu&#34;&gt;Why Add Shortcuts to the Start Menu?&lt;/h2&gt;&#xA;&lt;p&gt;The Start menu serves as the central hub for applications, system settings, and search. Adding your own shortcuts helps you:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Understanding pagefile.sys in Windows</title>
-      <link>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</link>
-      <pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Efficient memory management is essential for maintaining system stability and performance. In Windows, one of the core components enabling this is &lt;code&gt;pagefile.sys&lt;/code&gt;—a hidden system file that acts as an extension of your physical memory. Although it typically works silently in the background, understanding its purpose and proper configuration can help you optimize system performance and troubleshoot memory-related issues.&lt;/p&gt;&#xA;&lt;h2 id=&#34;what-is-pagefilesys&#34;&gt;What Is &lt;code&gt;pagefile.sys&lt;/code&gt;?&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;pagefile.sys&lt;/code&gt; is Windows’ &lt;strong&gt;virtual memory&lt;/strong&gt; file. When your system’s physical RAM is fully utilized, Windows uses this file as overflow space to temporarily store data that does not need to remain in active memory. By doing so, the operating system can continue running applications smoothly even when RAM usage peaks.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Mirrors for pip, conda, and uv</title>
-      <link>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</link>
-      <pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Efficient Python development often relies on fast and stable package downloads. Network latency or regional restrictions can slow down installations from default repositories. Configuring &lt;strong&gt;mirror sources&lt;/strong&gt; for &lt;code&gt;pip&lt;/code&gt; and &lt;code&gt;conda&lt;/code&gt; is a simple and powerful way to speed up package installations, improve reliability, and standardize environments.&lt;/p&gt;&#xA;&lt;p&gt;This post provides a concise introduction to why mirrors matter and how to configure, add, remove, and inspect them using practical commands.&lt;/p&gt;&#xA;&lt;h2 id=&#34;advantages-of-mirrors&#34;&gt;Advantages of Mirrors&lt;/h2&gt;&#xA;&lt;p&gt;Mirror sources are synchronized replicas of official package repositories. Common benefits include:&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>OpenBLAS vs. MKL NumPy</title>
-      <link>https://yo3nglau.github.io/blogs/post/openblas-vs.-mkl-numpy/</link>
-      <pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/openblas-vs.-mkl-numpy/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;When working with scientific computing or machine learning in Python, NumPy is one of the core dependencies for numerical operations. Behind the scenes, NumPy relies on optimized linear algebra libraries—primarily &lt;strong&gt;OpenBLAS&lt;/strong&gt; or &lt;strong&gt;Intel MKL (Math Kernel Library)&lt;/strong&gt;—to accelerate matrix multiplications, convolutions, decompositions, and other dense numerical routines.&#xA;This article provides a clear comparison between the OpenBLAS-based and MKL-based NumPy distributions, helping you make an informed choice for your development environment.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Fast Python Package and Project Management with uv</title>
-      <link>https://yo3nglau.github.io/blogs/post/fast-python-package-and-project-management-with-uv/</link>
-      <pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/fast-python-package-and-project-management-with-uv/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;In today’s Python ecosystem, managing dependencies, virtual environments, project configuration and publishing can involve a variety of tools—&lt;code&gt;pip&lt;/code&gt;, &lt;code&gt;virtualenv/venv&lt;/code&gt;, &lt;code&gt;pyenv&lt;/code&gt;, &lt;code&gt;poetry&lt;/code&gt;, &lt;code&gt;pip‑tools&lt;/code&gt;, and more. The tool &lt;code&gt;uv&lt;/code&gt; is designed to unify and simplify that workflow into a single high-performance solution.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;uv&lt;/code&gt; is an extremely fast Python package and project manager, written in &lt;code&gt;Rust&lt;/code&gt;.&#xA;It aims to serve as a drop-in replacement for &lt;code&gt;pip&lt;/code&gt; and related tooling, offering additional features such as managed virtual environments, Python version handling, universal lock-files, and project scaffolding.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Run TensorBoard on a Remote Server and View It Locally</title>
-      <link>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</link>
-      <pubDate>Tue, 11 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;When training machine learning models on remote servers, monitoring metrics such as loss, accuracy, and learning rate becomes essential. TensorBoard is a powerful visualization toolkit from TensorFlow that makes this possible. However, since training often takes place on remote machines without direct GUI access, developers must forward TensorBoard to their local browser. Fortunately, this is simple with secure SSH tunneling.&lt;/p&gt;&#xA;&lt;h2 id=&#34;why-run-tensorboard-remotely&#34;&gt;Why Run TensorBoard Remotely?&lt;/h2&gt;&#xA;&lt;p&gt;Many training workloads:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Require powerful GPUs only available on remote servers&lt;/li&gt;&#xA;&lt;li&gt;Run for long periods and need continuous observation&lt;/li&gt;&#xA;&lt;li&gt;Produce logs that are easiest to analyze visually&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;Instead of transferring logs back to your local machine, it is more efficient to stream the TensorBoard UI directly to your browser.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Long-Running Process Management with screen Command</title>
-      <link>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</link>
-      <pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</guid>
-      <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;When managing long-running processes in a Linux environment, maintaining persistent terminal sessions becomes essential—especially when working over SSH connections. Accidental disconnections can interrupt tasks, terminate important jobs, and disrupt your workflow. This is where the &lt;code&gt;screen&lt;/code&gt; command proves invaluable. It allows users to create detachable terminal sessions that continue running even after the connection is closed.&lt;/p&gt;&#xA;&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;code&gt;screen&lt;/code&gt; is a terminal multiplexer commonly used in Linux systems. It enables multiple shell sessions to run within a single terminal window. More importantly, it provides the ability to detach from a session without stopping the underlying processes, and later reattach to it seamlessly.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Diagnose Issues of Deep Learning Computing Performance</title>
-      <link>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</link>
-      <pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-10&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Training deep learning models can sometimes feel like waiting for water to boil—it tests your patience. When your model is training slower than expected, a systematic approach is key to identifying the bottleneck. Here is a step-by-step guide to diagnosing and fixing these performance issues.&lt;/p&gt;&#xA;&lt;h2 id=&#34;step-0-the-first-check---gpu-utilization&#34;&gt;Step 0: The First Check - GPU Utilization&lt;/h2&gt;&#xA;&lt;p&gt;Your first command should always be to check if the GPU is even being used.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Clear Specific Website Cache in Google Chrome</title>
-      <link>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</link>
-      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-07&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;method&#34;&gt;Method&lt;/h2&gt;&#xA;&lt;ol start=&#34;0&#34;&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Press &lt;kbd&gt;F12&lt;/kbd&gt; to reach &lt;em&gt;developer toolbox&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Choose &lt;em&gt;Network&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&amp;#x2705; Disable cache&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Press and hold &lt;em&gt;reload button&lt;/em&gt; on the left top of Chrome&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Choose &lt;em&gt;Empty Cache and Hard Reload&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Computer Technology on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/categories/computer-technology/</link><description>Recent content in Computer Technology on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/categories/computer-technology/index.xml" rel="self" type="application/rss+xml"/><item><title>Common Shortcuts for the Linux Command Line</title><link>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Bash uses the GNU Readline library to handle command-line input. By default, it follows an Emacs-style keybinding scheme, which makes a rich set of shortcuts available for editing commands, navigating history, and controlling the terminal—without touching the mouse.&lt;/p&gt;
+&lt;p&gt;This post covers the most useful shortcuts across five areas: cursor movement, text editing, command history, process and job control, and terminal control. A consolidated quick-reference table is provided at the end.&lt;/p&gt;</description></item><item><title>Understanding hiberfil.sys in Windows</title><link>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</link><pubDate>Fri, 21 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/understanding-hiberfil.sys-in-windows/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Windows relies on several hidden system files to deliver smooth user experiences, especially when managing power states. One of the most important among them is &lt;code&gt;hiberfil.sys&lt;/code&gt;, a file directly tied to the operating system’s Hibernate and Fast Startup features. Although it typically remains invisible to everyday users, knowing its purpose can help you manage disk space, optimize system behavior, and troubleshoot power-related issues.&lt;/p&gt;
+&lt;h2 id="what-is-hiberfilsys"&gt;What Is &lt;code&gt;hiberfil.sys&lt;/code&gt;?&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;hiberfil.sys&lt;/code&gt; is a system file used by Windows to store the contents of your system’s memory (RAM) when the machine enters &lt;strong&gt;Hibernate&lt;/strong&gt; mode. During hibernation, Windows saves the entire memory state—including open documents, running applications, and system context—to this file before shutting down. When the system powers back on, it restores the saved data and resumes exactly where you left off.&lt;/p&gt;</description></item><item><title>Add Application Shortcuts to the Start Menu in Windows</title><link>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</link><pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/add-application-shortcuts-to-the-start-menu-in-windows/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Keeping your Start menu organized is an easy way to boost your productivity and access your applications quickly. Whether you want to pin frequently used programs or create custom folders, Windows provides simple methods to add and manage Start menu shortcuts. This introductory guide walks you through the essentials in a clear and practical way.&lt;/p&gt;
+&lt;h2 id="why-add-shortcuts-to-the-start-menu"&gt;Why Add Shortcuts to the Start Menu?&lt;/h2&gt;
+&lt;p&gt;The Start menu serves as the central hub for applications, system settings, and search. Adding your own shortcuts helps you:&lt;/p&gt;</description></item><item><title>Understanding pagefile.sys in Windows</title><link>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</link><pubDate>Thu, 20 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/understanding-pagefile.sys-in-windows/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Efficient memory management is essential for maintaining system stability and performance. In Windows, one of the core components enabling this is &lt;code&gt;pagefile.sys&lt;/code&gt;—a hidden system file that acts as an extension of your physical memory. Although it typically works silently in the background, understanding its purpose and proper configuration can help you optimize system performance and troubleshoot memory-related issues.&lt;/p&gt;
+&lt;h2 id="what-is-pagefilesys"&gt;What Is &lt;code&gt;pagefile.sys&lt;/code&gt;?&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;pagefile.sys&lt;/code&gt; is Windows’ &lt;strong&gt;virtual memory&lt;/strong&gt; file. When your system’s physical RAM is fully utilized, Windows uses this file as overflow space to temporarily store data that does not need to remain in active memory. By doing so, the operating system can continue running applications smoothly even when RAM usage peaks.&lt;/p&gt;</description></item><item><title>Mirrors for pip, conda, and uv</title><link>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</link><pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/mirrors-for-pip-conda-and-uv/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Efficient Python development often relies on fast and stable package downloads. Network latency or regional restrictions can slow down installations from default repositories. Configuring &lt;strong&gt;mirror sources&lt;/strong&gt; for &lt;code&gt;pip&lt;/code&gt; and &lt;code&gt;conda&lt;/code&gt; is a simple and powerful way to speed up package installations, improve reliability, and standardize environments.&lt;/p&gt;
+&lt;p&gt;This post provides a concise introduction to why mirrors matter and how to configure, add, remove, and inspect them using practical commands.&lt;/p&gt;
+&lt;h2 id="advantages-of-mirrors"&gt;Advantages of Mirrors&lt;/h2&gt;
+&lt;p&gt;Mirror sources are synchronized replicas of official package repositories. Common benefits include:&lt;/p&gt;</description></item><item><title>OpenBLAS vs. MKL NumPy</title><link>https://yo3nglau.github.io/blogs/post/openblas-vs.-mkl-numpy/</link><pubDate>Sun, 16 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/openblas-vs.-mkl-numpy/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;When working with scientific computing or machine learning in Python, NumPy is one of the core dependencies for numerical operations. Behind the scenes, NumPy relies on optimized linear algebra libraries—primarily &lt;strong&gt;OpenBLAS&lt;/strong&gt; or &lt;strong&gt;Intel MKL (Math Kernel Library)&lt;/strong&gt;—to accelerate matrix multiplications, convolutions, decompositions, and other dense numerical routines.
+This article provides a clear comparison between the OpenBLAS-based and MKL-based NumPy distributions, helping you make an informed choice for your development environment.&lt;/p&gt;</description></item><item><title>Fast Python Package and Project Management with uv</title><link>https://yo3nglau.github.io/blogs/post/fast-python-package-and-project-management-with-uv/</link><pubDate>Wed, 12 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/fast-python-package-and-project-management-with-uv/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;In today’s Python ecosystem, managing dependencies, virtual environments, project configuration and publishing can involve a variety of tools—&lt;code&gt;pip&lt;/code&gt;, &lt;code&gt;virtualenv/venv&lt;/code&gt;, &lt;code&gt;pyenv&lt;/code&gt;, &lt;code&gt;poetry&lt;/code&gt;, &lt;code&gt;pip‑tools&lt;/code&gt;, and more. The tool &lt;code&gt;uv&lt;/code&gt; is designed to unify and simplify that workflow into a single high-performance solution.&lt;/p&gt;
+&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;uv&lt;/code&gt; is an extremely fast Python package and project manager, written in &lt;code&gt;Rust&lt;/code&gt;.
+It aims to serve as a drop-in replacement for &lt;code&gt;pip&lt;/code&gt; and related tooling, offering additional features such as managed virtual environments, Python version handling, universal lock-files, and project scaffolding.&lt;/p&gt;</description></item><item><title>Run TensorBoard on a Remote Server and View It Locally</title><link>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</link><pubDate>Tue, 11 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/run-tensorboard-on-a-remote-server-and-view-it-locally/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;When training machine learning models on remote servers, monitoring metrics such as loss, accuracy, and learning rate becomes essential. TensorBoard is a powerful visualization toolkit from TensorFlow that makes this possible. However, since training often takes place on remote machines without direct GUI access, developers must forward TensorBoard to their local browser. Fortunately, this is simple with secure SSH tunneling.&lt;/p&gt;
+&lt;h2 id="why-run-tensorboard-remotely"&gt;Why Run TensorBoard Remotely?&lt;/h2&gt;
+&lt;p&gt;Many training workloads:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Require powerful GPUs only available on remote servers&lt;/li&gt;
+&lt;li&gt;Run for long periods and need continuous observation&lt;/li&gt;
+&lt;li&gt;Produce logs that are easiest to analyze visually&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Instead of transferring logs back to your local machine, it is more efficient to stream the TensorBoard UI directly to your browser.&lt;/p&gt;</description></item><item><title>Long-Running Process Management with screen Command</title><link>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</link><pubDate>Mon, 10 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/long-running-process-management-with-screen-command/</guid><description>&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;When managing long-running processes in a Linux environment, maintaining persistent terminal sessions becomes essential—especially when working over SSH connections. Accidental disconnections can interrupt tasks, terminate important jobs, and disrupt your workflow. This is where the &lt;code&gt;screen&lt;/code&gt; command proves invaluable. It allows users to create detachable terminal sessions that continue running even after the connection is closed.&lt;/p&gt;
+&lt;h2 id="introduction"&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;screen&lt;/code&gt; is a terminal multiplexer commonly used in Linux systems. It enables multiple shell sessions to run within a single terminal window. More importantly, it provides the ability to detach from a session without stopping the underlying processes, and later reattach to it seamlessly.&lt;/p&gt;</description></item><item><title>Diagnose Issues of Deep Learning Computing Performance</title><link>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</link><pubDate>Fri, 07 Nov 2025 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/diagnose-issues-of-deep-learning-computing-performance/</guid><description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-10&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="preface"&gt;Preface&lt;/h2&gt;
+&lt;p&gt;Training deep learning models can sometimes feel like waiting for water to boil—it tests your patience. When your model is training slower than expected, a systematic approach is key to identifying the bottleneck. Here is a step-by-step guide to diagnosing and fixing these performance issues.&lt;/p&gt;
+&lt;h2 id="step-0-the-first-check---gpu-utilization"&gt;Step 0: The First Check - GPU Utilization&lt;/h2&gt;
+&lt;p&gt;Your first command should always be to check if the GPU is even being used.&lt;/p&gt;</description></item><item><title>Clear Specific Website Cache in Google Chrome</title><link>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</link><pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</guid><description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-07&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id="method"&gt;Method&lt;/h2&gt;
+&lt;ol start="0"&gt;
+&lt;li&gt;
+&lt;p&gt;Press &lt;kbd&gt;F12&lt;/kbd&gt; to reach &lt;em&gt;developer toolbox&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Choose &lt;em&gt;Network&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;#x2705; Disable cache&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Press and hold &lt;em&gt;reload button&lt;/em&gt; on the left top of Chrome&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Choose &lt;em&gt;Empty Cache and Hard Reload&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;</description></item></channel></rss>
