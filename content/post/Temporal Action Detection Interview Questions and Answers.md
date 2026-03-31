@@ -298,7 +298,7 @@ The advantages of Video-LLM approaches are substantial: open-vocabulary detectio
 - Lin et al., [BMN: Boundary-Matching Network for Temporal Action Proposal Generation](https://arxiv.org/abs/1907.09702) (2019)
 - Xu et al., [G-TAD: Sub-Graph Localization for Temporal Action Detection](https://arxiv.org/abs/1911.11462) (2020)
 - Zhang et al., [ActionFormer: Localizing Moments of Actions with Transformers](https://arxiv.org/abs/2202.07925) (2022)
-- Lei et al., [Moment-DETR: End-to-End Temporal Sentence Grounding with Transformers](https://arxiv.org/abs/2107.09609) (2021)
+- Lei et al., [QVHighlights: Detecting Moments and Highlights in Videos via Natural Language Queries](https://arxiv.org/abs/2107.09609) (2021)
 - Abu Farha and Gall, [MS-TCN: Multi-Stage Temporal Convolutional Network for Action Segmentation](https://arxiv.org/abs/1903.01945) (2019)
 - Yi et al., [ASFormer: Transformer for Action Segmentation](https://arxiv.org/abs/2110.08568) (2021)
 - Ren et al., [TimeChat: A Time-sensitive Multimodal Large Language Model for Long Video Understanding](https://arxiv.org/abs/2312.02051) (2024)
