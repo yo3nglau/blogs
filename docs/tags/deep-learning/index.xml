@@ -9,6 +9,13 @@
     <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Mamba and State Space Models: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/mamba-and-state-space-models-interview-questions-and-answers/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/mamba-and-state-space-models-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;ssm--mamba-fundamentals&#34;&gt;SSM &amp;amp; Mamba Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-what-is-a-state-space-model&#34;&gt;Q1 [Basic] What is a State Space Model?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What is a State Space Model (SSM) and how does it apply to sequence modeling?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; A State Space Model is a mathematical framework that maps an input sequence to an output sequence through a latent hidden state. In its continuous form, it is defined by two equations: a state equation dx/dt = Ax + Bu (describing how the hidden state evolves over time) and an output equation y = Cx + Du (describing how the output is generated from the state). Here, A is the state transition matrix, B maps inputs to state updates, C maps the state to outputs, and D is an optional skip connection.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Transformer and Vision Transformer: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/transformer-and-vision-transformer-interview-questions-and-answers/</link>
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
