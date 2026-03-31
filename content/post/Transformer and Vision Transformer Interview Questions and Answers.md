@@ -109,3 +109,53 @@ An important design choice is whether to apply LN before or after each sublayer 
 The Transformer eliminates this dependency. In Self-Attention, the output at every position is a function only of the input embeddings and the learned weight matrices — not of any previously computed hidden state. This means all n output representations can be computed simultaneously via matrix multiplication: Q = XW_Q, K = XW_K, V = XW_V, output = softmax(QK^T / sqrt(d_k))V. On modern GPUs and TPUs, these are highly optimized batched matrix operations.
 
 It is important to note that this parallelism applies only during training. At inference time, autoregressive Transformer decoders (GPT-style) must still generate tokens one at a time, since each new token depends on all previously generated tokens. Techniques like speculative decoding and parallel decoding attempt to recover some inference-time parallelism, and models like BERT that use the encoder only remain fully parallel at inference.
+
+---
+
+## Vision Transformer (ViT)
+
+### Q9 [Basic] How does Patch Embedding work in ViT?
+
+**Q:** How does ViT convert an image into a sequence of tokens?
+
+**A:** ViT (Dosovitskiy et al., 2020) divides the input image into a grid of non-overlapping fixed-size patches. For a 224×224 image with a patch size of 16×16, this produces (224/16)^2 = 196 patches. Each patch is flattened into a 1D vector of size 16×16×3 = 768 (for RGB images) and then linearly projected to the model dimension d_model using a learned weight matrix. This linear projection layer is the patch embedding.
+
+Learnable 1D position embeddings are added to each patch embedding to provide spatial information, since the Transformer itself is permutation invariant. The resulting sequence of 196 embedded patches, plus a prepended [CLS] token, is fed into the standard Transformer encoder.
+
+Conceptually, this design treats image patches as the equivalent of words in NLP: each patch is a "token," and the Transformer learns to model relationships between patches via Self-Attention. The patch size is a key hyperparameter — smaller patches give more tokens and finer granularity but increase sequence length quadratically.
+
+---
+
+### Q10 [Basic] What is the role of the [CLS] token in ViT?
+
+**Q:** What does the [CLS] token do in Vision Transformer?
+
+**A:** The [CLS] (classification) token is a learnable embedding prepended to the sequence of patch embeddings before the Transformer encoder. It does not correspond to any image patch. After the sequence passes through all Transformer layers, the [CLS] token's output representation is used as the global image representation and fed into the classification head (a linear layer or MLP) to produce the final prediction.
+
+The rationale is that through Self-Attention, the [CLS] token can attend to all patch tokens and aggregate information from the entire image. Because the [CLS] token has no fixed spatial meaning, it is free to learn to aggregate the most task-relevant information across all patches during training.
+
+This design was borrowed directly from BERT (Devlin et al., 2019), where the [CLS] token serves the same aggregation role for sentence-level classification. An alternative is global average pooling over all patch token outputs, which has been shown to perform comparably or better in some settings, but the [CLS] token design has remained standard in ViT.
+
+---
+
+### Q11 [Basic] Why does ViT require large amounts of training data?
+
+**Q:** Why does ViT typically need large-scale datasets to match CNN performance?
+
+**A:** CNNs incorporate strong inductive biases by design: convolutional filters enforce locality (each filter sees only a local patch), and weight sharing across spatial positions encodes translation equivariance. These biases are well-matched to natural images and allow CNNs to learn effective visual features from relatively small datasets.
+
+ViT, in contrast, has minimal inductive bias. Patch embeddings are flat and unstructured; the Self-Attention mechanism treats all patches equally and must learn from data alone that nearby patches tend to be more related than distant ones. Without enough data, ViT overfits and fails to learn the spatial structure that CNNs get for free from their architecture.
+
+The original ViT paper demonstrated this clearly: ViT trained on ImageNet-1k (1.2M images) underperforms ResNets, but when pretrained on ImageNet-21k (14M images) or JFT-300M (300M images), ViT matches or exceeds comparable CNNs. This data dependency is the primary practical limitation of pure ViT models, and has motivated data-efficient variants (DeiT) and self-supervised pretraining approaches (MAE, DINO).
+
+---
+
+### Q12 [Basic] What are the core differences between ViT and CNNs?
+
+**Q:** What are the fundamental architectural and behavioral differences between ViT and CNNs?
+
+**A:** The most fundamental difference is the receptive field. In a CNN, each neuron in early layers sees only a small local patch; the receptive field grows layer by layer. In ViT, every patch token attends to every other patch token from the very first layer — the receptive field is global from the start. This means ViT can capture long-range spatial dependencies that CNNs can only model in later, deeper layers.
+
+In terms of inductive biases, CNNs have locality (filters are spatially local), weight sharing (same filter applied across the image), and translation equivariance built in. ViT has none of these — it learns them from data. This makes ViT more flexible but more data-hungry.
+
+From a practical standpoint, CNNs tend to outperform ViTs when labeled data is limited, while ViTs become competitive or superior at scale (large datasets, large models). ViTs also scale more predictably with model size and data, following power-law scaling behavior similar to language models. Additionally, the Transformer architecture is more amenable to multi-modal extensions (e.g., combining image and text tokens in a unified sequence), which has made ViT the dominant backbone in modern vision-language models.
