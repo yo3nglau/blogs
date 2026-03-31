@@ -19,7 +19,7 @@ toc: true
 
 **A:** Self-Attention allows each token in a sequence to attend to every other token, enabling the model to capture dependencies regardless of distance. For each position, the mechanism computes a weighted sum of all values in the sequence, where the weights reflect how relevant each position is to the current one.
 
-The computation proceeds in three steps. First, each input embedding is projected into three vectors: a Query (Q), a Key (K), and a Value (V). Second, attention scores are computed as the dot product of Q with all Keys, scaled by the square root of the key dimension to prevent extremely small gradients: score = QK^T / sqrt(d_k). Third, these scores are passed through a softmax to obtain attention weights, which are then used to compute a weighted sum of the Values.
+The computation proceeds in three steps. First, each input embedding is projected into three vectors: a Query (Q), a Key (K), and a Value (V). Second, attention scores are computed as the dot product of Q with all Keys, scaled by the square root of the key dimension to prevent the softmax from saturating (without scaling, large dot products push softmax into regions with near-zero gradients): score = QK^T / sqrt(d_k). Third, these scores are passed through a softmax to obtain attention weights, which are then used to compute a weighted sum of the Values.
 
 The key advantage over recurrence is that all positions are processed simultaneously, and the model can directly access any position in the sequence with equal computational cost, making it highly effective for capturing long-range dependencies.
 
