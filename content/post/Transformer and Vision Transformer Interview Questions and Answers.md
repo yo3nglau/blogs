@@ -73,3 +73,39 @@ The alternating sine/cosine functions at different frequencies allow the model t
 The Decoder generates the output sequence autoregressively, one token at a time. It has three sublayers: a Masked Self-Attention layer (which prevents each position from attending to future positions, preserving the autoregressive property), a Cross-Attention layer (where the Queries come from the decoder and the Keys and Values come from the encoder output), and an FFN layer. The cross-attention allows the decoder to selectively focus on relevant parts of the input sequence at each generation step.
 
 In modern practice, many architectures use only the encoder (e.g., BERT for representation learning) or only the decoder (e.g., GPT for generation), since the original encoder-decoder design is primarily suited for sequence-to-sequence tasks like machine translation.
+
+---
+
+### Q6 [Advanced] What is the computational complexity of Self-Attention and how can it be optimized?
+
+**Q:** What is the time and space complexity of Self-Attention, and what approaches exist to reduce it?
+
+**A:** Standard Self-Attention has O(n^2 · d) time complexity and O(n^2) memory complexity, where n is the sequence length and d is the model dimension. The bottleneck is the attention matrix QK^T, which is n × n. For a sequence of 1,000 tokens, this is manageable; for 10,000 tokens (common in document processing or high-resolution images), the quadratic cost becomes prohibitive.
+
+Several approaches have been proposed to reduce this cost. Sparse attention methods (Longformer, BigBird) restrict each token to attend only to a subset of positions — for example, a local window plus a few global tokens — reducing complexity to O(n · w) where w is the window size. Linear attention approximations (Performer, Linear Transformer) reformulate the attention computation to avoid materializing the full n × n matrix, achieving O(n) complexity at the cost of some approximation.
+
+FlashAttention (Dao et al., 2022) is a hardware-aware exact attention implementation that computes attention in tiles to avoid loading the full attention matrix into GPU SRAM. It achieves O(n^2) time but O(n) memory and is 2-4× faster in practice due to reduced memory I/O — it has become the standard implementation in most modern frameworks. For vision, Swin Transformer addresses the quadratic cost by computing attention within fixed local windows rather than globally.
+
+---
+
+### Q7 [Advanced] Why does the Transformer use Layer Normalization instead of Batch Normalization?
+
+**Q:** What is the reason Transformers use Layer Normalization rather than Batch Normalization?
+
+**A:** Batch Normalization normalizes across the batch dimension, computing mean and variance statistics over a mini-batch for each feature. This works well for fixed-size inputs in computer vision (e.g., image classification) but has two problems in the Transformer setting: first, sequences in NLP have variable lengths, making it difficult to define a consistent batch-level statistic; second, with small batch sizes — common in large-model training — BN statistics become noisy and unstable.
+
+Layer Normalization instead normalizes across the feature dimension for each individual sample, independent of the batch. This means the statistics are computed per token, making it robust to variable sequence lengths and batch size. The normalization is: LN(x) = (x - μ) / σ · γ + β, where μ and σ are computed over the d_model features of that single token.
+
+An important design choice is whether to apply LN before or after each sublayer (Pre-LN vs Post-LN). The original Transformer paper uses Post-LN (apply after residual addition), which can lead to unstable gradients in deep networks. Pre-LN (apply before the sublayer, inside the residual branch) has been shown empirically and theoretically to produce more stable gradient flow, and is now standard in most modern Transformer implementations including GPT-2 and onward.
+
+---
+
+### Q8 [Advanced] Why do Transformers parallelize better than RNNs during training?
+
+**Q:** What architectural property makes Transformers more parallelizable than RNNs during training?
+
+**A:** RNNs have a fundamental sequential dependency: the hidden state h_t is computed from h_{t-1} and the current input x_t. This means the computation at position t cannot begin until position t-1 is complete, making it impossible to parallelize across time steps. For a sequence of length n, this creates a critical path of n sequential operations regardless of hardware.
+
+The Transformer eliminates this dependency. In Self-Attention, the output at every position is a function only of the input embeddings and the learned weight matrices — not of any previously computed hidden state. This means all n output representations can be computed simultaneously via matrix multiplication: Q = XW_Q, K = XW_K, V = XW_V, output = softmax(QK^T / sqrt(d_k))V. On modern GPUs and TPUs, these are highly optimized batched matrix operations.
+
+It is important to note that this parallelism applies only during training. At inference time, autoregressive Transformer decoders (GPT-style) must still generate tokens one at a time, since each new token depends on all previously generated tokens. Techniques like speculative decoding and parallel decoding attempt to recover some inference-time parallelism, and models like BERT that use the encoder only remain fully parallel at inference.
