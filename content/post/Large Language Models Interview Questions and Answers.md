@@ -194,3 +194,103 @@ PagedAttention (Kwon et al., 2023), implemented in vLLM, is an essential complem
 FlashAttention (Dao et al., 2022) restructures the attention computation to avoid materializing the full n × n matrix. It processes the query, key, and value matrices in tiles that fit in the GPU's fast on-chip SRAM. Within each tile, it computes partial attention scores, applies a numerically stable online softmax, and accumulates the weighted value sum — all without writing intermediate results to HBM. The full output is assembled from these tiles using the online softmax normalization trick. This reduces HBM memory usage from O(n^2) to O(n) while keeping the computation mathematically exact (no approximation). FlashAttention-2 (2023) further improves GPU utilization through better work partitioning across thread blocks, achieving near-peak arithmetic throughput on A100 GPUs.
 
 In LLM training, FlashAttention is critical for long-context training: it makes 32K–128K context lengths feasible on standard GPU clusters that could not otherwise fit the attention matrices in memory. In inference, FlashAttention reduces memory pressure during the prefill phase (processing the input prompt), where all prompt tokens are attended over simultaneously. For the decode phase (generating one token at a time), the attention pattern is a single row of the attention matrix (new token attending to all cached keys), which FlashDecoding parallelizes more efficiently than the original FlashAttention. These optimizations collectively make long-context LLM inference practical at production scale.
+
+---
+
+## Applications & Engineering
+
+### Q16 [Basic] What is Retrieval-Augmented Generation (RAG) and what problems does it solve?
+
+**Q:** What is RAG, how does it work, and what advantages does it offer over a standard LLM?
+
+**A:** Retrieval-Augmented Generation (RAG, Lewis et al., 2020) is an architecture that augments an LLM's generation with information retrieved from an external knowledge base at inference time. The standard pipeline has three components: an offline indexing stage that encodes a document corpus into dense vector embeddings (using a separate encoder model) and stores them in a vector database; an online retrieval stage that encodes the user's query into the same embedding space and retrieves the top-k most similar document chunks using approximate nearest-neighbor search; and a generation stage where the retrieved chunks are prepended to the prompt, giving the LLM relevant context before it generates its answer.
+
+RAG solves several fundamental limitations of standalone LLMs. First, it addresses the knowledge cutoff: LLM weights encode knowledge only up to their training date, while a RAG system's retrieval index can be updated in real time with new documents. Second, it reduces hallucination on factual queries by grounding the model's response in retrieved evidence — the model generates based on documents it can "see" in context rather than relying on imprecisely memorized facts. Third, it enables specialization to proprietary or domain-specific knowledge that was not present in public training data, without requiring expensive fine-tuning.
+
+The retrieval quality is the critical bottleneck: RAG is only as good as the documents it retrieves and the chunking strategy used to split them. Sparse retrieval (BM25, TF-IDF) works well for keyword-heavy queries; dense retrieval (DPR, E5, BGE embeddings) handles semantic similarity better. Hybrid retrieval combines both. Re-ranking retrieved chunks with a cross-encoder before passing them to the LLM further improves precision. Chunking strategy — how documents are split into retrievable pieces — significantly affects whether the relevant information is captured in a single chunk or split across multiple.
+
+---
+
+### Q17 [Basic] What are the core techniques in prompt engineering?
+
+**Q:** What are the most important prompt engineering techniques and when should each be used?
+
+**A:** Prompt engineering refers to the design of inputs to an LLM to elicit better outputs without modifying the model's weights. The most fundamental distinction is between zero-shot prompting (providing only a task description with no examples) and few-shot prompting (including 2–8 input-output examples in the prompt). Few-shot prompting reliably improves performance on tasks where the desired format or reasoning style is not obvious from a task description alone, and the specific examples chosen matter significantly — examples that are diverse and representative of the target distribution consistently outperform random selections.
+
+Chain-of-Thought (CoT) prompting (Wei et al., 2022) dramatically improves performance on reasoning tasks by including intermediate reasoning steps in either the few-shot examples or by adding "Let's think step by step" to a zero-shot prompt. CoT is effective because it forces the model to allocate tokens to intermediate reasoning rather than jumping directly to an answer — the model "thinks" by generating reasoning text that conditions its final output. Self-consistency (Wang et al., 2022) extends CoT by sampling multiple independent reasoning chains and taking a majority vote over their final answers, further improving accuracy on tasks with deterministic answers.
+
+Structural techniques include role prompting ("You are an expert data scientist"), output format specification (instructing the model to respond in JSON, bullet points, or a specific template), and explicit constraint statements ("Answer in 3 sentences or fewer"). For complex multi-step tasks, it is often more effective to decompose the task into a sequence of simpler prompts with verification steps between them (prompt chaining) rather than attempting everything in one prompt. A practical guideline is to start with a clear, direct task description — most prompt engineering failures stem from ambiguous instructions rather than missing tricks.
+
+---
+
+### Q18 [Advanced] How do LLM-based agents use tools and planning?
+
+**Q:** What are LLM agents, how do they use external tools, and what are the main architectural patterns?
+
+**A:** An LLM agent is a system where an LLM serves as the central reasoning engine, iteratively deciding what actions to take, executing those actions via external tools, and updating its plan based on the results. Unlike a single-turn LLM call, an agent operates in a loop: observe current state → reason about what to do → call a tool → observe the tool's result → reason again. This loop continues until the agent determines the task is complete or a stopping condition is reached.
+
+Tool use is enabled through function calling (native to models like GPT-4 and Claude) or structured output prompting. The LLM is given a description of available tools (e.g., web search, code execution, database queries, calculator, API calls) in its system prompt. When it decides a tool is needed, it outputs a structured call specifying the tool name and arguments; an orchestration layer executes the call and returns the result as a new observation in the context. This enables agents to access real-time information, execute code, read and write files, and interact with external services — capabilities far beyond what the LLM's weights alone can provide.
+
+ReAct (Yao et al., 2022) is the dominant planning pattern: the model alternates between Thought (reasoning about the current state) and Action (selecting a tool call), with Observation (the tool result) appended after each action. This interleaving of reasoning and action allows the model to adapt its plan based on what it observes. For complex, multi-step tasks, the main failure modes are error accumulation (a mistake in an early step compounds in later steps), hallucinated tool calls (the model generates plausible-looking but incorrect tool arguments), and getting stuck in reasoning loops. Mitigations include explicit verification steps, structured output schemas that constrain tool call formats, and human-in-the-loop confirmation for high-stakes actions.
+
+---
+
+### Q19 [Advanced] What are the limitations of RAG and how does it compare to long-context LLMs?
+
+**Q:** What are RAG's main failure modes, and when is a long-context LLM a better choice than RAG?
+
+**A:** RAG's most fundamental limitation is retrieval quality: if the correct document chunk is not retrieved, the LLM cannot generate the right answer regardless of its capabilities. Retrieval fails when the query's semantics are poorly matched by the embedding space (especially for complex, multi-hop questions), when the relevant information is spread across multiple chunks that are not retrieved together, or when the chunking strategy cuts across the boundaries of the relevant information. For tasks requiring synthesis across many documents (e.g., "What are all the risks mentioned across these 50 reports?"), RAG's top-k retrieval fundamentally cannot surface all relevant content simultaneously.
+
+Long-context LLMs (with 128K–1M token context windows) offer an alternative: load the entire knowledge base or all relevant documents directly into the context, eliminating retrieval entirely. This avoids retrieval errors, naturally handles multi-document reasoning, and simplifies the pipeline significantly. However, it scales poorly: at 128K tokens, a single inference call processes 128,000 tokens regardless of whether most of them are relevant, which is expensive both in compute and in the "lost in the middle" problem — models attend poorly to information in the middle of very long contexts even when they nominally support the context length.
+
+The practical choice depends on the knowledge base size and query type. For knowledge bases of tens to hundreds of documents, long-context LLMs are increasingly practical and often outperform RAG on multi-document reasoning tasks. For knowledge bases of thousands to millions of documents, RAG remains necessary for scalability. Hybrid approaches — use RAG to retrieve a candidate set, then use a long-context LLM to reason over all retrieved chunks simultaneously — combine the scalability of retrieval with the reasoning quality of full-context attention and represent the current state of the art for complex knowledge-intensive tasks.
+
+---
+
+### Q20 [Advanced] What causes LLM hallucinations and how can they be mitigated?
+
+**Q:** Why do LLMs hallucinate, and what are the most effective strategies for reducing hallucination?
+
+**A:** Hallucination — the generation of plausible-sounding but factually incorrect or unsupported content — arises from several distinct mechanisms. The most fundamental is that LLMs are trained to produce fluent, contextually appropriate text, not to be accurate: the training objective (next-token prediction) rewards producing text that looks like human writing, not text that is verifiably true. When a model's pretraining data contains incorrect or conflicting information, or when the model has not memorized a fact reliably (because it appeared rarely in training data), the model may confabulate a plausible-sounding answer rather than expressing uncertainty.
+
+Hallucination also arises from the decoding process: higher temperature sampling introduces randomness that can lead the model away from its highest-probability (and typically most reliable) completions. Beam search or greedy decoding reduces this randomness but does not eliminate hallucination caused by the model's knowledge gaps. Additionally, models tend to be overconfident — they often express incorrect statements with the same fluency and confidence as correct ones, because training data does not systematically pair uncertain claims with uncertainty markers.
+
+Effective mitigation strategies span architecture, training, and inference. Grounding via RAG is the most reliable approach for factual queries: if the answer comes from a retrieved document, the model can be instructed to only state what is explicitly supported by the context ("answer only based on the provided documents"), dramatically reducing factual hallucination. RLHF with factuality rewards can train models to prefer accurate, hedged responses over confident-sounding incorrect ones. At inference time, self-consistency sampling (generate multiple responses and select the majority answer) reduces hallucination on factual questions with deterministic answers. Uncertainty quantification approaches — asking the model to assess its own confidence or generating multiple samples and measuring agreement — can identify when the model is likely hallucinating, even if they cannot always correct it. For production systems, the most reliable strategy combines RAG for grounding, careful instruction design that asks models to cite sources and express uncertainty, and output validation where answers are verified against retrieved evidence.
+
+---
+
+## Quick Reference
+
+| # | Difficulty | Topic | Section |
+|---|------------|-------|---------|
+| Q1 | Basic | Pretraining objective (next token prediction) | Pretraining & Architecture |
+| Q2 | Basic | Scaling Laws | Pretraining & Architecture |
+| Q3 | Basic | Positional encoding: RoPE vs ALiBi vs absolute | Pretraining & Architecture |
+| Q4 | Advanced | Long-context extension | Pretraining & Architecture |
+| Q5 | Advanced | Mixture of Experts (MoE) | Pretraining & Architecture |
+| Q6 | Basic | Supervised Fine-Tuning (SFT) | Alignment & Fine-tuning |
+| Q7 | Basic | RLHF pipeline | Alignment & Fine-tuning |
+| Q8 | Basic | Direct Preference Optimization (DPO) | Alignment & Fine-tuning |
+| Q9 | Advanced | RLHF challenges and limitations | Alignment & Fine-tuning |
+| Q10 | Advanced | Alignment tax and RLHF vs DPO | Alignment & Fine-tuning |
+| Q11 | Basic | KV Cache | Inference & Efficiency |
+| Q12 | Basic | Model quantization (INT8/INT4) | Inference & Efficiency |
+| Q13 | Basic | Speculative decoding | Inference & Efficiency |
+| Q14 | Advanced | Continuous batching | Inference & Efficiency |
+| Q15 | Advanced | FlashAttention in LLM inference | Inference & Efficiency |
+| Q16 | Basic | Retrieval-Augmented Generation (RAG) | Applications & Engineering |
+| Q17 | Basic | Prompt engineering techniques | Applications & Engineering |
+| Q18 | Advanced | LLM agents: tool use and planning | Applications & Engineering |
+| Q19 | Advanced | RAG limitations and long context vs RAG | Applications & Engineering |
+| Q20 | Advanced | Hallucination: causes and mitigation | Applications & Engineering |
+
+## Resources
+
+- Kaplan et al., [Scaling Laws for Neural Language Models](https://arxiv.org/abs/2001.08361) (2020)
+- Hoffmann et al., [Training Compute-Optimal Large Language Models](https://arxiv.org/abs/2203.15556) (Chinchilla, 2022)
+- Ouyang et al., [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155) (InstructGPT, 2022)
+- Rafailov et al., [Direct Preference Optimization: Your Language Model is Secretly a Reward Model](https://arxiv.org/abs/2305.18290) (DPO, 2023)
+- Su et al., [RoFormer: Enhanced Transformer with Rotary Position Embedding](https://arxiv.org/abs/2104.09864) (RoPE, 2021)
+- Press et al., [Train Short, Test Long: Attention with Linear Biases Enables Input Length Extrapolation](https://arxiv.org/abs/2108.12409) (ALiBi, 2022)
+- Dao et al., [FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning](https://arxiv.org/abs/2307.08691) (2023)
+- Lewis et al., [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401) (RAG, 2020)
