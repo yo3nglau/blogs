@@ -9,6 +9,13 @@
     <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Deep Learning</title>
+      <link>https://yo3nglau.github.io/blogs/tags/deep-learning/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Guide</title>
       <link>https://yo3nglau.github.io/blogs/tags/guide/</link>
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
@@ -20,6 +27,20 @@
       <link>https://yo3nglau.github.io/blogs/tags/linux-command/</link>
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/tags/linux-command/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Transformer</title>
+      <link>https://yo3nglau.github.io/blogs/tags/transformer/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/tags/transformer/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vision Transformer</title>
+      <link>https://yo3nglau.github.io/blogs/tags/vision-transformer/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/tags/vision-transformer/</guid>
       <description></description>
     </item>
     <item>

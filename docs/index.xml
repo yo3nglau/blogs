@@ -16,6 +16,13 @@
       <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Bash uses the GNU Readline library to handle command-line input. By default, it follows an Emacs-style keybinding scheme, which makes a rich set of shortcuts available for editing commands, navigating history, and controlling the terminal—without touching the mouse.&lt;/p&gt;&#xA;&lt;p&gt;This post covers the most useful shortcuts across five areas: cursor movement, text editing, command history, process and job control, and terminal control. A consolidated quick-reference table is provided at the end.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Transformer and Vision Transformer: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/transformer-and-vision-transformer-interview-questions-and-answers/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/transformer-and-vision-transformer-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;transformer-fundamentals&#34;&gt;Transformer Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-what-is-the-self-attention-mechanism&#34;&gt;Q1 [Basic] What is the Self-Attention mechanism?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Can you explain what the Self-Attention mechanism is and how it works?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Self-Attention allows each token in a sequence to attend to every other token, enabling the model to capture dependencies regardless of distance. For each position, the mechanism computes a weighted sum of all values in the sequence, where the weights reflect how relevant each position is to the current one.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>滕王阁序</title>
       <link>https://yo3nglau.github.io/blogs/post/%E6%BB%95%E7%8E%8B%E9%98%81%E5%BA%8F/</link>
       <pubDate>Tue, 25 Nov 2025 00:00:00 +0000</pubDate>
