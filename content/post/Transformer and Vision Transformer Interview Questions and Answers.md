@@ -195,3 +195,103 @@ The key architectural innovation is the distillation token. Alongside the [CLS] 
 Swin partitions the image into non-overlapping local windows of fixed size (e.g., 7×7 patches) and computes Self-Attention only within each window. If the image has N patches and each window has M patches, the complexity drops from O(N^2) to O(N · M), which is linear in image size for fixed M. This makes high-resolution processing feasible.
 
 The "shifted window" mechanism addresses the limitation that attention within fixed windows creates no cross-window communication. In alternating Transformer layers, Swin shifts the window partition by half a window size in both height and width directions. This causes windows from the previous layer to straddle window boundaries in the current layer, allowing indirect information flow between adjacent windows. To maintain efficiency, shifted windows that cross image boundaries are handled with a cyclic shifting and masking trick rather than padding. Swin also uses patch merging layers (similar to CNN pooling) to progressively reduce spatial resolution and double channel dimensions, producing the hierarchical feature maps needed for dense prediction.
+
+---
+
+## Comparison and Integration
+
+### Q16 [Basic] When should you choose ViT over CNN, and vice versa?
+
+**Q:** In practice, how do you decide between a ViT-based and a CNN-based architecture?
+
+**A:** The primary factor is dataset size. CNNs are generally preferred when labeled data is limited (tens of thousands to a few hundred thousand images), because their inductive biases allow effective learning from fewer examples. ViT models, lacking these biases, tend to underfit or require more regularization in low-data regimes. For datasets at the scale of ImageNet-1k and below, strong CNN baselines (EfficientNet, ConvNeXt) often remain competitive.
+
+When large amounts of labeled data or large-scale pretraining is available, ViT-based models tend to match or exceed CNNs, and their scaling behavior is more predictable. For tasks requiring global context — such as reasoning about relationships between distant regions of an image — Transformer-based models often have a structural advantage.
+
+Task type also matters. For dense prediction tasks (object detection, semantic segmentation), hierarchical architectures like Swin Transformer are generally preferred over plain ViT because they produce multi-scale feature maps that detection and segmentation heads are designed to consume. For pure image classification or multi-modal tasks (combining images with text), ViT is often the natural choice. In resource-constrained settings, lightweight CNN variants (MobileNet) may still outperform compact ViT variants in terms of accuracy per compute.
+
+---
+
+### Q17 [Basic] How does Transformer usage differ between NLP and computer vision?
+
+**Q:** What are the key similarities and differences in how Transformers are applied in NLP versus CV?
+
+**A:** The core Transformer architecture — Multi-Head Attention, Feed-Forward layers, residual connections, Layer Norm — is identical in both domains. The fundamental difference lies in tokenization: in NLP, tokens are words or subword units (e.g., from BPE or WordPiece tokenization), forming a naturally 1D sequence. In CV, ViT tokenizes by splitting the 2D image into patches, flattening them, and projecting them linearly — a less natural discretization that discards some spatial structure.
+
+Positional encoding is more straightforward in NLP because sequences are inherently 1D. In CV, 2D positional information must be encoded, and several approaches exist: 1D learned embeddings over the flattened patch sequence (original ViT), 2D sinusoidal encodings, or relative positional biases (as in Swin Transformer). The choice affects how well the model generalizes to different image resolutions.
+
+Large-scale pretraining is important in both domains, but the modalities differ. NLP pretraining uses tasks like masked language modeling (BERT) or autoregressive next-token prediction (GPT). CV pretraining uses masked image modeling (MAE masks 75% of patches and reconstructs pixel values), contrastive learning (CLIP aligns image and text representations), or self-distillation (DINO). The scaling laws observed in NLP — where more data, more parameters, and more compute consistently improve performance — appear to hold in CV as well, particularly for ViT-based models.
+
+---
+
+### Q18 [Advanced] What is the motivation for hybrid CNN + Transformer architectures?
+
+**Q:** Why do hybrid architectures combining CNN and Transformer components exist, and what problems do they solve?
+
+**A:** Hybrid architectures aim to combine the complementary strengths of CNNs and Transformers. CNNs are efficient at extracting local features: convolutional layers capture edge, texture, and shape information with strong inductive biases and are data-efficient. Transformers are effective at modeling global relationships and long-range dependencies. Using a CNN as the feature extractor and a Transformer as the global reasoner can outperform either alone, especially when training data is limited.
+
+In practice, this often means using CNN layers (or CNN blocks like ResNet stages) to process the raw image and produce a feature map, then applying Transformer layers on top of the spatially flattened or pooled features. This reduces the sequence length fed to the Transformer (since the CNN has already spatially downsampled the image), making attention computationally feasible even at high resolutions. Examples include CvT (Convolutional Vision Transformer), CoAtNet (Convolution + Attention), and EfficientFormer.
+
+Hybrid architectures also tend to inherit the CNN's inductive biases implicitly: because the CNN has already learned locality and translation equivariance in its features, the Transformer does not need to rediscover these from scratch. This makes hybrid models more data-efficient than pure ViT while retaining the global modeling capability of the Transformer. As pure ViT models have improved with better training recipes and larger datasets, the gap between hybrid and pure Transformer approaches has narrowed, but hybrids remain practical in compute- and data-constrained scenarios.
+
+---
+
+### Q19 [Advanced] What are the limitations of Self-Attention?
+
+**Q:** What are the main limitations or weaknesses of the Self-Attention mechanism?
+
+**A:** The most significant limitation is quadratic computational complexity with respect to sequence length. Computing the attention matrix requires O(n^2) operations and O(n^2) memory, which becomes a bottleneck for long sequences (long documents in NLP, high-resolution images in CV). While approximate or sparse attention methods can reduce this, they often trade accuracy for efficiency or require specialized hardware kernels (e.g., FlashAttention) to be practical.
+
+Self-Attention lacks inherent locality or spatial structure. While this can be a strength (global receptive field from layer 1), it is also a weakness in low-data regimes where spatial inductive biases would aid generalization. The model must learn from data that neighboring patches are correlated — information that a convolutional layer encodes for free.
+
+Positional encoding generalization is another limitation. Standard sinusoidal or learned position embeddings do not naturally generalize to sequence lengths longer than those seen during training. For NLP, this means models may degrade on long documents; for CV, models trained on 224×224 images may not transfer cleanly to 512×512 inference. Solutions like Rotary Position Embedding (RoPE) and ALiBi provide better length generalization but add complexity.
+
+Finally, Self-Attention can be difficult to interpret. While attention weights are sometimes used as explanations, research has shown that attention weights do not reliably correspond to feature importance, making mechanistic interpretability challenging.
+
+---
+
+### Q20 [Advanced] How does large-scale pretraining affect ViT performance?
+
+**Q:** How does pretraining dataset scale and self-supervised pretraining affect ViT?
+
+**A:** ViT performance scales strongly and predictably with pretraining data size. The original ViT paper showed that ViT-L/16 pretrained on JFT-300M (300M images) significantly outperforms the same model pretrained on ImageNet-21k (14M images), which in turn outperforms training on ImageNet-1k alone. This scaling behavior is more pronounced for ViT than for CNNs, suggesting that the Transformer architecture has higher capacity to absorb and leverage large datasets.
+
+Self-supervised pretraining has become a major focus for ViT. MAE (Masked Autoencoder, He et al., 2022) applies a simple pretraining task: randomly mask 75% of image patches and train the model to reconstruct the masked patches at the pixel level. Crucially, the encoder only processes the 25% visible patches (greatly reducing compute), and a lightweight decoder reconstructs the full image. MAE-pretrained ViT models transfer strongly to downstream tasks and scale efficiently to very large model sizes (ViT-H with 632M parameters).
+
+DINO (Caron et al., 2021) uses self-supervised knowledge distillation: a student ViT is trained to match the output of a momentum-updated teacher ViT on different augmented views of the same image, without any labels. DINO features exhibit remarkable properties — they produce semantically meaningful attention maps that cleanly segment objects without any segmentation supervision, and they transfer well to tasks like image retrieval and video segmentation. These self-supervised methods reduce ViT's dependence on large labeled datasets and have made ViT pretraining accessible without proprietary labeled data at JFT scale.
+
+---
+
+## Quick Reference
+
+| # | Difficulty | Topic | Section |
+|---|------------|-------|---------|
+| Q1 | Basic | Self-Attention mechanism | Transformer Fundamentals |
+| Q2 | Basic | Query, Key, Value | Transformer Fundamentals |
+| Q3 | Basic | Multi-Head Attention | Transformer Fundamentals |
+| Q4 | Basic | Positional Encoding | Transformer Fundamentals |
+| Q5 | Basic | Encoder vs Decoder | Transformer Fundamentals |
+| Q6 | Advanced | Attention complexity and optimization | Transformer Fundamentals |
+| Q7 | Advanced | Layer Norm vs Batch Norm | Transformer Fundamentals |
+| Q8 | Advanced | Transformer vs RNN parallelism | Transformer Fundamentals |
+| Q9 | Basic | Patch Embedding | Vision Transformer (ViT) |
+| Q10 | Basic | [CLS] token | Vision Transformer (ViT) |
+| Q11 | Basic | ViT data requirements | Vision Transformer (ViT) |
+| Q12 | Basic | ViT vs CNN core differences | Vision Transformer (ViT) |
+| Q13 | Advanced | Inductive bias in ViT | Vision Transformer (ViT) |
+| Q14 | Advanced | DeiT: data-efficient training | Vision Transformer (ViT) |
+| Q15 | Advanced | Swin Transformer shifted windows | Vision Transformer (ViT) |
+| Q16 | Basic | When to choose ViT vs CNN | Comparison and Integration |
+| Q17 | Basic | Transformer in NLP vs CV | Comparison and Integration |
+| Q18 | Advanced | Hybrid CNN + Transformer | Comparison and Integration |
+| Q19 | Advanced | Limitations of Self-Attention | Comparison and Integration |
+| Q20 | Advanced | Large-scale pretraining for ViT | Comparison and Integration |
+
+## Resources
+
+- Vaswani et al., [Attention Is All You Need](https://arxiv.org/abs/1706.03762) (2017)
+- Dosovitskiy et al., [An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale](https://arxiv.org/abs/2010.11929) (2020)
+- Touvron et al., [Training data-efficient image transformers & distillation through attention](https://arxiv.org/abs/2012.12877) (DeiT, 2021)
+- Liu et al., [Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/abs/2103.14030) (2021)
+- He et al., [Masked Autoencoders Are Scalable Vision Learners](https://arxiv.org/abs/2111.06377) (MAE, 2022)
+- Caron et al., [Emerging Properties in Self-Supervised Vision Transformers](https://arxiv.org/abs/2104.14294) (DINO, 2021)
