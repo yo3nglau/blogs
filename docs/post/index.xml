@@ -16,6 +16,13 @@
       <description>&lt;h2 id=&#34;preface&#34;&gt;Preface&lt;/h2&gt;&#xA;&lt;p&gt;Bash uses the GNU Readline library to handle command-line input. By default, it follows an Emacs-style keybinding scheme, which makes a rich set of shortcuts available for editing commands, navigating history, and controlling the terminal—without touching the mouse.&lt;/p&gt;&#xA;&lt;p&gt;This post covers the most useful shortcuts across five areas: cursor movement, text editing, command history, process and job control, and terminal control. A consolidated quick-reference table is provided at the end.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Large Language Models: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/large-language-models-interview-questions-and-answers/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/large-language-models-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;pretraining--architecture&#34;&gt;Pretraining &amp;amp; Architecture&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-what-is-the-pretraining-objective-of-large-language-models&#34;&gt;Q1 [Basic] What is the pretraining objective of large language models?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What training objective do LLMs like GPT use during pretraining, and why is it effective?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; The dominant pretraining objective for autoregressive LLMs is next token prediction, also called causal language modeling. Given a sequence of tokens x_1, x_2, &amp;hellip;, x_{t-1}, the model learns to predict the next token x_t by minimizing cross-entropy loss over the vocabulary. This is applied at every position in the sequence simultaneously during training, making it highly data-efficient: a single document of n tokens provides n-1 training examples.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Mamba and State Space Models: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/mamba-and-state-space-models-interview-questions-and-answers/</link>
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
