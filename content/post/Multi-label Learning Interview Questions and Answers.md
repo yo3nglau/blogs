@@ -233,3 +233,131 @@ $$\mathcal{L}_\text{obs} = -\frac{1}{\sum m_{ij}} \sum_{i,j} m_{ij} \left[ y_{ij
 **Label smoothing** applies a small negative-label weight reduction $\epsilon$: replace $y_{ij} = 0$ with $y_{ij} = \epsilon$ for unobserved labels. This reduces overconfident penalization without requiring an annotation mask, at the cost of slightly noisier gradients. In practice, the observed-only loss combined with pseudo-labeling is the most principled approach when annotation masks are available.
 
 ---
+
+## Evaluation & Practical Considerations
+
+### Q16 [Basic] What are the key evaluation metrics for multi-label image classification, and when is each appropriate?
+
+**Q:** What metrics are used to evaluate multi-label classifiers, and what does each one measure?
+
+**A:** Multi-label evaluation metrics fall into two families: **classification metrics** (requiring a threshold to produce binary predictions) and **ranking metrics** (operating on the raw score ordering).
+
+The most common classification metrics are: **Hamming Loss** ($\text{HL} = \frac{1}{NL} \sum_{i,j} \mathbf{1}[\hat{y}_{ij} \neq y_{ij}]$), measuring the fraction of incorrect label predictions — but misleading when the label space is sparse, since always predicting "negative" achieves near-zero HL; **Subset Accuracy**, the strictest metric requiring exact match of the full label set; and **Instance F1 / Macro F1 / Micro F1**, which balance precision and recall at the label or instance level (covered in Q17).
+
+The dominant ranking metric for multi-label image classification is **mAP (mean Average Precision)**: for each label, compute the area under the precision-recall curve across all confidence thresholds, then average over all $L$ labels. mAP is the standard benchmark metric on MS-COCO and PASCAL VOC. It rewards both correct label prediction and confident scoring of positives above negatives, without requiring threshold selection.
+
+**Precision@$k$** measures the fraction of the top-$k$ predicted labels that are truly relevant — appropriate when the system must return exactly $k$ tags (e.g., image tagging APIs). **NDCG@$k$** additionally rewards correct labels appearing earlier in the top-$k$ list. For most CV research on MS-COCO, mAP is the primary metric; for recommendation and retrieval systems, P@$k$ and NDCG@$k$ are more deployment-relevant.
+
+---
+
+### Q17 [Basic] What is the difference between micro-averaged and macro-averaged F1 in multi-label evaluation?
+
+**Q:** When should you report micro F1 versus macro F1 for a multi-label image classifier?
+
+**A:** Both metrics aggregate per-label statistics into a single F1 score, but they weight labels differently.
+
+**Micro F1** aggregates all true positives, false positives, and false negatives across every label before computing F1:
+
+$$F1_\text{micro} = \frac{2 \sum_j \text{TP}_j}{2 \sum_j \text{TP}_j + \sum_j \text{FP}_j + \sum_j \text{FN}_j}$$
+
+Because frequent labels contribute more counts, micro F1 is dominated by head classes. A model that achieves high recall on "person" (the most common label in MS-COCO) while completely failing on "toothbrush" (rare) will still report high micro F1.
+
+**Macro F1** computes $F1_j$ independently for each label $j$, then averages equally:
+
+$$F1_\text{macro} = \frac{1}{L} \sum_{j=1}^L F1_j$$
+
+Every label contributes equally regardless of frequency. A model must perform well on rare tail labels to achieve high macro F1 — making it the right metric when all labels are operationally important.
+
+The practical guideline: for systems where label importance is proportional to frequency (e.g., social media image tagging where common tags drive most queries), micro F1 is representative. For systems with equal-importance labels (e.g., medical image annotation where rare pathologies matter as much as common ones), macro F1 is essential. Standard practice in multi-label CV research is to report **both** alongside mAP, as the micro-macro gap reveals how well the model handles the long tail of rare labels.
+
+---
+
+### Q18 [Advanced] How do you select and tune classification thresholds in a multi-label system?
+
+**Q:** What are the main strategies for converting multi-label scores to binary predictions, and which is most effective?
+
+**A:** Multi-label scores $\hat{p}_j \in (0,1)$ must be thresholded to produce binary predictions $\hat{y}_j = \mathbf{1}[\hat{p}_j \geq \tau_j]$. The choice of $\tau_j$ significantly affects the precision-recall trade-off and downstream F1 / Hamming Loss.
+
+**Fixed global threshold ($\tau = 0.5$)** assumes all labels are well-calibrated and share the same optimal operating point. In practice, different labels have different base rates and score distributions — "person" (common, high base rate) will tend to have higher sigmoid scores than "toothbrush" (rare, low base rate), so a single threshold is simultaneously too high for rare labels and too low for common ones. This approach is only defensible as a quick baseline.
+
+**Per-label threshold tuning** tunes a separate $\tau_j$ for each label on a held-out validation set to maximize label-level F1:
+
+$$\tau_j^* = \arg\max_\tau F1_j(\tau) \text{ on validation set}$$
+
+This is the most reliably effective strategy and is standard in competitive multi-label systems. The cost is $L$ additional hyperparameters — manageable in practice via a grid search over $[0.05, 0.95]$ with step 0.05.
+
+**Post-hoc temperature scaling** fits a single scalar $T$ (temperature) on the validation set to minimize NLL: logits become $z_j / T$, making all label scores simultaneously more or less extreme. This improves calibration globally but cannot correct per-label miscalibration.
+
+**Instance-wise top-$k$** prediction outputs the $k$ labels with highest scores per image, where $k$ is set equal to the dataset's average label cardinality. This is threshold-free and useful when a fixed number of predictions is required.
+
+In benchmark settings, per-label threshold tuning consistently outperforms a fixed $\tau = 0.5$ by 2–5 F1 points and is the standard evaluation protocol for MS-COCO multi-label benchmarks.
+
+---
+
+### Q19 [Advanced] What is Extreme Multi-Label Classification, and what methods address its challenges?
+
+**Q:** How does Extreme Multi-Label Classification differ from standard multi-label learning, and what are the state-of-the-art approaches?
+
+**A:** Extreme Multi-Label Classification (XML) refers to settings where the label space size $L$ ranges from thousands to millions ($L \in [10^3, 10^6]$), while each instance has only a small number of relevant labels (typically 5–10). Applications include Amazon product categorization ($L \approx 670{,}000$), Wikipedia article tagging ($L \approx 500{,}000$), and ad keyword prediction ($L > 10^6$).
+
+XML presents challenges absent from standard multi-label learning. **Scalability**: a dense $L \times d$ classification head with $L = 10^6$ and $d = 256$ requires 256 GB of memory — infeasible. **Tail label learning**: most labels have fewer than 10 positive training examples, making reliable learning extremely difficult. **Evaluation**: exact set prediction is intractable; P@$k$ and NDCG@$k$ (for $k \in \{1, 3, 5\}$) are the universal metrics.
+
+Representative approaches: **Tree-based methods** (FastXML, Parabel, PECOS) partition the label space into a hierarchical binary tree of clusters. At inference, the model traverses only $O(\log L)$ branches, enabling sub-millisecond prediction for millions of labels. **Two-stage neural methods** (AttentionXML, X-Transformer, LightXML) use a fast first-stage retrieval model (often a shallow TF-IDF or lightweight neural model) to produce a shortlist of $\sim 200$–$500$ candidate labels, then re-rank within the shortlist using a more expensive Transformer. **Negative sampling**: training with all $L$ negatives per example is infeasible; hard negatives are sampled from the shortlist produced by the retrieval stage, enabling efficient training. XML benchmarks (EUR-Lex-4K, Amazon-670K, Wiki-500K) are the standard evaluation datasets.
+
+---
+
+### Q20 [Advanced] How would you build a strong multi-label image classifier in practice with limited labeled data?
+
+**Q:** What is a principled approach to training a multi-label image classifier when only limited annotated data is available?
+
+**A:** With limited labeled data, the most impactful decisions are backbone selection, loss function, and leveraging label semantics — in that order.
+
+**Step 1 — Start with a self-supervised pretrained backbone.** A ViT-B/16 pretrained with MAE or DINO significantly outperforms supervised ImageNet pretraining in the low-data regime, because self-supervised features encode multiple co-occurring objects rather than a single discriminative region (Q10). Use CLIP if zero-shot or cross-modal transfer is relevant. Freeze the first 8–10 Transformer blocks; fine-tune only the last 2 blocks and the classification head to avoid destroying pretrained representations with limited gradient signal.
+
+**Step 2 — Use Asymmetric Loss.** With limited data, the positive-negative imbalance is more severe (fewer examples per tail label). ASL's probability shifting and asymmetric focusing concentrate gradient on hard informative examples, improving tail-label recall without requiring explicit class reweighting (Q14).
+
+**Step 3 — Apply aggressive data augmentation.** Use RandAugment + CutMix together. CutMix is especially valuable in the limited-data regime: it synthesizes new training images by combining two existing ones, doubling effective diversity while preserving semantic plausibility through mixed multi-label targets (Q13).
+
+**Step 4 — Leverage label text semantics.** Initialize the classification head from CLIP text embeddings of the label names ($t_j \in \mathbb{R}^d$ for each label $j$) rather than random initialization. This provides a semantically meaningful prior even for labels with very few training examples, accelerating convergence and improving generalization to rare labels.
+
+**Step 5 — Handle incomplete annotations.** In limited-data regimes, annotations are often partial. Apply the observed-only loss to avoid penalizing potentially positive but unannotated instances, then use pseudo-labeling to fill in missing labels once an initial model is trained (Q15).
+
+**Step 6 — Tune per-label thresholds on a small validation set.** Even with 100–200 validation images, per-label threshold tuning reliably improves F1 by 2–5 points over the default $\tau = 0.5$.
+
+---
+
+## Quick Reference
+
+| # | Difficulty | Topic | Section |
+|---|------------|-------|---------|
+| Q1 | Basic | Multi-label vs. multi-class and multi-task | Fundamentals |
+| Q2 | Basic | CNN + sigmoid + BCE baseline | Fundamentals |
+| Q3 | Basic | Binary Relevance and label correlation | Fundamentals |
+| Q4 | Advanced | Classifier Chains | Fundamentals |
+| Q5 | Advanced | Label co-occurrence graph | Fundamentals |
+| Q6 | Basic | ML-GCN | Architecture & Modeling |
+| Q7 | Basic | Q2L / Query2Label | Architecture & Modeling |
+| Q8 | Advanced | ML-Decoder | Architecture & Modeling |
+| Q9 | Advanced | CLIP for multi-label | Architecture & Modeling |
+| Q10 | Advanced | MAE / DINO pretraining | Architecture & Modeling |
+| Q11 | Basic | Binary Cross-Entropy | Loss & Training |
+| Q12 | Basic | Focal Loss | Loss & Training |
+| Q13 | Basic | RandAugment, Mixup, CutMix | Loss & Training |
+| Q14 | Advanced | Asymmetric Loss (ASL) | Loss & Training |
+| Q15 | Advanced | Missing / partial labels | Loss & Training |
+| Q16 | Basic | Evaluation metrics overview | Evaluation & Practical Considerations |
+| Q17 | Basic | Micro vs. Macro F1 | Evaluation & Practical Considerations |
+| Q18 | Advanced | Threshold selection | Evaluation & Practical Considerations |
+| Q19 | Advanced | Extreme Multi-Label Classification | Evaluation & Practical Considerations |
+| Q20 | Advanced | Building a classifier with limited data | Evaluation & Practical Considerations |
+
+## Resources
+
+- Chen et al., [Multi-Label Image Recognition with Graph Convolutional Networks](https://arxiv.org/abs/1904.03582) (ML-GCN, 2019)
+- Liu et al., [Query2Label: A Simple Transformer Way to Multi-Label Classification](https://arxiv.org/abs/2107.10834) (Q2L, 2021)
+- Ridnik et al., [ML-Decoder: Scalable and Versatile Classification Head](https://arxiv.org/abs/2111.12933) (2021)
+- Ben-Baruch et al., [Asymmetric Loss For Multi-Label Classification](https://arxiv.org/abs/2009.14119) (ASL, 2021)
+- Radford et al., [Learning Transferable Visual Models From Natural Language Supervision](https://arxiv.org/abs/2103.00020) (CLIP, 2021)
+- He et al., [Masked Autoencoders Are Scalable Vision Learners](https://arxiv.org/abs/2111.06377) (MAE, 2022)
+- Caron et al., [Emerging Properties in Self-Supervised Vision Transformers](https://arxiv.org/abs/2104.14294) (DINO, 2021)
+- Zhang & Zhou, [A Review on Multi-Label Learning Algorithms](https://doi.org/10.1109/TKDE.2013.39) (2014)
