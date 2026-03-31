@@ -192,3 +192,103 @@ The fundamental challenge is temporal bias: models often learn spurious correlat
 The N learnable moment queries then attend over the encoded joint sequence via transformer decoder cross-attention, each query aggregating information relevant to one potential moment. Each query's output is passed to a prediction head consisting of a linear classifier (foreground vs. background) and a linear regressor predicting (t_center, t_width) in normalized coordinates. During training, predictions are matched to ground truth moments using the Hungarian algorithm — bipartite matching that assigns each ground truth to exactly one query at minimum cost — eliminating the need for NMS. The training loss combines a classification loss, an L1 regression loss on moment coordinates, and a generalized IoU loss on predicted and ground truth segments. For the QVHighlights benchmark, an additional saliency loss is added to score each video clip for highlight detection.
 
 The set-prediction formulation offers several advantages: it handles multiple relevant moments (one per query) naturally, avoids the non-differentiable NMS post-processing, and trains the full pipeline end-to-end. The main limitation is sensitivity to initialization and the need for sufficient capacity in the N queries to cover all possible moments — if N is too small, some moments go undetected. Subsequent work (QD-DETR, EaTR) extends Moment-DETR with query denoising and efficient attention to improve convergence and precision.
+
+---
+
+## Action Segmentation & Frontiers
+
+### Q16 [Basic] How does Temporal Action Segmentation differ from TAD?
+
+**Q:** What is Temporal Action Segmentation, how does it differ from Temporal Action Detection, and in what scenarios is each preferred?
+
+**A:** Temporal Action Detection produces sparse detections: it identifies discrete action instances (with explicit start and end times) in a long untrimmed video that may contain many background segments. The output is a set of (t_start, t_end, class, score) tuples, analogous to object detection in images. Actions are assumed to be distinct events separated by non-action background, and the model does not need to label every frame — only frames within detected action segments.
+
+Temporal Action Segmentation (also called action segmentation or temporal segmentation) performs dense frame-level labeling: every frame in the video is assigned an action class, with no concept of background (every frame belongs to some action class). The output is a complete label sequence of length equal to the number of frames. The task assumes that the video is a structured activity procedure with well-defined phases (e.g., a cooking recipe, a surgical procedure) that partition the entire video. This is conceptually analogous to semantic segmentation in images.
+
+The preferred task depends on the application domain. TAD suits scenarios where actions are sparse events of interest within unstructured video content — sports highlight detection, meeting event extraction, YouTube activity detection. Action Segmentation suits structured procedural videos where the goal is complete workflow understanding — cooking dataset 50Salads, multi-activity dataset Breakfast, surgical video dataset Cholec80. Metrics also differ: TAD uses mAP@tIoU; Segmentation typically uses frame-wise accuracy, edit distance (penalizes incorrect ordering of action phases), and F1@{10,25,50} (segment-level overlap at different tIoU thresholds, where over-segmentation errors are explicitly penalized).
+
+---
+
+### Q17 [Basic] How does MS-TCN work and what problem does it solve?
+
+**Q:** What is MS-TCN and how does its design address the over-segmentation problem in temporal action segmentation?
+
+**A:** MS-TCN (Multi-Stage Temporal Convolutional Network, Li et al., 2019) addresses the dominant failure mode in action segmentation: over-segmentation, where the predicted label sequence switches between classes too frequently, producing many short spurious segments within what should be a single sustained action. For example, a model might predict "cut vegetable → background → cut vegetable → background" where the ground truth is a single "cut vegetable" segment, causing high edit distance even if frame-level accuracy is reasonable.
+
+MS-TCN's core architecture consists of multiple sequential refinement stages. Each stage is a dilated temporal convolutional network: a stack of dilated causal convolutions with exponentially increasing dilation rates (1, 2, 4, 8, ..., 512), which captures temporal context at multiple scales without increasing the parameter count. The receptive field grows exponentially with the number of layers (a 10-layer network covers 2^10 = 1024 frames of context). Each stage takes the frame-level feature sequence as input and produces a per-frame class probability distribution. From the second stage onward, the input to each stage is the concatenation of the original features and the class probabilities output by the previous stage, allowing later stages to refine predictions using the temporal structure of earlier predictions.
+
+Crucially, MS-TCN introduces a smoothing loss in addition to the standard cross-entropy classification loss. The smoothing loss is a truncated mean squared error between adjacent frame predictions: Δ = min(|log p_t - log p_{t+1}|, τ)², where τ is a truncation threshold that ignores large inter-frame differences (which may correspond to true action boundaries). This loss explicitly penalizes abrupt prediction changes within a segment without penalizing legitimate transitions at action boundaries, directly targeting the over-segmentation problem.
+
+---
+
+### Q18 [Advanced] How does ASFormer improve upon MS-TCN for action segmentation?
+
+**Q:** What are the key design choices in ASFormer (Transformer for Action Segmentation) and how do they address the limitations of TCN-based methods?
+
+**A:** ASFormer (Yi et al., 2021) replaces the dilated convolutional backbone of MS-TCN with a hierarchical transformer architecture tailored for the long-sequence, dense-prediction nature of action segmentation. The core challenge for transformers in this task is that videos processed at snippet level can span thousands of frames, making standard O(T^2) self-attention prohibitively expensive. ASFormer addresses this with a hierarchical attention design: each transformer layer attends over a fixed-size local window rather than the full sequence, and the receptive field grows by doubling the window size in deeper layers (similar in spirit to dilated convolutions but implemented via attention). This achieves exponentially growing context with linear rather than quadratic complexity.
+
+The cross-stage connection is ASFormer's most distinctive contribution. In MS-TCN, stages communicate only through the softmax output probabilities of the previous stage — a lossy bottleneck. ASFormer instead uses cross-attention between the token representations of consecutive stages, allowing each token in stage k+1 to attend to all tokens in stage k and retrieve their rich intermediate representations rather than just their class predictions. This preserves more information across stages and enables more structured refinement: stage k+1 can identify which frames in stage k were confidently classified and which were ambiguous, using this meta-information to adjust its predictions accordingly.
+
+ASFormer also uses a decoder-encoder architecture where the decoder at each stage upsamples and refines the representations using cross-attention, enabling more precise boundary localization at full temporal resolution. On standard benchmarks (50Salads and Breakfast), ASFormer significantly outperforms MS-TCN and MS-TCN++ on F1 scores and edit distance, with particular improvement in boundary precision. The remaining practical limitation is computational cost on very long videos: surgical or cooking videos spanning 30–60 minutes at high frame rates require aggressive temporal downsampling before processing, which can impair boundary precision.
+
+---
+
+### Q19 [Advanced] What are the key challenges in online and streaming temporal action detection?
+
+**Q:** How does online TAD differ from offline TAD, and what are the principal technical challenges in real-time temporal action detection?
+
+**A:** Offline TAD assumes the entire video is available before any predictions are made, allowing the model to leverage future context for localizing actions that have already ended. All proposals can be scored with bidirectional temporal context, and NMS can be applied globally over the full video. This produces high-quality detections but introduces a latency equal to the full video duration — unusable for real-time applications such as live sports analysis, surveillance, or interactive robotics.
+
+Online (streaming) TAD requires predictions to be made as frames arrive, with access only to the current frame and previously observed history. This creates several fundamental challenges. First, actions cannot be detected at their start because the model cannot know whether the current activity will continue long enough to constitute a detectable action — some form of buffering or hypothesis maintenance is unavoidable. Second, boundary prediction is asymmetric: action starts can be tentatively identified online, but action ends cannot be confirmed until the action has already concluded, introducing inherent latency. Third, features extracted without future context are inherently weaker than bidirectional features, as many temporal modeling architectures (bidirectional LSTMs, full self-attention) are inapplicable.
+
+Common approaches include sliding-window methods (process a fixed-length window, shift forward with overlap, aggregate predictions across windows), recurrent architectures (LSTM/GRU to maintain a compressed state of temporal history for efficient per-frame scoring), and hypothesis-tracking methods (maintain a set of active action hypotheses with growing confidence scores, emitting a detection when confidence exceeds a threshold after a minimum duration). The key evaluation metric addition for online TAD is detection latency — the time elapsed between the true action end and the model's detection — in addition to standard mAP. Reducing latency generally requires accepting lower-quality features or shallower temporal models, creating an explicit accuracy-latency trade-off that must be characterized for each application.
+
+---
+
+### Q20 [Advanced] How do Video Large Language Models integrate with Temporal Action Detection?
+
+**Q:** How are large vision-language models being applied to temporal action localization, and what are their advantages and limitations compared to specialized detectors?
+
+**A:** Video Large Language Models (Video-LLMs) — including VideoChat, TimeChat, VTimeLLM, and Vid-Mamba — adapt large language models (LLaMA, Vicuna) to video understanding by incorporating visual encoders (CLIP, InternVideo) that produce video tokens fed into the LLM. These models are trained on video-instruction data to answer natural language questions about video content. Temporal localization emerges as a capability when the training data includes time-stamped instructions: "At second 12.3, the person begins cutting vegetables." The model learns to generate timestamps as text tokens in response to queries like "When does the person start cutting?" — effectively performing temporal grounding as text generation.
+
+TimeChat (Ren et al., 2024) is a representative system explicitly designed for time-sensitive video understanding. It encodes video with a sliding window of CLIP frames, uses a time-aware frame encoder to inject temporal position information, and fine-tunes LLaMA on a large curated dataset of time-stamped video captions, grounding pairs, and QA examples. At inference, TimeChat can localize queried events, produce dense video captions with timestamps, and answer temporal questions — all within a single model. VTimeLLM combines a specialized temporal localizer (a lightweight detection head) with an LLM for higher-precision boundary prediction than pure text generation.
+
+The advantages of Video-LLM approaches are substantial: open-vocabulary detection (any event describable in language, not just a predefined category set), multi-task unification (grounding, summarization, QA, and captioning in one model), and natural language interaction that requires no category engineering. The current limitations are equally significant: timestamp generation by text decoding produces approximate boundaries (to the nearest second or clip unit) rather than the sub-second precision of specialized detectors; inference cost is high (billions of parameters, slow autoregressive decoding); and handling very long videos (hours) remains difficult due to context window constraints. The emerging research direction is hybrid systems that use specialized TAD detectors as tools callable by the LLM — the LLM decides when to invoke the detector, processes its output, and synthesizes a response, combining the language understanding of LLMs with the temporal precision of classical detection pipelines.
+
+---
+
+## Quick Reference
+
+| # | Difficulty | Topic | Section |
+|---|------------|-------|---------|
+| Q1 | Basic | TAD task definition: difference from Action Recognition | TAD Fundamentals & Detection Pipelines |
+| Q2 | Basic | Two-stage pipeline: proposal + classification | TAD Fundamentals & Detection Pipelines |
+| Q3 | Basic | Evaluation metrics: tIoU, mAP@tIoU | TAD Fundamentals & Detection Pipelines |
+| Q4 | Advanced | Anchor-based vs anchor-free temporal detectors | TAD Fundamentals & Detection Pipelines |
+| Q5 | Advanced | Query-based / DETR-style detectors (ActionFormer) | TAD Fundamentals & Detection Pipelines |
+| Q6 | Basic | Temporal Action Proposal: objectives and classical methods (BSN) | Temporal Proposal Generation |
+| Q7 | Basic | BMN: boundary-matching network design | Temporal Proposal Generation |
+| Q8 | Advanced | GTAD: graph-based temporal proposal modeling | Temporal Proposal Generation |
+| Q9 | Advanced | Snippet-level vs segment-level features | Temporal Proposal Generation |
+| Q10 | Advanced | NMS and Soft-NMS in the temporal domain | Temporal Proposal Generation |
+| Q11 | Basic | TSG task definition: difference from TAD | Temporal Sentence Grounding |
+| Q12 | Basic | Two-stage vs one-stage grounding | Temporal Sentence Grounding |
+| Q13 | Advanced | Cross-modal alignment: language-video interaction | Temporal Sentence Grounding |
+| Q14 | Advanced | Weakly-supervised temporal grounding | Temporal Sentence Grounding |
+| Q15 | Advanced | Moment-DETR: query-based grounding | Temporal Sentence Grounding |
+| Q16 | Basic | Temporal Action Segmentation vs TAD | Action Segmentation & Frontiers |
+| Q17 | Basic | MS-TCN: multi-stage temporal convolutional network | Action Segmentation & Frontiers |
+| Q18 | Advanced | ASFormer: transformer-based action segmentation | Action Segmentation & Frontiers |
+| Q19 | Advanced | Online / streaming TAD | Action Segmentation & Frontiers |
+| Q20 | Advanced | Video-LLM + TAD integration | Action Segmentation & Frontiers |
+
+## Resources
+
+- Lin et al., [BSN: Boundary Sensitive Network for Temporal Action Proposal Generation](https://arxiv.org/abs/1806.02964) (2018)
+- Lin et al., [BMN: Boundary-Matching Network for Temporal Action Proposal Generation](https://arxiv.org/abs/1907.09702) (2019)
+- Xu et al., [G-TAD: Sub-Graph Localization for Temporal Action Detection](https://arxiv.org/abs/1911.11462) (2020)
+- Shi et al., [ActionFormer: Localizing Moments of Actions with Transformers](https://arxiv.org/abs/2202.07925) (2022)
+- Yuan et al., [Moment-DETR: End-to-End Temporal Sentence Grounding with Transformers](https://arxiv.org/abs/2107.09609) (2021)
+- Li et al., [MS-TCN: Multi-Stage Temporal Convolutional Network for Action Segmentation](https://arxiv.org/abs/1903.01945) (2019)
+- Yi et al., [ASFormer: Transformer for Action Segmentation](https://arxiv.org/abs/2110.08568) (2021)
+- Ren et al., [TimeChat: A Time-sensitive Multimodal Large Language Model for Long Video Understanding](https://arxiv.org/abs/2312.02051) (2024)
