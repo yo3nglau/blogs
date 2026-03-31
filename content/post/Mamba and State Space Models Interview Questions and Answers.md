@@ -196,3 +196,101 @@ For general-purpose language modeling at moderate context lengths (2K–32K), th
 The ecosystem gap is also significant: Transformers have years of pretraining scale, infrastructure tooling, and fine-tuning research behind them. Mamba's largest pretrained models (as of early 2024) are at the 3B parameter scale, while the leading Transformer models are at hundreds of billions of parameters. Closing this gap requires substantial investment that the community is only beginning to make.
 
 The most promising near-term direction is hybrid architectures. Models like Jamba (AI21 Labs) and Zamba interleave Mamba layers with a small number of Transformer attention layers, achieving most of Mamba's efficiency while recovering Transformer's retrieval and in-context learning capabilities. These hybrids demonstrate that the two architectures are not competing paradigms but complementary tools that can be combined. The longer-term question — whether pure SSM architectures can match Transformers at scale with appropriate training — remains open, but the hybrid approach already delivers practical benefits today.
+
+---
+
+## Applications and Extensions
+
+### Q16 [Basic] How does Mamba perform in language modeling?
+
+**Q:** How does Mamba compare to Transformer-based language models in practice?
+
+**A:** Mamba shows strong performance in language modeling, particularly as sequence length increases. At the 1B–3B parameter scale with equivalent training tokens, Mamba achieves perplexity comparable to Transformer baselines like GPT-NeoX and achieves better throughput (higher tokens per second) at longer context lengths due to its linear inference complexity. The original Mamba paper demonstrated that Mamba-3B matches or exceeds GPT-NeoX-3B on standard language modeling benchmarks.
+
+Mamba's strengths in language modeling are most apparent on tasks that benefit from long context: long document summarization, code completion with large codebases as context, and structured prediction over long inputs. Its weaknesses appear on few-shot prompting tasks (in-context learning), where Transformer models consistently outperform Mamba at equivalent scale. This gap is attributed to Mamba's fixed-size state being unable to maintain all few-shot examples with equal fidelity.
+
+In terms of practical deployment, Mamba offers a meaningful advantage for applications that require serving long contexts with limited GPU memory — the constant KV-cache equivalent (fixed-size state) means that context length does not increase memory requirements at inference, enabling larger batch sizes and lower latency for long-context requests.
+
+---
+
+### Q17 [Basic] How is Mamba applied to vision tasks (Vision Mamba)?
+
+**Q:** How does Mamba handle 2D image data, and what are the approaches for applying it to vision?
+
+**A:** Applying Mamba to images requires addressing a fundamental mismatch: Mamba's SSM is designed for 1D sequences, but images are 2D spatial structures where locality and 2D positional relationships matter. The most direct approach, followed by Vision Mamba (Zhu et al., 2024), is to tokenize images into patches (as in ViT) and flatten them into a 1D sequence, then apply a bidirectional Mamba model.
+
+Bidirectionality is important for vision because image patches have spatial neighbors in all directions, not just the causal (left-to-right) direction that standard Mamba uses. Vision Mamba introduces a bidirectional SSM by running two Mamba models in opposite scanning directions and combining their outputs, allowing each patch to aggregate information from both preceding and following patches in the scan order. Alternative scanning strategies have also been proposed: VMamba scans in four directions (horizontal, vertical, and two diagonals), and LocalMamba uses window-based local scanning to reduce complexity for high-resolution inputs.
+
+In terms of performance, Vision Mamba achieves competitive accuracy with ViT models of comparable parameter count on ImageNet classification, with lower memory usage for high-resolution images where ViT's quadratic attention becomes expensive. For dense prediction tasks (detection, segmentation), hierarchical variants that produce multi-scale feature maps (analogous to Swin Transformer) show the most practical promise.
+
+---
+
+### Q18 [Advanced] What are hybrid Mamba + Transformer architectures and why are they promising?
+
+**Q:** What is the motivation for hybrid architectures like Jamba, and how do they work?
+
+**A:** Hybrid architectures interleave Mamba (SSM) layers with Transformer attention layers in the same model, aiming to capture the complementary strengths of both: Mamba's efficiency and compression for the majority of layers, and Transformer attention's precise retrieval capability for a small fraction of layers.
+
+Jamba (AI21 Labs, 2024) is the most prominent example. It interleaves one Transformer attention layer for every seven Mamba layers, along with Mixture-of-Experts (MoE) feed-forward layers. The result is a model that supports a 256K-token context window with significantly better throughput than a pure Transformer at equivalent quality — the Mamba layers handle the bulk of sequence processing cheaply, while the attention layers provide the precise global retrieval that Mamba's state cannot guarantee. Jamba achieves roughly 3x the throughput of a comparable Transformer at long context lengths.
+
+The key design insight is that full global attention is not needed at every layer — most of the benefit of attention (exact retrieval, in-context learning) can be captured with a small fraction of attention layers, while Mamba layers handle the rest more efficiently. This is analogous to how Swin Transformer uses local attention in most layers and only occasionally computes cross-window interactions: not every layer needs the most expensive mechanism. The hybrid approach also makes Mamba-based models more competitive on in-context learning benchmarks, where pure Mamba models currently lag behind pure Transformers.
+
+---
+
+### Q19 [Advanced] What is Mamba's in-context learning capability and how does it compare to Transformer?
+
+**Q:** Can Mamba perform in-context learning (ICL), and how does its ICL ability compare to Transformer?
+
+**A:** In-context learning refers to a model's ability to perform a new task given only a few input-output examples in the prompt, without any weight updates. This capability is widely regarded as a defining feature of large Transformer language models and is critical for practical deployment.
+
+Mamba does exhibit in-context learning ability — it can use examples in the prompt to improve its outputs on novel tasks. However, research consistently shows that Mamba's ICL ability degrades more rapidly than Transformer's as the number of in-context examples increases. The proposed explanation is mechanistic: Transformer attention can retrieve any past example from the KV cache with full precision, making it straightforward to apply patterns from earlier examples to the current query. Mamba must compress all examples into its fixed-size state, and with many examples, the state becomes a lossy summary — earlier examples are more likely to be overwritten or diluted by later ones.
+
+This limitation has practical implications: Mamba-based models may need larger parameter counts or specialized training to match Transformer ICL performance. Hybrid architectures with a small fraction of attention layers recover most of the ICL gap, as the attention layers maintain an exact record of the in-context examples while Mamba layers handle the efficient compression of the surrounding context. As a result, hybrid models like Jamba show much stronger ICL performance than pure Mamba models at equivalent parameter counts.
+
+---
+
+### Q20 [Advanced] What are the current limitations of Mamba and future research directions?
+
+**Q:** What are the main open problems and limitations of Mamba, and where is the field headed?
+
+**A:** Mamba's most fundamental limitation is its fixed-size state as a lossy compressor of history. This manifests as weaker performance on associative recall, needle-in-a-haystack retrieval, and multi-hop reasoning over long contexts — tasks where Transformer's exact KV cache has a structural advantage. This is not a training or scale issue that will automatically resolve with more data; it is an architectural property of finite-state recurrence.
+
+A second limitation is the relative immaturity of the ecosystem. As of early 2024, the largest available Mamba pretrained models are at the 3B parameter scale, while state-of-the-art Transformer models are at 70B–700B parameters. The scaling behavior of Mamba at very large model sizes and training budgets is not yet well-characterized. It is unclear whether the perplexity gap between Mamba and Transformer observed at 3B parameters will widen or close at 70B+ parameters.
+
+On the research frontier, several directions are active. Hybrid architectures (combining Mamba and attention) are showing the most immediate practical results. Extending Mamba to 2D and higher-dimensional data (vision, video, graphs) requires non-trivial adaptations to the 1D scanning structure. The SSD framework introduced in Mamba2 opens theoretical connections to linear attention that may yield further architectural improvements. Hardware-efficient kernels for Mamba on non-NVIDIA hardware (TPUs, AMD GPUs) remain underdeveloped. Finally, the theoretical expressivity of SSMs — what functions they can and cannot represent as a function of state size and depth — is an active area that will inform better architecture design.
+
+---
+
+## Quick Reference
+
+| # | Difficulty | Topic | Section |
+|---|------------|-------|---------|
+| Q1 | Basic | What is a State Space Model | SSM & Mamba Fundamentals |
+| Q2 | Basic | HiPPO matrix | SSM & Mamba Fundamentals |
+| Q3 | Basic | S4 core contributions | SSM & Mamba Fundamentals |
+| Q4 | Basic | Mamba selective mechanism | SSM & Mamba Fundamentals |
+| Q5 | Basic | B, C, and Δ parameters | SSM & Mamba Fundamentals |
+| Q6 | Advanced | Parallel scan for training | SSM & Mamba Fundamentals |
+| Q7 | Advanced | Hardware-aware algorithm | SSM & Mamba Fundamentals |
+| Q8 | Advanced | Linear time complexity | SSM & Mamba Fundamentals |
+| Q9 | Basic | Mamba2 core improvements | SSM & Mamba Fundamentals |
+| Q10 | Advanced | State Space Duality (SSD) | SSM & Mamba Fundamentals |
+| Q11 | Basic | Efficiency: Mamba vs Transformer | Mamba vs Transformer |
+| Q12 | Basic | Inductive bias differences | Mamba vs Transformer |
+| Q13 | Advanced | Long-sequence advantages and limitations | Mamba vs Transformer |
+| Q14 | Advanced | When to choose Mamba vs Transformer | Mamba vs Transformer |
+| Q15 | Advanced | Can Mamba replace Transformer | Mamba vs Transformer |
+| Q16 | Basic | Mamba in language modeling | Applications and Extensions |
+| Q17 | Basic | Vision Mamba | Applications and Extensions |
+| Q18 | Advanced | Hybrid Mamba + Transformer (Jamba) | Applications and Extensions |
+| Q19 | Advanced | In-context learning capability | Applications and Extensions |
+| Q20 | Advanced | Limitations and future directions | Applications and Extensions |
+
+## Resources
+
+- Gu & Dao, [Mamba: Linear-Time Sequence Modeling with Selective State Spaces](https://arxiv.org/abs/2312.00752) (2023)
+- Dao & Gu, [Transformers are SSMs: Generalized Models and Efficient Algorithms Through Structured State Space Duality](https://arxiv.org/abs/2405.21060) (Mamba2, 2024)
+- Gu et al., [Efficiently Modeling Long Sequences with Structured State Spaces](https://arxiv.org/abs/2111.00396) (S4, 2021)
+- Gu et al., [HiPPO: Recurrent Memory with Optimal Polynomial Projections](https://arxiv.org/abs/2008.07669) (2020)
+- Zhu et al., [Vision Mamba: Efficient Visual Representation Learning with Bidirectional State Space Model](https://arxiv.org/abs/2401.13460) (2024)
+- Lieber et al., [Jamba: A Hybrid Transformer-Mamba Language Model](https://arxiv.org/abs/2403.19887) (2024)
