@@ -132,3 +132,65 @@ Scalable oversight is a deeper, longer-horizon challenge. As LLMs become more ca
 The alignment tax is not inevitable, and its severity depends heavily on implementation details. Using a sufficiently strong KL penalty prevents excessive drift from the SFT model. Training the reward model on high-quality annotations across diverse domains (not just conversational prompts) reduces the misalignment between RM scores and actual capability. More recent approaches like Constitutional AI (Bai et al., 2022) and RLAIF attempt to preserve capabilities by using AI-generated feedback that is less susceptible to the stylistic biases of human annotators.
 
 DPO tends to exhibit a smaller alignment tax than PPO-based RLHF in practice, partly because its offline nature and direct optimization of the preference objective are less prone to the reward-hacking dynamics that cause capability degradation. However, DPO has its own failure modes: because it is an offline method operating on a fixed dataset, it can fail to generalize when the distribution of preference pairs does not cover the capabilities the model needs to preserve. In high-stakes deployments where both helpfulness and capability preservation are critical, the best current practice is iterative: alternate rounds of SFT, preference data collection, and DPO or PPO fine-tuning with careful evaluation on both alignment and capability benchmarks between rounds.
+
+---
+
+## Inference & Efficiency
+
+### Q11 [Basic] What is the KV Cache and how does it speed up LLM inference?
+
+**Q:** What is the KV Cache in LLM inference and why is it important?
+
+**A:** During autoregressive text generation, the model generates one token at a time. At each step, self-attention must compute queries, keys, and values for every token in the sequence. Without caching, generating the t-th token requires computing attention over all t-1 previous tokens from scratch — the key and value matrices for every past token are recomputed at every generation step, making inference O(n^2) in total time for a sequence of length n.
+
+The KV Cache solves this by storing the key (K) and value (V) matrices for all previously generated tokens and reusing them at subsequent steps. Only the new token's K and V need to be computed at each step; all past K and V are loaded from cache. This reduces the per-step attention computation from O(n) to O(1) in terms of new computation, making generation time scale linearly rather than quadratically with sequence length. In practice, this optimization is essential — without it, generating a 1,000-token response would require ~500,000x more attention computation than generating the first token.
+
+The trade-off is memory: the KV Cache grows as O(n · d_model · num_layers · 2) with sequence length, and for large models with long contexts, it can consume more memory than the model weights themselves. This motivated architectural variants that reduce KV cache size. Multi-Query Attention (MQA) uses a single set of K/V heads shared across all query heads. Grouped Query Attention (GQA, used in LLaMA-2 and Mistral) is a middle ground: K/V heads are grouped, with multiple query heads sharing each K/V head. GQA reduces cache size by a factor equal to the grouping ratio while recovering most of MQA's accuracy.
+
+---
+
+### Q12 [Basic] How does model quantization work and what are its trade-offs?
+
+**Q:** What is model quantization, and what are the key trade-offs between different quantization levels?
+
+**A:** Quantization reduces the numerical precision used to represent model weights and/or activations, from the training precision (typically BFloat16 or Float16) to lower-bit integer formats such as INT8 or INT4. A weight quantized from FP16 to INT8 uses 8 bits instead of 16, halving memory consumption for that parameter. Quantization also speeds up inference on hardware that has optimized INT8 matrix multiplication kernels (most modern GPUs and all mobile processors).
+
+Post-training quantization (PTQ) applies quantization after training without modifying the training process. The simplest approach (round-to-nearest) often works well for INT8 weights with minimal accuracy loss, especially for large models where individual weight errors average out. INT4 quantization is more challenging: naive rounding causes significant accuracy degradation. Methods like GPTQ (Frantar et al., 2022) address this by using second-order information (the Hessian of the loss) to minimize the reconstruction error of each layer's outputs after quantization, rather than minimizing per-weight rounding error. AWQ (Lin et al., 2023) identifies the 1% of weights that are most sensitive to quantization and protects them by scaling, enabling high-quality INT4 quantization without second-order computation.
+
+A key subtlety is that weight quantization (reducing precision of stored model weights) is much easier than activation quantization (reducing precision of intermediate tensors during the forward pass). Activations have dynamic ranges that change per input, making fixed quantization ranges less accurate. For this reason, most production deployments use weight-only INT4 quantization (weights stored in 4-bit, dequantized to FP16 for computation) rather than fully quantized INT4 inference. The effective speedup comes from reduced memory bandwidth for loading weights, not from INT4 arithmetic itself.
+
+---
+
+### Q13 [Basic] How does speculative decoding accelerate LLM inference?
+
+**Q:** What is speculative decoding and how does it reduce LLM inference latency?
+
+**A:** Autoregressive generation is inherently sequential: each token depends on all previous ones, so tokens must be generated one at a time. Modern GPUs are highly parallel processors that are significantly underutilized when processing a single token per forward pass — the arithmetic intensity is too low to saturate GPU compute. Speculative decoding (Leviathan et al., 2022; Chen et al., 2023) addresses this by generating multiple candidate tokens in parallel and verifying them in a single pass of the large model.
+
+The procedure uses a small, fast draft model to generate k candidate tokens autoregressively. These k tokens are then verified in a single forward pass of the large target model, which processes all k positions in parallel. For each position, the target model's probability distribution is compared to the draft model's. Tokens are accepted or rejected using a rejection sampling scheme designed to ensure the output distribution is identical to what the large model alone would produce: token i is accepted with probability min(1, p_target(x_i) / p_draft(x_i)), and if rejected, a corrected token is sampled from the adjusted distribution. On average, β·k tokens are accepted per draft-verify cycle, where β is the acceptance rate, giving a theoretical speedup of β·k / (cost_draft·k + cost_target) over running the large model alone.
+
+In practice, speculative decoding achieves 2–3x speedups for typical text generation tasks where the draft and target models are sufficiently aligned. The speedup is largest when the draft model is small (cheap to run) and the acceptance rate is high (draft tokens are usually correct). Self-speculative decoding variants use early exit from the large model's own layers as the draft, eliminating the need for a separate draft model. The technique is now integrated into major inference frameworks including vLLM and Hugging Face TGI.
+
+---
+
+### Q14 [Advanced] How does continuous batching improve LLM inference throughput?
+
+**Q:** What is continuous batching and why is it important for serving LLMs efficiently?
+
+**A:** Naive LLM serving processes requests in static batches: a group of sequences is collected, processed together until all sequences in the batch have finished generating, and only then is the next batch started. This is highly inefficient because sequences in the same batch have different lengths — shorter sequences finish early but their GPU slots sit idle waiting for the longest sequence to complete. The GPU is substantially underutilized, and new requests queue up even though compute is available.
+
+Continuous batching (also called iteration-level scheduling or in-flight batching) addresses this by operating at the granularity of individual generation steps rather than full sequences. After each forward pass (which generates one token per active sequence), the scheduler checks which sequences have finished and immediately replaces them with new requests from the queue. This means the batch composition changes dynamically at every step: at any given forward pass, the batch contains sequences at different stages of generation, some newly started and some nearly complete. The GPU remains fully utilized because new sequences fill slots the moment they become available.
+
+PagedAttention (Kwon et al., 2023), implemented in vLLM, is an essential complement to continuous batching. KV cache memory must be pre-allocated for each sequence, and traditional static allocation wastes memory because the final sequence length is unknown in advance. PagedAttention manages KV cache memory in fixed-size pages (like virtual memory in an operating system), allocating new pages on demand as a sequence grows and immediately freeing them when the sequence completes. This eliminates memory fragmentation, allows the system to serve more concurrent sequences, and enables efficient copy-on-write for beam search. Together, continuous batching and PagedAttention are the core techniques behind high-throughput LLM serving systems, enabling throughput improvements of 10–20x over naive batching.
+
+---
+
+### Q15 [Advanced] What role does FlashAttention play in LLM training and inference?
+
+**Q:** How does FlashAttention improve LLM training and inference, and what are its underlying principles?
+
+**A:** Standard self-attention materializes the full n × n attention matrix in GPU HBM (global memory) before applying softmax and multiplying by the value matrix. For a sequence of length n, this requires O(n^2) HBM memory reads and writes. On modern GPUs, HBM bandwidth is the primary bottleneck for attention — the arithmetic is fast, but loading and storing the large attention matrix is slow. For a sequence of 32K tokens, the attention matrix alone requires ~4GB of HBM per layer per head in FP16.
+
+FlashAttention (Dao et al., 2022) restructures the attention computation to avoid materializing the full n × n matrix. It processes the query, key, and value matrices in tiles that fit in the GPU's fast on-chip SRAM. Within each tile, it computes partial attention scores, applies a numerically stable online softmax, and accumulates the weighted value sum — all without writing intermediate results to HBM. The full output is assembled from these tiles using the online softmax normalization trick. This reduces HBM memory usage from O(n^2) to O(n) while keeping the computation mathematically exact (no approximation). FlashAttention-2 (2023) further improves GPU utilization through better work partitioning across thread blocks, achieving near-peak arithmetic throughput on A100 GPUs.
+
+In LLM training, FlashAttention is critical for long-context training: it makes 32K–128K context lengths feasible on standard GPU clusters that could not otherwise fit the attention matrices in memory. In inference, FlashAttention reduces memory pressure during the prefill phase (processing the input prompt), where all prompt tokens are attended over simultaneously. For the decode phase (generating one token at a time), the attention pattern is a single row of the attention matrix (new token attending to all cached keys), which FlashDecoding parallelizes more efficiently than the original FlashAttention. These optimizations collectively make long-context LLM inference practical at production scale.
