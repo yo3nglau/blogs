@@ -19,7 +19,7 @@ toc: true
 
 **A:** In multi-class image classification, each image belongs to exactly one of $L$ mutually exclusive categories. A softmax output enforces a probability distribution that sums to 1, and a single cross-entropy loss drives the model toward one dominant class. Examples include ImageNet classification and digit recognition.
 
-Multi-label image classification relaxes the mutual-exclusivity constraint: each image can simultaneously belong to any subset of $L$ classes. The canonical example is MS-COCO, where a single image may contain "person", "bicycle", and "traffic light" all at once. Formally, the goal is to learn $f: \mathcal{X} \to \{0,1\}^L$, mapping each image to a binary label vector. Architecturally this means replacing the softmax with $L$ independent sigmoid activations — each output $\hat{p}_j = \sigma(z_j) \in (0,1)$ estimates the probability that label $j$ is present, independently of the others.
+Multi-label image classification relaxes the mutual-exclusivity constraint: each image can simultaneously belong to any subset of $L$ classes. The canonical example is MS-COCO, where a single image may contain "person", "bicycle", and "traffic light" all at once. Formally, the goal is to learn $f: \mathcal{X} \to \lbrace 0,1 \rbrace^L$, mapping each image to a binary label vector. Architecturally this means replacing the softmax with $L$ independent sigmoid activations — each output $\hat{p}_j = \sigma(z_j) \in (0,1)$ estimates the probability that label $j$ is present, independently of the others.
 
 Multi-task classification is a different setting: it involves multiple heterogeneous tasks (e.g., predicting object category, bounding box, depth, and pose simultaneously), each with its own loss and output head. The tasks share a backbone but have semantically distinct outputs. Multi-label classification is a special case of multi-task where all tasks are binary predictions over a homogeneous label set, sharing not just the backbone but also the loss structure.
 
@@ -45,7 +45,7 @@ This baseline is essentially the neural-network instantiation of Binary Relevanc
 
 **Q:** What is the Binary Relevance approach, and what problem arises from ignoring label correlations?
 
-**A:** Binary Relevance (BR) is the simplest problem transformation strategy for multi-label learning: it decomposes the $L$-label problem into $L$ independent binary classification problems, one per label. Each binary classifier $f_j: \mathcal{X} \to \{0,1\}$ is trained and applied separately, with no information shared between labels at prediction time. In the deep learning era, a shared backbone with $L$ independent sigmoid outputs and BCE loss is the neural equivalent of BR.
+**A:** Binary Relevance (BR) is the simplest problem transformation strategy for multi-label learning: it decomposes the $L$-label problem into $L$ independent binary classification problems, one per label. Each binary classifier $f_j: \mathcal{X} \to \lbrace 0,1 \rbrace$ is trained and applied separately, with no information shared between labels at prediction time. In the deep learning era, a shared backbone with $L$ independent sigmoid outputs and BCE loss is the neural equivalent of BR.
 
 BR is computationally attractive: classifiers can be trained in parallel, the approach scales to any number of labels, and it makes no assumptions about the label distribution. If the labels were truly conditionally independent given the image, BR would be statistically optimal.
 
@@ -59,11 +59,11 @@ In practice, labels are rarely independent. On MS-COCO, "bicycle" and "person" c
 
 **A:** Classifier Chains (CC), introduced by Read et al. (2009), extends Binary Relevance by arranging the $L$ labels in a fixed order $y_1, y_2, \ldots, y_L$ and training a chain of binary classifiers where each classifier $f_j$ receives both the original image features $x$ and the predictions of all preceding classifiers:
 
-$$f_j\!\left(x,\, \hat{y}_1, \ldots, \hat{y}_{j-1}\right) \to \hat{y}_j$$
+$$f_j\left(x, \hat{y}_1, \ldots, \hat{y}_{j-1}\right) \to \hat{y}_j$$
 
 This corresponds to factoring the joint label distribution as:
 
-$$P(y_1, \ldots, y_L \mid x) = \prod_{j=1}^{L} P\!\left(y_j \mid x,\, y_1, \ldots, y_{j-1}\right)$$
+$$P(y_1, \ldots, y_L \mid x) = \prod_{j=1}^{L} P\left(y_j \mid x, y_1, \ldots, y_{j-1}\right)$$
 
 The key advantage over BR is that downstream classifiers can exploit label correlations: if $\hat{y}_1 = 1$ (dog detected), classifier $f_2$ can use this signal to boost the probability of "leash". In theory, with a perfect ordering and perfect preceding predictions, CC recovers the exact joint distribution.
 
@@ -101,7 +101,7 @@ Third, **density vs. sparsity trade-off**: a dense graph with low-threshold edge
 
 Concretely, the pipeline has two branches. The image branch runs a CNN backbone (ResNet-101) to produce a global feature vector $f(x) \in \mathbb{R}^d$. The label branch initializes each label as a $d_0$-dimensional word vector (from GloVe embeddings of the label name), stacks these into $X^{(0)} \in \mathbb{R}^{L \times d_0}$, and applies two GCN layers:
 
-$$X^{(l+1)} = \text{ReLU}\!\left(\hat{A}\, X^{(l)}\, W^{(l)}\right)$$
+$$X^{(l+1)} = \text{ReLU}\left(\hat{A} X^{(l)} W^{(l)}\right)$$
 
 The GCN output $W = X^{(2)} \in \mathbb{R}^{L \times d}$ serves as the classification head. Final multi-label scores are $z = W \cdot f(x) \in \mathbb{R}^L$, trained with BCE. Because $W$ is produced by GCN propagation over the co-occurrence graph, each $w_j$ encodes not only label $j$'s own semantics but also the semantics of its graph neighbors — labels that frequently co-occur share discriminative information. ML-GCN achieved state-of-the-art mAP of 83.0 on MS-COCO (with ResNet-101) at publication, establishing GCN-based label correlation modeling as a standard technique.
 
@@ -137,7 +137,7 @@ A key design choice in ML-Decoder is the use of "queries as embeddings": rather 
 
 **A:** CLIP (Radford et al., 2021) learns a joint image-text embedding space by training on 400 million image-text pairs with a contrastive objective: cosine similarity between aligned image-text pairs is maximized, and between misaligned pairs minimized. The result is an embedding space where visual concepts and their textual descriptions are geometrically close.
 
-For zero-shot multi-label classification, each label $j$ is converted to a text prompt (e.g., "a photo of a {label}") and embedded by the text encoder to obtain $t_j \in \mathbb{R}^{d}$. The query image is embedded by the image encoder to $v \in \mathbb{R}^{d}$. Per-label relevance scores are computed as cosine similarities $s_j = v^\top t_j / (\|v\| \|t_j\|)$, and a threshold is applied to produce binary predictions. No multi-label training data is required.
+For zero-shot multi-label classification, each label $j$ is converted to a text prompt (e.g., "a photo of a {label}") and embedded by the text encoder to obtain $t_j \in \mathbb{R}^{d}$. The query image is embedded by the image encoder to $v \in \mathbb{R}^{d}$. Per-label relevance scores are computed as cosine similarities $s_j = v^\top t_j / (\lVert v \rVert \lVert t_j \rVert)$, and a threshold is applied to produce binary predictions. No multi-label training data is required.
 
 The main limitation is threshold calibration: CLIP scores are not calibrated probabilities, and the optimal threshold varies by label, dataset, and prompt template. In practice, a small held-out labeled set is used to tune per-label thresholds even in the zero-shot regime. For few-shot adaptation, prompt tuning (CoCoOp, ProDA) learns soft prompt tokens while keeping CLIP weights frozen, achieving strong performance with as few as 1–16 labeled examples per label. CLIP-based methods have demonstrated competitive multi-label mAP on MS-COCO and NUS-WIDE without any standard multi-label training, making them particularly attractive when labeled data is scarce or when the label set changes frequently.
 
@@ -180,7 +180,7 @@ Focal Loss modifies BCE by adding a modulating factor $(1 - p_t)^\gamma$, where 
 
 $$\mathcal{L}_\text{FL}(p_t) = -(1 - p_t)^\gamma \log p_t$$
 
-When $\gamma = 0$, this reduces to standard BCE. For easy examples (high $p_t$), the factor $(1 - p_t)^\gamma$ approaches 0, down-weighting their contribution. For hard examples (low $p_t$), the factor remains close to 1, preserving their gradient. The focusing parameter $\gamma$ (typically $\gamma \in \{0.5, 1, 2\}$) controls how aggressively easy examples are down-weighted.
+When $\gamma = 0$, this reduces to standard BCE. For easy examples (high $p_t$), the factor $(1 - p_t)^\gamma$ approaches 0, down-weighting their contribution. For hard examples (low $p_t$), the factor remains close to 1, preserving their gradient. The focusing parameter $\gamma$ (typically $\gamma \in \lbrace 0.5, 1, 2 \rbrace$) controls how aggressively easy examples are down-weighted.
 
 In multi-label settings, Focal Loss is applied per-label independently, replacing the BCE term for each label. It consistently improves recall on tail labels compared to plain BCE, because tail-label positives are typically hard examples that Focal Loss preserves, while the easy negatives that dominate the BCE gradient are suppressed. However, Focal Loss applies the same $\gamma$ to both positives and negatives symmetrically — a limitation addressed by Asymmetric Loss (Q14).
 
@@ -210,7 +210,9 @@ Focal Loss's single $\gamma$ parameter applies the same down-weighting schedule 
 
 ASL solves this with two modifications. First, **asymmetric focusing**: apply $\gamma^+ \approx 0$ to positives (no down-weighting, preserve all positive gradient) and $\gamma^- > \gamma^+$ to negatives (aggressively suppress easy negatives):
 
-$$\mathcal{L}_\text{ASL} = \begin{cases} (1-p)^{\gamma^+} \log p & \text{if } y=1 \\ p_m^{\gamma^-} \log(1-p_m) & \text{if } y=0 \end{cases}$$
+$$\mathcal{L}_\text{ASL} = -(1-p)^{\gamma^+} \log p \quad (y=1)$$
+
+$$\mathcal{L}_\text{ASL} = -p_m^{\gamma^-} \log(1-p_m) \quad (y=0)$$
 
 Second, **probability shifting**: replace the negative probability with $p_m = \max(p - m, 0)$, where $m \geq 0$ is a shift margin. Any negative prediction with $p < m$ contributes zero loss — these are discarded as trivially easy. This acts as automatic online hard negative mining. Typical hyperparameters: $\gamma^+ = 0$, $\gamma^- = 4$, $m = 0.05$. ASL consistently outperforms BCE and Focal Loss by $1$–$3$ mAP points on MS-COCO and OpenImages and has become the de facto loss function for state-of-the-art multi-label image classification.
 
@@ -300,7 +302,7 @@ In benchmark settings, per-label threshold tuning consistently outperforms a fix
 
 **A:** Extreme Multi-Label Classification (XML) refers to settings where the label space size $L$ ranges from thousands to millions ($L \in [10^3, 10^6]$), while each instance has only a small number of relevant labels (typically 5–10). Applications include Amazon product categorization ($L \approx 670{,}000$), Wikipedia article tagging ($L \approx 500{,}000$), and ad keyword prediction ($L > 10^6$).
 
-XML presents challenges absent from standard multi-label learning. **Scalability**: a dense $L \times d$ classification head with $L = 10^6$ and $d = 256$ requires 256 GB of memory — infeasible. **Tail label learning**: most labels have fewer than 10 positive training examples, making reliable learning extremely difficult. **Evaluation**: exact set prediction is intractable; P@$k$ and NDCG@$k$ (for $k \in \{1, 3, 5\}$) are the universal metrics.
+XML presents challenges absent from standard multi-label learning. **Scalability**: a dense $L \times d$ classification head with $L = 10^6$ and $d = 256$ requires 256 GB of memory — infeasible. **Tail label learning**: most labels have fewer than 10 positive training examples, making reliable learning extremely difficult. **Evaluation**: exact set prediction is intractable; P@$k$ and NDCG@$k$ (for $k \in \lbrace 1, 3, 5 \rbrace$) are the universal metrics.
 
 Representative approaches: **Tree-based methods** (FastXML, Parabel, PECOS) partition the label space into a hierarchical binary tree of clusters. At inference, the model traverses only $O(\log L)$ branches, enabling sub-millisecond prediction for millions of labels. **Two-stage neural methods** (AttentionXML, X-Transformer, LightXML) use a fast first-stage retrieval model (often a shallow TF-IDF or lightweight neural model) to produce a shortlist of $\sim 200$–$500$ candidate labels, then re-rank within the shortlist using a more expensive Transformer. **Negative sampling**: training with all $L$ negatives per example is infeasible; hard negatives are sampled from the shortlist produced by the retrieval stage, enabling efficient training. XML benchmarks (EUR-Lex-4K, Amazon-670K, Wiki-500K) are the standard evaluation datasets.
 
