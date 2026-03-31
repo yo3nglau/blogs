@@ -130,3 +130,65 @@ For action classification, the choice involves a precision-coverage trade-off. S
 Soft-NMS (Bodla et al., 2017), originally proposed for image detection and readily applicable to TAD, replaces hard suppression with a continuous score decay. Instead of zeroing out overlapping proposals, Soft-NMS reduces their scores proportionally to their tIoU with the retained proposal: either linearly (score × (1 - tIoU)) or with a Gaussian decay (score × exp(-tIoU²/σ)). Proposals with low overlap receive minimal penalty, while highly overlapping proposals are down-weighted but not eliminated. This is particularly beneficial for TAD because actions can genuinely overlap in time (e.g., "drinking" and "talking" occurring simultaneously), and hard suppression would incorrectly eliminate valid detections.
 
 Both NMS and Soft-NMS share a fundamental limitation: they are non-differentiable post-processing steps that prevent end-to-end gradient flow from the final detection set to the proposal scoring network. Several approaches have been proposed to address this. Learning-based suppression methods train a separate network to select the optimal subset of proposals. Set-prediction approaches (DETR-style) replace NMS entirely with bipartite matching during training, constraining each query to detect at most one instance. Despite these advances, NMS and Soft-NMS remain the dominant post-processing strategy in practice due to their simplicity and strong empirical performance.
+
+## Temporal Sentence Grounding
+
+### Q11 [Basic] What is Temporal Sentence Grounding and how does it differ from TAD?
+
+**Q:** What is the Temporal Sentence Grounding task, and what are its fundamental differences from Temporal Action Detection?
+
+**A:** Temporal Sentence Grounding (TSG), also called Natural Language Video Grounding or Temporal Moment Retrieval, is the task of localizing a specific moment in an untrimmed video described by a natural language query. Given a video and a sentence such as "a person opens the refrigerator and takes out a bottle," the model must predict the temporal segment (t_start, t_end) that corresponds to this description. The output is typically a single segment per query, reflecting that the query describes one specific moment.
+
+The core difference from TAD lies in the nature of the queries. TAD uses a fixed, closed vocabulary of predefined action categories (e.g., "throwing," "high jump") and detects all instances of these categories in a video without external conditioning. TSG uses open-vocabulary natural language queries that can describe arbitrary events in compositional language, and the localization is conditioned on the specific query — the same video yields different segments for different queries. This makes TSG fundamentally a cross-modal task requiring both visual understanding and language comprehension.
+
+TSG is also typically evaluated differently: the primary metric is "R@1, IoU≥θ" (the fraction of queries for which the top-1 predicted segment achieves tIoU ≥ θ with the ground truth), reported at multiple thresholds (θ = 0.3, 0.5, 0.7). Mean IoU over all queries is also reported. Standard benchmark datasets include Charades-STA (first-person indoor activities with sentence annotations), ActivityNet-Captions (diverse activities from YouTube), DiDeMo (Flickr videos with descriptive sentences), and QVHighlights (YouTube videos with both grounding and highlight detection annotations).
+
+---
+
+### Q12 [Basic] What are the trade-offs between two-stage and one-stage grounding approaches?
+
+**Q:** How do two-stage and one-stage methods for temporal sentence grounding differ, and what are the trade-offs?
+
+**A:** Two-stage grounding methods first generate a set of temporal proposals (using any TAP method) independently of the query, then score each proposal by measuring the cross-modal similarity between the proposal's visual features and the query's language features. The proposal with the highest similarity score is selected as the prediction. Representatives include CTRL (Cross-modal Temporal Regression Localizer) and ACRN (Attentive Cross-modal Retrieval Network). The advantage is modularity: any proposal generator can be paired with any cross-modal matching head, and the proposal quality sets an upper bound on localization precision. The disadvantage is efficiency: the cross-modal matching must be computed for every proposal (O(N) operations per query), and proposals are generated without query conditioning, potentially producing candidates that are poorly aligned with query semantics.
+
+One-stage grounding methods bypass explicit proposal generation and directly predict the target segment from joint video-query representations in a single forward pass. The model encodes both the video and the query, fuses their representations, and applies a regression head to predict (t_start, t_end) directly. Methods include LGI (Local-Global Video-Text Interactions), VSLNet (Video Span Localizing Network), and SeqPAN (Sequence-to-Sequence Proposal-Aware Network). One-stage methods are faster at inference (O(1) per query) and allow the query to condition the temporal search from the start, potentially focusing attention on relevant video regions before any localization. The trade-off is optimization difficulty: the model must simultaneously learn cross-modal alignment and temporal regression without the intermediate proposal signal providing training guidance.
+
+The field has largely shifted toward one-stage and query-based (DETR-style) methods as the dominant paradigm, driven by improved pre-trained vision-language backbones (CLIP, BLIP) that provide strong initial cross-modal alignment.
+
+---
+
+### Q13 [Advanced] What are the main mechanisms for cross-modal alignment in temporal sentence grounding?
+
+**Q:** How do language-video feature interaction mechanisms work in temporal sentence grounding, and what are the dominant design choices?
+
+**A:** Cross-modal alignment in TSG requires computing a shared representation where semantically matching video segments and language descriptions are close in feature space. The first design choice is the encoding backbone. Early work used C3D or I3D features for video and LSTMs for language encoding. Modern methods use pre-trained vision-language models, most commonly CLIP, whose contrastive pre-training on image-text pairs provides strong zero-shot alignment that transfers well to video when applied at the snippet level. Fine-tuned CLIP features substantially reduce the cross-modal alignment burden for the grounding head.
+
+The interaction mechanism determines how video and language features are combined. Early fusion concatenates or element-wise adds the sentence representation to each snippet feature before any temporal reasoning, giving every temporal computation access to the query. Cross-attention (transformer-based) allows each video snippet to attend over all query word tokens and vice versa, computing query-aware video features and video-aware query features simultaneously. This bidirectional interaction is now standard. Feature-wise Linear Modulation (FiLM) conditions the visual feature processing on affine transformations derived from the query, modulating both scale and shift of visual features by query-derived parameters — a lightweight alternative to full cross-attention that works well when the query is short.
+
+Recent methods increasingly use pre-trained video-language models (InternVideo, VideoCLIP, BLIP-2) as unified encoders that jointly process video and text with interleaved cross-attention from the start, rather than encoding separately and fusing later. This pre-trained joint encoding yields richer cross-modal representations and reduces the amount of task-specific fine-tuning needed for grounding.
+
+---
+
+### Q14 [Advanced] How does weakly-supervised temporal sentence grounding work?
+
+**Q:** What are the main strategies for temporal sentence grounding without timestamp annotations, and what makes this setting challenging?
+
+**A:** In the weakly-supervised setting, the training data consists only of (video, sentence) pairs without temporal annotations indicating where in the video the described moment occurs. The model must learn to localize moments from the indirect supervision signal that the sentence should describe something that actually appears in the video — a highly underspecified constraint.
+
+Multiple Instance Learning (MIL) is the most common approach. The video is divided into temporal segments (proposals or sliding windows), forming a "bag" of candidate moments. The learning objective is that at least one moment in the bag should match the sentence. This is typically implemented as a max-pooling loss: compute a matching score between each proposal and the sentence, take the maximum score as the bag score, and train the bag-level binary classification (does this video contain the described moment?) with cross-entropy. At inference, the highest-scoring proposal is selected. The challenge is the "false positive" problem: many proposals may superficially match the query without being the true moment, and MIL training cannot distinguish them.
+
+Reconstruction-based methods use a different indirect signal: encode the sentence, locate a moment, and then decode the sentence from the located moment's visual features. The reconstruction loss (e.g., cross-entropy over the sentence tokens) indirectly supervises temporal localization — only the correct moment will contain sufficient information to reconstruct the specific query. Contrastive learning provides a complementary signal: pull matched (video segment, sentence) pairs close in embedding space and push mismatched pairs apart, with hard negative mining selecting challenging mismatches from within the same video or from similar-content videos.
+
+The fundamental challenge is temporal bias: models often learn spurious correlations (e.g., most described moments start in the first half of the video) rather than genuine visual-language alignment. This requires explicit de-biasing strategies during training, such as negatively mining in-video negatives (same query, different temporal location) to force the model to localize based on content rather than position.
+
+---
+
+### Q15 [Advanced] How does Moment-DETR adapt the DETR paradigm to temporal sentence grounding?
+
+**Q:** What is Moment-DETR's architecture and training approach, and how does set-prediction change the grounding pipeline?
+
+**A:** Moment-DETR (Yuan et al., 2021) adapts DETR's set-prediction framework to temporal sentence grounding. The model uses N learnable moment queries, each intended to detect one relevant temporal moment in the video. The architecture encodes the video with a visual backbone (C3D or CLIP features at the snippet level) and the query sentence with a text encoder (RoBERTa or CLIP text encoder). Both are projected to a shared embedding dimension and concatenated along the sequence axis to form a joint visual-language token sequence. A standard transformer encoder processes this joint sequence with full self-attention, producing contextualized tokens for both video snippets and query words.
+
+The N learnable moment queries then attend over the encoded joint sequence via transformer decoder cross-attention, each query aggregating information relevant to one potential moment. Each query's output is passed to a prediction head consisting of a linear classifier (foreground vs. background) and a linear regressor predicting (t_center, t_width) in normalized coordinates. During training, predictions are matched to ground truth moments using the Hungarian algorithm — bipartite matching that assigns each ground truth to exactly one query at minimum cost — eliminating the need for NMS. The training loss combines a classification loss, an L1 regression loss on moment coordinates, and a generalized IoU loss on predicted and ground truth segments. For the QVHighlights benchmark, an additional saliency loss is added to score each video clip for highlight detection.
+
+The set-prediction formulation offers several advantages: it handles multiple relevant moments (one per query) naturally, avoids the non-differentiable NMS post-processing, and trains the full pipeline end-to-end. The main limitation is sensitivity to initialization and the need for sufficient capacity in the N queries to cover all possible moments — if N is too small, some moments go undetected. Subsequent work (QD-DETR, EaTR) extends Moment-DETR with query denoising and efficient attention to improve convergence and precision.
