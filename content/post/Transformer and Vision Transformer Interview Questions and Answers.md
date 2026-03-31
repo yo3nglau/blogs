@@ -84,7 +84,7 @@ In modern practice, many architectures use only the encoder (e.g., BERT for repr
 
 Several approaches have been proposed to reduce this cost. Sparse attention methods (Longformer, BigBird) restrict each token to attend only to a subset of positions — for example, a local window plus a few global tokens — reducing complexity to O(n · w) where w is the window size. Linear attention approximations (Performer, Linear Transformer) reformulate the attention computation to avoid materializing the full n × n matrix, achieving O(n) complexity at the cost of some approximation.
 
-FlashAttention (Dao et al., 2022) is a hardware-aware exact attention implementation that computes attention in tiles to avoid loading the full attention matrix into GPU SRAM. It achieves O(n^2) time but O(n) memory and is 2-4× faster in practice due to reduced memory I/O — it has become the standard implementation in most modern frameworks. For vision, Swin Transformer addresses the quadratic cost by computing attention within fixed local windows rather than globally.
+FlashAttention (Dao et al., 2022) is a hardware-aware exact attention implementation that computes attention in tiles that fit in fast on-chip SRAM, avoiding repeated reads from slow GPU HBM (global memory). It achieves O(n^2) time but O(n) memory and is 2-4× faster in practice due to reduced memory I/O — it has become the standard implementation in most modern frameworks. For vision, Swin Transformer addresses the quadratic cost by computing attention within fixed local windows rather than globally.
 
 ---
 
