@@ -159,3 +159,39 @@ The original ViT paper demonstrated this clearly: ViT trained on ImageNet-1k (1.
 In terms of inductive biases, CNNs have locality (filters are spatially local), weight sharing (same filter applied across the image), and translation equivariance built in. ViT has none of these — it learns them from data. This makes ViT more flexible but more data-hungry.
 
 From a practical standpoint, CNNs tend to outperform ViTs when labeled data is limited, while ViTs become competitive or superior at scale (large datasets, large models). ViTs also scale more predictably with model size and data, following power-law scaling behavior similar to language models. Additionally, the Transformer architecture is more amenable to multi-modal extensions (e.g., combining image and text tokens in a unified sequence), which has made ViT the dominant backbone in modern vision-language models.
+
+---
+
+### Q13 [Advanced] What is the inductive bias problem in ViT?
+
+**Q:** What does it mean that ViT has less inductive bias than CNNs, and why does this matter?
+
+**A:** Inductive bias refers to the set of assumptions an architecture makes about the structure of data, independent of what it learns from training examples. CNNs encode two strong inductive biases: locality (convolutions operate on local spatial neighborhoods, assuming nearby pixels are more related) and translation equivariance (the same feature detector is applied everywhere, assuming that a feature is useful regardless of where it appears in the image).
+
+ViT intentionally discards these biases. Patch embeddings treat each patch as an unordered token, and Self-Attention computes relationships between all pairs of patches with no preference for spatially close pairs. The model must learn from data that, for example, adjacent patches tend to be more correlated than distant ones — something a CNN gets for free.
+
+This has two consequences. On the negative side, ViT requires substantially more data to reach the same performance as CNNs, because it cannot rely on architectural shortcuts. On the positive side, the lack of hard-coded biases means ViT is more flexible: it can learn non-local patterns that CNNs might miss, and the same architecture can be applied with minimal modification to other modalities (text, audio, point clouds) by simply changing the tokenization strategy. Hybrid architectures — using a CNN for early local feature extraction and a Transformer for global reasoning — attempt to get the best of both worlds.
+
+---
+
+### Q14 [Advanced] How does DeiT address ViT's data dependency problem?
+
+**Q:** What techniques does DeiT introduce to train ViT-like models efficiently without large proprietary datasets?
+
+**A:** DeiT (Data-efficient Image Transformers, Touvron et al., 2021) shows that a ViT-sized model can be trained competitively on ImageNet-1k alone (without JFT or ImageNet-21k pretraining) through two main contributions: aggressive data augmentation and knowledge distillation from a CNN teacher.
+
+On the augmentation side, DeiT applies a combination of RandAugment, Mixup, CutMix, random erasing, and repeated augmentation. These techniques significantly expand the effective training distribution, compensating for the lack of additional data and helping ViT learn robust features without overfitting.
+
+The key architectural innovation is the distillation token. Alongside the [CLS] token, DeiT prepends a learnable distillation token to the patch sequence. During training, this token is supervised to match the hard labels produced by a pretrained CNN teacher (typically a RegNet or EfficientNet), while the [CLS] token is supervised with the true labels via cross-entropy. At inference, predictions from both tokens are ensembled. The distillation token allows the student ViT to inherit the inductive biases of the CNN teacher implicitly through the soft supervision signal, without requiring explicit architectural changes.
+
+---
+
+### Q15 [Advanced] How does Swin Transformer's shifted window attention work?
+
+**Q:** What problem does Swin Transformer solve, and how does its shifted window mechanism work?
+
+**A:** Swin Transformer (Liu et al., 2021) addresses two limitations of ViT: the O(n^2) complexity of global attention, which becomes prohibitive for high-resolution images, and the lack of a hierarchical feature representation (ViT produces a single-scale feature map, while CNNs produce multi-scale pyramids useful for dense prediction tasks like detection and segmentation).
+
+Swin partitions the image into non-overlapping local windows of fixed size (e.g., 7×7 patches) and computes Self-Attention only within each window. If the image has N patches and each window has M patches, the complexity drops from O(N^2) to O(N · M), which is linear in image size for fixed M. This makes high-resolution processing feasible.
+
+The "shifted window" mechanism addresses the limitation that attention within fixed windows creates no cross-window communication. In alternating Transformer layers, Swin shifts the window partition by half a window size in both height and width directions. This causes windows from the previous layer to straddle window boundaries in the current layer, allowing indirect information flow between adjacent windows. To maintain efficiency, shifted windows that cross image boundaries are handled with a cyclic shifting and masking trick rather than padding. Swin also uses patch merging layers (similar to CNN pooling) to progressively reduce spatial resolution and double channel dimensions, producing the hierarchical feature maps needed for dense prediction.
