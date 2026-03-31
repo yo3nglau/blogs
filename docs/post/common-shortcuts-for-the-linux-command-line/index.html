@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Common Shortcuts for the Linux Command Line | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Common Shortcuts for the Linux Command Line</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/03/31</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/computer-technology">Computer Technology</a> 
+  
+  
+  
+  Tags: <a href="/tags/guide">Guide</a> <a href="/tags/linux-command">Linux Command</a> 
+  
+  
+</p>
+</div>
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#preface">Preface</a></li>
+    <li><a href="#cursor-movement">Cursor Movement</a></li>
+    <li><a href="#text-editing">Text Editing</a></li>
+    <li><a href="#command-history">Command History</a></li>
+    <li><a href="#process-and-job-control">Process and Job Control</a></li>
+    <li><a href="#terminal-control">Terminal Control</a></li>
+    <li><a href="#quick-reference">Quick Reference</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="preface">Preface</h2>
+<p>Bash uses the GNU Readline library to handle command-line input. By default, it follows an Emacs-style keybinding scheme, which makes a rich set of shortcuts available for editing commands, navigating history, and controlling the terminal—without touching the mouse.</p>
+<p>This post covers the most useful shortcuts across five areas: cursor movement, text editing, command history, process and job control, and terminal control. A consolidated quick-reference table is provided at the end.</p>
+<blockquote>
+<p><strong>Note:</strong> These shortcuts apply to Bash in its default Emacs mode. If you have switched to Vi mode (<code>set -o vi</code>), the bindings differ.</p>
+</blockquote>
+<h2 id="cursor-movement">Cursor Movement</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Shortcut</th>
+          <th>Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Ctrl+A</code></td>
+          <td>Move to beginning of line</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+E</code></td>
+          <td>Move to end of line</td>
+      </tr>
+      <tr>
+          <td><code>Alt+F</code></td>
+          <td>Move forward one word</td>
+      </tr>
+      <tr>
+          <td><code>Alt+B</code></td>
+          <td>Move backward one word</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+F</code></td>
+          <td>Move forward one character</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+B</code></td>
+          <td>Move backward one character</td>
+      </tr>
+  </tbody>
+</table>
+<p>These shortcuts shine when editing long commands. For example, after pressing <code>↑</code> to recall a previous command, use <code>Ctrl+A</code> to jump to the beginning, then <code>Alt+F</code> to hop word-by-word to the typo you need to fix—far faster than holding the arrow key.</p>
+<h2 id="text-editing">Text Editing</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Shortcut</th>
+          <th>Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Backspace</code> / <code>Ctrl+H</code></td>
+          <td>Delete character before cursor</td>
+      </tr>
+      <tr>
+          <td><code>Alt+D</code></td>
+          <td>Delete word after cursor</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+W</code></td>
+          <td>Delete word before cursor</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+K</code></td>
+          <td>Delete from cursor to end of line</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+U</code></td>
+          <td>Delete from cursor to beginning of line</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+Y</code></td>
+          <td>Paste (yank) last deleted text</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+_</code></td>
+          <td>Undo last edit</td>
+      </tr>
+      <tr>
+          <td><code>Alt+U</code></td>
+          <td>Uppercase word after cursor</td>
+      </tr>
+      <tr>
+          <td><code>Alt+L</code></td>
+          <td>Lowercase word after cursor</td>
+      </tr>
+  </tbody>
+</table>
+<p><code>Ctrl+K</code> and <code>Ctrl+U</code> are especially useful together: they act as a cut operation. Delete part of a command with <code>Ctrl+K</code>, correct what remains, then restore the deleted portion with <code>Ctrl+Y</code>.</p>
+<h2 id="command-history">Command History</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Shortcut</th>
+          <th>Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>↑</code> / <code>Ctrl+P</code></td>
+          <td>Previous command in history</td>
+      </tr>
+      <tr>
+          <td><code>↓</code> / <code>Ctrl+N</code></td>
+          <td>Next command in history</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+R</code></td>
+          <td>Reverse incremental history search</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+G</code></td>
+          <td>Abort history search</td>
+      </tr>
+      <tr>
+          <td><code>!!</code></td>
+          <td>Repeat last command</td>
+      </tr>
+      <tr>
+          <td><code>!$</code></td>
+          <td>Last argument of the previous command</td>
+      </tr>
+      <tr>
+          <td><code>Alt+.</code></td>
+          <td>Insert last argument of the previous command</td>
+      </tr>
+  </tbody>
+</table>
+<p>Most of the above are Readline keybindings; <code>!!</code> and <code>!$</code> are Bash history expansions typed literally at the prompt.</p>
+<p><code>Ctrl+R</code> is arguably the most powerful shortcut in this list. Press it, start typing any part of a previous command, and Bash finds the most recent match instantly. Press <code>Ctrl+R</code> again to cycle to older matches.</p>
+<p><code>!$</code> and <code>Alt+.</code> save you from retyping long file paths. After running <code>vim /etc/nginx/nginx.conf</code>, you can run <code>cat !$</code> to print the same file.</p>
+<h2 id="process-and-job-control">Process and Job Control</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Shortcut / Command</th>
+          <th>Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Ctrl+C</code></td>
+          <td>Interrupt (terminate) the current process</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+Z</code></td>
+          <td>Suspend the current process</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+D</code></td>
+          <td>Send EOF / exit the shell (only when the line is empty)</td>
+      </tr>
+      <tr>
+          <td><code>fg</code></td>
+          <td>Resume the most recent suspended job in the foreground</td>
+      </tr>
+      <tr>
+          <td><code>bg</code></td>
+          <td>Resume the most recent suspended job in the background</td>
+      </tr>
+      <tr>
+          <td><code>jobs</code></td>
+          <td>List all current jobs with their status</td>
+      </tr>
+  </tbody>
+</table>
+<p>A common workflow: you are running a command interactively and need to quickly check something else. Press <code>Ctrl+Z</code> to suspend it, do your work, then run <code>fg</code> to resume exactly where you left off.</p>
+<h2 id="terminal-control">Terminal Control</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Shortcut</th>
+          <th>Action</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Ctrl+L</code></td>
+          <td>Clear the terminal screen (equivalent to <code>clear</code>)</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+S</code></td>
+          <td>Pause terminal output (XOFF)</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+Q</code></td>
+          <td>Resume terminal output (XON)</td>
+      </tr>
+  </tbody>
+</table>
+<p>If your terminal appears frozen and stops responding to input, <code>Ctrl+S</code> is often the culprit—it pauses all output. Press <code>Ctrl+Q</code> to unfreeze it.</p>
+<h2 id="quick-reference">Quick Reference</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Shortcut / Command</th>
+          <th>Action</th>
+          <th>Category</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td><code>Ctrl+A</code></td>
+          <td>Move to beginning of line</td>
+          <td>Cursor</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+E</code></td>
+          <td>Move to end of line</td>
+          <td>Cursor</td>
+      </tr>
+      <tr>
+          <td><code>Alt+F</code></td>
+          <td>Move forward one word</td>
+          <td>Cursor</td>
+      </tr>
+      <tr>
+          <td><code>Alt+B</code></td>
+          <td>Move backward one word</td>
+          <td>Cursor</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+F</code></td>
+          <td>Move forward one character</td>
+          <td>Cursor</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+B</code></td>
+          <td>Move backward one character</td>
+          <td>Cursor</td>
+      </tr>
+      <tr>
+          <td><code>Backspace</code> / <code>Ctrl+H</code></td>
+          <td>Delete character before cursor</td>
+          <td>Editing</td>
+      </tr>
+      <tr>
+          <td><code>Alt+D</code></td>
+          <td>Delete word after cursor</td>
+          <td>Editing</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+W</code></td>
+          <td>Delete word before cursor</td>
+          <td>Editing</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+K</code></td>
+          <td>Delete from cursor to end of line</td>
+          <td>Editing</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+U</code></td>
+          <td>Delete from cursor to beginning of line</td>
+          <td>Editing</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+Y</code></td>
+          <td>Paste (yank) last deleted text</td>
+          <td>Editing</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+_</code></td>
+          <td>Undo last edit</td>
+          <td>Editing</td>
+      </tr>
+      <tr>
+          <td><code>Alt+U</code></td>
+          <td>Uppercase word after cursor</td>
+          <td>Editing</td>
+      </tr>
+      <tr>
+          <td><code>Alt+L</code></td>
+          <td>Lowercase word after cursor</td>
+          <td>Editing</td>
+      </tr>
+      <tr>
+          <td><code>↑</code> / <code>Ctrl+P</code></td>
+          <td>Previous command</td>
+          <td>History</td>
+      </tr>
+      <tr>
+          <td><code>↓</code> / <code>Ctrl+N</code></td>
+          <td>Next command</td>
+          <td>History</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+R</code></td>
+          <td>Reverse incremental history search</td>
+          <td>History</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+G</code></td>
+          <td>Abort history search</td>
+          <td>History</td>
+      </tr>
+      <tr>
+          <td><code>!!</code></td>
+          <td>Repeat last command</td>
+          <td>History</td>
+      </tr>
+      <tr>
+          <td><code>!$</code></td>
+          <td>Last argument of previous command</td>
+          <td>History</td>
+      </tr>
+      <tr>
+          <td><code>Alt+.</code></td>
+          <td>Insert last argument of previous command</td>
+          <td>History</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+C</code></td>
+          <td>Interrupt current process</td>
+          <td>Process/Job</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+Z</code></td>
+          <td>Suspend current process</td>
+          <td>Process/Job</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+D</code></td>
+          <td>Send EOF / exit shell (empty line only)</td>
+          <td>Process/Job</td>
+      </tr>
+      <tr>
+          <td><code>fg</code></td>
+          <td>Resume suspended job in foreground</td>
+          <td>Process/Job</td>
+      </tr>
+      <tr>
+          <td><code>bg</code></td>
+          <td>Resume suspended job in background</td>
+          <td>Process/Job</td>
+      </tr>
+      <tr>
+          <td><code>jobs</code></td>
+          <td>List current jobs</td>
+          <td>Process/Job</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+L</code></td>
+          <td>Clear terminal screen</td>
+          <td>Terminal</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+S</code></td>
+          <td>Pause terminal output</td>
+          <td>Terminal</td>
+      </tr>
+      <tr>
+          <td><code>Ctrl+Q</code></td>
+          <td>Resume terminal output</td>
+          <td>Terminal</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="conclusion">Conclusion</h2>
+<p>You don&rsquo;t need to memorize all of these at once. Start with the highest-return shortcuts: <code>Ctrl+R</code> for history search, <code>Ctrl+A</code>/<code>Ctrl+E</code> for line navigation, and <code>Ctrl+K</code>/<code>Ctrl+Y</code> for cut-and-paste editing. The rest will become natural over time as you encounter the situations they solve.</p>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://www.gnu.org/software/bash/manual/bash.html#Command-Line-Editing">GNU Bash Manual — Command-Line Editing</a></li>
+<li><a href="https://www.gnu.org/software/bash/manual/bash.html#Bindable-Readline-Commands">GNU Bash Manual — Bindable Readline Commands</a></li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+
