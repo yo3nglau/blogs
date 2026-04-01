@@ -128,3 +128,59 @@ MCTS offers advantages over greedy decoding (single path, no backtracking) and b
 **TaskMatrix.AI** (Liang et al., 2023) scales this further by proposing a universal API platform where millions of APIs (software functions, cloud services, physical devices) are uniformly described using an API schema. The LLM uses an **action executor** that selects APIs from this registry via semantic search on their descriptions, generates the API call, and chains calls across steps. The design trade-off is discoverability vs. reliability: a large, automatically curated API set enables breadth but makes it harder for the LLM to select the right API from many similar candidates, increasing tool selection error rates compared to small, manually curated tool sets.
 
 ---
+
+## Memory & Retrieval
+
+### Q10 [Basic] What are the three types of memory in LLM agents?
+
+**Q:** How is memory categorized in LLM agent systems, and what are the storage mechanism, capacity, and access pattern of each type?
+
+**A:** LLM agent memory is categorized into three types by analogy to human cognitive memory systems.
+
+**Sensory memory** (or sensory buffer) corresponds to the raw, unprocessed inputs received in the current step: the user's request, the latest tool output, a retrieved document chunk. It is transient — only the current observation is in this buffer — and unlimited in principle (any input can be received), but it must be integrated into working memory to influence reasoning.
+
+**Working memory** is the model's context window: all tokens currently visible to the model during inference. This is where active reasoning happens — the current task, recent Thought–Action–Observation history, retrieved memory snippets, and system instructions all compete for context space. Working memory is fast (constant-time access — everything is in-context) but severely capacity-limited. Current LLMs have context windows of 8K–1M tokens, but effective attention degrades for very long contexts, and cost scales with context length. Working memory is also volatile: it resets between sessions unless persisted externally.
+
+**Long-term memory** is stored outside the context window and retrieved selectively. It is subdivided into: (1) **episodic memory** — records of specific past events or trajectories (what the agent did in a prior session, past tool outputs); (2) **semantic memory** — factual knowledge (a vector database of documents, a knowledge graph); (3) **procedural memory** — learned skills or workflows, often encoded as few-shot examples or fine-tuned model weights. Access requires an explicit retrieval step (embedding similarity search, keyword lookup, or structured query), which introduces latency and retrieval errors. Long-term memory is persistent across sessions and scales to billions of tokens, but the retrieval step is a bottleneck and a source of failure.
+
+---
+
+### Q11 [Basic] How does Retrieval-Augmented Generation function as agent memory, and what are its limitations?
+
+**Q:** Describe the RAG pipeline as an agent memory mechanism and explain the cases where it fails.
+
+**A:** Retrieval-Augmented Generation (RAG, Lewis et al., 2020) adds external semantic memory to an LLM by prepending retrieved documents to the generation context. The pipeline has three stages: (1) **indexing** — documents are split into chunks, encoded into dense vectors by an embedding model, and stored in a vector database; (2) **retrieval** — given the current query (or a rewritten version of it), the same embedding model encodes the query and the $k$ most similar chunks are retrieved via approximate nearest-neighbor search; (3) **generation** — retrieved chunks and the original query are concatenated into the prompt, and the LLM generates a response grounded in the retrieved context.
+
+In the agent context, RAG serves as the agent's long-term semantic memory: tool call results, prior conversation summaries, external knowledge bases, and task-relevant documents can all be indexed and retrieved on demand, allowing the agent to access information beyond its context window.
+
+RAG fails in four principal scenarios. First, **retrieval failure**: if the query is ambiguous, misleading, or the relevant document uses different terminology (vocabulary mismatch), the correct chunk is not retrieved. Second, **multi-hop reasoning**: questions requiring synthesis across multiple documents may not be answerable from a fixed-$k$ retrieval, because the first retrieved document may not contain the bridging entity needed to formulate a retrieval query for the second. Third, **temporal staleness**: the index is a snapshot; if the underlying data changes, retrieval returns outdated information. Fourth, **context length pressure**: retrieving many chunks quickly fills the context window, forcing a trade-off between retrieval breadth and remaining space for reasoning.
+
+---
+
+### Q12 [Advanced] How does MemGPT address the context window limitation for long-term agent memory?
+
+**Q:** Describe MemGPT's hierarchical memory architecture and the mechanism by which it manages information across context window boundaries.
+
+**A:** MemGPT (Packer et al., 2023) reimagines the LLM agent as an operating system process with managed memory tiers, directly analogous to OS virtual memory. The core problem it addresses is that long-running agents accumulate more information than fits in the context window, but naive truncation discards potentially critical earlier context.
+
+MemGPT defines two memory tiers. **In-context memory** is divided into a fixed system prompt region (agent identity, core instructions, and a "persona" description), a working context region (the last $n$ Thought–Action–Observation steps), and a FIFO message queue (recent user–agent exchanges). **External memory** stores all prior events, documents, and conversation history outside the context window, indexed for retrieval.
+
+The key mechanism is **memory management functions** — a set of tools exposed to the agent that allow it to explicitly manage its own memory: `core_memory_append` and `core_memory_replace` update the in-context persona and facts; `archival_memory_insert` and `archival_memory_search` write to and retrieve from external storage; `conversation_search` retrieves prior conversation segments by keyword or recency. The agent is prompted to call these functions proactively — before an important piece of context scrolls out of the window, the agent writes it to archival memory, and retrieves it later when relevant.
+
+This is analogous to OS page swapping: the agent controls what occupies its limited "RAM" (context window) by explicitly moving information between fast in-context storage and slow external storage. The overhead is additional LLM calls for memory management, but the benefit is that the agent can maintain coherent long-horizon tasks across unlimited context without losing critical state.
+
+---
+
+### Q13 [Advanced] How are episodic and semantic memory implemented in LLM agents, and what retrieval strategies does each require?
+
+**Q:** Distinguish episodic from semantic memory in the agent setting, describe concrete implementations, and explain why each requires a different retrieval approach.
+
+**A:** In cognitive science, episodic memory stores specific experienced events (what happened, when, and in what context), while semantic memory stores general factual knowledge independent of any specific episode. This distinction maps cleanly to LLM agent architectures and has important consequences for implementation and retrieval.
+
+**Episodic memory** in agents records specific past trajectories: full Thought–Action–Observation sequences from prior sessions, past errors and corrections (as in Reflexion), or records of specific user interactions. The critical property is temporal and contextual specificity — the agent needs to retrieve "what I did the last time I encountered a task like this" rather than "what is generally true about this domain." Retrieval is therefore best served by **recency-weighted similarity search** (recent episodes are more relevant than old ones), **task similarity matching** (embedding the current task and finding episodes with similar embeddings), or **structured lookup** (if episodes are tagged with task type, entity names, or success/failure labels). Generative Agents (Park et al., 2023) implement episodic memory as a stream of natural language "memories," retrieved by weighting recency, importance (scored by the LLM), and relevance to the current context.
+
+**Semantic memory** stores factual knowledge: a vector database of domain documents, a knowledge graph of entities and relations, or a code library of reusable functions. The content is independent of when or how it was acquired. Retrieval is best served by **dense retrieval** (embedding similarity between the query and document chunks, as in RAG), **sparse retrieval** (BM25 keyword matching, effective when terminology is domain-specific and exact terms matter), or **hybrid retrieval** (combining dense and sparse scores, the current best practice for production RAG systems). Knowledge graphs additionally support **multi-hop retrieval**: structured graph traversal can answer relational queries that embedding similarity cannot, by following entity links across the graph.
+
+The practical challenge is that most agents need both: they must recall prior experiences (episodic) and look up factual knowledge (semantic), and the two should be stored and retrieved separately to avoid interference. A single undifferentiated vector store conflating episodes and facts degrades retrieval precision for both.
+
+---
