@@ -41,6 +41,32 @@
                 href="https://yo3nglau.github.io/blogs/zh/categories/interview/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/large-language-model/</loc>
+    <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/large-language-model/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/large-language-model/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/nlp/</loc>
+    <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/nlp/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/nlp/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -104,6 +130,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/large-language-models-interview-questions-and-answers/</loc>
+    <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/large-language-models-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/large-language-models-interview-questions-and-answers/"
                 />
   </url>
 </urlset>

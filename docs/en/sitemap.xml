@@ -59,6 +59,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/large-language-model/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/large-language-model/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/large-language-model/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/llm-based-agents-interview-questions-and-answers/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
@@ -102,6 +112,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/large-language-models-interview-questions-and-answers/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/large-language-models-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/large-language-models-interview-questions-and-answers/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/linux-command/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
@@ -120,6 +140,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/nlp/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/nlp/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/nlp/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/state-space-model/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
