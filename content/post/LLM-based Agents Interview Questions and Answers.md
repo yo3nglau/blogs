@@ -184,6 +184,7 @@ This is analogous to OS page swapping: the agent controls what occupies its limi
 The practical challenge is that most agents need both: they must recall prior experiences (episodic) and look up factual knowledge (semantic), and the two should be stored and retrieved separately to avoid interference. A single undifferentiated vector store conflating episodes and facts degrades retrieval precision for both.
 
 ---
+
 ## Multi-Agent Systems
 
 ### Q14 [Basic] What motivates multi-agent systems over single-agent designs?
@@ -194,7 +195,7 @@ The practical challenge is that most agents need both: they must recall prior ex
 
 Second, **lack of specialization**: a single generalist agent must perform all subtasks — code generation, web search, document summarization, mathematical reasoning — with the same prompt configuration. Different subtasks benefit from different system prompts, few-shot examples, and tool sets. Multi-agent systems assign specialized agents to subtasks, with each agent's prompt, tools, and context optimized for its role (analogous to the division of labor in human organizations).
 
-Third, **absence of cross-validation**: a single agent cannot independently verify its own outputs. Multi-agent systems enable **adversarial collaboration** — one agent generates a solution while another critiques it (as in the "society of mind" and debate frameworks). This debate or peer-review dynamic improves factual accuracy and robustness on tasks where self-critique by the same model is limited by shared failure modes. Experiments in Du et al. (2023) show that multi-agent debate consistently improves factual accuracy and mathematical reasoning over single-model self-consistency.
+Third, **absence of cross-validation**: a single agent cannot independently verify its own outputs. Multi-agent systems enable **adversarial collaboration** — one agent generates a solution while another critiques it (as in multi-agent debate frameworks). This debate or peer-review dynamic improves factual accuracy and robustness on tasks where self-critique by the same model is limited by shared failure modes. Experiments in Du et al. (2023) show that multi-agent debate consistently improves factual accuracy and mathematical reasoning over single-model self-consistency.
 
 ---
 
@@ -216,7 +217,7 @@ For more complex workflows, AutoGen supports **GroupChat**: multiple Conversable
 
 **A:** Multi-agent communication topologies determine how information flows between agents and which agents can initiate communication with which others.
 
-**Centralized (star) topology** routes all communication through a single orchestrator agent: every worker agent sends outputs to the orchestrator, which synthesizes them and issues the next instruction. This is the most common topology in practice (AutoGen's GroupChat with a manager, LangGraph's supervisor pattern). Advantages: the orchestrator maintains a global view of task state, enabling coherent multi-step plans; bottlenecks and redundant work are easy to detect. Disadvantages: the orchestrator is a single point of failure, its context window carries the entire task state, and all latency paths go through it.
+**Centralized (star) topology** routes all communication through a single orchestrator agent: every worker agent sends outputs to the orchestrator, which synthesizes them and issues the next instruction. This is the most common topology in practice (AutoGen's GroupChat with a manager, LangGraph's supervisor pattern). Advantages: the orchestrator maintains a global view of task state, enabling coherent multi-step plans; bottlenecks and redundant work are easy to detect. Disadvantages: the orchestrator is a single point of failure (a reliability risk — if it misunderstands or loses track of task state, the entire workflow fails), its context window carries the entire task state, and all latency paths go through it.
 
 **Decentralized (peer-to-peer) topology** allows any agent to communicate directly with any other. This enables parallel processing without a bottleneck and supports emergent coordination patterns. Generative Agents (Park et al., 2023) use this topology for social simulation. The challenge is consistency: without a central coordinator, agents can develop conflicting beliefs about task state, producing redundant work or contradictory outputs. This topology suits simulations and open-ended exploration where loose coordination is acceptable, not tight goal-directed tasks.
 
@@ -234,6 +235,6 @@ For more complex workflows, AutoGen supports **GroupChat**: multiple Conversable
 
 The critical innovation is **structured output schemas**. Each agent communicates exclusively through predefined document templates: the ProductManager outputs a PRD in a fixed Markdown schema, the Architect outputs a design document with mandatory sections (tech stack, data structures, API signatures), and so on. Downstream agents parse these structured documents rather than interpreting free-form prose, dramatically reducing the ambiguity and hallucination in inter-agent communication. This is analogous to typed function interfaces in software: well-defined schemas catch mismatches early and make the communication contract explicit.
 
-**Action-observation subscriptions** further structure the information flow: each agent subscribes to the outputs of the agents whose work it depends on, and is triggered when those outputs are available. This creates a data-flow graph (ProductManager → Architect → ProjectManager → Engineer → QAEngineer) with explicit dependencies and no unnecessary communication. On software generation benchmarks including HumanEval and MBPP, MetaGPT produces substantially more executable and complete software artifacts than single-agent GPT-4, demonstrating that structured communication and role specialization meaningfully improve output quality for complex multi-step software generation.
+**Action-observation subscriptions** further structure the information flow: each agent subscribes to the outputs of the agents whose work it depends on, and is triggered when those outputs are available. This creates a data-flow graph (ProductManager → Architect → ProjectManager → Engineer → QAEngineer) with explicit dependencies and no unnecessary communication. On MetaGPT's internal SoftwareDev benchmark (measuring executability and completeness of multi-file software projects), the structured SOP workflow produces substantially more complete software artifacts than single-agent GPT-4, demonstrating that role specialization and structured communication meaningfully improve output quality for complex multi-step software generation.
 
 ---
