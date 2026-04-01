@@ -184,3 +184,56 @@ This is analogous to OS page swapping: the agent controls what occupies its limi
 The practical challenge is that most agents need both: they must recall prior experiences (episodic) and look up factual knowledge (semantic), and the two should be stored and retrieved separately to avoid interference. A single undifferentiated vector store conflating episodes and facts degrades retrieval precision for both.
 
 ---
+## Multi-Agent Systems
+
+### Q14 [Basic] What motivates multi-agent systems over single-agent designs?
+
+**Q:** Why are multi-agent systems used, and what specific limitations of single-agent architectures do they address?
+
+**A:** Single-agent architectures face three fundamental limitations that motivate multi-agent designs. First, **context length saturation**: a single agent handling a large, complex task must carry all task state — instructions, tool outputs, intermediate results, domain knowledge — in one context window. As the task grows, this window fills, degrading effective attention on earlier content and eventually making the task intractable. Multi-agent systems decompose the task across multiple context windows, each carrying only the state relevant to its sub-problem.
+
+Second, **lack of specialization**: a single generalist agent must perform all subtasks — code generation, web search, document summarization, mathematical reasoning — with the same prompt configuration. Different subtasks benefit from different system prompts, few-shot examples, and tool sets. Multi-agent systems assign specialized agents to subtasks, with each agent's prompt, tools, and context optimized for its role (analogous to the division of labor in human organizations).
+
+Third, **absence of cross-validation**: a single agent cannot independently verify its own outputs. Multi-agent systems enable **adversarial collaboration** — one agent generates a solution while another critiques it (as in the "society of mind" and debate frameworks). This debate or peer-review dynamic improves factual accuracy and robustness on tasks where self-critique by the same model is limited by shared failure modes. Experiments in Du et al. (2023) show that multi-agent debate consistently improves factual accuracy and mathematical reasoning over single-model self-consistency.
+
+---
+
+### Q15 [Basic] How does AutoGen implement multi-agent collaboration?
+
+**Q:** Describe AutoGen's ConversableAgent abstraction, how conversations between agents are orchestrated, and what types of workflows it supports.
+
+**A:** AutoGen (Wu et al., 2023) is a framework for building LLM applications as networks of **ConversableAgents** — agents that can send and receive messages and trigger callable functions (tools) in response. Every agent in AutoGen is a ConversableAgent, configured with a name, a system prompt defining its role, a list of callable tools, and a policy for when to terminate the conversation or hand off to another agent.
+
+The central orchestration primitive is a **two-agent conversation**: a UserProxyAgent (representing the human or a programmatic trigger) initiates a conversation with an AssistantAgent (an LLM-backed agent). Messages flow back and forth as chat turns. Tool calls from the AssistantAgent are intercepted by the UserProxyAgent, executed locally, and the result is returned as the next message. This simple two-agent loop handles a wide range of agentic tasks, including code generation, execution, and debugging.
+
+For more complex workflows, AutoGen supports **GroupChat**: multiple ConversableAgents are placed in a shared conversation managed by a GroupChatManager, which selects which agent speaks next (via round-robin, a speaker selection LLM, or a custom policy). This enables parallel specialization: a PlannerAgent decomposes a task, a CoderAgent implements it, a ReviewerAgent checks correctness, and a CriticAgent challenges assumptions — all within one conversation thread. AutoGen also supports nested chats (an agent's tool call triggers a sub-conversation with another agent), enabling hierarchical task decomposition. The framework's key design choice is treating conversation as the universal interface between agents, which makes it flexible but also means all state is passed through natural language messages rather than structured APIs.
+
+---
+
+### Q16 [Advanced] What are the principal multi-agent communication topologies and their trade-offs?
+
+**Q:** Describe the main topologies used to organize inter-agent communication in multi-agent systems, and analyze the trade-offs in scalability, reliability, and task suitability.
+
+**A:** Multi-agent communication topologies determine how information flows between agents and which agents can initiate communication with which others.
+
+**Centralized (star) topology** routes all communication through a single orchestrator agent: every worker agent sends outputs to the orchestrator, which synthesizes them and issues the next instruction. This is the most common topology in practice (AutoGen's GroupChat with a manager, LangGraph's supervisor pattern). Advantages: the orchestrator maintains a global view of task state, enabling coherent multi-step plans; bottlenecks and redundant work are easy to detect. Disadvantages: the orchestrator is a single point of failure, its context window carries the entire task state, and all latency paths go through it.
+
+**Decentralized (peer-to-peer) topology** allows any agent to communicate directly with any other. This enables parallel processing without a bottleneck and supports emergent coordination patterns. Generative Agents (Park et al., 2023) use this topology for social simulation. The challenge is consistency: without a central coordinator, agents can develop conflicting beliefs about task state, producing redundant work or contradictory outputs. This topology suits simulations and open-ended exploration where loose coordination is acceptable, not tight goal-directed tasks.
+
+**Hierarchical topology** organizes agents in a tree: a top-level orchestrator delegates to mid-level managers, which delegate to specialist workers. MetaGPT and HuggingGPT use hierarchical designs. This scales naturally — each layer's context window only needs to track its sub-tree — and mirrors how human organizations decompose complex projects. The trade-off is communication latency (information must traverse multiple levels) and rigidity: the hierarchy must be designed in advance, and tasks that don't fit the predefined decomposition are handled poorly.
+
+**Shared message bus** topology has all agents subscribe to and publish on a common channel (e.g., a shared scratchpad or blackboard). Any agent can read all prior messages and post new ones. This maximizes information sharing but scales poorly (all agents must process all messages) and produces unstructured communication that is hard to audit.
+
+---
+
+### Q17 [Advanced] How does MetaGPT use role specialization and structured outputs for multi-agent software development?
+
+**Q:** Describe MetaGPT's architecture, its SOP-driven workflow, and how structured outputs reduce communication errors between agents.
+
+**A:** MetaGPT (Hong et al., 2023) frames software development as a multi-agent collaboration governed by a **Standard Operating Procedure (SOP)** — a predefined workflow that mirrors how human software teams work. The system instantiates specialized agents for canonical software development roles: ProductManager (writes a Product Requirements Document from the user's one-sentence idea), Architect (produces a system design and API specifications), ProjectManager (decomposes the design into tasks and assigns them to engineers), Engineer (writes code for assigned tasks), QAEngineer (writes and executes tests). Each agent's system prompt encodes the responsibilities and deliverables of its role.
+
+The critical innovation is **structured output schemas**. Each agent communicates exclusively through predefined document templates: the ProductManager outputs a PRD in a fixed Markdown schema, the Architect outputs a design document with mandatory sections (tech stack, data structures, API signatures), and so on. Downstream agents parse these structured documents rather than interpreting free-form prose, dramatically reducing the ambiguity and hallucination in inter-agent communication. This is analogous to typed function interfaces in software: well-defined schemas catch mismatches early and make the communication contract explicit.
+
+**Action-observation subscriptions** further structure the information flow: each agent subscribes to the outputs of the agents whose work it depends on, and is triggered when those outputs are available. This creates a data-flow graph (ProductManager → Architect → ProjectManager → Engineer → QAEngineer) with explicit dependencies and no unnecessary communication. On software generation benchmarks including HumanEval and MBPP, MetaGPT produces substantially more executable and complete software artifacts than single-agent GPT-4, demonstrating that structured communication and role specialization meaningfully improve output quality for complex multi-step software generation.
+
+---
