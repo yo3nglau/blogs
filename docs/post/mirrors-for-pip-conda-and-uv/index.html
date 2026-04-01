@@ -1,19 +1,133 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Mirrors for pip, conda, and uv | yo3nglau academic website</title><link rel=stylesheet href=/blogs/css/style.css><link rel=stylesheet href=/blogs/css/fonts.css><link href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css></head><body><nav><ul class=menu><li><a href=/blogs/>Home</a></li><li><a href=/blogs/categories/>Categories</a></li><li><a href=/blogs/tags/>Tags</a></li></ul><hr></nav><div class=article-meta><h1><span class=title>Mirrors for pip, conda, and uv</span></h1><h2 class=author>yo3nglau</h2><h2 class=date>2025/11/16</h2><p class=terms>Categories: <a href=/categories/computer-technology>Computer Technology</a>
-Tags: <a href=/tags/guide>Guide</a> <a href=/tags/mirror>Mirror</a></p></div><nav id=TableOfContents><ul><li><a href=#preface>Preface</a></li><li><a href=#advantages-of-mirrors>Advantages of Mirrors</a></li><li><a href=#mirrors-for-pip>Mirrors for <code>pip</code></a><ul><li><a href=#temporary-use-one-time-installation>Temporary Use (one-time installation)</a></li><li><a href=#persistent-configuration-recommended>Persistent Configuration (recommended)</a></li><li><a href=#show-current-configuration>Show Current Configuration</a></li></ul></li><li><a href=#mirrors-for-conda>Mirrors for <code>conda</code></a><ul><li><a href=#temporary-use-one-time-installation-1>Temporary Use (one-time installation)</a></li><li><a href=#persistent-configuration-recommended-1>Persistent Configuration (recommended)</a></li><li><a href=#show-current-configuration-1>Show current configuration</a></li></ul></li><li><a href=#mirrors-for-uv>Mirrors for <code>uv</code></a><ul><li><a href=#temporary-use-one-time-installation-2>Temporary Use (one-time installation)</a></li><li><a href=#persistent-configuration-recommended-2>Persistent Configuration (recommended)</a></li><li><a href=#no-showing-current-configuration>No Showing Current Configuration</a></li></ul></li><li><a href=#resources>Resources</a></li></ul></nav><main><h2 id=preface>Preface</h2><p>Efficient Python development often relies on fast and stable package downloads. Network latency or regional restrictions can slow down installations from default repositories. Configuring <strong>mirror sources</strong> for <code>pip</code> and <code>conda</code> is a simple and powerful way to speed up package installations, improve reliability, and standardize environments.</p><p>This post provides a concise introduction to why mirrors matter and how to configure, add, remove, and inspect them using practical commands.</p><h2 id=advantages-of-mirrors>Advantages of Mirrors</h2><p>Mirror sources are synchronized replicas of official package repositories. Common benefits include:</p><ul><li><strong>Faster download speeds</strong> when the mirror is geographically closer</li><li><strong>Higher reliability</strong> in regions with unstable access to default servers</li><li><strong>Improved accessibility</strong> in constrained networks</li><li><strong>Better reproducibility</strong> across teams and CI pipelines</li></ul><h2 id=mirrors-for-pip>Mirrors for <code>pip</code></h2><h3 id=temporary-use-one-time-installation>Temporary Use (one-time installation)</h3><pre><code class=language-bash>pip install pandas -i https://pypi.tuna.tsinghua.edu.cn/simple
-</code></pre><h3 id=persistent-configuration-recommended>Persistent Configuration (recommended)</h3><h4 id=edit-the-pipconfpipini-file>Edit the <code>pip.conf</code>/<code>pip.ini</code> file</h4><p>Create or update:</p><ul><li><strong>Linux/macOS:</strong> <code>~/.pip/pip.conf</code></li><li><strong>Windows:</strong> <code>%USERPROFILE%\pip\pip.ini</code></li></ul><pre><code class=language-ini>[global]
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mirrors for pip, conda, and uv | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Mirrors for pip, conda, and uv</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2025/11/16</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/computer-technology">Computer Technology</a> 
+  
+  
+  
+  Tags: <a href="/tags/guide">Guide</a> <a href="/tags/mirror">Mirror</a> 
+  
+  
+</p>
+</div>
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#preface">Preface</a></li>
+    <li><a href="#advantages-of-mirrors">Advantages of Mirrors</a></li>
+    <li><a href="#mirrors-for-pip">Mirrors for <code>pip</code></a>
+      <ul>
+        <li><a href="#temporary-use-one-time-installation">Temporary Use (one-time installation)</a></li>
+        <li><a href="#persistent-configuration-recommended">Persistent Configuration (recommended)</a></li>
+        <li><a href="#show-current-configuration">Show Current Configuration</a></li>
+      </ul>
+    </li>
+    <li><a href="#mirrors-for-conda">Mirrors for <code>conda</code></a>
+      <ul>
+        <li><a href="#temporary-use-one-time-installation-1">Temporary Use (one-time installation)</a></li>
+        <li><a href="#persistent-configuration-recommended-1">Persistent Configuration (recommended)</a></li>
+        <li><a href="#show-current-configuration-1">Show current configuration</a></li>
+      </ul>
+    </li>
+    <li><a href="#mirrors-for-uv">Mirrors for <code>uv</code></a>
+      <ul>
+        <li><a href="#temporary-use-one-time-installation-2">Temporary Use (one-time installation)</a></li>
+        <li><a href="#persistent-configuration-recommended-2">Persistent Configuration (recommended)</a></li>
+        <li><a href="#no-showing-current-configuration">No Showing Current Configuration</a></li>
+      </ul>
+    </li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="preface">Preface</h2>
+<p>Efficient Python development often relies on fast and stable package downloads. Network latency or regional restrictions can slow down installations from default repositories. Configuring <strong>mirror sources</strong> for <code>pip</code> and <code>conda</code> is a simple and powerful way to speed up package installations, improve reliability, and standardize environments.</p>
+<p>This post provides a concise introduction to why mirrors matter and how to configure, add, remove, and inspect them using practical commands.</p>
+<h2 id="advantages-of-mirrors">Advantages of Mirrors</h2>
+<p>Mirror sources are synchronized replicas of official package repositories. Common benefits include:</p>
+<ul>
+<li><strong>Faster download speeds</strong> when the mirror is geographically closer</li>
+<li><strong>Higher reliability</strong> in regions with unstable access to default servers</li>
+<li><strong>Improved accessibility</strong> in constrained networks</li>
+<li><strong>Better reproducibility</strong> across teams and CI pipelines</li>
+</ul>
+<h2 id="mirrors-for-pip">Mirrors for <code>pip</code></h2>
+<h3 id="temporary-use-one-time-installation">Temporary Use (one-time installation)</h3>
+<pre><code class="language-bash">pip install pandas -i https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre>
+<h3 id="persistent-configuration-recommended">Persistent Configuration (recommended)</h3>
+<h4 id="edit-the-pipconfpipini-file">Edit the <code>pip.conf</code>/<code>pip.ini</code> file</h4>
+<p>Create or update:</p>
+<ul>
+<li><strong>Linux/macOS:</strong> <code>~/.pip/pip.conf</code></li>
+<li><strong>Windows:</strong> <code>%USERPROFILE%\pip\pip.ini</code></li>
+</ul>
+<pre><code class="language-ini">[global]
 index-url = https://pypi.tuna.tsinghua.edu.cn/simple
 trusted-host = pypi.tuna.tsinghua.edu.cn
-</code></pre><h4 id=use-commands>Use Commands</h4><pre><code class=language-bash># Add
+</code></pre>
+<h4 id="use-commands">Use Commands</h4>
+<pre><code class="language-bash"># Add
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 pip config set global.trusted-host pypi.tuna.tsinghua.edu.cn
 
 # Remove
 pip config unset global.index-url
 pip config unset global.trusted-host
-</code></pre><h3 id=show-current-configuration>Show Current Configuration</h3><pre><code class=language-bash>pip config list
-</code></pre><p>or show a specific key:</p><pre><code class=language-bash>pip config get global.index-url
-</code></pre><h2 id=mirrors-for-conda>Mirrors for <code>conda</code></h2><p><code>conda</code> stores its configuration in the <code>.condarc</code> file. You can manipulate mirror channels using simple commands.</p><h3 id=temporary-use-one-time-installation-1>Temporary Use (one-time installation)</h3><p>You can define the channel during installation:</p><pre><code class=language-bash>conda install numpy -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
-</code></pre><h3 id=persistent-configuration-recommended-1>Persistent Configuration (recommended)</h3><h4 id=edit-the-condarc-file-recommended>Edit the <code>.condarc</code> file (recommended)</h4><p>Create or update:</p><ul><li><strong>Linux/macOS:</strong> <code>~/.condarc</code></li><li><strong>Windows:</strong> <code>%USERPROFILE%\.condarc</code></li></ul><pre><code class=language-yaml>channels:
+</code></pre>
+<h3 id="show-current-configuration">Show Current Configuration</h3>
+<pre><code class="language-bash">pip config list
+</code></pre>
+<p>or show a specific key:</p>
+<pre><code class="language-bash">pip config get global.index-url
+</code></pre>
+<h2 id="mirrors-for-conda">Mirrors for <code>conda</code></h2>
+<p><code>conda</code> stores its configuration in the <code>.condarc</code> file. You can manipulate mirror channels using simple commands.</p>
+<h3 id="temporary-use-one-time-installation-1">Temporary Use (one-time installation)</h3>
+<p>You can define the channel during installation:</p>
+<pre><code class="language-bash">conda install numpy -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/
+</code></pre>
+<h3 id="persistent-configuration-recommended-1">Persistent Configuration (recommended)</h3>
+<h4 id="edit-the-condarc-file-recommended">Edit the <code>.condarc</code> file (recommended)</h4>
+<p>Create or update:</p>
+<ul>
+<li><strong>Linux/macOS:</strong> <code>~/.condarc</code></li>
+<li><strong>Windows:</strong> <code>%USERPROFILE%\.condarc</code></li>
+</ul>
+<pre><code class="language-yaml">channels:
   - defaults
 show_channel_urls: true
 
@@ -25,7 +139,10 @@ default_channels:
 custom_channels:
   conda-forge: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
   pytorch: https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud
-</code></pre><h4 id=use-commands-1>Use commands</h4><p>Example: adding TUNA mirrors.</p><pre><code class=language-bash># Add
+</code></pre>
+<h4 id="use-commands-1">Use commands</h4>
+<p>Example: adding TUNA mirrors.</p>
+<pre><code class="language-bash"># Add
 conda config --add default_channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main
 conda config --add default_channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/r
 conda config --add default_channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/msys2
@@ -41,13 +158,68 @@ conda config --remove-key custom_channels
 conda config --remove-key default_channels
 conda config --remove-key custom_channels
 conda config --append channels defaults
-</code></pre><h3 id=show-current-configuration-1>Show current configuration</h3><pre><code class=language-bash>conda config --show
+</code></pre>
+<h3 id="show-current-configuration-1">Show current configuration</h3>
+<pre><code class="language-bash">conda config --show
 conda config --show channels
-</code></pre><h2 id=mirrors-for-uv>Mirrors for <code>uv</code></h2><h3 id=temporary-use-one-time-installation-2>Temporary Use (one-time installation)</h3><pre><code class=language-bash>uv add pandas --index https://pypi.tuna.tsinghua.edu.cn/simple
-</code></pre><h3 id=persistent-configuration-recommended-2>Persistent Configuration (recommended)</h3><h4 id=edit-the-pyprojecttoml-or-uvtoml-file>Edit the <code>pyproject.toml</code> or <code>uv.toml</code> File</h4><h5 id=project-level-configuration>Project-level Configuration</h5><p>Create or update <code>pyproject.toml</code>:</p><pre><code class=language-toml>[[tool.uv.index]]
+</code></pre>
+<h2 id="mirrors-for-uv">Mirrors for <code>uv</code></h2>
+<h3 id="temporary-use-one-time-installation-2">Temporary Use (one-time installation)</h3>
+<pre><code class="language-bash">uv add pandas --index https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre>
+<h3 id="persistent-configuration-recommended-2">Persistent Configuration (recommended)</h3>
+<h4 id="edit-the-pyprojecttoml-or-uvtoml-file">Edit the <code>pyproject.toml</code> or <code>uv.toml</code> File</h4>
+<h5 id="project-level-configuration">Project-level Configuration</h5>
+<p>Create or update <code>pyproject.toml</code>:</p>
+<pre><code class="language-toml">[[tool.uv.index]]
 url = &quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;
 default = true
-</code></pre><h5 id=user--and-system-level-configuration>User- and System-level Configuration</h5><p>Create or update <code>uv.toml</code>:</p><ul><li><strong>Linux/macOS:</strong> <code>~/.config/uv/uv.toml</code> or <code>/etc/uv/uv.toml</code></li><li><strong>Windows:</strong> <code>%APPDATA%\uv\uv.toml</code> or <code>%SYSTEMDRIVE%\ProgramData\uv\uv.toml</code></li></ul><pre><code class=language-toml>[[index]]
+</code></pre>
+<h5 id="user--and-system-level-configuration">User- and System-level Configuration</h5>
+<p>Create or update <code>uv.toml</code>:</p>
+<ul>
+<li><strong>Linux/macOS:</strong> <code>~/.config/uv/uv.toml</code> or <code>/etc/uv/uv.toml</code></li>
+<li><strong>Windows:</strong> <code>%APPDATA%\uv\uv.toml</code> or <code>%SYSTEMDRIVE%\ProgramData\uv\uv.toml</code></li>
+</ul>
+<pre><code class="language-toml">[[index]]
 url = &quot;https://pypi.tuna.tsinghua.edu.cn/simple&quot;
 default = true
-</code></pre><p><code>uv.toml</code> files take precedence over <code>pyproject.toml</code> files.</p><p>User- and system-level configuration must use the <code>uv.toml</code> format.</p><p><strong>Priority</strong>: UV merges configuration from <strong>project-level</strong> (e.g., <code>pyproject.toml</code>) and <strong>user-/system-level</strong> (<code>uv.toml</code>). Project-level settings take precedence.</p><h3 id=no-showing-current-configuration>No Showing Current Configuration</h3><p><strong>uv’s design</strong>: Configuration is read from <code>.toml</code> files (project or user/system) instead of being managed with CLI config commands.</p><h2 id=resources>Resources</h2><p><a href=https://pip.pypa.io/en/stable/cli/pip_config/>pip/config</a></p><p><a href=https://docs.conda.io/projects/conda/en/stable/commands/config.html>Conda/config</a></p><p><a href=https://docs.astral.sh/uv/concepts/configuration-files/>uv/configuration-files</a></p></main><footer><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js></script><script>hljs.configure({languages:[]}),hljs.initHighlightingOnLoad()</script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js onload='renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})'></script><hr>© <a href=https://github.com/yo3nglau>yo3nglau</a> 2026 | <a href=https://gohugo.io/>Hugo</a> | <a href=https://github.com/yihui/hugo-xmin>XMin</a></footer></body></html>
+</code></pre>
+<p><code>uv.toml</code> files take precedence over <code>pyproject.toml</code> files.</p>
+<p>User- and system-level configuration must use the <code>uv.toml</code> format.</p>
+<p><strong>Priority</strong>: UV merges configuration from <strong>project-level</strong> (e.g., <code>pyproject.toml</code>) and <strong>user-/system-level</strong> (<code>uv.toml</code>). Project-level settings take precedence.</p>
+<h3 id="no-showing-current-configuration">No Showing Current Configuration</h3>
+<p><strong>uv’s design</strong>: Configuration is read from <code>.toml</code> files (project or user/system) instead of being managed with CLI config commands.</p>
+<h2 id="resources">Resources</h2>
+<p><a href="https://pip.pypa.io/en/stable/cli/pip_config/">pip/config</a></p>
+<p><a href="https://docs.conda.io/projects/conda/en/stable/commands/config.html">Conda/config</a></p>
+<p><a href="https://docs.astral.sh/uv/concepts/configuration-files/">uv/configuration-files</a></p>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+

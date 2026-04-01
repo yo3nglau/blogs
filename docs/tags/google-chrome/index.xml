@@ -1,19 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Google Chrome on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/tags/google-chrome/</link><description>Recent content in Google Chrome on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 23 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/tags/google-chrome/index.xml" rel="self" type="application/rss+xml"/><item><title>Clear Specific Website Cache in Google Chrome</title><link>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</link><pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</guid><description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-07&lt;/strong&gt;&lt;/p&gt;
-&lt;h2 id="method"&gt;Method&lt;/h2&gt;
-&lt;ol start="0"&gt;
-&lt;li&gt;
-&lt;p&gt;Press &lt;kbd&gt;F12&lt;/kbd&gt; to reach &lt;em&gt;developer toolbox&lt;/em&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Choose &lt;em&gt;Network&lt;/em&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&amp;#x2705; Disable cache&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Press and hold &lt;em&gt;reload button&lt;/em&gt; on the left top of Chrome&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;Choose &lt;em&gt;Empty Cache and Hard Reload&lt;/em&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Google Chrome on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/google-chrome/</link>
+    <description>Recent content in Google Chrome on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 23 May 2023 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/google-chrome/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Clear Specific Website Cache in Google Chrome</title>
+      <link>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</link>
+      <pubDate>Tue, 23 May 2023 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/clear-specific-website-cache-in-google-chrome/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-07&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;method&#34;&gt;Method&lt;/h2&gt;&#xA;&lt;ol start=&#34;0&#34;&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Press &lt;kbd&gt;F12&lt;/kbd&gt; to reach &lt;em&gt;developer toolbox&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Choose &lt;em&gt;Network&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&amp;#x2705; Disable cache&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Press and hold &lt;em&gt;reload button&lt;/em&gt; on the left top of Chrome&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;Choose &lt;em&gt;Empty Cache and Hard Reload&lt;/em&gt;&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ol&gt;</description>
+    </item>
+  </channel>
+</rss>

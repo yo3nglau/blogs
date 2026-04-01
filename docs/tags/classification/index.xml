@@ -1,4 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Classification on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/tags/classification/</link><description>Recent content in Classification on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/tags/classification/index.xml" rel="self" type="application/rss+xml"/><item><title>Multi-label Learning: Interview Questions and Answers</title><link>https://yo3nglau.github.io/blogs/post/multi-label-learning-interview-questions-and-answers/</link><pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/multi-label-learning-interview-questions-and-answers/</guid><description>&lt;h2 id="fundamentals"&gt;Fundamentals&lt;/h2&gt;
-&lt;h3 id="q1-basic-what-is-multi-label-image-classification-and-how-does-it-differ-from-multi-class-and-multi-task-classification"&gt;Q1 [Basic] What is multi-label image classification, and how does it differ from multi-class and multi-task classification?&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Can you explain the problem formulation of multi-label image classification and how it differs from related settings?&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; In multi-class image classification, each image belongs to exactly one of $L$ mutually exclusive categories. A softmax output enforces a probability distribution that sums to 1, and a single cross-entropy loss drives the model toward one dominant class. Examples include ImageNet classification and digit recognition.&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Classification on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/classification/</link>
+    <description>Recent content in Classification on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/classification/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Multi-label Learning: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/multi-label-learning-interview-questions-and-answers/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/multi-label-learning-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;fundamentals&#34;&gt;Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-what-is-multi-label-image-classification-and-how-does-it-differ-from-multi-class-and-multi-task-classification&#34;&gt;Q1 [Basic] What is multi-label image classification, and how does it differ from multi-class and multi-task classification?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Can you explain the problem formulation of multi-label image classification and how it differs from related settings?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; In multi-class image classification, each image belongs to exactly one of $L$ mutually exclusive categories. A softmax output enforces a probability distribution that sums to 1, and a single cross-entropy loss drives the model toward one dominant class. Examples include ImageNet classification and digit recognition.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

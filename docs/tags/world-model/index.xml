@@ -1,4 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>World Model on yo3nglau academic website</title><link>https://yo3nglau.github.io/blogs/tags/world-model/</link><description>Recent content in World Model on yo3nglau academic website</description><generator>Hugo</generator><language>en-us</language><lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate><atom:link href="https://yo3nglau.github.io/blogs/tags/world-model/index.xml" rel="self" type="application/rss+xml"/><item><title>World Models: Interview Questions and Answers</title><link>https://yo3nglau.github.io/blogs/post/world-models-interview-questions-and-answers/</link><pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate><guid>https://yo3nglau.github.io/blogs/post/world-models-interview-questions-and-answers/</guid><description>&lt;h2 id="world-model-fundamentals"&gt;World Model Fundamentals&lt;/h2&gt;
-&lt;h3 id="q1-basic-what-is-a-world-model-and-how-does-it-differ-from-a-model-free-agent"&gt;Q1 [Basic] What is a world model and how does it differ from a model-free agent?&lt;/h3&gt;
-&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How is a world model defined, and what distinguishes a model-based agent that uses one from a model-free agent?&lt;/p&gt;
-&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; A world model is an internal representation that an agent uses to simulate the dynamics of its environment: given a current state and an action, it predicts the next state and the associated reward. The term originates from cognitive science (Craik, 1943) but was formalized in the reinforcement learning context by Ha &amp;amp; Schmidhuber (2018). The key distinction from model-free agents is that a world model enables counterfactual reasoning — the agent can imagine the consequences of actions without executing them in the real environment, allowing planning in &amp;ldquo;imagination&amp;rdquo; rather than requiring every policy update to come from costly real interaction.&lt;/p&gt;</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>World Model on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/world-model/</link>
+    <description>Recent content in World Model on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/world-model/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>World Models: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/world-models-interview-questions-and-answers/</link>
+      <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/world-models-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;world-model-fundamentals&#34;&gt;World Model Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-what-is-a-world-model-and-how-does-it-differ-from-a-model-free-agent&#34;&gt;Q1 [Basic] What is a world model and how does it differ from a model-free agent?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How is a world model defined, and what distinguishes a model-based agent that uses one from a model-free agent?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; A world model is an internal representation that an agent uses to simulate the dynamics of its environment: given a current state and an action, it predicts the next state and the associated reward. The term originates from cognitive science (Craik, 1943) but was formalized in the reinforcement learning context by Ha &amp;amp; Schmidhuber (2018). The key distinction from model-free agents is that a world model enables counterfactual reasoning — the agent can imagine the consequences of actions without executing them in the real environment, allowing planning in &amp;ldquo;imagination&amp;rdquo; rather than requiring every policy update to come from costly real interaction.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,8 +1,128 @@
-<!doctype html><html lang=en-us><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>Run TensorBoard on a Remote Server and View It Locally | yo3nglau academic website</title><link rel=stylesheet href=/blogs/css/style.css><link rel=stylesheet href=/blogs/css/fonts.css><link href=//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css rel=stylesheet><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css></head><body><nav><ul class=menu><li><a href=/blogs/>Home</a></li><li><a href=/blogs/categories/>Categories</a></li><li><a href=/blogs/tags/>Tags</a></li></ul><hr></nav><div class=article-meta><h1><span class=title>Run TensorBoard on a Remote Server and View It Locally</span></h1><h2 class=author>yo3nglau</h2><h2 class=date>2025/11/11</h2><p class=terms>Categories: <a href=/categories/computer-technology>Computer Technology</a>
-Tags: <a href=/tags/guide>Guide</a> <a href=/tags/remote-server>Remote Server</a> <a href=/tags/tensorboard>TensorBoard</a></p></div><nav id=TableOfContents><ul><li><a href=#preface>Preface</a></li><li><a href=#why-run-tensorboard-remotely>Why Run TensorBoard Remotely?</a></li><li><a href=#step-0-create-tensorboard-log-directory>Step 0: Create TensorBoard Log Directory</a></li><li><a href=#step-1-launch-tensorboard-on-the-remote-server>Step 1: Launch TensorBoard on the Remote Server</a></li><li><a href=#step-2-forward-the-port-using-ssh>Step 2: Forward the Port Using SSH</a></li><li><a href=#step-3-open-tensorboard-locally>Step 3: Open TensorBoard Locally</a></li><li><a href=#conclusion>Conclusion</a></li><li><a href=#resources>Resources</a></li></ul></nav><main><h2 id=preface>Preface</h2><p>When training machine learning models on remote servers, monitoring metrics such as loss, accuracy, and learning rate becomes essential. TensorBoard is a powerful visualization toolkit from TensorFlow that makes this possible. However, since training often takes place on remote machines without direct GUI access, developers must forward TensorBoard to their local browser. Fortunately, this is simple with secure SSH tunneling.</p><h2 id=why-run-tensorboard-remotely>Why Run TensorBoard Remotely?</h2><p>Many training workloads:</p><ul><li>Require powerful GPUs only available on remote servers</li><li>Run for long periods and need continuous observation</li><li>Produce logs that are easiest to analyze visually</li></ul><p>Instead of transferring logs back to your local machine, it is more efficient to stream the TensorBoard UI directly to your browser.</p><h2 id=step-0-create-tensorboard-log-directory>Step 0: Create TensorBoard Log Directory</h2><p>During training, ensure your script outputs logs:</p><pre><code class=language-bash>python train.py --logdir ./logs  # or set in codes
-</code></pre><p>You should see files populated inside the <code>logs</code> folder, including event traces.</p><h2 id=step-1-launch-tensorboard-on-the-remote-server>Step 1: Launch TensorBoard on the Remote Server</h2><p>SSH into the server and run:</p><pre><code class=language-bash>tensorboard --logdir ./logs --port 6006
-</code></pre><p>You will see:</p><pre><code>TensorBoard 2.x.x at http://localhost:6006/
-</code></pre><p>This means TensorBoard is running, but only accessible locally on the server.</p><h2 id=step-2-forward-the-port-using-ssh>Step 2: Forward the Port Using SSH</h2><p>On your local machine (not on the server), run:</p><pre><code class=language-bash>ssh -L 6006:localhost:6006 username@remote_server_ip -p remote_server_port
-</code></pre><p>This command creates a secure tunnel that forwards the server’s <code>localhost:6006</code> to your computer’s <code>localhost:6006</code>.</p><p>Alternatively, specify a custom local port if 6006 is occupied:</p><pre><code class=language-bash>ssh -L 16006:localhost:6006 username@remote_server_ip
-</code></pre><h2 id=step-3-open-tensorboard-locally>Step 3: Open TensorBoard Locally</h2><p>Now, open your browser and visit:</p><pre><code class=language-bash>http://localhost:6006  # or the custom port you chose
-</code></pre><p>You should see TensorBoard’s interface displaying your logs in real time.</p><h2 id=conclusion>Conclusion</h2><p>Running TensorBoard on a remote server and visualizing it locally is a clean and secure workflow for tracking training progress. With SSH port forwarding, you retain full interactivity without transferring files or needing remote GUIs. Once set up, this workflow enhances productivity and provides deeper insights into model behavior during training.</p><h2 id=resources>Resources</h2><p><a href=https://www.tensorflow.org/tensorboard>TensorFlow/TensorBoard</a></p></main><footer><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js></script><script src=//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js></script><script>hljs.configure({languages:[]}),hljs.initHighlightingOnLoad()</script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js></script><script defer src=https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js onload='renderMathInElement(document.body,{delimiters:[{left:"$$",right:"$$",display:!0},{left:"$",right:"$",display:!1}],throwOnError:!1})'></script><hr>© <a href=https://github.com/yo3nglau>yo3nglau</a> 2026 | <a href=https://gohugo.io/>Hugo</a> | <a href=https://github.com/yihui/hugo-xmin>XMin</a></footer></body></html>
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Run TensorBoard on a Remote Server and View It Locally | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Run TensorBoard on a Remote Server and View It Locally</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2025/11/11</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/categories/computer-technology">Computer Technology</a> 
+  
+  
+  
+  Tags: <a href="/tags/guide">Guide</a> <a href="/tags/remote-server">Remote Server</a> <a href="/tags/tensorboard">TensorBoard</a> 
+  
+  
+</p>
+</div>
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#preface">Preface</a></li>
+    <li><a href="#why-run-tensorboard-remotely">Why Run TensorBoard Remotely?</a></li>
+    <li><a href="#step-0-create-tensorboard-log-directory">Step 0: Create TensorBoard Log Directory</a></li>
+    <li><a href="#step-1-launch-tensorboard-on-the-remote-server">Step 1: Launch TensorBoard on the Remote Server</a></li>
+    <li><a href="#step-2-forward-the-port-using-ssh">Step 2: Forward the Port Using SSH</a></li>
+    <li><a href="#step-3-open-tensorboard-locally">Step 3: Open TensorBoard Locally</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="preface">Preface</h2>
+<p>When training machine learning models on remote servers, monitoring metrics such as loss, accuracy, and learning rate becomes essential. TensorBoard is a powerful visualization toolkit from TensorFlow that makes this possible. However, since training often takes place on remote machines without direct GUI access, developers must forward TensorBoard to their local browser. Fortunately, this is simple with secure SSH tunneling.</p>
+<h2 id="why-run-tensorboard-remotely">Why Run TensorBoard Remotely?</h2>
+<p>Many training workloads:</p>
+<ul>
+<li>Require powerful GPUs only available on remote servers</li>
+<li>Run for long periods and need continuous observation</li>
+<li>Produce logs that are easiest to analyze visually</li>
+</ul>
+<p>Instead of transferring logs back to your local machine, it is more efficient to stream the TensorBoard UI directly to your browser.</p>
+<h2 id="step-0-create-tensorboard-log-directory">Step 0: Create TensorBoard Log Directory</h2>
+<p>During training, ensure your script outputs logs:</p>
+<pre><code class="language-bash">python train.py --logdir ./logs  # or set in codes
+</code></pre>
+<p>You should see files populated inside the <code>logs</code> folder, including event traces.</p>
+<h2 id="step-1-launch-tensorboard-on-the-remote-server">Step 1: Launch TensorBoard on the Remote Server</h2>
+<p>SSH into the server and run:</p>
+<pre><code class="language-bash">tensorboard --logdir ./logs --port 6006
+</code></pre>
+<p>You will see:</p>
+<pre><code>TensorBoard 2.x.x at http://localhost:6006/
+</code></pre>
+<p>This means TensorBoard is running, but only accessible locally on the server.</p>
+<h2 id="step-2-forward-the-port-using-ssh">Step 2: Forward the Port Using SSH</h2>
+<p>On your local machine (not on the server), run:</p>
+<pre><code class="language-bash">ssh -L 6006:localhost:6006 username@remote_server_ip -p remote_server_port
+</code></pre>
+<p>This command creates a secure tunnel that forwards the server’s <code>localhost:6006</code> to your computer’s <code>localhost:6006</code>.</p>
+<p>Alternatively, specify a custom local port if 6006 is occupied:</p>
+<pre><code class="language-bash">ssh -L 16006:localhost:6006 username@remote_server_ip
+</code></pre>
+<h2 id="step-3-open-tensorboard-locally">Step 3: Open TensorBoard Locally</h2>
+<p>Now, open your browser and visit:</p>
+<pre><code class="language-bash">http://localhost:6006  # or the custom port you chose
+</code></pre>
+<p>You should see TensorBoard’s interface displaying your logs in real time.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>Running TensorBoard on a remote server and visualizing it locally is a clean and secure workflow for tracking training progress. With SSH port forwarding, you retain full interactivity without transferring files or needing remote GUIs. Once set up, this workflow enhances productivity and provides deeper insights into model behavior during training.</p>
+<h2 id="resources">Resources</h2>
+<p><a href="https://www.tensorflow.org/tensorboard">TensorFlow/TensorBoard</a></p>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+
