@@ -191,11 +191,11 @@
       <description>&lt;p&gt;&lt;strong&gt;Last Updated: 2025-11-04&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;h2 id=&#34;tldr&#34;&gt;TL;DR&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Categories&lt;/strong&gt; are broad topics that help you organize your blog posts, and help readers find the information they’re seeking on your site.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Tags&lt;/strong&gt; are a simple way to drill down on the topic of any given blog post that’s part of a category.&lt;/p&gt;&#xA;&lt;h2 id=&#34;description&#34;&gt;Description&lt;/h2&gt;&#xA;&lt;p&gt;These two words may be used interchangeably, but they are not the same thing. The difference is simple: A category is a broad topic you cover in your blog. It acts as the umbrella to a bunch of smaller topics. Blog tags are one small idea in an overarching topic.&lt;/p&gt;</description>
     </item>
     <item>
-      <title>About me</title>
+      <title>About the Blogs</title>
       <link>https://yo3nglau.github.io/blogs/about/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/about/</guid>
-      <description>&lt;h2 id=&#34;interest&#34;&gt;Interest&lt;/h2&gt;&#xA;&lt;p&gt;Artificial Intelligence for Healthcare&lt;/p&gt;&#xA;&lt;h2 id=&#34;education&#34;&gt;Education&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Tsinghua University&lt;/strong&gt;, Biomedical Engineering, Ph.D. Student, 2022 - Present&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Shandong University&lt;/strong&gt;, Computer Science and Technology, Bachelor of Engineering, 2018 – 2022&lt;/p&gt;&#xA;&lt;h2 id=&#34;publications&#34;&gt;Publications&lt;/h2&gt;&#xA;&lt;p&gt;[1] &lt;strong&gt;Liu, Y.†&lt;/strong&gt;, Zhao, K.†, Luo, L., Zhang, Z., Qian, Z., Jiang, C., &amp;hellip; &amp;amp; Ji, J. (&lt;strong&gt;2025&lt;/strong&gt;). Diagnosing pathologic myopia by identifying morphologic patterns using ultra widefield images with deep learning. &lt;em&gt;&lt;strong&gt;NPJ Digital Medicine&lt;/strong&gt;&lt;/em&gt;. &lt;a href=&#34;https://doi.org/10.1038/s41746-025-01849-y&#34;&gt;DOI&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;[2] &lt;strong&gt;Liu, Y.&lt;/strong&gt;, Zhong, X., Zhai, S., Du, Z., Gao, Z., Huang, Q., &amp;hellip; &amp;amp; Qin, P. (&lt;strong&gt;2023&lt;/strong&gt;). Prompt-enhanced hierarchical transformer elevating cardiopulmonary resuscitation instruction via temporal action segmentation. &lt;em&gt;&lt;strong&gt;Computers in biology and medicine&lt;/strong&gt;&lt;/em&gt;. &lt;a href=&#34;https://doi.org/10.1016/j.compbiomed.2023.107672&#34;&gt;DOI&lt;/a&gt;&lt;/p&gt;</description>
+      <description></description>
     </item>
   </channel>
 </rss>
