@@ -9,6 +9,13 @@
     <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Mamba 与状态空间模型：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/mamba-and-state-space-models-interview-questions-and-answers/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/mamba-and-state-space-models-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;ssm-与-mamba-基础&#34;&gt;SSM 与 Mamba 基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-什么是状态空间模型&#34;&gt;Q1 [基础] 什么是状态空间模型？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 什么是状态空间模型（SSM）？它如何应用于序列建模？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; &lt;strong&gt;状态空间模型&lt;/strong&gt;（State Space Model，SSM）是一种通过潜在隐藏状态将输入序列映射为输出序列的数学框架。其连续形式由两个方程定义：状态方程 $\frac{dx}{dt} = Ax + Bu$（描述隐藏状态如何随时间演化）和输出方程 $y = Cx + Du$（描述如何从状态生成输出）。其中，$A$ 是状态转移矩阵，$B$ 将输入映射到状态更新，$C$ 将状态映射到输出，$D$ 是可选的跳跃连接。&lt;/p&gt;&#xA;&lt;p&gt;对于离散数据（文本、音频采样）上的序列建模，连续系统被离散化为递推形式：$x_t = \bar{A}x_{t-1} + \bar{B}u_t$，$y_t = Cx_t$。这种递推使 SSM 在计算上与 RNN 类似：推理时每步只需固定大小的状态更新，无论序列长度如何，每步均需 $O(1)$ 内存。&lt;/p&gt;&#xA;&lt;p&gt;一个关键数学性质是：递推可等价地表示为卷积 $y = K * u$，其中 $K$ 是由 SSM 参数导出的卷积核。这种对偶性使 SSM 可以通过基于 FFT 的卷积高效训练（在序列上可并行），同时以递推形式高效部署（推理时内存恒定）。这种训练-推理对偶性是 SSM 相比 Transformer（长序列推理慢）和 RNN（训练慢）的核心优势之一。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-什么是-hippo-矩阵为何重要&#34;&gt;Q2 [基础] 什么是 HiPPO 矩阵？为何重要？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 什么是 HiPPO 矩阵？它在现代 SSM 中扮演什么角色？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; &lt;strong&gt;HiPPO&lt;/strong&gt;（High-order Polynomial Projection Operators，Gu et al., 2020）是一种有原则的方法，用于初始化 SSM 中的状态转移矩阵 $A$，使隐藏状态能够最优地压缩输入信号的历史。具体而言，HiPPO 框架构造了一个 $A$ 矩阵，使得每个时间步的隐藏状态包含到目前为止输入的最优多项式近似（Legendre 基）的系数，直至 $N$ 阶。&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Transformer 与视觉 Transformer：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/transformer-and-vision-transformer-interview-questions-and-answers/</link>
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
