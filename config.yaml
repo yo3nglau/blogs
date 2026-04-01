@@ -1,11 +1,34 @@
 baseurl: "https://yo3nglau.github.io/blogs/"
-languageCode: "en-us"
 title: "yo3nglau academic website"
 googleAnalytics: ""
 disqusShortname: ""
 footnotereturnlinkcontents: "↩"
 publishDir: "docs"
 enableEmoji: true
+
+defaultContentLanguage: en
+defaultContentLanguageInSubdir: false
+
+languages:
+  en:
+    languageName: English
+    languageCode: en-us
+    weight: 1
+  zh:
+    languageName: 中文
+    languageCode: zh-cn
+    weight: 2
+    menu:
+      main:
+        - name: 首页
+          url: ""
+          weight: 1
+        - name: 分类
+          url: "categories/"
+          weight: 2
+        - name: 标签
+          url: "tags/"
+          weight: 3
 
 permalinks:
   # post: "/post/:year/:month/:day/:slug/"

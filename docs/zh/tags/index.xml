@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/</link>
+    <description>Recent content in Tags on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deep Learning</title>
+      <link>https://yo3nglau.github.io/blogs/zh/tags/deep-learning/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Transformer</title>
+      <link>https://yo3nglau.github.io/blogs/zh/tags/transformer/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/tags/transformer/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vision Transformer</title>
+      <link>https://yo3nglau.github.io/blogs/zh/tags/vision-transformer/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/tags/vision-transformer/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

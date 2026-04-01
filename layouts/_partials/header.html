@@ -17,4 +17,12 @@
       {{ end }}
     </ul>
     <hr/>
+    {{ if .Translations }}
+    <div class="lang-switch">
+      {{ range .Translations }}
+      <a href="{{ .RelPermalink }}">{{ .Language.LanguageName }}</a>
+      {{ end }}
+    </div>
+    <hr/>
+    {{ end }}
     </nav>

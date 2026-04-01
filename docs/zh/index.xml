@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/</link>
+    <description>Recent content on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Transformer 与视觉 Transformer：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/transformer-and-vision-transformer-interview-questions-and-answers/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/transformer-and-vision-transformer-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;transformer-基础&#34;&gt;Transformer 基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-什么是自注意力机制&#34;&gt;Q1 [基础] 什么是自注意力机制？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 请解释自注意力机制的概念及其工作原理。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; &lt;strong&gt;自注意力&lt;/strong&gt;（Self-Attention）允许序列中的每个词元关注其他所有词元，使模型能够捕获任意距离的依赖关系。对于每个位置，该机制计算序列中所有值的加权和，权重反映了每个位置对当前位置的相关程度。&lt;/p&gt;&#xA;&lt;p&gt;计算过程分三步。首先，每个输入嵌入被投影为三个向量：查询（Q）、键（K）和值（V）。其次，注意力分数为 Q 与所有 K 的点积，并除以键维度的平方根进行缩放，以防止 softmax 饱和（若不缩放，过大的点积会将 softmax 推入梯度接近零的区域）：$\text{score} = QK^\top / \sqrt{d_k}$。第三，将分数通过 softmax 得到注意力权重，再计算值的加权和。&lt;/p&gt;&#xA;&lt;p&gt;与循环网络相比，自注意力的核心优势在于所有位置并行处理，且模型可以以相同的计算代价直接访问序列中任意位置，非常适合捕获长距离依赖。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-自注意力中的查询键值分别代表什么&#34;&gt;Q2 [基础] 自注意力中的查询、键、值分别代表什么？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 注意力机制中的查询（Query）、键（Key）、值（Value）向量各代表什么含义？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; &lt;strong&gt;查询&lt;/strong&gt;（Query）、&lt;strong&gt;键&lt;/strong&gt;（Key）、&lt;strong&gt;值&lt;/strong&gt;（Value）是输入嵌入的三个可学习线性投影，各自拥有独立的权重矩阵（$W_Q$、$W_K$、$W_V$）。其直觉来源于信息检索：Query 代表当前位置在寻找什么，Key 代表每个位置能提供什么，Value 代表待检索的实际内容。&lt;/p&gt;&#xA;&lt;p&gt;注意力权重通过将某一位置的 Query 与所有位置的 Key 进行比较来计算。Query 与 Key 的点积越大，说明该位置越相关，在 Value 加权和中的权重也越大，使模型能够对序列中最相关的部分进行选择性关注。&lt;/p&gt;&#xA;&lt;p&gt;在实践中，权重矩阵通过端到端训练学习得到，无需对注意力模式进行任何显式监督，模型会自动学习对任务有用的 Query、Key 和 Value 编码方式。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q3-基础-什么是多头注意力为何使用它&#34;&gt;Q3 [基础] 什么是多头注意力？为何使用它？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 什么是多头注意力？它相比单头注意力有何优势？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; &lt;strong&gt;多头注意力&lt;/strong&gt;（Multi-Head Attention）并行运行 $h$ 个独立的注意力操作（头），每个头都有其独立的 Q、K、V 投影，映射到较低维的子空间。所有头的输出拼接后，再通过一个最终的线性层投影回原始维度。&lt;/p&gt;&#xA;&lt;p&gt;这样设计的动机在于：单头注意力只能表示位置间的一种关系。多头并行时，不同头可以同时关注不同方面——例如，一个头捕获句法依赖，另一个头捕获语义相似性；在视觉领域，一个头可能关注局部纹理，另一个头可能捕获全局结构。&lt;/p&gt;&#xA;&lt;p&gt;通过将模型维度均匀分配给各个头，总计算量保持近似不变：若 $d_\text{model} = 512$、$h = 8$，则每个头在 $64$ 维子空间中运算，总参数量与单个全维度注意力相近。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
