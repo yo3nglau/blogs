@@ -24,6 +24,7 @@ a:active {
 }
 .menu li {
   display: inline-block;
+  margin: 0 5px;
 }
 .article-meta,
 .menu a {
