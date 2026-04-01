@@ -238,3 +238,101 @@ The critical innovation is **structured output schemas**. Each agent communicate
 **Action-observation subscriptions** further structure the information flow: each agent subscribes to the outputs of the agents whose work it depends on, and is triggered when those outputs are available. This creates a data-flow graph (ProductManager → Architect → ProjectManager → Engineer → QAEngineer) with explicit dependencies and no unnecessary communication. On MetaGPT's internal SoftwareDev benchmark (measuring executability and completeness of multi-file software projects), the structured SOP workflow produces substantially more complete software artifacts than single-agent GPT-4, demonstrating that role specialization and structured communication meaningfully improve output quality for complex multi-step software generation.
 
 ---
+
+## Evaluation & Benchmarks
+
+### Q18 [Basic] What are the key benchmarks for evaluating LLM agents?
+
+**Q:** Describe ALFWorld, WebArena, and SWE-bench — what each measures, how tasks are structured, and what capabilities they distinguish.
+
+**A:** These three benchmarks target different capability dimensions of LLM agents and collectively cover the range from embodied planning to web interaction to real-world software engineering.
+
+**ALFWorld** (Shridhar et al., 2021) is an interactive text-based household environment where an agent must complete multi-step domestic tasks (e.g., "put a hot apple in the fridge") by navigating rooms and manipulating objects via text commands. Tasks require sequential planning: the agent must infer that "heating an apple" means finding a microwave, placing the apple inside, and activating it — a chain of 8–15 steps with partial observability (the agent cannot see what is in a closed container). ALFWorld measures **embodied sequential planning**: the ability to decompose a goal, maintain a spatial map in working memory, and recover from dead ends. ReAct's initial evaluations use ALFWorld, and it remains a standard benchmark for planning in interactive environments.
+
+**WebArena** (Zhou et al., 2023) is a realistic, fully functional web environment with four websites (a shopping site, a GitLab instance, a Reddit clone, a map application) populated with real data. Tasks are natural language instructions that require navigating web UIs, filling forms, querying databases across sites, and synthesizing information from multiple pages (e.g., "find the open GitLab issues assigned to the top reviewer of the most recent Reddit post in r/programming"). WebArena measures **web grounding and cross-site reasoning**: the ability to translate natural language goals into browser actions, handle dynamic page states, and perform multi-hop information gathering. Task completion rates for current frontier models are 10–40%, highlighting the difficulty of faithful web grounding.
+
+**SWE-bench** (Jimenez et al., 2024) presents real GitHub issues from open-source Python repositories (Django, Flask, NumPy, etc.) and requires the agent to produce a code patch that resolves the issue and passes the repository's test suite. This measures **software engineering capability**: reading and understanding large codebases, localizing the bug, writing a correct fix, and ensuring no regressions. SWE-bench is the most externally valid benchmark for production-facing coding agents — the tasks are drawn from real developer workflows, not synthetic puzzles. The resolve rate of frontier models (GPT-4, Claude 3.5) ranges from 20–50% on verified subsets, making it a meaningful discriminator of agent capability.
+
+---
+
+### Q19 [Advanced] What are the principal failure mode categories in LLM agents?
+
+**Q:** Provide a taxonomy of LLM agent failure modes and explain the diagnostic and mitigation strategy for each category.
+
+**A:** Agent failures can be organized into four categories based on the component that fails.
+
+**Grounding failures** occur when the agent's actions are not correctly mapped to executable operations in the environment. Examples: generating a tool call with a hallucinated parameter value (a search query that doesn't match any real document), misreading a web page's HTML structure and clicking on the wrong element, or misinterpreting a function's API contract and calling it with wrong argument types. Grounding failures are often silent: the tool executes without error but returns irrelevant results, and the agent may not recognize the failure. Mitigation: structured output schemas with validation (reject malformed tool calls before execution), explicit verification steps ("did the search return a relevant result?"), and retrieval accuracy metrics during development.
+
+**Planning failures** arise in the reasoning layer: the agent commits to an incorrect plan early and cannot recover, loops without progress, or decomposes the task incorrectly. These failures are often caused by the model's limited ability to simulate multi-step consequences. Mitigation: Tree of Thoughts or MCTS to explore alternatives rather than committing to the first plan; Reflexion to revise plans after failure; explicit step-level self-evaluation ("is my current plan still on track?").
+
+**Memory failures** occur when the agent retrieves incorrect or irrelevant information from long-term memory, or fails to retrieve a piece of information it needs. RAG retrieval failures (vocabulary mismatch, multi-hop reasoning, stale data) fall here. Mitigation: hybrid retrieval (dense + sparse), query rewriting before retrieval, multi-hop retrieval pipelines, and freshness-aware indexing for time-sensitive data.
+
+**Safety and alignment failures** are cases where the agent takes harmful, unintended, or policy-violating actions: deleting files it should not touch, leaking private information retrieved from memory, or being manipulated by adversarial content in the environment (prompt injection via a malicious web page). These are structurally different from capability failures: the agent may be fully capable of completing the task but executes the wrong task due to misspecified goals or adversarial inputs. Mitigation: tool-level sandboxing and permission systems (read-only by default), output filtering and policy classifiers, explicit human confirmation before irreversible actions, and robust parsing that distinguishes trusted instructions from untrusted environment content.
+
+---
+
+### Q20 [Advanced] What are the open problems and research frontiers in LLM agent research?
+
+**Q:** What are the most significant unsolved challenges in building capable and reliable LLM agents, and what are the active research directions addressing them?
+
+**A:** Several fundamental open problems constrain the practical deployment of LLM agents, each with active research directions.
+
+**Long-horizon task completion** remains the central challenge: current agents degrade significantly on tasks requiring more than 20–30 steps, due to compounding errors and context window pressure. No current agent reliably completes complex multi-day tasks (writing a research paper, implementing a large feature end-to-end) without human intervention. Active directions include hierarchical planning (decompose into subtasks whose horizons are tractable), persistent memory with intelligent compression (MemGPT-style), and process reward models that provide dense feedback at each step rather than only at task completion.
+
+**Robust self-evaluation and calibration** is unsolved: models are poor at estimating the quality of their own outputs, leading to overconfident wrong answers and under-confident correct ones. This limits the reliability of self-reflection mechanisms (Reflexion) and any system where the agent judges its own progress. Research directions include training dedicated verifier models, using ensemble disagreement as an uncertainty signal, and formal verification for constrained domains (code, math).
+
+**Efficient long-context reasoning** is a hardware and architecture frontier: while context windows have grown to 1M tokens, effective reasoning over very long contexts remains degraded in practice. Selective attention, memory-augmented transformers (RetNet, Mamba), and learned memory compression are active research areas.
+
+**Agent safety and robustness to adversarial environments** has no principled solution. Prompt injection via environmental content (a malicious website, a poisoned document in the knowledge base) can hijack the agent's goals. Trusted execution environments, input provenance tracking, and constitutional constraints are early-stage approaches. This is likely the most consequential open problem for production deployments: capability without safety guarantees is not deployable.
+
+**Evaluation methodology** itself is an open problem: existing benchmarks (ALFWorld, WebArena, SWE-bench) measure narrow capability slices, are expensive to run, and can be contaminated by training data. Principled evaluation of general agent capability — analogous to human IQ tests but for open-ended task completion — does not yet exist.
+
+---
+
+## Quick Reference
+
+| # | Difficulty | Topic | Section |
+|---|------------|-------|---------|
+| Q1 | Basic | LLM-based agent: definition and core components | Agent Fundamentals |
+| Q2 | Basic | ReAct: interleaving reasoning traces and actions | Agent Fundamentals |
+| Q3 | Basic | Tool use: function calling, selection, and execution challenges | Agent Fundamentals |
+| Q4 | Advanced | Agent loop failure modes: hallucination, loops, error propagation, overflow | Agent Fundamentals |
+| Q5 | Basic | Chain-of-Thought and its role as the foundation of agent planning | Planning & Reasoning |
+| Q6 | Advanced | Tree of Thoughts: search tree structure and BFS/DFS strategies | Planning & Reasoning |
+| Q7 | Advanced | Reflexion: verbal reinforcement learning and self-reflection mechanism | Planning & Reasoning |
+| Q8 | Advanced | MCTS applied to LLM planning (RAP) | Planning & Reasoning |
+| Q9 | Advanced | Task decomposition: MRKL, HuggingGPT, TaskMatrix compared | Planning & Reasoning |
+| Q10 | Basic | Three agent memory types: sensory, working, long-term | Memory & Retrieval |
+| Q11 | Basic | RAG as external agent memory: pipeline and failure cases | Memory & Retrieval |
+| Q12 | Advanced | MemGPT: hierarchical memory management and context extension | Memory & Retrieval |
+| Q13 | Advanced | Episodic vs semantic memory: implementation and retrieval strategies | Memory & Retrieval |
+| Q14 | Basic | Motivation for multi-agent systems over single-agent | Multi-Agent Systems |
+| Q15 | Basic | AutoGen: ConversableAgent and conversation-driven collaboration | Multi-Agent Systems |
+| Q16 | Advanced | Multi-agent communication topologies: star, P2P, hierarchical, bus | Multi-Agent Systems |
+| Q17 | Advanced | MetaGPT: role specialization, SOP workflow, structured outputs | Multi-Agent Systems |
+| Q18 | Basic | Agent benchmarks: ALFWorld, WebArena, SWE-bench | Evaluation & Benchmarks |
+| Q19 | Advanced | Agent failure mode taxonomy: grounding, planning, memory, safety | Evaluation & Benchmarks |
+| Q20 | Advanced | Open problems and frontiers in LLM agent research | Evaluation & Benchmarks |
+
+## Resources
+
+- Yao et al., [ReAct: Synergizing Reasoning and Acting in Language Models](https://arxiv.org/abs/2210.03629) (2023a)
+- Wei et al., [Chain-of-Thought Prompting Elicits Reasoning in Large Language Models](https://arxiv.org/abs/2201.11903) (2022)
+- Yao et al., [Tree of Thoughts: Deliberate Problem Solving with Large Language Models](https://arxiv.org/abs/2305.10601) (2023b)
+- Shinn et al., [Reflexion: Language Agents with Verbal Reinforcement Learning](https://arxiv.org/abs/2303.11366) (2023)
+- Hao et al., [Reasoning with Language Model is Planning with World Model](https://arxiv.org/abs/2305.14992) (RAP, 2023)
+- Karpas et al., [MRKL Systems: A Modular, Neuro-Symbolic Architecture that Combines Large Language Models, External Knowledge Sources and Discrete Reasoning](https://arxiv.org/abs/2205.00445) (2022)
+- Shen et al., [HuggingGPT: Solving AI Tasks with ChatGPT and its Friends in HuggingFace](https://arxiv.org/abs/2303.17580) (2023)
+- Liang et al., [TaskMatrix.AI: Completing Tasks by Connecting Foundation Models with Millions of APIs](https://arxiv.org/abs/2303.16434) (2023)
+- Schick et al., [Toolformer: Language Models Can Teach Themselves to Use Tools](https://arxiv.org/abs/2302.04761) (2023)
+- Lewis et al., [Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks](https://arxiv.org/abs/2005.11401) (2020)
+- Packer et al., [MemGPT: Towards LLMs as Operating Systems](https://arxiv.org/abs/2310.08560) (2023)
+- Park et al., [Generative Agents: Interactive Simulacra of Human Behavior](https://arxiv.org/abs/2304.03442) (2023)
+- Wang et al., [A Survey on Large Language Model based Autonomous Agents](https://arxiv.org/abs/2308.11432) (2023)
+- Weng, [LLM Powered Autonomous Agents](https://lilianweng.github.io/posts/2023-06-23-agent/) (2023)
+- Du et al., [Improving Factuality and Reasoning in Language Models through Multiagent Debate](https://arxiv.org/abs/2305.14325) (2023)
+- Wu et al., [AutoGen: Enabling Next-Gen LLM Applications via Multi-Agent Conversation](https://arxiv.org/abs/2308.08155) (2023)
+- Hong et al., [MetaGPT: Meta Programming for A Multi-Agent Collaborative Framework](https://arxiv.org/abs/2308.00352) (2023)
+- Shridhar et al., [ALFWorld: Aligning Text and Embodied Environments for Interactive Learning](https://arxiv.org/abs/2010.03768) (2021)
+- Zhou et al., [WebArena: A Realistic Web Environment for Building Autonomous Agents](https://arxiv.org/abs/2307.13854) (2023)
+- Jimenez et al., [SWE-bench: Can Language Models Resolve Real-World GitHub Issues?](https://arxiv.org/abs/2310.06770) (2024)
