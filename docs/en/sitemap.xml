@@ -4,6 +4,16 @@
   <url>
     <loc>https://yo3nglau.github.io/blogs/tags/agent/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/agent/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/agent/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/categories/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
@@ -72,6 +82,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/llm-based-agents-interview-questions-and-answers/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/llm-based-agents-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/llm-based-agents-interview-questions-and-answers/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>

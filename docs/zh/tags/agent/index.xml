@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Large Language Model on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/zh/tags/large-language-model/</link>
-    <description>Recent content in Large Language Model on yo3nglau academic website</description>
+    <title>Agent on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/agent/</link>
+    <description>Recent content in Agent on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/large-language-model/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/agent/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>基于大语言模型的智能体：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/llm-based-agents-interview-questions-and-answers/</link>
       <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/zh/post/llm-based-agents-interview-questions-and-answers/</guid>
       <description>&lt;h2 id=&#34;智能体基础&#34;&gt;智能体基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-什么是基于-llm-的智能体其核心组件有哪些&#34;&gt;Q1 [基础] 什么是基于 LLM 的智能体，其核心组件有哪些？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 基于 LLM 的智能体如何定义，哪些组件使其区别于独立语言模型？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 基于 LLM 的智能体（Agent）是以大语言模型作为核心推理引擎的系统，通过在环境中执行一系列动作来自主追求目标。与独立 LLM 的关键区别在于，智能体以循环方式运作：它感知输入、规划动作、通过工具或代码执行动作，并将结果整合到后续推理步骤中——而非对单一提示产生单一响应。&lt;/p&gt;&#xA;&lt;p&gt;LLM 智能体由四个组件构成（Wang et al., 2023；Weng, 2023）。第一，&lt;strong&gt;感知&lt;/strong&gt;（或感觉缓冲区）：智能体从环境接收输入，可能包括文本、工具输出、记忆检索、先前步骤的观察或结构化数据。第二，&lt;strong&gt;记忆&lt;/strong&gt;：智能体在步骤间维护状态。工作记忆是上下文窗口——当前提示中的所有 token。长期记忆通过外部存储（如向量数据库或键值存储）延伸至上下文窗口之外。第三，&lt;strong&gt;规划&lt;/strong&gt;：智能体分解任务、生成候选动作序列，并可根据中间结果修正计划。LLM 本身通过思维链等提示策略或更结构化的搜索方法提供此能力。第四，&lt;strong&gt;动作&lt;/strong&gt;：智能体执行影响环境的操作——调用 API、运行代码、查询数据库、浏览网页或调用专用子模型。动作空间由智能体可用的工具定义。&lt;/p&gt;&#xA;&lt;p&gt;&amp;ldquo;观察—思考—行动—观察&amp;quot;的智能体循环持续重复，直到目标达成或满足终止条件。这个循环是智能体与提示式 LLM 本质上的区别：模型的输出不是最终产品，而是持续过程中的中间步骤。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-react-框架是什么它如何结合推理与行动&#34;&gt;Q2 [基础] ReAct 框架是什么，它如何结合推理与行动？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 描述 ReAct 提示策略、其核心洞见，以及它如何优于思维链和纯行动基线。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; ReAct（Reasoning + Acting，Yao et al., 2023）是一种在单一序列中交错自然语言推理轨迹与离散行动的提示框架。每个智能体步骤由三部分组成：&lt;em&gt;思考&lt;/em&gt;（模型更新其理解并决定下一步行动的自由文本推理轨迹）、&lt;em&gt;行动&lt;/em&gt;（结构化命令，如 &lt;code&gt;Search[query]&lt;/code&gt; 或 &lt;code&gt;Lookup[term]&lt;/code&gt;）以及&lt;em&gt;观察&lt;/em&gt;（追加到上下文中的环境响应）。&amp;ldquo;思考—行动—观察&amp;quot;三元组重复执行直到任务完成。&lt;/p&gt;&#xA;&lt;p&gt;核心洞见在于推理和行动受益于紧密耦合。思维链（CoT）提示产生推理但无法与环境交互以验证或更新信念——它会对无法查找的事实产生幻觉。纯行动基线执行工具调用但缺乏可解释的中间推理，难以诊断失败或纠正方向。ReAct 将两者结合：思考步骤允许模型解读工具输出、重新评估计划，并在提交下一个动作之前从错误中恢复。&lt;/p&gt;&#xA;&lt;p&gt;在知识密集型问答（HotpotQA、FEVER）和交互式决策任务（ALFWorld、WebShop）上，ReAct 显著优于 CoT 和纯行动基线，在 ALFWorld 上也优于模仿学习和强化学习基线。尤为重要的是，ReAct 的推理轨迹使智能体行为可解释，并支持人工干预纠错：人类可以读取思考步骤，识别智能体出错的位置，并通过编辑上下文进行干预。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q3-基础-llm-智能体中的工具使用如何工作关键设计挑战是什么&#34;&gt;Q3 [基础] LLM 智能体中的工具使用如何工作，关键设计挑战是什么？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 什么机制使 LLM 能够调用外部工具，工具选择如何实现，构建可靠工具使用系统的主要挑战是什么？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; LLM 智能体中的工具使用通过将可用工具表示为结构化函数签名（名称、描述、参数模式）并将其包含在模型的提示或系统消息中来实现。模型生成结构化输出——与函数模式匹配的 JSON 对象（OpenAI 函数调用/工具使用 API）或遵循固定模板的自由文本动作（如 ReAct 中）——由智能体运行时解析并执行。结果作为观察追加到上下文中，模型继续运作。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>大语言模型：面试问题与推荐回答</title>
-      <link>https://yo3nglau.github.io/blogs/zh/post/large-language-models-interview-questions-and-answers/</link>
-      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/zh/post/large-language-models-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;预训练与架构&#34;&gt;预训练与架构&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-大语言模型的预训练目标是什么&#34;&gt;Q1 [基础] 大语言模型的预训练目标是什么？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; GPT 等大语言模型在预训练阶段使用什么训练目标？为何有效？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; 自回归 LLM 的主流预训练目标是&lt;strong&gt;下一词预测&lt;/strong&gt;（Next Token Prediction），也称因果语言建模。给定词元序列 $x_1, x_2, \ldots, x_{t-1}$，模型通过最小化词汇表上的交叉熵损失来预测下一个词元 $x_t$。该目标在训练时对序列的每个位置同步应用，数据效率极高：一篇包含 $n$ 个词元的文档可提供 $n-1$ 个训练样本。&lt;/p&gt;&#xA;&lt;p&gt;尽管形式简单，这一目标的效果却出奇强大。模型必须隐式习得语法、事实、推理模式和世界知识，才能在多样化的文本上准确预测下一词。这正是将下一词预测扩展到大规模数据和大模型参数后会涌现出通用能力的原因——模型将通用语言理解作为预测文本的副产品习得。&lt;/p&gt;&#xA;&lt;p&gt;值得与&lt;strong&gt;掩码语言建模&lt;/strong&gt;（MLM，BERT 类模型使用）区分：MLM 随机遮盖词元并从左右双向上下文预测被遮盖词元。自回归（因果）语言模型只能关注过去词元，因而天然适合生成任务——可被提示续写任意前缀。MLM 模型在分类任务上产生更好的表示，但不能直接生成文本。GPT、LLaMA 及大多数现代 LLM 均使用自回归下一词预测。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-什么是缩放法则它对-llm-训练有何指导意义&#34;&gt;Q2 [基础] 什么是缩放法则？它对 LLM 训练有何指导意义？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 什么是神经缩放法则？它如何指导模型规模和训练数据量的决策？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; &lt;strong&gt;缩放法则&lt;/strong&gt;（Scaling Laws，Kaplan et al., 2020）是语言模型性能（以损失衡量）与三种资源之间的幂律经验关系：模型参数量 $N$、训练数据集大小 $D$、总计算预算 $C$。核心发现是：随着任一资源的增加，损失平滑且可预测地降低，遵循 $L \propto N^{-\alpha}$、$L \propto D^{-\beta}$、$L \propto C^{-\gamma}$（指数由实验确定）。&lt;/p&gt;&#xA;&lt;p&gt;Chinchilla 论文（Hoffmann et al., 2022）进一步提炼了这些发现，给出了关键的实践洞见：在固定计算预算下，最优分配是用约 $20N$ 个词元训练参数量约为 $N$ 的模型。这颠覆了此前在相对少量数据上训练超大模型的做法——GPT-3（1,750 亿参数）仅用了约 3,000 亿词元训练，Chinchilla 分析表明这严重训练不足。在相同计算成本下，用更多数据训练的较小模型（如 Chinchilla-70B）可以达到甚至超越训练不足的大模型。&lt;/p&gt;&#xA;&lt;p&gt;缩放法则具有直接的工程意义：团队可以在投入完整计算预算前，通过小规模实验预测大规模训练的性能；同时也规定了如何在模型规模和数据量之间分配固定预算。LLaMA、Mistral 等现代模型遵循 Chinchilla 最优或数据丰富的训练配方，在 70 亿至 700 亿参数范围内使用 1–2 万亿词元，远超 Chinchilla 原始建议。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
