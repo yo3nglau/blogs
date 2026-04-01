@@ -12,6 +12,14 @@
 </p>
 </div>
 
+{{ if .Translations }}
+<p style="text-align: center;">
+  {{ range .Translations }}
+  <a href="{{ .RelPermalink }}">{{ if eq .Language.Lang "zh" }}查看中文版本{{ else }}View English Version{{ end }}</a>
+  {{ end }}
+</p>
+{{ end }}
+
 {{ if .Params.toc }}
 {{ .TableOfContents }}
 {{ end }}
