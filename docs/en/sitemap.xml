@@ -216,9 +216,29 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/temporal-action-detection/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/temporal-action-detection/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/temporal-action-detection/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/temporal-action-detection-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/temporal-action-detection-interview-questions-and-answers/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/transformer/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
@@ -248,6 +268,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/video-understanding/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/video-understanding/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/video-understanding/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/vision-transformer/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Video Understanding on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/video-understanding/</link>
+    <description>Recent content in Video Understanding on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/video-understanding/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>时序动作检测：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/temporal-action-detection-interview-questions-and-answers/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/temporal-action-detection-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;tad-基础与检测流程&#34;&gt;TAD 基础与检测流程&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-时序动作检测与动作识别有何不同&#34;&gt;Q1 [基础] 时序动作检测与动作识别有何不同？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 什么是时序动作检测（Temporal Action Detection），它在任务定义和难度上与动作识别有何区别？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 动作识别（Action Recognition）针对的是已经裁剪好的视频片段，其中单一动作占据了整个片段。给定一段短视频作为输入，模型输出一个类别标签。该任务假设动作的边界已由外部提供，因而本质上是对固定时长输入的分类问题。&lt;/p&gt;&#xA;&lt;p&gt;时序动作检测（TAD）处理的是任意时长的未裁剪视频，视频中包含多个由背景片段分隔的动作实例。给定一段未裁剪视频，模型须同时定位并分类所有动作实例，为每个检测到的动作输出一组元组 $(t_\text{start}, t_\text{end}, \text{class}, \text{confidence})$。模型不预先获知动作的位置或数量。&lt;/p&gt;&#xA;&lt;p&gt;这种双重要求使 TAD 远比动作识别更具挑战性。模型必须处理背景压制（大多数帧不含动作）、动作时长变化（从数秒到数分钟）、多个并发或重叠动作，以及精确的边界估计等问题。因此，评估采用基于 tIoU（时序交并比）的指标，而非简单的分类准确率，从而同时衡量分类准确性和时序定位精度。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-什么是-tad-的两阶段流程&#34;&gt;Q2 [基础] 什么是 TAD 的两阶段流程？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 描述时序动作检测的经典两阶段流程，并解释这种分解方式为何有效。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 两阶段流程将 TAD 分解为两个顺序子问题。第一阶段是类别无关的时序提案生成：提案网络扫描未裁剪视频，生成一组候选时序片段 $(t_\text{start}, t_\text{end})$，这些片段可能包含任何类别的动作，但不预测具体类别。目标是以精度为代价换取高召回率——生成足够多的提案以覆盖所有真实动作实例。经典提案方法包括 TAG（Temporal Actionness Grouping）、TURN 和 SST。&lt;/p&gt;&#xA;&lt;p&gt;第二阶段对每个提案进行分类和边界回归。每个提案片段被重新编码（通过在提案窗口内重新提取特征或从预计算特征中池化），分类器赋予其类别标签和置信分数，边界回归器可选地对提案边界进行精修。该阶段以召回率换取精度。分类完成后，非极大值抑制（NMS）去除重复检测。&lt;/p&gt;&#xA;&lt;p&gt;这种分解有效，因为它将时序定位和动作识别这两个概念上不同的任务分开处理，使各自能够独立优化。提案网络可以用通用的&amp;quot;动作性&amp;quot;标签训练，而无需细粒度的类别标签，从而具有更强的泛化能力。然而，由于需要顺序处理可能多达数百个提案，该流程比单阶段方法速度慢，且第一阶段的错误（遗漏的提案）在第二阶段无法弥补。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q3-基础-tad-使用哪些评估指标这些指标有哪些局限性&#34;&gt;Q3 [基础] TAD 使用哪些评估指标，这些指标有哪些局限性？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 时序动作检测如何评估，标准指标有哪些不足？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 主要指标是在指定时序交并比（tIoU）阈值下计算的平均精度均值（mAP）。tIoU 衡量预测片段与真实片段之间的时序重叠：&lt;/p&gt;&#xA;$$\text{tIoU} = \frac{|\text{prediction} \cap \text{ground truth}|}{|\text{prediction} \cup \text{ground truth}|}$$&lt;p&gt;只有当预测片段与真实片段的 tIoU 超过阈值且预测类别正确时，该预测才被视为真正例。平均精度（AP）按类别计算，通过按置信度排序所有预测并计算精度-召回曲线下的面积得到。mAP 对所有类别的 AP 取均值。&lt;/p&gt;&#xA;&lt;p&gt;不同基准使用不同的阈值惯例。THUMOS14 在单个阈值（0.3、0.4、0.5、0.6、0.7）处报告 mAP，阈值越高要求定位越精确。ActivityNet 报告从 0.5 到 0.95 以 0.05 为步长的阈值范围内的平均 mAP，遵循目标检测中的 COCO 惯例。模型通常以 $\text{tIoU} = 0.5$ 作为主要操作点进行评估。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
