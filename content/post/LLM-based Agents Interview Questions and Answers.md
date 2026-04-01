@@ -64,3 +64,67 @@ Three principal challenges arise in tool-use systems. First, **tool selection er
 **Context length overflow** is a practical failure mode as trajectories grow long: relevant early context (task instructions, initial observations) is pushed out of the effective attention window by accumulating Thought–Action–Observation triplets, causing the model to lose track of the original goal. This motivates memory compression strategies and hierarchical context management (as in MemGPT (Packer et al., 2023)).
 
 ---
+
+## Planning & Reasoning
+
+### Q5 [Basic] What is Chain-of-Thought prompting and how does it relate to agent planning?
+
+**Q:** What is chain-of-thought prompting, what makes it effective, and how does it serve as the foundation for more sophisticated agent planning?
+
+**A:** Chain-of-thought (CoT) prompting (Wei et al., 2022) elicits intermediate reasoning steps from LLMs by including examples in the prompt where the solution is accompanied by a natural language derivation rather than just a final answer. Given a few such exemplars, the model generalizes the pattern and produces its own reasoning traces before producing an answer. Zero-shot CoT (Kojima et al., 2022) achieves a similar effect simply by appending "Let's think step by step" to the prompt, without any examples.
+
+CoT is effective because multi-step reasoning problems require intermediate computations that cannot be computed in a single forward pass through the model's feed-forward layers. By writing intermediate steps into the output (and thus into future input via the autoregressive generation process), the model effectively extends its working memory — each generated token is available as context for generating the next. This makes tasks requiring arithmetic, symbolic manipulation, or logical chaining tractable for models that fail on the same problems when prompted for a direct answer.
+
+In the agent context, CoT is the basic planning mechanism: the Thought step in ReAct, the reasoning in Reflexion, and the node expansion in Tree of Thoughts are all instantiations of chain-of-thought. More advanced planning methods extend CoT by adding search (ToT selects which reasoning paths to pursue), iteration (Reflexion revises plans based on feedback), or grounding (ReAct interleaves CoT with tool calls). Understanding CoT is therefore prerequisite to understanding all higher-level agent planning approaches.
+
+---
+
+### Q6 [Advanced] How does Tree of Thoughts extend chain-of-thought for deliberate planning?
+
+**Q:** Describe the Tree of Thoughts framework, how it structures the search over reasoning paths, and in what settings it outperforms standard chain-of-thought.
+
+**A:** Tree of Thoughts (ToT, Yao et al., 2023b) reframes the LLM's generation process as a search over a tree of coherent reasoning steps ("thoughts"), where each node is a partial solution state. Unlike linear CoT (a single path from problem to answer) or self-consistency (multiple independent paths, aggregated by majority vote), ToT explicitly maintains and explores multiple branches simultaneously, using the LLM itself as both a generator of candidate thoughts and an evaluator of their promise.
+
+The framework requires defining three components: a **thought decomposition** (what constitutes a meaningful intermediate step for the task — a sentence, an equation, a plan action), a **thought generator** (either sampling multiple completions from the LLM, or proposing candidates with a separate "propose" prompt), and a **state evaluator** (the LLM judges each partial state as "sure", "likely", or "impossible" to lead to a correct solution, using a scalar value prompt). With these components, standard tree search algorithms — BFS or DFS with pruning — can be applied.
+
+ToT is most beneficial for tasks requiring exploration: when the correct path is hard to identify at the first step and early commitments frequently lead to dead ends. The paper demonstrates this on Game of 24 (arithmetic reasoning requiring backtracking), Creative Writing (multi-step coherence planning), and mini Crosswords. Standard CoT (even with self-consistency) nearly fails on Game of 24 ($4\%$ success), while ToT with BFS reaches $74\%$. The trade-off is cost: ToT requires many LLM calls per problem ($O(b \times d)$ where $b$ is the branching factor and $d$ is the tree depth), making it expensive for tasks where linear CoT already works well.
+
+---
+
+### Q7 [Advanced] What is Reflexion and how does it use verbal reinforcement learning?
+
+**Q:** Describe the Reflexion framework's architecture, its verbal reinforcement mechanism, and how it differs from standard RL fine-tuning.
+
+**A:** Reflexion (Shinn et al., 2023) is a framework that improves an LLM agent's performance over multiple trials on the same task through self-generated verbal feedback, without updating model weights. The architecture has three components. First, an **Actor** (the base LLM agent) generates actions and trajectories as in ReAct. Second, an **Evaluator** scores the completed trajectory — this may be an external reward signal (task success), a heuristic (unit test pass/fail), or another LLM acting as a judge. Third, a **Self-Reflection** model (the same LLM, prompted to reflect) takes the trajectory and its evaluation, and generates a natural language summary of what went wrong and how to do better next time. This verbal reflection is stored in an **episodic memory buffer** and prepended to the agent's context in subsequent attempts.
+
+The key mechanism is that natural language feedback is a richer, more targeted learning signal than scalar rewards. A reflection such as "I searched for the wrong entity because I misread the question — next time I should re-read the question before searching" directly guides the agent's next attempt in a way that a binary failure signal cannot. This is "verbal reinforcement learning" in the sense that the feedback accumulates across trials and shapes behavior, but through in-context conditioning rather than gradient descent.
+
+Reflexion differs from standard RL fine-tuning in three ways: (1) it requires no gradient updates and works with black-box LLM APIs; (2) its memory is ephemeral — verbal reflections persist only within a session, not across unrelated tasks; (3) it depends on the LLM's ability to generate accurate self-diagnoses, which can fail when the model lacks the capability to identify its own errors. Reflexion achieves state-of-the-art on HumanEval ($91\%$ pass@1 with GPT-4) and ALFWorld sequential decision-making by combining the strengths of CoT, ReAct, and trial-and-error learning.
+
+---
+
+### Q8 [Advanced] How is Monte Carlo Tree Search applied to LLM planning?
+
+**Q:** Describe how MCTS integrates with LLM agents for planning (as in RAP), and what advantages this offers over greedy or beam-search planning.
+
+**A:** Monte Carlo Tree Search (MCTS) applied to LLM planning (most directly in RAP — Reasoning via Planning, Hao et al., 2023) treats the reasoning process as a Markov Decision Process (MDP) where states are partial reasoning traces, actions are the next reasoning step generated by the LLM, and the reward is a signal from the LLM acting as a world model (estimating the likelihood that the current state leads to a correct answer). MCTS iterates four phases: **selection** (traverse the tree using UCT to balance exploitation of high-value nodes and exploration of less-visited ones), **expansion** (generate new child states by sampling the next reasoning step from the LLM), **simulation** (roll out the trajectory to completion and obtain a reward), and **backpropagation** (update value estimates along the path).
+
+The key contribution of RAP is using the LLM simultaneously as the **policy** (generating candidate reasoning steps) and the **world model** (evaluating the expected utility of each state by prompting it to answer "how likely is this to lead to a correct solution?"). This avoids the need for a separately trained value function or external reward model for domains where the LLM's own beliefs about solution quality are reliable.
+
+MCTS offers advantages over greedy decoding (single path, no backtracking) and beam search (fixed-width parallel paths without value estimation or pruning by quality): it allocates search budget to the most promising branches, can recover from early mistakes by backtracking, and produces diverse candidate solutions. On Blocksworld planning and mathematical reasoning benchmarks, RAP with MCTS substantially outperforms CoT-SC (self-consistency) and ToT-DFS. The cost is the same as ToT — many LLM calls — but the UCT selection policy is more principled than ToT's heuristic pruning.
+
+---
+
+### Q9 [Advanced] How do task decomposition strategies differ across MRKL, HuggingGPT, and TaskMatrix?
+
+**Q:** Compare the task decomposition and tool orchestration approaches of MRKL, HuggingGPT, and TaskMatrix, and identify the design trade-offs each makes.
+
+**A:** These three systems represent an evolutionary progression in how LLM agents decompose tasks and route sub-tasks to specialized tools or models.
+
+**MRKL** (Modular Reasoning, Knowledge, and Language, Karpas et al., 2022) is the earliest formulation. It defines a neuro-symbolic architecture with a central LLM router that receives a user query, identifies which discrete "expert module" (a calculator, a database lookup, a search engine) is appropriate, and routes the query there. The LLM serves as a natural language interface between the user and a fixed, manually curated set of symbolic modules. The decomposition is shallow (typically one routing step) and the module set is static — the system cannot discover or compose new tools.
+
+**HuggingGPT** (Shen et al., 2023) extends the routing paradigm to a vast, dynamically queryable model hub (Hugging Face). Given a user request, the LLM generates a multi-step task plan (a sequence of structured JSON tasks, each with a task type, dependencies, and arguments), then dispatches each sub-task to a specialized model selected by matching the task description to model metadata. Results from completed tasks are returned to the LLM, which synthesizes the final response. The key advance is multi-step sequential and parallel task planning: a request like "describe this image and translate the caption to French" is decomposed into image captioning → translation, with explicit dependency tracking.
+
+**TaskMatrix.AI** (Liang et al., 2023) scales this further by proposing a universal API platform where millions of APIs (software functions, cloud services, physical devices) are uniformly described using an API schema. The LLM uses an **action executor** that selects APIs from this registry via semantic search on their descriptions, generates the API call, and chains calls across steps. The design trade-off is discoverability vs. reliability: a large, automatically curated API set enables breadth but makes it harder for the LLM to select the right API from many similar candidates, increasing tool selection error rates compared to small, manually curated tool sets.
+
+---
