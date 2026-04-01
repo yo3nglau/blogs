@@ -15,6 +15,19 @@
                 href="https://yo3nglau.github.io/blogs/zh/categories/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/classification/</loc>
+    <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/classification/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/classification/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/deep-learning/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -78,6 +91,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/post/mamba-and-state-space-models-interview-questions-and-answers/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/multi-label-learning/</loc>
+    <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/multi-label-learning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/multi-label-learning/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/nlp/</loc>
@@ -182,6 +208,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/post/large-language-models-interview-questions-and-answers/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/multi-label-learning-interview-questions-and-answers/</loc>
+    <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/multi-label-learning-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/multi-label-learning-interview-questions-and-answers/"
                 />
   </url>
 </urlset>

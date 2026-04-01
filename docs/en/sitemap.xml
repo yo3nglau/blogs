@@ -100,6 +100,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/classification/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/classification/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/classification/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/common-shortcuts-for-the-linux-command-line/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
@@ -154,9 +164,29 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/multi-label-learning/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/multi-label-learning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/multi-label-learning/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/multi-label-learning-interview-questions-and-answers/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/multi-label-learning-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/multi-label-learning-interview-questions-and-answers/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/nlp/</loc>
     <lastmod>2026-03-31T00:00:00+00:00</lastmod>

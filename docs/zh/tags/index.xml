@@ -9,6 +9,13 @@
     <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Classification</title>
+      <link>https://yo3nglau.github.io/blogs/zh/tags/classification/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/tags/classification/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Deep Learning</title>
       <link>https://yo3nglau.github.io/blogs/zh/tags/deep-learning/</link>
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
@@ -27,6 +34,13 @@
       <link>https://yo3nglau.github.io/blogs/zh/tags/mamba/</link>
       <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/zh/tags/mamba/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Multi-Label Learning</title>
+      <link>https://yo3nglau.github.io/blogs/zh/tags/multi-label-learning/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/tags/multi-label-learning/</guid>
       <description></description>
     </item>
     <item>

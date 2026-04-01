@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Classification on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/classification/</link>
+    <description>Recent content in Classification on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Tue, 31 Mar 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/classification/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>多标签学习：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/multi-label-learning-interview-questions-and-answers/</link>
+      <pubDate>Tue, 31 Mar 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/multi-label-learning-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;基础知识&#34;&gt;基础知识&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-什么是多标签图像分类它与多类别分类和多任务分类有何不同&#34;&gt;Q1 [基础] 什么是多标签图像分类？它与多类别分类和多任务分类有何不同？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 请解释多标签图像分类的问题形式化，以及它与相关设定的区别。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; 在&lt;strong&gt;多类别图像分类&lt;/strong&gt;中，每张图像恰好属于 $L$ 个互斥类别中的一个。Softmax 输出强制要求概率分布之和为 1，单一交叉熵损失驱动模型趋向一个主导类别。典型例子包括 ImageNet 分类和数字识别。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;多标签图像分类&lt;/strong&gt;放宽了互斥约束：每张图像可以同时属于 $L$ 个类别的任意子集。典型例子是 MS-COCO，一张图像可同时包含&amp;quot;人&amp;quot;、&amp;ldquo;自行车&amp;quot;和&amp;quot;交通灯&amp;rdquo;。形式上，目标是学习 $f: \mathcal{X} \to \lbrace 0,1 \rbrace^L$，将每张图像映射为一个二值标签向量。在架构上，这意味着将 softmax 替换为 $L$ 个独立的 sigmoid 激活——每个输出 $\hat{p}_j = \sigma(z_j) \in (0,1)$ 独立估计标签 $j$ 存在的概率。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;多任务分类&lt;/strong&gt;是另一种设定：涉及多个异构任务（例如同时预测目标类别、边界框、深度和姿态），每个任务有各自的损失函数和输出头。各任务共享骨干网络，但输出具有语义上的差异。多标签分类是多任务的特殊情形——所有任务都是对同质标签集的二值预测，不仅共享骨干，还共享损失函数结构。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-多标签图像分类的标准-cnn--sigmoid--bce-基线如何构建&#34;&gt;Q2 [基础] 多标签图像分类的标准 CNN + sigmoid + BCE 基线如何构建？&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 多标签图像分类的标准基线在实践中是什么样子？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; 标准基线遵循简单的三段式结构：骨干网络 → 池化 → 分类头。卷积骨干网络（如 ResNet-50、ResNet-101）或视觉 Transformer（如 ViT-B/16）处理输入图像，生成特征图或词元序列。全局平均池化将空间维度压缩为单个向量 $f(x) \in \mathbb{R}^d$。全连接层将其投影为 $L$ 个 logit $z \in \mathbb{R}^L$，sigmoid 激活 $\hat{p}_j = \sigma(z_j)$ 产生每标签的概率。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
