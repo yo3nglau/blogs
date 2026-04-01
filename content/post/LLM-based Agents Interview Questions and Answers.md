@@ -83,7 +83,7 @@ In the agent context, CoT is the basic planning mechanism: the Thought step in R
 
 **Q:** Describe the Tree of Thoughts framework, how it structures the search over reasoning paths, and in what settings it outperforms standard chain-of-thought.
 
-**A:** Tree of Thoughts (ToT, Yao et al., 2023b) reframes the LLM's generation process as a search over a tree of coherent reasoning steps ("thoughts"), where each node is a partial solution state. Unlike linear CoT (a single path from problem to answer) or self-consistency (multiple independent paths, aggregated by majority vote), ToT explicitly maintains and explores multiple branches simultaneously, using the LLM itself as both a generator of candidate thoughts and an evaluator of their promise.
+**A:** Tree of Thoughts (ToT, Yao et al., 2023) reframes the LLM's generation process as a search over a tree of coherent reasoning steps ("thoughts"), where each node is a partial solution state. Unlike linear CoT (a single path from problem to answer) or self-consistency (multiple independent paths, aggregated by majority vote), ToT explicitly maintains and explores multiple branches simultaneously, using the LLM itself as both a generator of candidate thoughts and an evaluator of their promise.
 
 The framework requires defining three components: a **thought decomposition** (what constitutes a meaningful intermediate step for the task — a sentence, an equation, a plan action), a **thought generator** (either sampling multiple completions from the LLM, or proposing candidates with a separate "propose" prompt), and a **state evaluator** (the LLM judges each partial state as "sure", "likely", or "impossible" to lead to a correct solution, using a scalar value prompt). With these components, standard tree search algorithms — BFS or DFS with pruning — can be applied.
 
@@ -99,7 +99,7 @@ ToT is most beneficial for tasks requiring exploration: when the correct path is
 
 The key mechanism is that natural language feedback is a richer, more targeted learning signal than scalar rewards. A reflection such as "I searched for the wrong entity because I misread the question — next time I should re-read the question before searching" directly guides the agent's next attempt in a way that a binary failure signal cannot. This is "verbal reinforcement learning" in the sense that the feedback accumulates across trials and shapes behavior, but through in-context conditioning rather than gradient descent.
 
-Reflexion differs from standard RL fine-tuning in three ways: (1) it requires no gradient updates and works with black-box LLM APIs; (2) its memory is ephemeral — verbal reflections persist only within a session, not across unrelated tasks; (3) it depends on the LLM's ability to generate accurate self-diagnoses, which can fail when the model lacks the capability to identify its own errors. Reflexion achieves state-of-the-art on HumanEval ($91\%$ pass@1 with GPT-4) and ALFWorld sequential decision-making by combining the strengths of CoT, ReAct, and trial-and-error learning.
+Reflexion differs from standard RL fine-tuning in three ways: (1) it requires no gradient updates and works with black-box LLM APIs; (2) its memory is ephemeral — verbal reflections persist only within a session, not across unrelated tasks; (3) it depends on the LLM's ability to generate accurate self-diagnoses, which can fail when the model lacks the capability to identify its own errors. Reflexion with GPT-4 as the Actor achieves $91\%$ pass@1 on HumanEval and ALFWorld sequential decision-making by combining the strengths of CoT, ReAct, and trial-and-error learning.
 
 ---
 
@@ -111,7 +111,7 @@ Reflexion differs from standard RL fine-tuning in three ways: (1) it requires no
 
 The key contribution of RAP is using the LLM simultaneously as the **policy** (generating candidate reasoning steps) and the **world model** (evaluating the expected utility of each state by prompting it to answer "how likely is this to lead to a correct solution?"). This avoids the need for a separately trained value function or external reward model for domains where the LLM's own beliefs about solution quality are reliable.
 
-MCTS offers advantages over greedy decoding (single path, no backtracking) and beam search (fixed-width parallel paths without value estimation or pruning by quality): it allocates search budget to the most promising branches, can recover from early mistakes by backtracking, and produces diverse candidate solutions. On Blocksworld planning and mathematical reasoning benchmarks, RAP with MCTS substantially outperforms CoT-SC (self-consistency) and ToT-DFS. The cost is the same as ToT — many LLM calls — but the UCT selection policy is more principled than ToT's heuristic pruning.
+MCTS offers advantages over greedy decoding (single path, no backtracking) and beam search (fixed-width parallel paths without value estimation or pruning by quality): it allocates search budget to the most promising branches, can recover from early mistakes by backtracking, and produces diverse candidate solutions. On Blocksworld planning and mathematical reasoning benchmarks (including GSM8K), RAP with MCTS substantially outperforms CoT-SC (self-consistency) and ToT-DFS. The cost is the same as ToT — many LLM calls — but the UCT selection policy is more principled than ToT's heuristic pruning.
 
 ---
 
