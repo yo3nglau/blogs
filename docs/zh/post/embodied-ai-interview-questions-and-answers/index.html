@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>具身智能：面试问题与推荐回答 | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">具身智能：面试问题与推荐回答</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/02</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/robotics">Robotics</a> <a href="/blogs/tags/embodied-ai">Embodied AI</a> 
+  
+  
+</p>
+</div>
+
+
+<p style="text-align: center;">
+  
+  <a href="/blogs/post/embodied-ai-interview-questions-and-answers/">View English Version</a>
+  
+</p>
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#具身智能基础">具身智能基础</a>
+      <ul>
+        <li><a href="#q1-基础-区分具身智能与纯感知-ai-系统">Q1 [基础] 区分具身智能与纯感知 AI 系统</a></li>
+        <li><a href="#q2-基础-阐述仿真环境在具身智能研究中的作用">Q2 [基础] 阐述仿真环境在具身智能研究中的作用</a></li>
+        <li><a href="#q3-进阶-比较模仿学习与强化学习作为具身智能体训练范式的异同">Q3 [进阶] 比较模仿学习与强化学习作为具身智能体训练范式的异同</a></li>
+        <li><a href="#q4-进阶-分析动作表示对操作策略性能的影响">Q4 [进阶] 分析动作表示对操作策略性能的影响</a></li>
+      </ul>
+    </li>
+    <li><a href="#机器人操作">机器人操作</a>
+      <ul>
+        <li><a href="#q5-基础-归纳机器人抓取学习的主要范式">Q5 [基础] 归纳机器人抓取学习的主要范式</a></li>
+        <li><a href="#q6-进阶-阐释扩散策略如何捕捉多模态动作分布">Q6 [进阶] 阐释扩散策略如何捕捉多模态动作分布</a></li>
+        <li><a href="#q7-进阶-分析动作分块与时序集成对累积误差的消减作用">Q7 [进阶] 分析动作分块与时序集成对累积误差的消减作用</a></li>
+        <li><a href="#q8-进阶-评估轨迹级建模用于操作规划的方法">Q8 [进阶] 评估轨迹级建模用于操作规划的方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#视觉-语言-动作模型">视觉-语言-动作模型</a>
+      <ul>
+        <li><a href="#q9-基础-区分视觉-语言-动作模型与视觉-语言模型">Q9 [基础] 区分视觉-语言-动作模型与视觉-语言模型</a></li>
+        <li><a href="#q10-进阶-审视-rt-2-的架构与涌现推理能力">Q10 [进阶] 审视 RT-2 的架构与涌现推理能力</a></li>
+        <li><a href="#q11-进阶-评估-openvla-相对-rt-2-的架构改进">Q11 [进阶] 评估 OpenVLA 相对 RT-2 的架构改进</a></li>
+        <li><a href="#q12-进阶-分析-octo-实现跨形态泛化的机制">Q12 [进阶] 分析 Octo 实现跨形态泛化的机制</a></li>
+        <li><a href="#q13-进阶-诊断-vla-中连续动作-tokenization-的失效模式">Q13 [进阶] 诊断 VLA 中连续动作 tokenization 的失效模式</a></li>
+      </ul>
+    </li>
+    <li><a href="#仿真到现实的迁移">仿真到现实的迁移</a>
+      <ul>
+        <li><a href="#q14-基础-阐释域随机化及其仿真到现实迁移的理论基础">Q14 [基础] 阐释域随机化及其仿真到现实迁移的理论基础</a></li>
+        <li><a href="#q15-进阶-研究利用仿真特权状态的非对称-actor-critic-方法">Q15 [进阶] 研究利用仿真特权状态的非对称 Actor-Critic 方法</a></li>
+        <li><a href="#q16-进阶-评估在线自适应方法对仿真到现实差距的弥合效果">Q16 [进阶] 评估在线自适应方法对仿真到现实差距的弥合效果</a></li>
+        <li><a href="#q17-进阶-刻画接触丰富操作在仿真到现实迁移中的挑战">Q17 [进阶] 刻画接触丰富操作在仿真到现实迁移中的挑战</a></li>
+      </ul>
+    </li>
+    <li><a href="#基准测试数据与前沿">基准测试、数据与前沿</a>
+      <ul>
+        <li><a href="#q18-基础-综述具身智能评估的主要基准">Q18 [基础] 综述具身智能评估的主要基准</a></li>
+        <li><a href="#q19-进阶-评估机器人学习中的规模扩展法则证据">Q19 [进阶] 评估机器人学习中的规模扩展法则证据</a></li>
+        <li><a href="#q20-进阶-刻画具身智能的数据瓶颈与缓解策略">Q20 [进阶] 刻画具身智能的数据瓶颈与缓解策略</a></li>
+      </ul>
+    </li>
+    <li><a href="#快速参考">快速参考</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="具身智能基础">具身智能基础</h2>
+<h3 id="q1-基础-区分具身智能与纯感知-ai-系统">Q1 [基础] 区分具身智能与纯感知 AI 系统</h3>
+<p><strong>Q:</strong> 具身智能（Embodied AI）有哪些根本属性，使其与纯感知 AI 系统存在本质差异？</p>
+<p><strong>A:</strong> 具身智能是指在物理或仿真环境中进行感知、推理与行动的智能体，它与世界之间形成闭环交互。与仅将输入映射为预测结果的纯感知系统（例如图像分类）不同，具身智能体必须执行能够改变世界状态的动作，而这些状态变化又会影响未来的观测输入。</p>
+<p>有三个属性使这一设定与众不同。其一，<strong>因果性与非平稳性</strong>（causality and non-stationarity）：智能体的动作影响其下一步的观测，因此数据分布不是独立同分布的，而是依赖于当前执行的策略。其二，<strong>物理基础性</strong>（physical grounding）：接触力、本体感知反馈、空间关系等信号必须在毫秒级时间尺度上被表示和响应。其三，<strong>部分可观测性</strong>（partial observability）：智能体无法观测完整的世界状态，必须跨时间步维护信念或记忆。</p>
+<p>这些属性意味着视觉-语言模型的进展无法直接迁移到具身场景。一个能正确回答&quot;拿起红色杯子&quot;的模型，并不能自动知道如何在给定以自我为中心的 RGB-D 观测和连续关节状态的情况下，控制机械臂完成这一动作。</p>
+<hr>
+<h3 id="q2-基础-阐述仿真环境在具身智能研究中的作用">Q2 [基础] 阐述仿真环境在具身智能研究中的作用</h3>
+<p><strong>Q:</strong> 为什么研究人员在仿真环境中训练和评估具身智能体，而不是直接在物理硬件上进行？</p>
+<p><strong>A:</strong> 仿真环境具有四个实用优势。其一，<strong>样本效率</strong>：物理机器人以 10–30 Hz 运行且每个回合需要人工重置，而 Isaac Gym（Makoviychuk et al., 2021）等仿真器可同时运行数千个并行环境，在单机上每小时产生数百万步数据。其二，<strong>安全性</strong>：机械臂碰撞、失控力矩等灾难性故障可在仿真中自由探索。其三，<strong>真实状态访问</strong>：仿真器可提供精确的物体位姿、接触力和场景几何，这些在真实硬件上难以或无法测量。其四，<strong>可复现性</strong>：固定随机种子可产生确定性轨迹，便于公平比较。</p>
+<p>主要代价是<strong>仿真到现实的差距</strong>（sim-to-real gap）：仿真器与物理世界在视觉外观、接触动力学和执行器响应上的差异。弥合这一差距是一个活跃的研究方向，在本文第四章专门讨论。</p>
+<hr>
+<h3 id="q3-进阶-比较模仿学习与强化学习作为具身智能体训练范式的异同">Q3 [进阶] 比较模仿学习与强化学习作为具身智能体训练范式的异同</h3>
+<p><strong>Q:</strong> 在机器人策略训练中，模仿学习与强化学习之间存在哪些根本性的权衡？</p>
+<p><strong>A:</strong> <strong>模仿学习（Imitation Learning，IL）</strong> 通过在专家示范上进行有监督回归来训练策略，最小化 $\mathcal{L} = \mathbb{E}_{(s,a) \sim \mathcal{D}}[-\log \pi_\theta(a|s)]$，其中 $\mathcal{D}$ 为示范数据集。其主要优势在于样本效率高、训练稳定：在高质量示范的条件下，IL 无需设计奖励函数即可快速收敛。主要失效模式是<strong>分布偏移</strong>（distribution shift，Ross et al., 2011）：测试时智能体会遇到训练中未见的状态，错误因为策略从未被训练如何从偏离分布的状态中恢复而不断累积。<strong>DAgger</strong>（Ross et al., 2011）通过在已学策略访问的状态上迭代查询专家来解决这一问题，以持续的专家介入为代价减少协变量偏移。</p>
+<p><strong>强化学习（Reinforcement Learning，RL）</strong> 通过环境交互优化期望累积奖励 $J(\pi) = \mathbb{E}_\pi[\sum_t \gamma^t r_t]$。RL 原则上可以发现超越专家示范的行为，且由于在训练中探索状态空间，对分布偏移更具鲁棒性。其代价是稀疏奖励设计困难、样本复杂度高以及训练不稳定——尤其在接触丰富的操作任务中，稀疏奖励提供的梯度信号极为有限。</p>
+<p>在实践中，<strong>混合方法</strong>占主导：离线强化学习（如 IQL、TD3+BC）从示范数据中精调而无需实时环境交互，而残差强化学习则在行为克隆基础策略之上叠加小的在线修正。选择通常取决于数据可用性：若有 50–200 条示范且没有仿真器，优先选 IL；若有精心设计的仿真器和稠密奖励函数，RL 可产生超人类水平的策略。</p>
+<hr>
+<h3 id="q4-进阶-分析动作表示对操作策略性能的影响">Q4 [进阶] 分析动作表示对操作策略性能的影响</h3>
+<p><strong>Q:</strong> 动作表示的选择如何影响操作策略的表达能力和训练稳定性？</p>
+<p><strong>A:</strong> 操作策略的动作表示跨越从低层关节指令到高层语义可供性的宽广谱系，最常见的选择如下：</p>
+<p><strong>关节空间增量动作</strong>（joint-space delta actions，$\Delta\theta \in \mathbb{R}^n$）直接命令增量关节角度变化。它们具有通用性，但需要策略隐式学习逆运动学，在运动奇异点附近样本效率低且容易失效。</p>
+<p><strong>末端执行器笛卡尔动作</strong>（end-effector Cartesian actions，$\Delta x, \Delta y, \Delta z, \Delta\text{rot}$）在任务空间中操作，更直观易于示范和学习。它们将策略与机器人运动学解耦，提升跨硬件形态的可迁移性，代价是控制环路中需要独立的逆运动学求解器。</p>
+<p><strong>关键位姿（路径点）表示</strong>（Keypose/waypoint representations）预测目标末端执行器位姿序列而非稠密轨迹。PerAct（Shridhar et al., 2022b）和 CLIPort（Shridhar et al., 2022a）采用这一形式：策略预测下一步移动的目标，运动规划器负责填充轨迹。这大幅缩短了有效时间跨度，但需要可靠的规划器，且对需要连续接触控制的任务束手无策。</p>
+<p><strong>扩散与流表示</strong>（diffusion and flow representations）对完整的动作分布 $p(a_{t:t+H}|o_t)$ 建模，支持多模态输出——当同一观测存在多种有效抓取策略时，这一点至关重要。Diffusion Policy（Chi et al., 2023）对动作序列使用去噪扩散过程，在灵巧操作任务上以大幅优势超越高斯行为克隆，正是因为它不会将多模态动作分布折叠为均值。核心洞见在于，表示应与任务结构匹配：关键位姿表示适合抓取-放置任务，扩散或流表示适合接触丰富的装配任务。</p>
+<hr>
+<h2 id="机器人操作">机器人操作</h2>
+<h3 id="q5-基础-归纳机器人抓取学习的主要范式">Q5 [基础] 归纳机器人抓取学习的主要范式</h3>
+<p><strong>Q:</strong> 从数据学习机器人抓取的主要方法有哪些，它们在泛化能力上有何差异？</p>
+<p><strong>A:</strong> 机器人抓取方法可分为三大范式。<strong>解析/基于模型的方法</strong>从三维点云中计算力封闭（force closure）或力旋量空间体积等抓取质量指标，无需学习。它们对未见物体具有泛化能力，但需要精确的物体模型，在传感器噪声下容易失效。</p>
+<p><strong>数据驱动的平面抓取</strong>由 Levine et al. (2016) 推广，通过收集 800,000 次真实机器人抓取，训练深度 CNN 从 RGB 图像预测抓取成功率。这类方法在 2.5D（桌面俯视抓取）中工作，限于桌面场景且末端执行器方向受限。</p>
+<p><strong>6-DOF 生成式抓取</strong>解决任意物体位姿与方向的问题。Mousavian et al. (2019) 提出 6-DOF GraspNet，一种变分生成模型，从点云观测中采样 6-DOF 抓取位姿分布，支持在杂乱环境中对新物体进行鲁棒抓取。该范式可处理任意方向的物体并支持多指手，代价是需要精确的三维感知。</p>
+<p>前沿方向是<strong>任务导向抓取</strong>（task-oriented grasping），即抓取位姿根据下游操作任务进行条件化（例如，为倒水而抓住杯柄 vs. 为叠放而抓住杯沿）。</p>
+<hr>
+<h3 id="q6-进阶-阐释扩散策略如何捕捉多模态动作分布">Q6 [进阶] 阐释扩散策略如何捕捉多模态动作分布</h3>
+<p><strong>Q:</strong> 扩散策略的机制是什么，动作分布的多模态性在什么情况下对操作任务至关重要？</p>
+<p><strong>A:</strong> <strong>Diffusion Policy</strong>（Chi et al., 2023）将机器人控制建模为条件去噪扩散概率模型（DDPM）。训练时，在 $K$ 个扩散步骤中逐步向真实动作块 $a_{t:t+H}$ 添加噪声，得到 $a^K \sim \mathcal{N}(0, I)$，同时训练神经网络 $\epsilon_\theta$ 在每一步预测噪声：</p>
+$$\mathcal{L} = \mathbb{E}_{k, a^0, \epsilon}\left[\|\epsilon - \epsilon_\theta(a^k, o_t, k)\|^2\right]$$<p>推理时，以当前观测 $o_t$ 为条件从高斯噪声出发迭代去噪，利用 DDIM 采样将步骤数从 $K = 100$ 缩减至约 10 步。</p>
+<p>多模态性在同一观测存在多条有效动作序列时尤为关键。以双臂装配任务为例，机器人可从左侧或右侧接近插销——对两种模式取均值（如高斯行为克隆所做）会产生落在两者之间且必然失败的动作。扩散的去噪目标可在不发生模式坍缩的情况下表示完整的条件分布 $p(a|o)$。</p>
+<p>Chi et al. (2023) 在 12 个操作任务上与高斯行为克隆和隐式行为克隆进行对比，扩散策略在多模态程度最高的任务上相对提升约 $46\%$ 的平均成功率。预测 $H = 16$ 步、执行 $n = 8$ 步后重新规划的滚动时域控制环路在实践中最为稳定。主要代价是推理延迟：在 6–25 Hz 下的顺序去噪产生了计算预算约束，这促使研究者探索一致性模型蒸馏以实现实时部署。</p>
+<hr>
+<h3 id="q7-进阶-分析动作分块与时序集成对累积误差的消减作用">Q7 [进阶] 分析动作分块与时序集成对累积误差的消减作用</h3>
+<p><strong>Q:</strong> 动作分块如何解决行为克隆中的累积误差问题，时序集成又发挥怎样的作用？</p>
+<p><strong>A:</strong> 行为克隆中的<strong>累积误差</strong>（compounding error）源于每步细小的预测误差在长度为 $T$ 的轨迹中不断积累。单次错误动作会污染下一个观测，进而影响下一次预测；偏离训练数据状态的程度大致以 $O(\epsilon T^2)$ 的速率增长（Ross et al., 2011）。</p>
+<p><strong>动作分块</strong>（Action Chunking，Zhao et al., 2023）通过一次性预测 $k$ 步未来动作序列——$\hat{a}_{t:t+k} = \pi_\theta(o_t)$——并以开环方式执行全部 $k$ 步后再重新查询策略来解决这一问题。这将策略评估次数从 $T$ 减少至 $T/k$，将累积误差的时间跨度缩短至原来的 $1/k$。在 ACT（Action Chunking with Transformers）框架中，对于需要精确双臂操作的任务，$k = 100$ 步，策略实现为 CVAE 条件编码器-解码器 Transformer。</p>
+<p><strong>时序集成</strong>（Temporal Ensembling）解决重规划边界处的不连续性问题：当策略在 $t + k$ 步重新查询时，新的动作块 $\hat{a}_{t+k:t+2k}$ 可能与上一个块的尾部不一致，导致运动抖动。Zhao et al. (2023) 通过维护所有活跃预测的缓冲区并在每个时间步计算加权平均来解决这一问题：</p>
+$$\bar{a}_t = \sum_{i} w_i \hat{a}_t^{(i)}, \quad w_i \propto \exp(-m \cdot \text{age}_i)$$<p>其中 $m$ 为衰减常数，$\text{age}_i$ 为预测 $i$ 生成后经过的步数。这产生了平滑的轨迹，消除了硬重规划的抖动，在六项双臂操作任务上，相比不使用集成的分块方法，任务成功率提升了 10–15$\%$（Zhao et al., 2023）。</p>
+<hr>
+<h3 id="q8-进阶-评估轨迹级建模用于操作规划的方法">Q8 [进阶] 评估轨迹级建模用于操作规划的方法</h3>
+<p><strong>Q:</strong> Decision Transformer 如何将离线强化学习重构为序列建模问题，它对灵巧操作有哪些局限性？</p>
+<p><strong>A:</strong> <strong>Decision Transformer</strong>（Chen et al., 2021）将离线强化学习建模为条件序列预测问题。它不显式学习价值函数或策略，而是在形如 $(\hat{R}_{t}, s_{t}, a_{t}, \hat{R}_{t+1}, s_{t+1}, a_{t+1}, \ldots)$ 的轨迹上训练 GPT 风格的因果 Transformer，其中 $\hat{R}_t = \sum_{i \geq t} r_i$ 为<strong>期望回报</strong>（return-to-go，未来累积奖励）。推理时，模型以目标期望回报 $\hat{R}_1$ 为条件并在每步自回归地预测动作。由于 $\hat{R}_1$ 在测试时指定，同一个模型无需重新训练即可展现不同的行为模式。Chen et al. (2021) 表明 Decision Transformer 在 D4RL 运动基准上与行为克隆及离线强化学习基线（CQL、IQL）持平或更优。</p>
+<p><strong>Trajectory Transformer</strong>（Janner et al., 2021）将其扩展至对离散化状态和动作进行束搜索规划，在离线设定下实现了显式多步前瞻。</p>
+<p>对于灵巧操作，局限性十分显著。其一，操作任务需要接触力与关节位置之间的<strong>精确时序对齐</strong>；Transformer 的注意力机制虽感知序列位置，但在轨迹较长时可能混淆因果上相距遥远的 token。其二，期望回报条件化假设存在标量奖励信号，而对于具有复杂多阶段成功标准的任务，这一设计并不简单。其三，对新物体的泛化能力有限，因为序列模型记忆的是特定任务的轨迹，而非可复用的感觉运动原语。将 Transformer 规划与流式动作生成相结合的混合方法（如 $\pi_0$，Black et al., 2024）是克服这些局限的活跃研究方向。</p>
+<hr>
+<h2 id="视觉-语言-动作模型">视觉-语言-动作模型</h2>
+<h3 id="q9-基础-区分视觉-语言-动作模型与视觉-语言模型">Q9 [基础] 区分视觉-语言-动作模型与视觉-语言模型</h3>
+<p><strong>Q:</strong> 视觉-语言-动作（VLA）模型与视觉-语言模型（VLM）有何区别，并带来哪些额外挑战？</p>
+<p><strong>A:</strong> <strong>视觉-语言模型（VLM）</strong> 将视觉和文本输入映射到语言输出——回答问题、生成描述或对图像推理。输出空间是离散的 token 序列。<strong>视觉-语言-动作（VLA）模型</strong>在此基础上进一步扩展，将视觉和语言映射到机器人<strong>动作</strong>——关节力矩、末端执行器路径点或运动原语——可直接在硬件上执行。</p>
+<p>这一扩展带来了 VLM 中不存在的三项挑战。其一，<strong>动作 tokenization</strong>：连续动作必须离散化为 token 以进行自回归生成，离散化粒度影响运动平滑性和精度。RT-2（Brohan et al., 2023）对每个动作维度使用 256 个均匀分箱，将 7-DOF 机械臂指令表示为追加到输出序列末尾的七个 token。其二，<strong>时序动力学基础化</strong>：VLM 处理静态图像或短视频片段；VLA 必须推理动作执行过程中场景如何变化，需要时序记忆。其三，<strong>闭环频率</strong>：LLM 推理速度仅 1–3 Hz，对于反应性操作过慢；VLA 通常以降频运行，由底层控制器在路径点之间进行插值。</p>
+<hr>
+<h3 id="q10-进阶-审视-rt-2-的架构与涌现推理能力">Q10 [进阶] 审视 RT-2 的架构与涌现推理能力</h3>
+<p><strong>Q:</strong> RT-2 的架构与训练策略是什么，它展示了哪些涌现能力？</p>
+<p><strong>A:</strong> <strong>RT-2</strong>（Brohan et al., 2023）基于 PaLI-X（55B）和 PaLM-E（12B）VLM 构建，这些模型在互联网规模的视觉-语言数据上预训练。核心架构洞见在于机器人动作可以用文本 token 表示：每个动作维度量化为 256 个分箱，7-DOF 末端执行器指令被序列化为追加到模型词表末尾的七个特殊 token。机器人轨迹（图像 + 语言指令 → 动作 token 序列）使用标准交叉熵损失对 VLM 进行微调，并与原始视觉-语言监督<strong>联合训练</strong>（co-trained），以防止对视觉-语义表示的灾难性遗忘。</p>
+<p>联合训练至关重要：仅在机器人数据上训练会导致模型丧失视觉-语义表示，降低对新物体的性能。Brohan et al. (2023) 表明，以大约相等比例混合机器人数据和网络数据，在保留 VLM 能力的同时，相比 RT-1（Brohan et al., 2022）在新物体泛化上实现了 $3\times$ 的提升。</p>
+<p>最引人注目的结果是<strong>涌现的思维链推理</strong>：当被提示先推理再行动（例如&quot;一步步思考&quot;）时，RT-2 会生成中间推理 token，在多步任务上提升成功率并对新颖任务表述实现零样本泛化。这一能力并未经过显式训练，表明大规模 VLM 预训练将规划能力迁移到了机器人领域——这一发现支撑了更广泛的 VLA 研究方向。</p>
+<hr>
+<h3 id="q11-进阶-评估-openvla-相对-rt-2-的架构改进">Q11 [进阶] 评估 OpenVLA 相对 RT-2 的架构改进</h3>
+<p><strong>Q:</strong> OpenVLA 如何解决 RT-2 的计算和数据局限，其性能权衡如何？</p>
+<p><strong>A:</strong> <strong>OpenVLA</strong>（Kim et al., 2024）是一个开源的 7B 参数 VLA，基于 Prismatic-7B VLM 骨干网络（使用 SigLIP + DINOv2 视觉编码器的 Llama-2）构建。与 12B–55B 参数的 RT-2 相比，OpenVLA 作出了四项关键设计选择。</p>
+<p>其一，<strong>开放训练数据</strong>：OpenVLA 在 <strong>Open X-Embodiment</strong> 数据集（Open X-Embodiment Collaboration et al., 2023）上训练，该数据集聚合了来自 22 种机器人形态、527 个技能的 970K 条轨迹，替代了 RT-2 的 Google 私有机器人数据。</p>
+<p>其二，<strong>高效双编码器视觉 tokenization</strong>：SigLIP + DINOv2 组合比 PaLI-X 中的单 ViT 产生更丰富的空间 token。Kim et al. (2024) 表明，在相同参数量下，这将需要精确空间定位任务的性能提升了一倍。</p>
+<p>其三，<strong>参数高效微调</strong>：OpenVLA 使用 LoRA 适配器进行任务特定调整，在单块 A100 GPU 上仅需 200 条示范、不到 8 小时即可完成新技能的微调。</p>
+<p>其四，<strong>逐机器人动作反归一化</strong>：在与 RT-2 相同的标准动作 tokenization 后，OpenVLA 应用一个可学习的反归一化器，将分箱索引映射回每台机器人的连续动作尺度，无需重新训练完整模型即可简化新硬件的部署。</p>
+<p>在 BridgeV2 基准上，OpenVLA 与 RT-2-7B 性能相当，在精细操作任务上更胜一筹，同时体积缩小 $7\times$ 且完全可复现（Kim et al., 2024）。主要局限是缺乏 RT-2 的涌现推理能力，该能力似乎需要完整的 55B 骨干网络。</p>
+<hr>
+<h3 id="q12-进阶-分析-octo-实现跨形态泛化的机制">Q12 [进阶] 分析 Octo 实现跨形态泛化的机制</h3>
+<p><strong>Q:</strong> Octo 基于哪些设计决策实现跨机器人形态和任务类型的泛化，其局限性是什么？</p>
+<p><strong>A:</strong> <strong>Octo</strong>（Octo Model Team et al., 2024）是一个 93M 参数的 Transformer 策略，在 Open X-Embodiment 数据集上训练。其架构通过<strong>读出 token</strong>（readout token）机制将<strong>任务 token</strong>（来自语言指令和目标图像）与<strong>观测 token</strong>（来自机器人摄像头和本体感知）分离：轻量级读出 token 从观测流中聚合信息并解码为动作，而非在每一层让完整 Transformer 关注所有输入。这降低了长观测序列的二次方注意力计算代价。</p>
+<p><strong>形态无关的 tokenization</strong> 是一项关键设计选择：Octo 通过可学习的线性投影将本体感知状态编码为原始浮点向量，不硬编码关节语义。新机械臂只需在 1,000 条示范上微调输入投影层即可适配，因为骨干网络已从多机器人训练混合中学到了操作语义。</p>
+<p>为实现跨任务类型的泛化，Octo 同时在语言条件和目标图像条件任务上训练。推理时，两种条件模态均可提供，支持有无语言接口的部署。</p>
+<p>局限性包括：依赖末端执行器笛卡尔动作而非关节力矩，限制了对阻抗控制机械臂的适用性；在训练分布之外的任务上性能明显下降（Octo Model Team et al., 2024）；与 RT-2 不同，Octo 缺乏互联网规模的语义知识，无法仅凭语言描述对新物体类别进行零样本泛化。</p>
+<hr>
+<h3 id="q13-进阶-诊断-vla-中连续动作-tokenization-的失效模式">Q13 [进阶] 诊断 VLA 中连续动作 tokenization 的失效模式</h3>
+<p><strong>Q:</strong> 将连续机器人动作离散化为 token 会产生哪些失效模式，当前 VLA 如何应对？</p>
+<p><strong>A:</strong> 将连续动作 tokenization 用于自回归 LLM 生成会引入三种根本性张力。</p>
+<p><strong>量化误差与词表规模的矛盾</strong>：将 $[-1, 1]$ 的动作范围离散化为 $B$ 个分箱，每维的最大误差为 $1/B$。RT-2 使用 $B = 256$ 个分箱（8 位），最大误差约为 $7.8 \times 10^{-3}$。对于亚毫米精度任务，这是不够的。增大 $B$ 会扩展词表，降低 softmax 计算速度，并可能在新增 token 上使 LLM 训练不稳定。</p>
+<p><strong>因果独立性假设的问题</strong>：自回归生成将同一时刻动作的各维度 $a_1, a_2, \ldots, a_d$ 视为顺序依赖，逐一条件化于前一维度进行预测。这强加了一个没有物理依据的人为顺序——关节角度是同时指令的，而非顺序的。当中间预测随机采样时，关节 $d$ 在关节 $1$ 之后很远处预测，可能导致不一致性。</p>
+<p><strong>推理延迟</strong>：LLM 风格的解码是顺序的；生成一个 7 token 的动作需要通过完整 Transformer 进行 7 次自回归前向传播，产生了与高频反应性控制相冲突的推理延迟硬下界。</p>
+<p>近期的替代方案完全绕过了 tokenization。<strong>$\pi_0$</strong>（Black et al., 2024）在 VLM 的隐状态上附加<strong>流匹配</strong>（flow matching）头，以最终层表示为条件的连续归一化流在 50 Hz 下生成亚毫米级连续动作——无需离散化。这将 VLM 的语义推理与动作生成的精度解耦，在衣物折叠和桌面清理等任务上实现了基于 token 的 VLA 尚未展现的灵巧操作能力。</p>
+<hr>
+<h2 id="仿真到现实的迁移">仿真到现实的迁移</h2>
+<h3 id="q14-基础-阐释域随机化及其仿真到现实迁移的理论基础">Q14 [基础] 阐释域随机化及其仿真到现实迁移的理论基础</h3>
+<p><strong>Q:</strong> 什么是域随机化（domain randomization），什么理论直觉解释了它在仿真到现实迁移中的有效性？</p>
+<p><strong>A:</strong> <strong>域随机化</strong>（Tobin et al., 2017）在仿真中通过在每个回合开始时随机采样仿真器的视觉和物理参数来训练策略。视觉参数包括光照颜色和强度、物体纹理、摄像机姿态和背景图案；物理参数包括物体质量、摩擦系数和执行器响应增益。</p>
+<p>理论直觉在于：若现实世界是随机化环境分布 $p(\xi)$ 的一个样本，则在完整分布上训练成功的策略也将在现实世界中成功。形式上，策略必须在所有参数实例化上都能工作，因此会学到对任何特定参数实现不变的表示——这种不变性由训练目标强制而非显式监督。</p>
+<p>Tobin et al. (2017) 证明，仅用随机化合成纹理训练的 CNN 目标检测器无需任何真实世界训练数据即可迁移到真实 RGB 图像，实现 1.5 cm 的定位精度。OpenAI Dactyl（Andrychowicz et al., 2019）将此扩展至魔方的灵巧操作，随机化超过 130 个物理参数——包括肌腱松弛度、关节摩擦和观测延迟——证明了足够宽泛的随机化可以为高度接触丰富的灵巧任务弥合仿真到现实的差距。</p>
+<hr>
+<h3 id="q15-进阶-研究利用仿真特权状态的非对称-actor-critic-方法">Q15 [进阶] 研究利用仿真特权状态的非对称 Actor-Critic 方法</h3>
+<p><strong>Q:</strong> 非对称 Actor-Critic 框架是什么，训练时访问特权状态信息如何改善仿真到现实的迁移？</p>
+<p><strong>A:</strong> 在标准 Actor-Critic 强化学习中，Actor $\pi_\theta(a|o)$ 和 Critic $V_\phi(o)$ 都以相同的可部署观测 $o$ 为条件。然而，在仿真训练期间，还可以访问额外的<strong>特权信息</strong> $s$——精确的物体位姿、接触力、隐藏的物理参数——这些在部署时无法获取。</p>
+<p><strong>非对称 Actor-Critic</strong>（Pinto et al., 2018）利用这种不对称性：<strong>Critic</strong> 以完整状态 $s$（特权 + 可观测）为条件，而 <strong>Actor</strong> 仅以可部署观测 $o$ 为条件。Critic 由于观测真实状态而提供更精确的价值估计，从而降低策略梯度的方差：</p>
+$$\nabla_\theta J \approx \mathbb{E}\left[Q_\phi(s, a) \nabla_\theta \log \pi_\theta(a|o)\right]$$<p>低方差的梯度估计加速了 Actor 训练，同时无需 Actor 在测试时访问特权信息。</p>
+<p>在 <strong>RMA</strong>（Kumar et al., 2021）中，采用了一种相关的两阶段方法用于足式运动：第一阶段以仿真中可用的环境参数 $\mathbf{e}_t$（质量、摩擦、电机强度）为条件训练基础策略；第二阶段训练适应模块 $\phi_\psi$，从一段本体感知观测 $o_{t-k:t}$ 的滑动窗口中估计 $\hat{\mathbf{e}}_t$，以第一阶段的真实 $\mathbf{e}_t$ 为监督。部署时，$\hat{\mathbf{e}}_t$ 替代 $\mathbf{e}_t$，使基础策略无需奖励信号即可在线自适应。</p>
+<p>这些方法的关键局限是<strong>Critic-Actor 信息差距</strong>：若特权信息远比可部署观测丰富，以至于 Critic 的价值估计从 $o$ 单独无法实现，则策略梯度估计会产生偏差，训练可能发散。</p>
+<hr>
+<h3 id="q16-进阶-评估在线自适应方法对仿真到现实差距的弥合效果">Q16 [进阶] 评估在线自适应方法对仿真到现实差距的弥合效果</h3>
+<p><strong>Q:</strong> 当域随机化单独不足时，哪些在线自适应方法可在部署时缩小仿真到现实的差距？</p>
+<p><strong>A:</strong> 域随机化假设现实世界位于随机化分布之内。当这一假设失效时——由于未建模的线缆拉伸、磨损引起的摩擦变化或新型物体材料——纯粹用域随机化训练的策略性能会下降。在线自适应方法通过利用观测到的交互数据在测试时估计现实世界的动力学参数来解决这一问题。</p>
+<p><strong>RMA</strong>（Kumar et al., 2021）是 Q15 中描述的典型两阶段方法：适应模块从 $k$ 步本体感知观测的历史中推断动力学参数 $\hat{\mathbf{e}}_t$，使基础策略能够实时调整行为。Kumar et al. (2021) 证明，用 RMA 训练的四足机器人在踏上新地面类型（沙地、砾石、坡道）后的 1–2 秒内即完成自适应，无需奖励信号，可泛化到训练中未见的 30 余种地形类型。</p>
+<p>另一个互补方向是<strong>Transformer 策略的上下文自适应</strong>：在推理时将一段真实世界的状态-动作对窗口前置于 Transformer 策略的上下文中，类比于 LLM 中的上下文学习。策略无需梯度更新即可从该上下文中调整动作预测——对于微调不切实际的硬件部署场景，这一特性尤为吸引人。</p>
+<p>对于在线自适应仍不足的情况，<strong>现实到仿真的迁移</strong>（real-to-sim transfer）反转了方向：利用少量真实世界轨迹，通过可微分仿真或对域随机化参数进行贝叶斯优化来拟合仿真器，随后在校准后的仿真器中重新训练策略并重新部署。</p>
+<hr>
+<h3 id="q17-进阶-刻画接触丰富操作在仿真到现实迁移中的挑战">Q17 [进阶] 刻画接触丰富操作在仿真到现实迁移中的挑战</h3>
+<p><strong>Q:</strong> 为什么接触丰富的操作比自由空间运动有更大的仿真到现实差距，有哪些方法可以解决这一问题？</p>
+<p><strong>A:</strong> 接触丰富的操作——插销、齿轮装配、衣物折叠——比自由空间任务具有更大的仿真到现实差距，原因有三。其一，<strong>接触不连续性</strong>：物体或末端执行器位姿仅 1 mm 的误差就可能使接触模式在粘着、滑动或无接触之间切换，产生刚体引擎难以精确仿真的高度不连续动力学。其二，<strong>材料属性不确定性</strong>：大多数物体的摩擦系数和弹性参数难以精确表征，且随表面状况和变形历史而变化。其三，<strong>高频动力学</strong>：接触力以 kHz 频率振荡，而典型控制策略以 10–50 Hz 运行，在仿真和真实传感中都会产生混叠或遗漏的接触瞬态。</p>
+<p>弥合这一差距的方法包括：</p>
+<p><strong>力/力矩反馈集成</strong>：以腕部 F/T 传感器读数为条件的策略可对接触误差形成闭环。用随机化的 F/T 传感器噪声和随机化的表面摩擦力进行训练，迫使策略学习鲁棒的接触响应行为，而非依赖精确的力值。</p>
+<p><strong>顺应性硬件作为缓冲</strong>：阻抗控制在硬件层面提供顺应性接口，吸收接触不连续性，降低对学习策略的精度要求。这通过将细粒度顺应性委托给控制器，将策略与高频接触动力学解耦。</p>
+<p><strong>训练时利用特权接触信息</strong>：在仿真中以真实接触几何——接触点位置、法向力、摩擦锥隶属关系——训练策略（或其 Critic），并将其蒸馏为在触觉传感器读数上工作的学生策略。这使策略在部署时无需精确的接触模型即可隐式推理接触。</p>
+<hr>
+<h2 id="基准测试数据与前沿">基准测试、数据与前沿</h2>
+<h3 id="q18-基础-综述具身智能评估的主要基准">Q18 [基础] 综述具身智能评估的主要基准</h3>
+<p><strong>Q:</strong> 具身智能社区使用哪些基准来评估智能体，每个基准针对什么能力？</p>
+<p><strong>A:</strong> 具身智能基准横跨仿真平台和真实机器人评估协议，典型示例如下：</p>
+<p><strong>RLBench</strong>（James et al., 2020）在 CoppeliaSim 仿真器中提供 100 个复杂度各异的操作任务（按按钮、穿线、关节物体操作），专为基于示范的学习设计，针对样本效率和任务多样性。</p>
+<p><strong>ManiSkill2</strong>（Gu et al., 2023）通过 SAPIEN 引擎提供 20 个刚体和软体操作任务的 GPU 并行仿真，标准化评估指标（成功率、抓取质量），并支持大规模并行强化学习训练。</p>
+<p><strong>BridgeData V2</strong>（Walke et al., 2023）是一个真实机器人数据集和评估套件，使用 WidowX 机械臂在多样化桌面环境中采集，为约 60 个保留任务上的操作策略真实世界泛化比较提供标准化协议。</p>
+<p><strong>SIMPLER</strong>（Li et al., 2024）通过构建与 Google Robot 和 WidowX 硬件紧密匹配的仿真环境来解决仿真评估的现实差距问题，表明包括 RT-2 和 Octo 在内的 VLA 模型的仿真与真实成功率之间具有强相关性（$\rho > 0.9$），无需物理机器人实验室即可进行可复现的策略比较。</p>
+<p><strong>Habitat</strong>（Savva et al., 2019）针对照片真实感室内环境中的具身导航：目标导航、视觉探索和重排列任务，支持 RGB 和 RGB-D 传感器。它是以导航为中心的具身智能领域的事实标准基准。</p>
+<hr>
+<h3 id="q19-进阶-评估机器人学习中的规模扩展法则证据">Q19 [进阶] 评估机器人学习中的规模扩展法则证据</h3>
+<p><strong>Q:</strong> 当前实验对机器人学习中的规模扩展行为揭示了什么，数据质量如何影响这一关系？</p>
+<p><strong>A:</strong> 机器人学习中的规模扩展法则（scaling laws）不如自然语言处理中那样得到充分表征，但若干近期工作提供了实证证据。<strong>RT-X</strong>（Open X-Embodiment Collaboration et al., 2023）在包含 22 种机器人形态的 Open X-Embodiment 数据集上训练 RT-1 和 RT-2 风格模型，观察到在更大、更多样化数据集上训练的模型对保留机器人配置和任务类型的泛化能力大幅提升——与数据集规模和评估成功率之间的幂律关系大致吻合。</p>
+<p>然而，<strong>数据质量对规模扩展效果有强烈调节作用</strong>。RT-X 的消融研究表明，简单混合所有可用轨迹会导致单机器人任务性能下降，相比仅在精心策划的高质量数据集上训练更差。Open X-Embodiment 数据集包含质量高度参差不齐的轨迹：一些由专家操控，另一些由非标准形态硬件上的初级操作员采集。按成功率和示范质量过滤可以恢复大部分性能下降，表明有效数据集规模（按质量加权）比原始轨迹数量更为重要。</p>
+<p><strong>$\pi_0$</strong>（Black et al., 2024）提供了互补证据：通过混合 7 种机器人类型、超过 10,000 小时的机器人数据与互联网规模 VLM 预训练，在衣物折叠和桌面清理任务上实现了质量上超越此前单任务策略所能达到的灵巧操作能力。这表明当足够的数据多样性与来自网络预训练的强视觉先验相结合时，存在一个相变点。</p>
+<p>核心开放问题是：驱动泛化的主要因素是<strong>分布内规模扩展</strong>（更多同任务示范）还是<strong>分布外多样性</strong>（更多任务和形态种类）。当前证据倾向于多样性是零样本迁移的主导因素，而分布内数据主要改善特定技能的精度。</p>
+<hr>
+<h3 id="q20-进阶-刻画具身智能的数据瓶颈与缓解策略">Q20 [进阶] 刻画具身智能的数据瓶颈与缓解策略</h3>
+<p><strong>Q:</strong> 具身智能的数据采集为何比语言或视觉模型根本性地更难，有哪些策略正在被用于解决数据瓶颈？</p>
+<p><strong>A:</strong> 具身智能面临的数据瓶颈在性质上不同于自然语言处理或计算机视觉。语言和图像数据存在于万亿 token 的互联网语料库中；机器人交互数据必须<strong>物理采集</strong>，需要硬件、人工操作员和真实时钟时间。三个具体挑战尤为突出。</p>
+<p><strong>低吞吐量</strong>：人工采集操作示范的遥操作员每分钟约产生 1 条示范；采集单个技能的 1,000 条示范需要约 17 小时的连续操作。以这一速率，在没有自动化的情况下，为机器人数据匹配大型视觉-语言数据集的规模几乎是不可能完成的任务。</p>
+<p><strong>形态异质性</strong>：每个机器人平台具有不同的运动学链、传感器配置和控制接口。在 WidowX 机械臂上采集的数据不能直接迁移到 Franka 机械臂。Open X-Embodiment 数据集尝试汇集跨形态数据（Open X-Embodiment Collaboration et al., 2023），但动作归一化和形态学不匹配仍是开放问题。</p>
+<p><strong>长尾任务覆盖不足</strong>：安全关键操作涉及在遥操作数据集中系统性不足的罕见失效模式和恢复行为，因为专业操作员会主动规避进入这些状态。这使策略恰恰在最需要鲁棒性的场景下最为脆弱。</p>
+<p>当前缓解策略包括：（1）<strong>在人类示范视频上进行预训练</strong>而无需机器人动作标签——模型预测以观测为条件的未来视频帧，并从预测的动力学中蒸馏动作预测，摊销对机器人特定数据的需求；（2）<strong>合成数据增强</strong>，使用神经渲染（NeRF、Gaussian Splatting）为现有场景生成新视角和光照条件，零额外采集成本；（3）通过强化学习或运动原语探索进行<strong>自主数据采集</strong>，扩展对罕见和失效状态的覆盖；（4）从网络预训练 VLM 进行<strong>基础模型微调</strong>，使视觉和语义知识在所有下游任务间摊销，降低每个任务的数据需求。</p>
+<hr>
+<h2 id="快速参考">快速参考</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>难度</th>
+          <th>主题</th>
+          <th>章节</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>基础</td>
+          <td>具身 AI 与纯感知 AI 的区别</td>
+          <td>具身智能基础</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>基础</td>
+          <td>仿真环境的作用</td>
+          <td>具身智能基础</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>进阶</td>
+          <td>模仿学习与强化学习</td>
+          <td>具身智能基础</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>进阶</td>
+          <td>动作表示</td>
+          <td>具身智能基础</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>基础</td>
+          <td>机器人抓取学习范式</td>
+          <td>机器人操作</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>进阶</td>
+          <td>扩散策略</td>
+          <td>机器人操作</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>进阶</td>
+          <td>动作分块与时序集成</td>
+          <td>机器人操作</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>进阶</td>
+          <td>Decision Transformer 用于操作规划</td>
+          <td>机器人操作</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>基础</td>
+          <td>VLA 与 VLM 的区别</td>
+          <td>视觉-语言-动作模型</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>进阶</td>
+          <td>RT-2 架构与涌现推理</td>
+          <td>视觉-语言-动作模型</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>进阶</td>
+          <td>OpenVLA 相对 RT-2 的改进</td>
+          <td>视觉-语言-动作模型</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>进阶</td>
+          <td>Octo 跨形态泛化</td>
+          <td>视觉-语言-动作模型</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>进阶</td>
+          <td>动作 tokenization 失效模式</td>
+          <td>视觉-语言-动作模型</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>基础</td>
+          <td>域随机化</td>
+          <td>仿真到现实的迁移</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>进阶</td>
+          <td>带特权状态的非对称 Actor-Critic</td>
+          <td>仿真到现实的迁移</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>进阶</td>
+          <td>在线自适应仿真到现实方法</td>
+          <td>仿真到现实的迁移</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>进阶</td>
+          <td>接触丰富操作的仿真到现实差距</td>
+          <td>仿真到现实的迁移</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>基础</td>
+          <td>具身智能基准</td>
+          <td>基准测试、数据与前沿</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>进阶</td>
+          <td>机器人学习中的规模扩展法则</td>
+          <td>基准测试、数据与前沿</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>进阶</td>
+          <td>具身智能数据瓶颈</td>
+          <td>基准测试、数据与前沿</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li>Ross et al., <a href="https://arxiv.org/abs/1011.0686">A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning</a> (2011)</li>
+<li>Makoviychuk et al., <a href="https://arxiv.org/abs/2108.10470">Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning</a> (2021)</li>
+<li>Levine et al., <a href="https://arxiv.org/abs/1603.02199">Learning Hand-Eye Coordination for Robotic Grasping with Deep Learning and Large-Scale Data Collection</a> (2016)</li>
+<li>Mousavian et al., <a href="https://arxiv.org/abs/1905.10520">6-DOF GraspNet: Variational Grasp Generation for Object Manipulation</a> (2019)</li>
+<li>Chi et al., <a href="https://arxiv.org/abs/2303.04137">Diffusion Policy: Visuomotor Policy Learning via Action Diffusion</a> (2023)</li>
+<li>Zhao et al., <a href="https://arxiv.org/abs/2304.13705">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</a> (2023)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/2106.01345">Decision Transformer: Reinforcement Learning via Sequence Modeling</a> (2021)</li>
+<li>Janner et al., <a href="https://arxiv.org/abs/2106.02039">Offline Reinforcement Learning as One Big Sequence Modeling Problem</a> (2021)</li>
+<li>Brohan et al., <a href="https://arxiv.org/abs/2212.06817">RT-1: Robotics Transformer for Real-World Control at Scale</a> (2022)</li>
+<li>Brohan et al., <a href="https://arxiv.org/abs/2307.15818">RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control</a> (2023)</li>
+<li>Kim et al., <a href="https://arxiv.org/abs/2406.09246">OpenVLA: An Open-Source Vision-Language-Action Model</a> (2024)</li>
+<li>Octo Model Team et al., <a href="https://arxiv.org/abs/2405.12213">Octo: An Open-Source Generalist Robot Policy</a> (2024)</li>
+<li>Open X-Embodiment Collaboration et al., <a href="https://arxiv.org/abs/2310.08864">Open X-Embodiment: Robotic Learning Datasets and RT-X Models</a> (2023)</li>
+<li>Black et al., <a href="https://arxiv.org/abs/2410.24164">π0: A Vision-Language-Action Flow Model for General Robot Control</a> (2024)</li>
+<li>Tobin et al., <a href="https://arxiv.org/abs/1703.06907">Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World</a> (2017)</li>
+<li>Andrychowicz et al., <a href="https://arxiv.org/abs/1808.00177">Learning Dexterous In-Hand Manipulation</a> (2019)</li>
+<li>Pinto et al., <a href="https://arxiv.org/abs/1710.06542">Asymmetric Actor Critic for Image-Based Robot Learning</a> (2018)</li>
+<li>Kumar et al., <a href="https://arxiv.org/abs/2107.04034">RMA: Rapid Motor Adaptation for Legged Robots</a> (2021)</li>
+<li>Shridhar et al., <a href="https://arxiv.org/abs/2109.12098">CLIPort: What and Where Pathways for Robotic Manipulation</a> (2022a)</li>
+<li>Shridhar et al., <a href="https://arxiv.org/abs/2209.05451">Perceiver-Actor: A Multi-Task Transformer for Robotic Manipulation</a> (2022b)</li>
+<li>James et al., <a href="https://arxiv.org/abs/1909.12271">RLBench: The Robot Learning Benchmark &amp; Learning Environment</a> (2020)</li>
+<li>Gu et al., <a href="https://arxiv.org/abs/2302.04659">ManiSkill2: A Unified Benchmark for Generalizable Manipulation Skills</a> (2023)</li>
+<li>Walke et al., <a href="https://arxiv.org/abs/2308.12952">BridgeData V2: A Dataset for Robot Learning at Scale</a> (2023)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2405.05941">Evaluating Real-World Robot Manipulation Policies in Simulation</a> (2024)</li>
+<li>Savva et al., <a href="https://arxiv.org/abs/1904.01201">Habitat: A Platform for Embodied AI Research</a> (2019)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+

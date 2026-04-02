@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Robotics on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/robotics/</link>
+    <description>Recent content in Robotics on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/robotics/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>具身智能：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/embodied-ai-interview-questions-and-answers/</link>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/embodied-ai-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;具身智能基础&#34;&gt;具身智能基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-区分具身智能与纯感知-ai-系统&#34;&gt;Q1 [基础] 区分具身智能与纯感知 AI 系统&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 具身智能（Embodied AI）有哪些根本属性，使其与纯感知 AI 系统存在本质差异？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 具身智能是指在物理或仿真环境中进行感知、推理与行动的智能体，它与世界之间形成闭环交互。与仅将输入映射为预测结果的纯感知系统（例如图像分类）不同，具身智能体必须执行能够改变世界状态的动作，而这些状态变化又会影响未来的观测输入。&lt;/p&gt;&#xA;&lt;p&gt;有三个属性使这一设定与众不同。其一，&lt;strong&gt;因果性与非平稳性&lt;/strong&gt;（causality and non-stationarity）：智能体的动作影响其下一步的观测，因此数据分布不是独立同分布的，而是依赖于当前执行的策略。其二，&lt;strong&gt;物理基础性&lt;/strong&gt;（physical grounding）：接触力、本体感知反馈、空间关系等信号必须在毫秒级时间尺度上被表示和响应。其三，&lt;strong&gt;部分可观测性&lt;/strong&gt;（partial observability）：智能体无法观测完整的世界状态，必须跨时间步维护信念或记忆。&lt;/p&gt;&#xA;&lt;p&gt;这些属性意味着视觉-语言模型的进展无法直接迁移到具身场景。一个能正确回答&amp;quot;拿起红色杯子&amp;quot;的模型，并不能自动知道如何在给定以自我为中心的 RGB-D 观测和连续关节状态的情况下，控制机械臂完成这一动作。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-阐述仿真环境在具身智能研究中的作用&#34;&gt;Q2 [基础] 阐述仿真环境在具身智能研究中的作用&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 为什么研究人员在仿真环境中训练和评估具身智能体，而不是直接在物理硬件上进行？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 仿真环境具有四个实用优势。其一，&lt;strong&gt;样本效率&lt;/strong&gt;：物理机器人以 10–30 Hz 运行且每个回合需要人工重置，而 Isaac Gym（Makoviychuk et al., 2021）等仿真器可同时运行数千个并行环境，在单机上每小时产生数百万步数据。其二，&lt;strong&gt;安全性&lt;/strong&gt;：机械臂碰撞、失控力矩等灾难性故障可在仿真中自由探索。其三，&lt;strong&gt;真实状态访问&lt;/strong&gt;：仿真器可提供精确的物体位姿、接触力和场景几何，这些在真实硬件上难以或无法测量。其四，&lt;strong&gt;可复现性&lt;/strong&gt;：固定随机种子可产生确定性轨迹，便于公平比较。&lt;/p&gt;&#xA;&lt;p&gt;主要代价是&lt;strong&gt;仿真到现实的差距&lt;/strong&gt;（sim-to-real gap）：仿真器与物理世界在视觉外观、接触动力学和执行器响应上的差异。弥合这一差距是一个活跃的研究方向，在本文第四章专门讨论。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q3-进阶-比较模仿学习与强化学习作为具身智能体训练范式的异同&#34;&gt;Q3 [进阶] 比较模仿学习与强化学习作为具身智能体训练范式的异同&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 在机器人策略训练中，模仿学习与强化学习之间存在哪些根本性的权衡？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;模仿学习（Imitation Learning，IL）&lt;/strong&gt; 通过在专家示范上进行有监督回归来训练策略，最小化 $\mathcal{L} = \mathbb{E}_{(s,a) \sim \mathcal{D}}[-\log \pi_\theta(a|s)]$，其中 $\mathcal{D}$ 为示范数据集。其主要优势在于样本效率高、训练稳定：在高质量示范的条件下，IL 无需设计奖励函数即可快速收敛。主要失效模式是&lt;strong&gt;分布偏移&lt;/strong&gt;（distribution shift，Ross et al., 2011）：测试时智能体会遇到训练中未见的状态，错误因为策略从未被训练如何从偏离分布的状态中恢复而不断累积。&lt;strong&gt;DAgger&lt;/strong&gt;（Ross et al., 2011）通过在已学策略访问的状态上迭代查询专家来解决这一问题，以持续的专家介入为代价减少协变量偏移。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;强化学习（Reinforcement Learning，RL）&lt;/strong&gt; 通过环境交互优化期望累积奖励 $J(\pi) = \mathbb{E}_\pi[\sum_t \gamma^t r_t]$。RL 原则上可以发现超越专家示范的行为，且由于在训练中探索状态空间，对分布偏移更具鲁棒性。其代价是稀疏奖励设计困难、样本复杂度高以及训练不稳定——尤其在接触丰富的操作任务中，稀疏奖励提供的梯度信号极为有限。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
