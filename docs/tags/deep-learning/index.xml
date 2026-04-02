@@ -16,6 +16,13 @@
       <description>&lt;h2 id=&#34;embodied-ai-foundations&#34;&gt;Embodied AI Foundations&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-distinguish-embodied-ai-from-perception-only-ai-systems&#34;&gt;Q1 [Basic] Distinguish embodied AI from perception-only AI systems&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What properties of embodied AI make it fundamentally different from perception-only AI systems?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Embodied AI refers to agents that perceive, reason, and act within a physical or simulated environment, creating a closed-loop interaction between the agent and the world. Unlike perception-only systems that map inputs to predictions (e.g., classifying an image), embodied agents must execute actions that alter the state of the world, which in turn changes future observations.&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Medical AI: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/medical-ai-interview-questions-and-answers/</link>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/medical-ai-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;medical-imaging-fundamentals&#34;&gt;Medical Imaging Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-characterize-the-unique-challenges-of-medical-imaging-compared-to-natural-image-analysis&#34;&gt;Q1 [Basic] Characterize the unique challenges of medical imaging compared to natural image analysis&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What properties of medical image data make it fundamentally more challenging to analyze than natural images?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Medical imaging differs from natural image analysis across several interrelated dimensions.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Modality diversity and physics-based image formation&lt;/strong&gt;: Unlike RGB photographs, medical images arise from distinct physical acquisition processes—X-ray attenuation, MRI spin relaxation, ultrasound acoustic reflection, histological light microscopy—each producing images with different noise models, contrast mechanisms, and spatial properties. Features that transfer across natural images rarely transfer across modalities, requiring modality-specific architectures or careful pretraining strategies.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>LLM-based Agents: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/llm-based-agents-interview-questions-and-answers/</link>
       <pubDate>Wed, 01 Apr 2026 00:00:00 +0000</pubDate>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Medical AI on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/medical-ai/</link>
+    <description>Recent content in Medical AI on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/medical-ai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Medical AI: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/medical-ai-interview-questions-and-answers/</link>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/medical-ai-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;medical-imaging-fundamentals&#34;&gt;Medical Imaging Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-characterize-the-unique-challenges-of-medical-imaging-compared-to-natural-image-analysis&#34;&gt;Q1 [Basic] Characterize the unique challenges of medical imaging compared to natural image analysis&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What properties of medical image data make it fundamentally more challenging to analyze than natural images?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Medical imaging differs from natural image analysis across several interrelated dimensions.&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Modality diversity and physics-based image formation&lt;/strong&gt;: Unlike RGB photographs, medical images arise from distinct physical acquisition processes—X-ray attenuation, MRI spin relaxation, ultrasound acoustic reflection, histological light microscopy—each producing images with different noise models, contrast mechanisms, and spatial properties. Features that transfer across natural images rarely transfer across modalities, requiring modality-specific architectures or careful pretraining strategies.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
