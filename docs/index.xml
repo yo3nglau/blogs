@@ -6,8 +6,15 @@
     <description>Recent content in Home on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 01 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Embodied AI: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/embodied-ai-interview-questions-and-answers/</link>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/embodied-ai-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;embodied-ai-foundations&#34;&gt;Embodied AI Foundations&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-distinguish-embodied-ai-from-perception-only-ai-systems&#34;&gt;Q1 [Basic] Distinguish embodied AI from perception-only AI systems&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What properties of embodied AI make it fundamentally different from perception-only AI systems?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; Embodied AI refers to agents that perceive, reason, and act within a physical or simulated environment, creating a closed-loop interaction between the agent and the world. Unlike perception-only systems that map inputs to predictions (e.g., classifying an image), embodied agents must execute actions that alter the state of the world, which in turn changes future observations.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>LLM-based Agents: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/llm-based-agents-interview-questions-and-answers/</link>

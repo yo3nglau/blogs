@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Embodied AI: Interview Questions and Answers | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Embodied AI: Interview Questions and Answers</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/02</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/robotics">Robotics</a> <a href="/blogs/tags/embodied-ai">Embodied AI</a> 
+  
+  
+</p>
+</div>
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#embodied-ai-foundations">Embodied AI Foundations</a>
+      <ul>
+        <li><a href="#q1-basic-distinguish-embodied-ai-from-perception-only-ai-systems">Q1 [Basic] Distinguish embodied AI from perception-only AI systems</a></li>
+        <li><a href="#q2-basic-explain-the-role-of-simulation-in-embodied-ai-research">Q2 [Basic] Explain the role of simulation in embodied AI research</a></li>
+        <li><a href="#q3-advanced-compare-imitation-learning-and-reinforcement-learning-as-training-paradigms-for-embodied-agents">Q3 [Advanced] Compare imitation learning and reinforcement learning as training paradigms for embodied agents</a></li>
+        <li><a href="#q4-advanced-analyze-how-action-representation-affects-manipulation-policy-performance">Q4 [Advanced] Analyze how action representation affects manipulation policy performance</a></li>
+      </ul>
+    </li>
+    <li><a href="#robot-manipulation">Robot Manipulation</a>
+      <ul>
+        <li><a href="#q5-basic-identify-the-dominant-paradigms-for-learning-robotic-grasps">Q5 [Basic] Identify the dominant paradigms for learning robotic grasps</a></li>
+        <li><a href="#q6-advanced-explain-how-diffusion-based-policies-capture-multi-modal-action-distributions">Q6 [Advanced] Explain how diffusion-based policies capture multi-modal action distributions</a></li>
+        <li><a href="#q7-advanced-analyze-action-chunking-and-temporal-ensembling-for-compounding-error-reduction">Q7 [Advanced] Analyze action chunking and temporal ensembling for compounding error reduction</a></li>
+        <li><a href="#q8-advanced-evaluate-trajectory-level-modeling-for-manipulation-planning">Q8 [Advanced] Evaluate trajectory-level modeling for manipulation planning</a></li>
+      </ul>
+    </li>
+    <li><a href="#vision-language-action-models">Vision-Language-Action Models</a>
+      <ul>
+        <li><a href="#q9-basic-distinguish-vision-language-action-models-from-vision-language-models">Q9 [Basic] Distinguish Vision-Language-Action models from Vision-Language Models</a></li>
+        <li><a href="#q10-advanced-examine-rt-2s-architecture-and-emergent-reasoning-capabilities">Q10 [Advanced] Examine RT-2&rsquo;s architecture and emergent reasoning capabilities</a></li>
+        <li><a href="#q11-advanced-assess-the-architectural-improvements-in-openvla-over-rt-2">Q11 [Advanced] Assess the architectural improvements in OpenVLA over RT-2</a></li>
+        <li><a href="#q12-advanced-analyze-how-octo-achieves-cross-embodiment-generalization">Q12 [Advanced] Analyze how Octo achieves cross-embodiment generalization</a></li>
+        <li><a href="#q13-advanced-diagnose-failure-modes-in-continuous-action-tokenization-for-vlas">Q13 [Advanced] Diagnose failure modes in continuous action tokenization for VLAs</a></li>
+      </ul>
+    </li>
+    <li><a href="#sim-to-real-transfer">Sim-to-Real Transfer</a>
+      <ul>
+        <li><a href="#q14-basic-explain-domain-randomization-and-its-theoretical-basis-for-sim-to-real-transfer">Q14 [Basic] Explain domain randomization and its theoretical basis for sim-to-real transfer</a></li>
+        <li><a href="#q15-advanced-examine-asymmetric-actor-critic-methods-with-privileged-simulation-state">Q15 [Advanced] Examine asymmetric actor-critic methods with privileged simulation state</a></li>
+        <li><a href="#q16-advanced-assess-online-adaptive-methods-for-closing-the-sim-to-real-gap-at-test-time">Q16 [Advanced] Assess online adaptive methods for closing the sim-to-real gap at test time</a></li>
+        <li><a href="#q17-advanced-characterize-the-sim-to-real-challenge-for-contact-rich-manipulation">Q17 [Advanced] Characterize the sim-to-real challenge for contact-rich manipulation</a></li>
+      </ul>
+    </li>
+    <li><a href="#benchmarks-data-and-frontiers">Benchmarks, Data, and Frontiers</a>
+      <ul>
+        <li><a href="#q18-basic-survey-the-primary-benchmarks-for-embodied-ai-evaluation">Q18 [Basic] Survey the primary benchmarks for embodied AI evaluation</a></li>
+        <li><a href="#q19-advanced-evaluate-scaling-law-evidence-in-robot-learning">Q19 [Advanced] Evaluate scaling law evidence in robot learning</a></li>
+        <li><a href="#q20-advanced-characterize-the-embodied-ai-data-bottleneck-and-mitigation-strategies">Q20 [Advanced] Characterize the embodied AI data bottleneck and mitigation strategies</a></li>
+      </ul>
+    </li>
+    <li><a href="#quick-reference">Quick Reference</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="embodied-ai-foundations">Embodied AI Foundations</h2>
+<h3 id="q1-basic-distinguish-embodied-ai-from-perception-only-ai-systems">Q1 [Basic] Distinguish embodied AI from perception-only AI systems</h3>
+<p><strong>Q:</strong> What properties of embodied AI make it fundamentally different from perception-only AI systems?</p>
+<p><strong>A:</strong> Embodied AI refers to agents that perceive, reason, and act within a physical or simulated environment, creating a closed-loop interaction between the agent and the world. Unlike perception-only systems that map inputs to predictions (e.g., classifying an image), embodied agents must execute actions that alter the state of the world, which in turn changes future observations.</p>
+<p>Three properties distinguish this setting. First, <strong>causality and non-stationarity</strong>: the agent&rsquo;s actions affect what it observes next, so the data distribution is non-i.i.d. and depends on the policy being executed. Second, <strong>physical grounding</strong>: signals such as contact forces, proprioceptive feedback, and spatial relationships must be represented and acted upon at millisecond timescales. Third, <strong>partial observability</strong>: the agent cannot observe the full world state and must maintain beliefs or memory across time.</p>
+<p>These properties mean that advances in vision-language models do not transfer directly to embodied settings. A model that correctly answers &ldquo;pick up the red cup&rdquo; does not automatically know how to command a robot arm to execute that action given egocentric RGB-D observations and continuous joint states.</p>
+<hr>
+<h3 id="q2-basic-explain-the-role-of-simulation-in-embodied-ai-research">Q2 [Basic] Explain the role of simulation in embodied AI research</h3>
+<p><strong>Q:</strong> Why do researchers train and evaluate embodied AI agents in simulation rather than directly on physical hardware?</p>
+<p><strong>A:</strong> Simulation offers four practical advantages. First, <strong>sample efficiency</strong>: physical robots operate at 10–30 Hz and require human resets between episodes, while simulators like Isaac Gym (Makoviychuk et al., 2021) support thousands of parallel environments, enabling millions of steps per hour on a single machine. Second, <strong>safety</strong>: catastrophic failures—arm collisions, uncontrolled forces—are free to explore in simulation. Third, <strong>ground-truth state access</strong>: simulators expose exact object poses, contact forces, and scene geometry, which are difficult or impossible to measure on real hardware. Fourth, <strong>reproducibility</strong>: fixed random seeds produce deterministic rollouts, enabling fair comparisons.</p>
+<p>The main cost is the <strong>sim-to-real gap</strong>: differences in visual appearance, contact dynamics, and actuator response between the simulator and the physical world. Bridging this gap is an active research area and is treated in Section 4 of this post.</p>
+<hr>
+<h3 id="q3-advanced-compare-imitation-learning-and-reinforcement-learning-as-training-paradigms-for-embodied-agents">Q3 [Advanced] Compare imitation learning and reinforcement learning as training paradigms for embodied agents</h3>
+<p><strong>Q:</strong> What are the fundamental trade-offs between imitation learning and reinforcement learning for robot policy training?</p>
+<p><strong>A:</strong> <strong>Imitation learning (IL)</strong> trains a policy by supervised regression on expert demonstrations, minimizing $\mathcal{L} = \mathbb{E}_{(s,a) \sim \mathcal{D}}[-\log \pi_\theta(a|s)]$ where $\mathcal{D}$ is a demonstration dataset. Its primary advantages are sample efficiency and training stability: given high-quality demonstrations, IL converges quickly without requiring reward function design. The main failure mode is <strong>distribution shift</strong> (Ross et al., 2011): at test time the agent encounters states not seen during training, and errors compound because the policy was never trained to recover from off-distribution states. <strong>DAgger</strong> (Ross et al., 2011) addresses this by iteratively querying the expert on states visited by the learned policy, reducing the covariate shift at the cost of ongoing expert involvement.</p>
+<p><strong>Reinforcement learning (RL)</strong> optimizes expected cumulative reward $J(\pi) = \mathbb{E}_\pi[\sum_t \gamma^t r_t]$ via environment interaction. RL can in principle discover behaviors beyond the expert&rsquo;s demonstrations and is more robust to distribution shift because it explores the state space during training. Its costs are sparse reward design, high sample complexity, and training instability—particularly in contact-rich manipulation where sparse rewards provide minimal gradient signal.</p>
+<p>In practice, <strong>hybrid approaches</strong> dominate: offline RL (e.g., IQL, TD3+BC) fine-tunes from demonstrations without requiring live environment interaction, while residual RL adds a small online correction on top of a behavior-cloned base policy. The choice often reduces to data availability: with 50–200 demonstrations and no simulator, IL is preferred; with a well-engineered simulator and a dense reward function, RL can produce superhuman policies.</p>
+<hr>
+<h3 id="q4-advanced-analyze-how-action-representation-affects-manipulation-policy-performance">Q4 [Advanced] Analyze how action representation affects manipulation policy performance</h3>
+<p><strong>Q:</strong> How does the choice of action representation affect the expressiveness and training stability of a manipulation policy?</p>
+<p><strong>A:</strong> Action representations for manipulation policies span a spectrum from low-level joint commands to high-level semantic affordances. The most common choices are:</p>
+<p><strong>Joint-space delta actions</strong> ($\Delta\theta \in \mathbb{R}^n$) directly command incremental joint angle changes. They are general but require the policy to learn inverse kinematics implicitly, which is sample-intensive and fragile near kinematic singularities.</p>
+<p><strong>End-effector Cartesian actions</strong> ($\Delta x, \Delta y, \Delta z, \Delta\text{rot}$) operate in task space and are more intuitive to demonstrate and learn. They decouple the policy from robot kinematics, improving transferability across hardware morphologies at the cost of requiring a separate IK solver in the control loop.</p>
+<p><strong>Keypose (waypoint) representations</strong> predict a sequence of goal end-effector poses rather than dense trajectories. PerAct (Shridhar et al., 2022b) and CLIPort (Shridhar et al., 2022a) use this formulation: the policy predicts where to move next, and a motion planner fills in the trajectory. This dramatically reduces the effective horizon, but requires a reliable planner and fails for tasks requiring continuous contact control.</p>
+<p><strong>Diffusion and flow representations</strong> model the full action distribution $p(a_{t:t+H}|o_t)$, enabling multi-modal outputs—critical when multiple grasp strategies are valid for the same observation. Diffusion Policy (Chi et al., 2023) uses a denoising diffusion process over action sequences and outperforms Gaussian behavior cloning by large margins on dexterous tasks, precisely because it does not collapse multi-modal action distributions to their mean. The key insight is that representations should match task structure: keypose representations suit pick-and-place, while diffusion or flow representations suit contact-rich assembly.</p>
+<hr>
+<h2 id="robot-manipulation">Robot Manipulation</h2>
+<h3 id="q5-basic-identify-the-dominant-paradigms-for-learning-robotic-grasps">Q5 [Basic] Identify the dominant paradigms for learning robotic grasps</h3>
+<p><strong>Q:</strong> What are the dominant approaches to learning robotic grasps from data, and how do they differ in generalization?</p>
+<p><strong>A:</strong> Robotic grasping methods can be grouped into three paradigms. <strong>Analytic/model-based methods</strong> compute grasp quality metrics such as force closure or wrench space volume from 3D point clouds, without learning. They generalize to unseen objects but require accurate object models and break down under sensor noise.</p>
+<p><strong>Data-driven planar grasping</strong> was popularized by Levine et al. (2016), who trained a deep CNN to predict grasp success from RGB images by collecting 800,000 real-world robot grasps. These methods operate in 2.5D (top-down grasps on a table surface) and are limited to tabletop scenarios with restricted end-effector orientations.</p>
+<p><strong>6-DOF generative grasping</strong> addresses arbitrary object poses and orientations. Mousavian et al. (2019) introduced 6-DOF GraspNet, a variational generative model that samples a distribution of 6-DOF grasp poses from point cloud observations, enabling robust grasping of novel objects in cluttered environments. This paradigm handles objects at arbitrary orientations and supports multi-fingered hands, at the cost of requiring accurate 3D perception.</p>
+<p>The frontier is <strong>task-oriented grasping</strong>, where the grasp pose is conditioned on the downstream manipulation task (e.g., grasping a cup by the handle for pouring vs. by the rim for stacking).</p>
+<hr>
+<h3 id="q6-advanced-explain-how-diffusion-based-policies-capture-multi-modal-action-distributions">Q6 [Advanced] Explain how diffusion-based policies capture multi-modal action distributions</h3>
+<p><strong>Q:</strong> What is the mechanism behind diffusion policies, and when does multi-modality in action distributions matter for manipulation?</p>
+<p><strong>A:</strong> <strong>Diffusion Policy</strong> (Chi et al., 2023) formulates robot control as a conditional denoising diffusion probabilistic model (DDPM). During training, noise is progressively added to the ground-truth action chunk $a_{t:t+H}$ over $K$ diffusion steps to produce $a^K \sim \mathcal{N}(0, I)$, and a neural network $\epsilon_\theta$ is trained to predict the noise at each step:</p>
+$$\mathcal{L} = \mathbb{E}_{k, a^0, \epsilon}\left[\|\epsilon - \epsilon_\theta(a^k, o_t, k)\|^2\right]$$<p>At inference, actions are generated by iteratively denoising from Gaussian noise conditioned on the current observation $o_t$, using DDIM sampling to reduce the number of steps from $K = 100$ to approximately 10.</p>
+<p>Multi-modality matters whenever multiple valid action sequences exist for the same observation. Consider a bimanual assembly task where the robot can approach a peg from the left or the right—averaging the two modes (as Gaussian BC does) produces an action that falls between them and fails. Diffusion&rsquo;s denoising objective can represent the full conditional distribution $p(a|o)$ without mode collapse.</p>
+<p>Chi et al. (2023) compared against Gaussian BC and Implicit BC on 12 manipulation tasks; diffusion policies improved average success rate by approximately $46\%$ relative on the most multi-modal tasks. A receding-horizon control loop that predicts $H = 16$ steps but executes only $n = 8$ before re-planning proved most stable in practice. The main cost is inference latency: sequential denoising at 6–25 Hz creates a compute budget constraint that has motivated consistency model distillation for real-time deployment.</p>
+<hr>
+<h3 id="q7-advanced-analyze-action-chunking-and-temporal-ensembling-for-compounding-error-reduction">Q7 [Advanced] Analyze action chunking and temporal ensembling for compounding error reduction</h3>
+<p><strong>Q:</strong> How does action chunking address the compounding error problem in behavior cloning, and what role does temporal ensembling play?</p>
+<p><strong>A:</strong> <strong>Compounding error</strong> in behavior cloning arises because small per-step prediction errors accumulate over a trajectory of length $T$. A single incorrect action corrupts the next observation, which compounds into the next prediction; the resulting divergence from training-data states grows roughly as $O(\epsilon T^2)$ (Ross et al., 2011).</p>
+<p><strong>Action chunking</strong> (Zhao et al., 2023) addresses this by predicting an entire sequence of $k$ future actions at once—$\hat{a}_{t:t+k} = \pi_\theta(o_t)$—and executing all $k$ actions in open loop before re-querying the policy. This reduces the number of policy evaluations from $T$ to $T/k$, shrinking the compounding error horizon by a factor of $k$. In the ACT (Action Chunking with Transformers) framework, $k = 100$ steps for tasks requiring precise bimanual manipulation, with the policy implemented as a CVAE-conditioned encoder-decoder transformer.</p>
+<p><strong>Temporal ensembling</strong> addresses discontinuities at re-planning boundaries: when the policy re-queries at step $t + k$, the new chunk $\hat{a}_{t+k:t+2k}$ may be inconsistent with the tail of the previous chunk, causing jerky motion. Zhao et al. (2023) resolve this by maintaining a buffer of all active action predictions and computing a weighted average at each timestep:</p>
+$$\bar{a}_t = \sum_{i} w_i \hat{a}_t^{(i)}, \quad w_i \propto \exp(-m \cdot \text{age}_i)$$<p>where $m$ is a decay constant and $\text{age}_i$ is the number of steps since prediction $i$ was generated. This produces smooth trajectories without hard re-planning artifacts and improved task success on six bimanual manipulation tasks by 10–15$\%$ over chunking without ensembling (Zhao et al., 2023).</p>
+<hr>
+<h3 id="q8-advanced-evaluate-trajectory-level-modeling-for-manipulation-planning">Q8 [Advanced] Evaluate trajectory-level modeling for manipulation planning</h3>
+<p><strong>Q:</strong> How does the Decision Transformer reframe offline RL as sequence modeling, and what are its limitations for dexterous manipulation?</p>
+<p><strong>A:</strong> <strong>Decision Transformer</strong> (Chen et al., 2021) casts offline reinforcement learning as a conditional sequence modeling problem. Rather than learning value functions or policies explicitly, it trains a GPT-style causal transformer on trajectories of the form $(\hat{R}_{t}, s_{t}, a_{t}, \hat{R}_{t+1}, s_{t+1}, a_{t+1}, \ldots)$, where $\hat{R}_t = \sum_{i \geq t} r_i$ is the <strong>return-to-go</strong> (future cumulative reward). At inference, the model is conditioned on the desired return-to-go $\hat{R}_1$ and autoregressively predicts the action at each step. Because $\hat{R}_1$ is specified at test time, the same model can exhibit different behavioral modes without retraining. Chen et al. (2021) showed Decision Transformer matches or exceeds behavior cloning and offline RL baselines (CQL, IQL) on D4RL locomotion benchmarks.</p>
+<p><strong>Trajectory Transformer</strong> (Janner et al., 2021) extended this to beam-search planning over discretized states and actions, enabling explicit multi-step look-ahead in offline settings.</p>
+<p>For dexterous manipulation, the limitations are significant. First, manipulation requires <strong>precise temporal alignment</strong> between contact forces and joint positions; the transformer&rsquo;s attention is sequence-position-aware but may conflate causally distant tokens when trajectories are long. Second, the return-to-go conditioning assumes a scalar reward signal, which is non-trivial to design for tasks with complex, multi-stage success criteria. Third, generalization to new objects is limited because the sequence model memorizes task-specific trajectories rather than learning reusable sensorimotor primitives. Hybrid approaches that combine transformer-based planning with flow-based action generation, such as $\pi_0$ (Black et al., 2024), are an active direction for overcoming these limitations.</p>
+<hr>
+<h2 id="vision-language-action-models">Vision-Language-Action Models</h2>
+<h3 id="q9-basic-distinguish-vision-language-action-models-from-vision-language-models">Q9 [Basic] Distinguish Vision-Language-Action models from Vision-Language Models</h3>
+<p><strong>Q:</strong> What distinguishes a Vision-Language-Action model from a Vision-Language Model, and what additional challenges arise?</p>
+<p><strong>A:</strong> A <strong>Vision-Language Model (VLM)</strong> maps visual and text inputs to language outputs—answering questions, generating captions, or reasoning over images. The output space is a discrete token sequence. A <strong>Vision-Language-Action (VLA) model</strong> extends this by mapping vision and language to robot <strong>actions</strong>—joint torques, end-effector waypoints, or motion primitives—that can be executed on hardware.</p>
+<p>The extension introduces three challenges absent from VLMs. First, <strong>action tokenization</strong>: continuous actions must be discretized into tokens for autoregressive generation, and discretization granularity affects motion smoothness and precision. RT-2 (Brohan et al., 2023) uses 256 uniform bins per action dimension, representing a 7-DOF arm command as seven tokens appended to the output sequence. Second, <strong>grounding temporal dynamics</strong>: VLMs operate on static images or short video clips; VLAs must reason about how the scene changes as actions are executed, requiring temporal memory. Third, <strong>closed-loop frequency</strong>: LLM inference at 1–3 Hz is too slow for reactive manipulation; VLAs are typically run at reduced rates with a lower-level controller interpolating between waypoints.</p>
+<hr>
+<h3 id="q10-advanced-examine-rt-2s-architecture-and-emergent-reasoning-capabilities">Q10 [Advanced] Examine RT-2&rsquo;s architecture and emergent reasoning capabilities</h3>
+<p><strong>Q:</strong> What is RT-2&rsquo;s architecture and training strategy, and what emergent capabilities does it demonstrate?</p>
+<p><strong>A:</strong> <strong>RT-2</strong> (Brohan et al., 2023) is built on top of PaLI-X (55B) and PaLM-E (12B) VLMs, which are pretrained on internet-scale vision-language data. The key architectural insight is that robot actions can be represented as text tokens: each action dimension is quantized to 256 bins, and the 7-DOF end-effector command is serialized as a sequence of seven special tokens appended to the model&rsquo;s vocabulary. Robot trajectories (image + language instruction → action token sequence) are used to fine-tune the VLM with standard cross-entropy loss, <strong>co-trained</strong> with the original vision-language supervision to prevent catastrophic forgetting of visual-semantic representations.</p>
+<p>Co-training is critical: training on robot data alone causes the model to lose its visual-semantic representations, degrading performance on novel objects. Brohan et al. (2023) showed that mixing robot and web data at approximately equal proportions preserved VLM capabilities while achieving a $3\times$ improvement in generalization to novel objects compared to RT-1 (Brohan et al., 2022).</p>
+<p>The most compelling result is <strong>emergent chain-of-thought reasoning</strong>: when prompted to reason before acting (e.g., &ldquo;think step-by-step&rdquo;), RT-2 produces intermediate reasoning tokens that improve success on multi-step tasks and zero-shot generalization to novel task phrasings. This capability was not explicitly trained and suggests that large-scale VLM pretraining transfers planning capabilities to the robotic domain—a finding that motivates the broader VLA research program.</p>
+<hr>
+<h3 id="q11-advanced-assess-the-architectural-improvements-in-openvla-over-rt-2">Q11 [Advanced] Assess the architectural improvements in OpenVLA over RT-2</h3>
+<p><strong>Q:</strong> How does OpenVLA address the computational and data limitations of RT-2, and what are its performance trade-offs?</p>
+<p><strong>A:</strong> <strong>OpenVLA</strong> (Kim et al., 2024) is an open-source 7B-parameter VLA built on a Prismatic-7B VLM backbone (Llama-2 with SigLIP + DINOv2 visual encoders). Compared to RT-2 at 12B–55B parameters, OpenVLA makes four key design choices.</p>
+<p>First, <strong>open training data</strong>: OpenVLA is trained on the <strong>Open X-Embodiment</strong> dataset (Open X-Embodiment Collaboration et al., 2023), which aggregates 970K trajectories across 22 robot embodiments and 527 skills, replacing RT-2&rsquo;s proprietary Google fleet data.</p>
+<p>Second, <strong>efficient dual-encoder visual tokenization</strong>: the SigLIP + DINOv2 combination produces richer spatial tokens than the single ViT in PaLI-X. Kim et al. (2024) show this doubles performance on tasks requiring precise spatial localization compared to a single-encoder baseline at matched parameter count.</p>
+<p>Third, <strong>parameter-efficient fine-tuning</strong>: OpenVLA uses LoRA adapters for task-specific adaptation, enabling fine-tuning on a new skill with as few as 200 demonstrations on a single A100 GPU in under 8 hours.</p>
+<p>Fourth, <strong>per-robot action de-normalization</strong>: after standard action tokenization identical to RT-2, OpenVLA applies a learned de-normalizer that maps bin indices back to each robot&rsquo;s continuous action scale. This simplifies deployment on new hardware without retraining the full model.</p>
+<p>On the BridgeV2 benchmark, OpenVLA matches RT-2-7B performance and outperforms it on fine-grained manipulation tasks, while being $7\times$ smaller and fully reproducible (Kim et al., 2024). The key limitation is that it lacks RT-2&rsquo;s emergent reasoning, which appears to require the full 55B backbone.</p>
+<hr>
+<h3 id="q12-advanced-analyze-how-octo-achieves-cross-embodiment-generalization">Q12 [Advanced] Analyze how Octo achieves cross-embodiment generalization</h3>
+<p><strong>Q:</strong> What design decisions allow Octo to generalize across robot embodiments and task types, and what are its limitations?</p>
+<p><strong>A:</strong> <strong>Octo</strong> (Octo Model Team et al., 2024) is a 93M-parameter transformer policy trained on the Open X-Embodiment dataset. Its architecture separates <strong>task tokens</strong> (from language instructions and goal images) from <strong>observation tokens</strong> (from robot cameras and proprioception) through a <strong>readout token</strong> mechanism: lightweight readout tokens aggregate information from the observation stream and are decoded into actions, rather than having the full transformer attend over all inputs at every layer. This reduces the quadratic attention cost for long observation sequences.</p>
+<p><strong>Embodiment-agnostic tokenization</strong> is a key design choice: Octo encodes proprioceptive states as raw floating-point vectors with a learned linear projection, without hard-coding joint semantics. New robot arms can be adapted by fine-tuning only the input projection layer on as few as 1,000 demonstrations, because the backbone has already learned manipulation semantics from the multi-robot training mixture.</p>
+<p>For generalization across task types, Octo trains simultaneously on language-conditioned and goal-image-conditioned tasks. At inference, either conditioning modality can be provided, allowing deployment with or without a language interface.</p>
+<p>Limitations include reliance on end-effector Cartesian actions rather than joint torques, restricting applicability to impedance-controlled arms. Performance also degrades significantly on tasks outside the training distribution (Octo Model Team et al., 2024); unlike RT-2, Octo lacks internet-scale semantic knowledge and cannot zero-shot generalize to novel object categories based purely on language descriptions.</p>
+<hr>
+<h3 id="q13-advanced-diagnose-failure-modes-in-continuous-action-tokenization-for-vlas">Q13 [Advanced] Diagnose failure modes in continuous action tokenization for VLAs</h3>
+<p><strong>Q:</strong> What failure modes arise from discretizing continuous robot actions into tokens, and how are current VLAs addressing them?</p>
+<p><strong>A:</strong> Tokenizing continuous actions for autoregressive LLM generation introduces three fundamental tensions.</p>
+<p><strong>Quantization error vs. vocabulary size</strong>: discretizing a $[-1, 1]$ action range into $B$ bins introduces a maximum per-dimension error of $1/B$. RT-2 uses $B = 256$ bins (8 bits), yielding a maximum error of approximately $7.8 \times 10^{-3}$ per dimension. For sub-millimeter precision tasks this is insufficient. Increasing $B$ expands the vocabulary, slowing softmax computation and potentially destabilizing LLM training on the newly added tokens.</p>
+<p><strong>Causal independence assumption</strong>: autoregressive generation treats $a_1, a_2, \ldots, a_d$ (dimensions of the same timestep action) as sequentially dependent, predicting each conditioned on the previous. This imposes an artificial ordering that has no physical justification—joint angles are commanded simultaneously, not sequentially. This can lead to inconsistencies when joint $d$ is predicted far downstream from joint $1$, especially when intermediate predictions are sampled stochastically.</p>
+<p><strong>Inference latency</strong>: LLM-style decoding is sequential; generating a 7-token action requires 7 autoregressive forward passes through the full transformer, creating a hard lower bound on inference latency that conflicts with high-frequency reactive control.</p>
+<p>Recent alternatives bypass tokenization entirely. <strong>$\pi_0$</strong> (Black et al., 2024) attaches a <strong>flow matching</strong> head to the VLM&rsquo;s hidden states, conditioning a continuous normalizing flow on the final-layer representations and generating sub-millimeter continuous actions at 50 Hz—without discretization. This decouples the VLM&rsquo;s semantic reasoning from the action generation precision, and achieves dexterous performance on laundry folding and table bussing tasks that token-based VLAs have not demonstrated.</p>
+<hr>
+<h2 id="sim-to-real-transfer">Sim-to-Real Transfer</h2>
+<h3 id="q14-basic-explain-domain-randomization-and-its-theoretical-basis-for-sim-to-real-transfer">Q14 [Basic] Explain domain randomization and its theoretical basis for sim-to-real transfer</h3>
+<p><strong>Q:</strong> What is domain randomization, and what theoretical intuition explains its effectiveness for sim-to-real transfer?</p>
+<p><strong>A:</strong> <strong>Domain randomization</strong> (Tobin et al., 2017) trains policies in simulation by randomly sampling visual and physical parameters of the simulator at the start of each episode. Visual parameters include lighting color and intensity, object textures, camera pose, and background patterns; physical parameters include object masses, friction coefficients, and actuator response gains.</p>
+<p>The theoretical intuition is that if the real world is one sample from the distribution of randomized environments $p(\xi)$, a policy trained to succeed across the full distribution will succeed in the real world. Formally, the policy learns representations invariant to any particular parameter realization because it must function across all of them—the invariance is enforced by the training objective rather than explicitly supervised.</p>
+<p>Tobin et al. (2017) demonstrated that a CNN object detector trained exclusively with randomized synthetic textures transferred to real RGB images without any real-world training data, achieving 1.5 cm localization accuracy. OpenAI Dactyl (Andrychowicz et al., 2019) extended this to dexterous manipulation of a Rubik&rsquo;s cube by randomizing over 130 physical parameters—including tendon slack, joint friction, and observation delay—demonstrating that sufficiently broad randomization can bridge the sim-to-real gap for highly contact-rich, dexterous tasks.</p>
+<hr>
+<h3 id="q15-advanced-examine-asymmetric-actor-critic-methods-with-privileged-simulation-state">Q15 [Advanced] Examine asymmetric actor-critic methods with privileged simulation state</h3>
+<p><strong>Q:</strong> What is the asymmetric actor-critic framework, and how does access to privileged state information during training improve sim-to-real transfer?</p>
+<p><strong>A:</strong> In standard actor-critic RL, both the actor $\pi_\theta(a|o)$ and critic $V_\phi(o)$ are conditioned on the same deployable observation $o$. During simulation training, however, additional <strong>privileged information</strong> $s$ is available—exact object pose, contact forces, hidden physics parameters—that will not be accessible at deployment time.</p>
+<p><strong>Asymmetric actor-critic</strong> (Pinto et al., 2018) exploits this asymmetry: the <strong>critic</strong> is conditioned on the full state $s$ (privileged + observable), while the <strong>actor</strong> is conditioned only on the deployable observation $o$. The critic provides more accurate value estimates—because it observes the true state—which reduces variance in the policy gradient:</p>
+$$\nabla_\theta J \approx \mathbb{E}\left[Q_\phi(s, a) \nabla_\theta \log \pi_\theta(a|o)\right]$$<p>Lower-variance gradient estimates accelerate actor training without requiring the actor to access privileged information at test time.</p>
+<p>In <strong>RMA</strong> (Kumar et al., 2021), a related two-phase approach is used for legged locomotion: Phase 1 trains a base policy conditioned on environment parameters $\mathbf{e}_t$ (mass, friction, motor strength) available in simulation; Phase 2 trains an adaptation module $\phi_\psi$ that estimates $\hat{\mathbf{e}}_t$ from a short window of proprioceptive observations $o_{t-k:t}$, supervised by the ground-truth $\mathbf{e}_t$ from Phase 1. At deployment, $\hat{\mathbf{e}}_t$ replaces $\mathbf{e}_t$, allowing the base policy to adapt online without reward signals.</p>
+<p>The key limitation of these approaches is the <strong>critic-actor information gap</strong>: if the privileged information is so much more informative than the deployable observation that the critic&rsquo;s value estimates are unachievable from $o$ alone, policy gradient estimates become biased and training can diverge.</p>
+<hr>
+<h3 id="q16-advanced-assess-online-adaptive-methods-for-closing-the-sim-to-real-gap-at-test-time">Q16 [Advanced] Assess online adaptive methods for closing the sim-to-real gap at test time</h3>
+<p><strong>Q:</strong> When domain randomization alone is insufficient, what online adaptive methods reduce the sim-to-real gap at deployment time?</p>
+<p><strong>A:</strong> Domain randomization assumes the real world lies within the randomization distribution. When this assumption fails—due to unmodeled cable stretch, wear-induced friction changes, or novel object materials—policies trained purely with DR degrade. Online adaptation methods address this by estimating real-world dynamics parameters at test time using observed interaction data.</p>
+<p><strong>RMA</strong> (Kumar et al., 2021) is the canonical two-phase approach described in Q15: the adaptation module infers dynamics parameters $\hat{\mathbf{e}}_t$ from a history of $k$ proprioceptive observations, enabling the base policy to modulate its behavior in real time. Kumar et al. (2021) demonstrated that the quadruped trained with RMA adapts within 1–2 seconds of stepping onto a new surface type (sand, gravel, slope) without any reward signal, generalizing across 30+ terrain types not seen in training.</p>
+<p>A complementary direction is <strong>in-context adaptation for transformer policies</strong>: a short window of real-world state-action pairs is prepended to the context of a transformer policy at inference time, analogous to in-context learning in LLMs. The policy adapts its action predictions from this context without gradient updates—a particularly attractive property for hardware deployment where fine-tuning is impractical.</p>
+<p>For cases where even online adaptation is insufficient, <strong>real-to-sim transfer</strong> reverses the direction: a handful of real-world rollouts are used to fit a simulator to the observed dynamics via differentiable simulation or Bayesian optimization over DR parameters, after which policies are re-trained in the calibrated simulator and re-deployed.</p>
+<hr>
+<h3 id="q17-advanced-characterize-the-sim-to-real-challenge-for-contact-rich-manipulation">Q17 [Advanced] Characterize the sim-to-real challenge for contact-rich manipulation</h3>
+<p><strong>Q:</strong> Why does contact-rich manipulation exhibit a larger sim-to-real gap than free-space motion, and what approaches address it?</p>
+<p><strong>A:</strong> Contact-rich manipulation—peg insertion, gear assembly, cloth folding—poses a larger sim-to-real gap than free-space tasks for three reasons. First, <strong>contact discontinuities</strong>: errors as small as 1 mm in object or end-effector pose can switch the contact mode between sticking, sliding, or non-contact, creating highly discontinuous dynamics that are difficult to simulate accurately with rigid-body engines. Second, <strong>material property uncertainty</strong>: friction coefficients and elasticity parameters are poorly characterized for most objects and vary with surface condition and deformation history. Third, <strong>high-frequency dynamics</strong>: contact forces oscillate at kHz frequencies, whereas typical control policies operate at 10–50 Hz, causing aliased or missed contact transients in both simulation and real sensing.</p>
+<p>Approaches to bridging this gap include:</p>
+<p><strong>Force/torque feedback integration</strong>: policies conditioned on wrist F/T sensor readings can close the loop on contact errors. Training with randomized F/T sensor noise and randomized surface friction forces the policy to learn robust contact-reactive behaviors rather than relying on precise force values.</p>
+<p><strong>Compliant hardware as a shield</strong>: impedance control provides a compliant interface at the hardware level that absorbs contact discontinuities, reducing the precision required from the learned policy. This decouples the policy from the high-frequency contact dynamics by delegating fine-grained compliance to the controller.</p>
+<p><strong>Privileged contact information during training</strong>: training the policy (or its critic) on ground-truth contact geometry available in simulation—contact point locations, normal forces, friction cone membership—and distilling this into a student policy that operates on tactile sensor readings. This produces policies that reason about contact implicitly without requiring exact contact models at deployment.</p>
+<hr>
+<h2 id="benchmarks-data-and-frontiers">Benchmarks, Data, and Frontiers</h2>
+<h3 id="q18-basic-survey-the-primary-benchmarks-for-embodied-ai-evaluation">Q18 [Basic] Survey the primary benchmarks for embodied AI evaluation</h3>
+<p><strong>Q:</strong> What benchmarks does the embodied AI community use to evaluate agents, and what capability does each target?</p>
+<p><strong>A:</strong> Embodied AI benchmarks span simulation platforms and real-robot evaluation protocols. Key examples:</p>
+<p><strong>RLBench</strong> (James et al., 2020) provides 100 manipulation tasks of varying complexity (button pressing, wire threading, articulated object manipulation) designed for learning from demonstrations in the CoppeliaSim simulator. It targets sample efficiency and task diversity.</p>
+<p><strong>ManiSkill2</strong> (Gu et al., 2023) provides GPU-parallelized simulation of 20 rigid-body and soft-body manipulation tasks via the SAPIEN engine, with standardized evaluation metrics (success rate, grasp quality) and support for massively parallel RL training.</p>
+<p><strong>BridgeData V2</strong> (Walke et al., 2023) is a real-robot dataset and evaluation suite collected with a WidowX arm in diverse tabletop environments, providing a standardized protocol for comparing real-world generalization of manipulation policies on approximately 60 held-out tasks.</p>
+<p><strong>SIMPLER</strong> (Li et al., 2024) addresses the reality gap in simulation-based evaluation by constructing simulator environments that closely match Google Robot and WidowX hardware setups, showing strong correlation ($\rho > 0.9$) between simulated and real success rates for VLA models including RT-2 and Octo. It enables reproducible policy comparisons without requiring a physical robot lab.</p>
+<p><strong>Habitat</strong> (Savva et al., 2019) targets embodied navigation in photorealistic indoor environments: object goal navigation, visual exploration, and rearrangement tasks, supporting RGB and RGB-D sensors. It is the de facto benchmark for navigation-centric embodied AI.</p>
+<hr>
+<h3 id="q19-advanced-evaluate-scaling-law-evidence-in-robot-learning">Q19 [Advanced] Evaluate scaling law evidence in robot learning</h3>
+<p><strong>Q:</strong> What do current experiments reveal about scaling behavior in robot learning, and how does data curation affect the relationship?</p>
+<p><strong>A:</strong> Scaling laws in robot learning are less well-characterized than in NLP, but several recent works provide empirical evidence. <strong>RT-X</strong> (Open X-Embodiment Collaboration et al., 2023) trained RT-1 and RT-2-style models on the Open X-Embodiment dataset with 22 robot embodiments and observed that models trained on larger, more diverse datasets generalize substantially better to held-out robot configurations and task types—broadly consistent with a power-law relationship between dataset size and evaluation success rate.</p>
+<p>However, <strong>data quality strongly moderates scaling effects</strong>. RT-X ablations showed that naively mixing all available trajectories degraded performance on single-robot tasks compared to training on curated, high-quality datasets alone. The Open X-Embodiment dataset contains trajectories of highly variable quality: some collected by expert operators, others by naive teleoperators on hardware with non-standard morphology. Filtering by success rate and demonstration quality recovers most of the degradation, suggesting that effective dataset size (weighted by quality) matters more than raw trajectory count.</p>
+<p><strong>$\pi_0$</strong> (Black et al., 2024) provides complementary evidence: by mixing over 10,000 hours of robot data across 7 robot types with internet-scale VLM pretraining, it achieves dexterous performance on laundry folding and table bussing that is qualitatively beyond what prior single-task policies achieved. This suggests that a phase transition exists when sufficient data diversity is combined with strong visual priors from web pretraining.</p>
+<p>The key open question is whether <strong>in-distribution scaling</strong> (more demonstrations of the same task) or <strong>out-of-distribution diversity</strong> (more task and embodiment variety) drives generalization. Current evidence leans toward diversity being the dominant factor for zero-shot transfer, while in-distribution data primarily improves precision on specific skills.</p>
+<hr>
+<h3 id="q20-advanced-characterize-the-embodied-ai-data-bottleneck-and-mitigation-strategies">Q20 [Advanced] Characterize the embodied AI data bottleneck and mitigation strategies</h3>
+<p><strong>Q:</strong> What makes data collection for embodied AI fundamentally harder than for language or vision models, and what strategies are emerging to address the data bottleneck?</p>
+<p><strong>A:</strong> Embodied AI faces a data bottleneck qualitatively different from NLP or computer vision. Language and image data exist in trillion-token internet corpora; robot interaction data must be <strong>physically collected</strong>, requiring hardware, human operators, and real wall-clock time. Three specific challenges stand out.</p>
+<p><strong>Low throughput</strong>: a human teleoperator collecting manipulation demonstrations produces approximately 1 demonstration per minute; collecting 1,000 demonstrations for a single skill requires roughly 17 hours of continuous operation. At this rate, matching the dataset scale of large vision-language datasets for robot data is intractable without automation.</p>
+<p><strong>Embodiment heterogeneity</strong>: each robot platform has different kinematic chains, sensor configurations, and control interfaces. Data collected on a WidowX arm does not directly transfer to a Franka arm. The Open X-Embodiment dataset pools cross-embodiment data (Open X-Embodiment Collaboration et al., 2023), but action normalization and morphological mismatch remain open problems.</p>
+<p><strong>Long-tail task coverage</strong>: safety-critical manipulation involves rare failure modes and recovery behaviors that are systematically underrepresented in teleoperated datasets, because expert operators avoid entering those states. This leaves policies brittle precisely in the situations where robustness matters most.</p>
+<p>Current mitigation strategies include: (1) <strong>video pre-training on human demonstrations</strong> without robot action labels—models predict future video frames conditioned on observations and distill action predictions from the predicted dynamics, amortizing the need for robot-specific data; (2) <strong>synthetic data augmentation</strong> using neural rendering (NeRF, Gaussian Splatting) to generate novel viewpoints and lighting conditions of existing scenes at zero additional collection cost; (3) <strong>autonomous data collection</strong> via RL or motion-primitive exploration to expand coverage of rare and failure states; (4) <strong>foundation model fine-tuning</strong> from web-pretrained VLMs such that visual and semantic knowledge is amortized across all downstream tasks, reducing per-task data requirements.</p>
+<hr>
+<h2 id="quick-reference">Quick Reference</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>Difficulty</th>
+          <th>Topic</th>
+          <th>Section</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>Basic</td>
+          <td>Embodied vs. perception-only AI</td>
+          <td>Embodied AI Foundations</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>Basic</td>
+          <td>Role of simulation</td>
+          <td>Embodied AI Foundations</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>Advanced</td>
+          <td>Imitation learning vs. reinforcement learning</td>
+          <td>Embodied AI Foundations</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>Advanced</td>
+          <td>Action representation</td>
+          <td>Embodied AI Foundations</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>Basic</td>
+          <td>Robotic grasp learning paradigms</td>
+          <td>Robot Manipulation</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>Advanced</td>
+          <td>Diffusion-based policy learning</td>
+          <td>Robot Manipulation</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>Advanced</td>
+          <td>Action chunking and temporal ensembling</td>
+          <td>Robot Manipulation</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>Advanced</td>
+          <td>Decision Transformer for manipulation</td>
+          <td>Robot Manipulation</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>Basic</td>
+          <td>VLA vs. VLM</td>
+          <td>Vision-Language-Action Models</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>Advanced</td>
+          <td>RT-2 architecture and emergent reasoning</td>
+          <td>Vision-Language-Action Models</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>Advanced</td>
+          <td>OpenVLA improvements over RT-2</td>
+          <td>Vision-Language-Action Models</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>Advanced</td>
+          <td>Octo cross-embodiment generalization</td>
+          <td>Vision-Language-Action Models</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>Advanced</td>
+          <td>Action tokenization failure modes</td>
+          <td>Vision-Language-Action Models</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>Basic</td>
+          <td>Domain randomization</td>
+          <td>Sim-to-Real Transfer</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>Advanced</td>
+          <td>Asymmetric actor-critic with privileged state</td>
+          <td>Sim-to-Real Transfer</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>Advanced</td>
+          <td>Online adaptive sim-to-real methods</td>
+          <td>Sim-to-Real Transfer</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>Advanced</td>
+          <td>Contact-rich manipulation sim-to-real gap</td>
+          <td>Sim-to-Real Transfer</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>Basic</td>
+          <td>Embodied AI benchmarks</td>
+          <td>Benchmarks, Data, and Frontiers</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>Advanced</td>
+          <td>Scaling laws in robot learning</td>
+          <td>Benchmarks, Data, and Frontiers</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>Advanced</td>
+          <td>The embodied AI data bottleneck</td>
+          <td>Benchmarks, Data, and Frontiers</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="resources">Resources</h2>
+<ul>
+<li>Ross et al., <a href="https://arxiv.org/abs/1011.0686">A Reduction of Imitation Learning and Structured Prediction to No-Regret Online Learning</a> (2011)</li>
+<li>Makoviychuk et al., <a href="https://arxiv.org/abs/2108.10470">Isaac Gym: High Performance GPU-Based Physics Simulation For Robot Learning</a> (2021)</li>
+<li>Levine et al., <a href="https://arxiv.org/abs/1603.02199">Learning Hand-Eye Coordination for Robotic Grasping with Deep Learning and Large-Scale Data Collection</a> (2016)</li>
+<li>Mousavian et al., <a href="https://arxiv.org/abs/1905.10520">6-DOF GraspNet: Variational Grasp Generation for Object Manipulation</a> (2019)</li>
+<li>Chi et al., <a href="https://arxiv.org/abs/2303.04137">Diffusion Policy: Visuomotor Policy Learning via Action Diffusion</a> (2023)</li>
+<li>Zhao et al., <a href="https://arxiv.org/abs/2304.13705">Learning Fine-Grained Bimanual Manipulation with Low-Cost Hardware</a> (2023)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/2106.01345">Decision Transformer: Reinforcement Learning via Sequence Modeling</a> (2021)</li>
+<li>Janner et al., <a href="https://arxiv.org/abs/2106.02039">Offline Reinforcement Learning as One Big Sequence Modeling Problem</a> (2021)</li>
+<li>Brohan et al., <a href="https://arxiv.org/abs/2212.06817">RT-1: Robotics Transformer for Real-World Control at Scale</a> (2022)</li>
+<li>Brohan et al., <a href="https://arxiv.org/abs/2307.15818">RT-2: Vision-Language-Action Models Transfer Web Knowledge to Robotic Control</a> (2023)</li>
+<li>Kim et al., <a href="https://arxiv.org/abs/2406.09246">OpenVLA: An Open-Source Vision-Language-Action Model</a> (2024)</li>
+<li>Octo Model Team et al., <a href="https://arxiv.org/abs/2405.12213">Octo: An Open-Source Generalist Robot Policy</a> (2024)</li>
+<li>Open X-Embodiment Collaboration et al., <a href="https://arxiv.org/abs/2310.08864">Open X-Embodiment: Robotic Learning Datasets and RT-X Models</a> (2023)</li>
+<li>Black et al., <a href="https://arxiv.org/abs/2410.24164">π0: A Vision-Language-Action Flow Model for General Robot Control</a> (2024)</li>
+<li>Tobin et al., <a href="https://arxiv.org/abs/1703.06907">Domain Randomization for Transferring Deep Neural Networks from Simulation to the Real World</a> (2017)</li>
+<li>Andrychowicz et al., <a href="https://arxiv.org/abs/1808.00177">Learning Dexterous In-Hand Manipulation</a> (2019)</li>
+<li>Pinto et al., <a href="https://arxiv.org/abs/1710.06542">Asymmetric Actor Critic for Image-Based Robot Learning</a> (2018)</li>
+<li>Kumar et al., <a href="https://arxiv.org/abs/2107.04034">RMA: Rapid Motor Adaptation for Legged Robots</a> (2021)</li>
+<li>Shridhar et al., <a href="https://arxiv.org/abs/2109.12098">CLIPort: What and Where Pathways for Robotic Manipulation</a> (2022a)</li>
+<li>Shridhar et al., <a href="https://arxiv.org/abs/2209.05451">Perceiver-Actor: A Multi-Task Transformer for Robotic Manipulation</a> (2022b)</li>
+<li>James et al., <a href="https://arxiv.org/abs/1909.12271">RLBench: The Robot Learning Benchmark &amp; Learning Environment</a> (2020)</li>
+<li>Gu et al., <a href="https://arxiv.org/abs/2302.04659">ManiSkill2: A Unified Benchmark for Generalizable Manipulation Skills</a> (2023)</li>
+<li>Walke et al., <a href="https://arxiv.org/abs/2308.12952">BridgeData V2: A Dataset for Robot Learning at Scale</a> (2023)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2405.05941">Evaluating Real-World Robot Manipulation Policies in Simulation</a> (2024)</li>
+<li>Savva et al., <a href="https://arxiv.org/abs/1904.01201">Habitat: A Platform for Embodied AI Research</a> (2019)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+

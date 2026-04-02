@@ -2,21 +2,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://yo3nglau.github.io/blogs/tags/agent/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/agent/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/agent/"
-                />
-  </url><url>
     <loc>https://yo3nglau.github.io/blogs/categories/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -29,7 +16,7 @@
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/deep-learning/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -41,8 +28,14 @@
                 href="https://yo3nglau.github.io/blogs/tags/deep-learning/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/embodied-ai/</loc>
+    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/embodied-ai-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -55,7 +48,7 @@
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/categories/interview/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -65,6 +58,38 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/categories/interview/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/</loc>
+    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/robotics/</loc>
+    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/</loc>
+    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/agent/</loc>
+    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/agent/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/agent/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/large-language-model/</loc>
@@ -93,9 +118,6 @@
                 href="https://yo3nglau.github.io/blogs/post/llm-based-agents-interview-questions-and-answers/"
                 />
   </url><url>
-    <loc>https://yo3nglau.github.io/blogs/post/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/reinforcement-learning/</loc>
     <lastmod>2026-04-01T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -107,19 +129,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/tags/reinforcement-learning/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/tags/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/world-model/</loc>
