@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Medical AI on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/medical-ai/</link>
+    <description>Recent content in Medical AI on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/medical-ai/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>医疗人工智能：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/medical-ai-interview-questions-and-answers/</link>
+      <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/medical-ai-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;医学影像基础&#34;&gt;医学影像基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-刻画医学影像相较自然图像分析的独特挑战&#34;&gt;Q1 [基础] 刻画医学影像相较自然图像分析的独特挑战&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 医学图像数据的哪些属性使其在分析上根本性地难于自然图像？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 医学影像在多个相互关联的维度上有别于自然图像分析。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;模态多样性与基于物理的成像过程&lt;/strong&gt;：与 RGB 照片不同，医学图像来自截然不同的物理采集过程——X 射线衰减、MRI 自旋弛豫、超声声学反射、组织学光学显微镜——每种过程产生的图像具有不同的噪声模型、对比机制和空间属性。在自然图像间可迁移的特征，在模态之间几乎无法迁移，需要面向特定模态设计架构或采用精心设计的预训练策略。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;标注稀缺性与专业知识门槛&lt;/strong&gt;：标注自然图像（分类、边界框）所需的领域知识极少；而标注医学图像需要数年的临床培训。放射科医生在 CT 扫描上勾画肿瘤可能需要 20–30 分钟，复杂结构的标注者间一致性往往远低于 1.0。这从根本上限制了数据集规模——医学影像数据集的标注样本量鲜少超过数十万，而自然图像基准数据集可达数十亿。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;类别不平衡与罕见病变&lt;/strong&gt;：有临床意义的发现（小肺结节、早期病变）相对于正常解剖结构而言极为罕见。胸部 X 光数据集中气胸阳性样本可能不足 1%，需要专用损失函数（focal loss、Dice loss）和采样策略以避免退化解。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;采集异质性引发的分布偏移&lt;/strong&gt;：不同厂商的 MRI 扫描仪（西门子、GE、飞利浦）、磁场强度（1.5 T vs. 3 T）和成像协议产生的图像在视觉上差异显著，尽管包含完全相同的解剖信息。在一台扫描仪上训练的模型迁移到另一台时性能可能大幅下降——在没有目标域标注数据可用于验证的临床部署场景中，这是特别危险的失效模式。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-阐释-u-net-成为医学图像分割主导架构的原因&#34;&gt;Q2 [基础] 阐释 U-Net 成为医学图像分割主导架构的原因&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; U-Net 具备哪些架构属性，使其在医学图像分割中如此有效？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;U-Net&lt;/strong&gt;（Ronneberger et al., 2015）专为极端标注稀缺条件下的生物医学图像分割而设计。其成功建立在两个核心架构选择之上。首先是&lt;strong&gt;带跳跃连接的编码器-解码器&lt;/strong&gt;（encoder-decoder with skip connections）：收缩路径（编码器）逐步将空间分辨率减半并将特征通道数翻倍，捕获语义上下文；扩张路径（解码器）将特征图上采样回输入分辨率。关键在于，跳跃连接将编码器特征图直接拼接到对应的解码器层，保留了下采样过程中本会丢失的细粒度空间信息——细胞边界、细薄的血管壁。&lt;/p&gt;&#xA;&lt;p&gt;其次是&lt;strong&gt;全分辨率输出与重叠拼接推理&lt;/strong&gt;：U-Net 以与输入相同的分辨率输出分割图，无需后处理即可进行逐像素预测。对于超过 GPU 显存容量的大图像，Ronneberger et al. (2015) 引入了重叠拼接策略：带有镜像填充边界的重叠图像块被逐一处理，支持任意大小的输入。&lt;/p&gt;&#xA;&lt;p&gt;这些属性解决了医学分割的核心挑战：从极少量图像（原论文中仅 30 张标注图像）中学习，同时以高空间精度定位细微结构。该架构的普适有效性如此突出，以至于几乎所有后续医学分割系统都以其为基础，包括 nnU-Net（Isensee et al., 2021）、TransUNet（Chen et al., 2021）和 SwinUNETR（Tang et al., 2022）。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

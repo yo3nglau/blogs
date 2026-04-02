@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>医疗人工智能：面试问题与推荐回答 | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">医疗人工智能：面试问题与推荐回答</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/02</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/medical-imaging">Medical Imaging</a> <a href="/blogs/tags/medical-ai">Medical AI</a> 
+  
+  
+</p>
+</div>
+
+
+<p style="text-align: center;">
+  
+  <a href="/blogs/post/medical-ai-interview-questions-and-answers/">View English Version</a>
+  
+</p>
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#医学影像基础">医学影像基础</a>
+      <ul>
+        <li><a href="#q1-基础-刻画医学影像相较自然图像分析的独特挑战">Q1 [基础] 刻画医学影像相较自然图像分析的独特挑战</a></li>
+        <li><a href="#q2-基础-阐释-u-net-成为医学图像分割主导架构的原因">Q2 [基础] 阐释 U-Net 成为医学图像分割主导架构的原因</a></li>
+        <li><a href="#q3-进阶-评估自监督预训练应对医学影像标注稀缺的作用">Q3 [进阶] 评估自监督预训练应对医学影像标注稀缺的作用</a></li>
+        <li><a href="#q4-进阶-分析-nnu-net-面向医学分割的自动化流程配置">Q4 [进阶] 分析 nnU-Net 面向医学分割的自动化流程配置</a></li>
+      </ul>
+    </li>
+    <li><a href="#分割架构">分割架构</a>
+      <ul>
+        <li><a href="#q5-基础-阐释-transformer-架构用于医学图像分割的动机">Q5 [基础] 阐释 Transformer 架构用于医学图像分割的动机</a></li>
+        <li><a href="#q6-进阶-审视-transunet-用于分割的混合-cnn-transformer-设计">Q6 [进阶] 审视 TransUNet 用于分割的混合 CNN-Transformer 设计</a></li>
+        <li><a href="#q7-进阶-评估-sam-在医学影像上的可迁移性与-medsam-的适配策略">Q7 [进阶] 评估 SAM 在医学影像上的可迁移性与 MedSAM 的适配策略</a></li>
+        <li><a href="#q8-进阶-阐释-swinunetr-如何将-swin-transformer-扩展至三维体积分析">Q8 [进阶] 阐释 SwinUNETR 如何将 Swin Transformer 扩展至三维体积分析</a></li>
+      </ul>
+    </li>
+    <li><a href="#医疗基础模型">医疗基础模型</a>
+      <ul>
+        <li><a href="#q9-基础-定义医疗基础模型与通用模型微调的区别">Q9 [基础] 定义医疗基础模型与通用模型微调的区别</a></li>
+        <li><a href="#q10-进阶-审视-med-palm-在-usmle-风格基准上达到通过分数的过程">Q10 [进阶] 审视 Med-PaLM 在 USMLE 风格基准上达到通过分数的过程</a></li>
+        <li><a href="#q11-进阶-分析-med-palm-2-相对于原始-med-palm-的改进">Q11 [进阶] 分析 Med-PaLM 2 相对于原始 Med-PaLM 的改进</a></li>
+        <li><a href="#q12-进阶-评估-chexagent-作为胸部-x-光分析统一基础模型的能力">Q12 [进阶] 评估 CheXagent 作为胸部 X 光分析统一基础模型的能力</a></li>
+        <li><a href="#q13-进阶-分析-llava-med-面向生物医学视觉问答的数据策略">Q13 [进阶] 分析 LLaVA-Med 面向生物医学视觉问答的数据策略</a></li>
+      </ul>
+    </li>
+    <li><a href="#计算病理学">计算病理学</a>
+      <ul>
+        <li><a href="#q14-基础-刻画全切片图像分析的独特挑战">Q14 [基础] 刻画全切片图像分析的独特挑战</a></li>
+        <li><a href="#q15-进阶-审视-clam-对全切片图像的注意力机制弱监督分类">Q15 [进阶] 审视 CLAM 对全切片图像的注意力机制弱监督分类</a></li>
+        <li><a href="#q16-进阶-分析-hipt-对千兆像素病理图像的层次化自监督学习">Q16 [进阶] 分析 HIPT 对千兆像素病理图像的层次化自监督学习</a></li>
+        <li><a href="#q17-进阶-评估病理学专用基础模型的设计考量">Q17 [进阶] 评估病理学专用基础模型的设计考量</a></li>
+      </ul>
+    </li>
+    <li><a href="#评测与临床落地">评测与临床落地</a>
+      <ul>
+        <li><a href="#q18-基础-辨别医学图像分割的关键评估指标">Q18 [基础] 辨别医学图像分割的关键评估指标</a></li>
+        <li><a href="#q19-进阶-刻画分布偏移对医疗-ai-部署性能的影响">Q19 [进阶] 刻画分布偏移对医疗 AI 部署性能的影响</a></li>
+        <li><a href="#q20-进阶-评估医疗-ai-监管审批与临床部署的主要障碍">Q20 [进阶] 评估医疗 AI 监管审批与临床部署的主要障碍</a></li>
+      </ul>
+    </li>
+    <li><a href="#快速参考">快速参考</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="医学影像基础">医学影像基础</h2>
+<h3 id="q1-基础-刻画医学影像相较自然图像分析的独特挑战">Q1 [基础] 刻画医学影像相较自然图像分析的独特挑战</h3>
+<p><strong>Q:</strong> 医学图像数据的哪些属性使其在分析上根本性地难于自然图像？</p>
+<p><strong>A:</strong> 医学影像在多个相互关联的维度上有别于自然图像分析。</p>
+<p><strong>模态多样性与基于物理的成像过程</strong>：与 RGB 照片不同，医学图像来自截然不同的物理采集过程——X 射线衰减、MRI 自旋弛豫、超声声学反射、组织学光学显微镜——每种过程产生的图像具有不同的噪声模型、对比机制和空间属性。在自然图像间可迁移的特征，在模态之间几乎无法迁移，需要面向特定模态设计架构或采用精心设计的预训练策略。</p>
+<p><strong>标注稀缺性与专业知识门槛</strong>：标注自然图像（分类、边界框）所需的领域知识极少；而标注医学图像需要数年的临床培训。放射科医生在 CT 扫描上勾画肿瘤可能需要 20–30 分钟，复杂结构的标注者间一致性往往远低于 1.0。这从根本上限制了数据集规模——医学影像数据集的标注样本量鲜少超过数十万，而自然图像基准数据集可达数十亿。</p>
+<p><strong>类别不平衡与罕见病变</strong>：有临床意义的发现（小肺结节、早期病变）相对于正常解剖结构而言极为罕见。胸部 X 光数据集中气胸阳性样本可能不足 1%，需要专用损失函数（focal loss、Dice loss）和采样策略以避免退化解。</p>
+<p><strong>采集异质性引发的分布偏移</strong>：不同厂商的 MRI 扫描仪（西门子、GE、飞利浦）、磁场强度（1.5 T vs. 3 T）和成像协议产生的图像在视觉上差异显著，尽管包含完全相同的解剖信息。在一台扫描仪上训练的模型迁移到另一台时性能可能大幅下降——在没有目标域标注数据可用于验证的临床部署场景中，这是特别危险的失效模式。</p>
+<hr>
+<h3 id="q2-基础-阐释-u-net-成为医学图像分割主导架构的原因">Q2 [基础] 阐释 U-Net 成为医学图像分割主导架构的原因</h3>
+<p><strong>Q:</strong> U-Net 具备哪些架构属性，使其在医学图像分割中如此有效？</p>
+<p><strong>A:</strong> <strong>U-Net</strong>（Ronneberger et al., 2015）专为极端标注稀缺条件下的生物医学图像分割而设计。其成功建立在两个核心架构选择之上。首先是<strong>带跳跃连接的编码器-解码器</strong>（encoder-decoder with skip connections）：收缩路径（编码器）逐步将空间分辨率减半并将特征通道数翻倍，捕获语义上下文；扩张路径（解码器）将特征图上采样回输入分辨率。关键在于，跳跃连接将编码器特征图直接拼接到对应的解码器层，保留了下采样过程中本会丢失的细粒度空间信息——细胞边界、细薄的血管壁。</p>
+<p>其次是<strong>全分辨率输出与重叠拼接推理</strong>：U-Net 以与输入相同的分辨率输出分割图，无需后处理即可进行逐像素预测。对于超过 GPU 显存容量的大图像，Ronneberger et al. (2015) 引入了重叠拼接策略：带有镜像填充边界的重叠图像块被逐一处理，支持任意大小的输入。</p>
+<p>这些属性解决了医学分割的核心挑战：从极少量图像（原论文中仅 30 张标注图像）中学习，同时以高空间精度定位细微结构。该架构的普适有效性如此突出，以至于几乎所有后续医学分割系统都以其为基础，包括 nnU-Net（Isensee et al., 2021）、TransUNet（Chen et al., 2021）和 SwinUNETR（Tang et al., 2022）。</p>
+<hr>
+<h3 id="q3-进阶-评估自监督预训练应对医学影像标注稀缺的作用">Q3 [进阶] 评估自监督预训练应对医学影像标注稀缺的作用</h3>
+<p><strong>Q:</strong> 自监督学习方法如何降低医学影像对专家标注的依赖，哪些形式已被证明最具影响力？</p>
+<p><strong>A:</strong> 自监督学习（SSL）通过在无标注医学图像或天然配对数据上预训练，再在小规模标注集上微调，从而降低对标注的依赖。其核心洞见在于：医学数据包含丰富的监督结构——解剖一致性、跨模态对应关系、配对报告——可在无人工标注的情况下作为训练信号。</p>
+<p><strong>纯图像对比方法</strong>（SimCLR 风格）对每张图像施加数据增强，训练网络对同一图像的增强视图产生相似表示，同时将不同图像的表示推远。医学影像需要精心设计数据增强：模拟扫描仪变异的强度增强（随机窗宽窗位调整、亮度偏移）比强几何变换更为有效——后者可能破坏具有诊断意义的解剖结构（例如，横向翻转胸部 X 光会颠倒左右方向，这在临床上有重要意义）。</p>
+<p><strong>图像-文本配对预训练</strong>利用临床实践中天然存在的配对数据：放射科报告几乎伴随每一项影像检查。ConVIRT（Zhang et al., 2020）证明，在胸部 X 光/报告配对上进行对比学习，以仅 1% 的标注数据即可在下游分类任务上显著超越 ImageNet 预训练。配对文本提供了纯图像对比方法所缺乏的语义监督——报告中提及&quot;双侧浸润影&quot;教会模型将全局视觉模式与临床概念关联，而非仅仅学习图像级相似性。</p>
+<p><strong>掩码图像建模</strong>（MAE 风格）随机遮掩图像块并重建，迫使编码器学习局部结构表示。将这一方法适配到三维体积数据（CT、MRI）需要体积位置编码和跨越解剖意义单元的图像块尺寸。相比对比方法，其关键优势在于无需精心设计增强不变性——自监督信号本身蕴含在图像结构中。</p>
+<p>纯图像 SSL 在医学影像中的根本局限是：增强不变性设计必须与领域匹配——对自然图像模型有益的不变性（颜色抖动、水平翻转）可能破坏具有医学意义的信号（胸部 X 光的侧别信息、CT Hounsfield 值的强度单位）。</p>
+<hr>
+<h3 id="q4-进阶-分析-nnu-net-面向医学分割的自动化流程配置">Q4 [进阶] 分析 nnU-Net 面向医学分割的自动化流程配置</h3>
+<p><strong>Q:</strong> nnU-Net 如何自动配置最优分割流程，为何这一方法在多样化的医学数据集上能超越手工设计的架构？</p>
+<p><strong>A:</strong> <strong>nnU-Net</strong>（Isensee et al., 2021）是一个自配置框架，无需手动调优即可从数据集的统计特性中自动确定所有架构和训练超参数。其核心贡献在于：用基于规则的推断取代手工架构搜索，推断依据为<strong>数据集指纹</strong>（dataset fingerprint）——训练前计算的数据集属性，包括图像维度（2D/3D）、体素间距、图像尺寸、给定 GPU 显存的图像块尺寸需求、类别频率分布及强度统计量。</p>
+<p>根据指纹，nnU-Net 自动推断：（1）训练 2D、3D 全分辨率还是 3D 级联（低到高分辨率）U-Net 变体；（2）在固定 GPU 显存预算下的图像块尺寸和批量大小；（3）归一化策略——对具有有意义 Hounsfield 尺度的 CT 使用前景统计量进行 z-score 归一化，对缺乏绝对尺度的 MRI 不进行强度归一化；（4）由预期空间变形参数化的数据增强流程；以及（5）基于预测掩码连通分量分析的测试时后处理。</p>
+<p>框架通过 5 折交叉验证评估所有推断配置，选择表现最优的模型或集成。Isensee et al. (2021) 证明，在医学分割十项全能（Medical Segmentation Decathlon）的全部 23/23 个公开数据集上，nnU-Net 无需任何数据集特定修改即可与所有先前手工设计方法持平或更优——涵盖脑肿瘤、心脏结构、肝脏病变、胰腺、结肠癌和前列腺等多个任务。</p>
+<p>核心洞见在于：医学分割领域历史上大多数架构进展来自数据集特定的调优，而大多数研究者缺乏时间和专业知识来复现这些调优过程。nnU-Net 使这一过程自动化且可复现，既是强有力的基线，也是可直接部署的系统。其设计还揭示了一个重要发现：架构选择的影响远小于正确的归一化、图像块尺寸选择和训练正则化——这对医学分割研究的开展方式具有深远影响。</p>
+<hr>
+<h2 id="分割架构">分割架构</h2>
+<h3 id="q5-基础-阐释-transformer-架构用于医学图像分割的动机">Q5 [基础] 阐释 Transformer 架构用于医学图像分割的动机</h3>
+<p><strong>Q:</strong> 基于 CNN 的分割架构存在哪些局限，促使了 Transformer 在医学影像中的采用？</p>
+<p><strong>A:</strong> 基于 CNN 的分割架构（包括 U-Net 及其变体）通过卷积层处理图像，感受野大小由卷积核尺寸和网络深度决定。这种<strong>有限且隐式局部的感受野</strong>导致两类临床上重要的失效模式。其一，全局上下文只能通过反复的池化和下采样来捕获，同时损失空间精度。对于边界依赖于整体解剖配置的结构——例如，肝脏边界随相邻脏器位置的变化而移动——局部卷积提供的远程上下文不足。其二，跨越大范围空间的结构（延伸的血管、结肠段）需要具有大有效感受野的极深网络，不仅计算代价高，还容易对细微边界造成过度平滑。</p>
+<p>Transformer 通过<strong>多头自注意力</strong>（multi-head self-attention）解决这些局限——在单一层内直接计算所有空间位置间的成对注意力权重，无论空间距离如何均能建立全局依赖。对于医学图像分割，这使得对细长结构的精确勾画、杂乱解剖环境中器官边界的消歧、以及整个解剖区域内的上下文信息整合成为可能。</p>
+<p>主要权衡是自注意力相对于序列长度的二次方复杂度：$O(n^2)$，其中 $n$ 为图像块 token 数量。医学体积数据（例如 $512 \times 512 \times 300$ 的 CT）加剧了这一计算代价，促使研究者探索高效注意力变体，如移位窗口注意力（Swin Transformer）和层次化 tokenization 策略。</p>
+<hr>
+<h3 id="q6-进阶-审视-transunet-用于分割的混合-cnn-transformer-设计">Q6 [进阶] 审视 TransUNet 用于分割的混合 CNN-Transformer 设计</h3>
+<p><strong>Q:</strong> TransUNet 如何整合卷积组件与 Transformer 组件，这一混合设计相较纯 CNN 或纯 Transformer 模型实现了什么？</p>
+<p><strong>A:</strong> <strong>TransUNet</strong>（Chen et al., 2021）在 U-Net 编码器-解码器框架内将 CNN 与 Transformer 串联排列，以利用二者的互补优势。编码器从一个<strong>类 ResNet 的 CNN</strong> 开始，在逐渐降低的空间分辨率下提取特征图，产生具有高通道维度的强局部空间特征。最终的 CNN 特征图被 tokenization——在空间上展平为 $n$ 个图像块 token 的序列——并送入一组视觉 Transformer（ViT）层。Transformer 在这一编码序列上运算，在整个特征图范围内建立全局成对依赖关系。所得序列被重塑回二维特征图，传递给带有来自编码器的跳跃连接的 CNN 解码器（与 U-Net 相同），恢复全分辨率预测。</p>
+<p>这一设计同时捕获了<strong>局部纹理与边缘特征</strong>（CNN）和<strong>全局结构上下文</strong>（Transformer），而单独使用任一架构均无法兼顾。纯 CNN 模型缺乏非局部上下文；纯 Transformer 模型（如 Swin-UNet，Cao et al., 2021）缺乏卷积归纳偏置所提供的低层空间精度，在小数据场景下尤为不足。</p>
+<p>Chen et al. (2021) 证明，TransUNet 在 Synapse 多器官 CT 分割基准（8 个腹部器官）上以 2.6% 的平均 Dice 超越强 U-Net 基线。关键局限在于 ViT 组件需要 ImageNet 或大规模医学语料预训练方能可靠收敛——在小型医学数据集上从头训练 Transformer 块存在问题，因为 Transformer 缺乏帮助 CNN 从有限数据中学习空间层次结构的卷积归纳偏置。</p>
+<hr>
+<h3 id="q7-进阶-评估-sam-在医学影像上的可迁移性与-medsam-的适配策略">Q7 [进阶] 评估 SAM 在医学影像上的可迁移性与 MedSAM 的适配策略</h3>
+<p><strong>Q:</strong> Segment Anything Model 在无适配情况下处理医学图像的表现如何，MedSAM 在零样本 SAM 基础上贡献了什么？</p>
+<p><strong>A:</strong> <strong>Segment Anything Model（SAM）</strong>（Kirillov et al., 2023）是一个可提示的分割基础模型，在 SA-1B 自然图像数据集的 11 亿个掩码上训练。其架构由一个重量级图像编码器（ViT-H，3.07 亿参数）、一个接受点、边界框或掩码的轻量级提示编码器，以及一个利用图像嵌入与提示 token 间交叉注意力的掩码解码器组成。SAM 在自然图像上实现了强大的零样本交互式分割。</p>
+<p>直接将 SAM 应用于医学图像而不经适配，会出现显著的性能下降。三个因素解释了这一现象。其一，<strong>领域差距</strong>：SA-1B 不包含任何 CT、MRI、组织学或超声图像；医学模态的视觉统计特性——灰度强度分布、CT 中的 Hounsfield 值、病理染色模式——完全超出 SAM 的训练分布。其二，<strong>粒度不匹配</strong>：SAM 以自然图像粒度分割目标，而医学分割需要对肿瘤边缘、血管壁等结构达到亚毫米级的边界精度。其三，<strong>提示领域依赖</strong>：对医学结构设计有效提示需要在自然图像交互经验中无从获取的解剖学知识。</p>
+<p><strong>MedSAM</strong>（Ma et al., 2024）通过在涵盖 10 种成像模态（CT、MRI、X 光、超声、病理、眼底摄影、皮肤镜、内镜、乳腺 X 光和光学相干断层扫描）、30 种癌症类型的 150 万个医学图像-掩码对上微调 SAM 来解决上述局限。Ma et al. (2024) 冻结图像块嵌入层，对其余图像编码器和全部解码器参数进行微调，在保留低层特征提取的同时使高层表示适应医学图像统计特性。MedSAM 在使用边界框提示的全部 10 种模态上均取得了有竞争力的性能。持续存在的局限是 MedSAM 继承了 SAM 的交互式提示需求——它不提供自动（无提示）分割，而这对于常规临床筛查工作流程是必要的。</p>
+<hr>
+<h3 id="q8-进阶-阐释-swinunetr-如何将-swin-transformer-扩展至三维体积分析">Q8 [进阶] 阐释 SwinUNETR 如何将 Swin Transformer 扩展至三维体积分析</h3>
+<p><strong>Q:</strong> SwinUNETR 如何将 Swin Transformer 适配到医学体积图像，自监督预训练在其中发挥怎样的作用？</p>
+<p><strong>A:</strong> <strong>SwinUNETR</strong>（Tang et al., 2022）将 Swin Transformer 整合到 U-Net 编码器-解码器中，以处理每个体积含 $O(10^7)$ 个体素的三维医学图像（CT、MRI）。标准 ViT 自注意力在这一规模下不可行。SwinUNETR 使用<strong>移位窗口注意力</strong>（shifted window attention），在不重叠的三维窗口内（如 $7 \times 7 \times 7$ 体素）计算注意力，通过在交替层间移位窗口实现跨窗口信息交换。这将注意力复杂度从 $O(n^2)$ 的全局注意力降低至 $O(n \cdot w^3)$ 的局部注意力（其中 $w$ 为窗口大小），使在标准 GPU 硬件上训练成为可能。</p>
+<p>编码器通过图像块合并（类比三维池化）在四个层次化分辨率上处理体积输入，产生分别为输入分辨率 1/4、1/8、1/16 和 1/32 的特征图。带有跳跃连接的 CNN 解码器（结构上与 U-Net 相同）恢复全分辨率分割预测。</p>
+<p>关键地，Tang et al. (2022) 表明，在未标注医学体积上进行<strong>自监督预训练</strong>对于 SwinUNETR 从有限标注数据中泛化至关重要。编码器在 5,050 个未标注 CT 体积上通过四个互补代理任务进行预训练：掩码块修复（MAE 的三维类比）、旋转预测、两个增强视图间的对比学习，以及更粗分辨率下的掩码体积修复。这在任何特定任务监督使用前产生了编码三维解剖结构的编码器权重。微调后的 SwinUNETR 在医学分割十项全能和 BTCV 多器官分割基准上取得了最优结果（Tang et al., 2022），证明了三维自监督预训练可有效迁移到多个分割目标。</p>
+<hr>
+<h2 id="医疗基础模型">医疗基础模型</h2>
+<h3 id="q9-基础-定义医疗基础模型与通用模型微调的区别">Q9 [基础] 定义医疗基础模型与通用模型微调的区别</h3>
+<p><strong>Q:</strong> 医疗基础模型与在医疗数据上微调的通用大模型有何区别？</p>
+<p><strong>A:</strong> <strong>医疗基础模型</strong>（medical foundation model）在大规模多样化医疗数据上预训练——放射科报告、临床笔记、病理图像、生物医学文献、心电图、基因组序列——其明确设计目标是获得可迁移到下游临床任务的广泛医疗能力。与在医疗数据上微调通用模型的区别体现在预训练的专用性、数据规模和涌现能力的广度上。</p>
+<p>通用模型（GPT-4、CLIP）在互联网数据上预训练，其中偶然包含一些医学文本和图像，但这只占训练分布的极小部分。医疗基础模型则将预训练计算资源专门用于医学知识：Med-PaLM 2（Singhal et al., 2023）从通用语言模型出发，使用医生生成的思维链推理进行医学指令调优，同时校准事实准确性和临床推理风格。</p>
+<p>在医疗基础模型规模下涌现、而在微调通用模型中缺失的关键能力包括：（1）<strong>多任务医疗泛化</strong>——单一模型能够回答临床问题、生成放射科报告并解释鉴别诊断；（2）<strong>临床概念基础化</strong>——深入理解医学术语、药物-疾病相互作用、解剖关系和诊断标准；（3）<strong>不确定性感知推理</strong>——医疗基础模型能够表达校准的不确定性（&ldquo;在该临床背景下，此发现更符合 X 而非 Y&rdquo;），而非过度自信的点预测。</p>
+<hr>
+<h3 id="q10-进阶-审视-med-palm-在-usmle-风格基准上达到通过分数的过程">Q10 [进阶] 审视 Med-PaLM 在 USMLE 风格基准上达到通过分数的过程</h3>
+<p><strong>Q:</strong> Med-PaLM 采用了怎样的训练策略和评估方法，其在医学问答上的表现揭示了 LLM 临床推理的什么问题？</p>
+<p><strong>A:</strong> <strong>Med-PaLM</strong>（Singhal et al., 2022）基于 5400 亿参数的 PaLM 语言模型，使用 <strong>MultiMedQA</strong> 进行指令调优——该基准由七个医学问答数据集策划而成：MedQA（USMLE 风格）、MedMCQA、PubMedQA、LiveQA、MedicationQA、MMLU 临床话题和 HealthSearchQA。指令调优同时采用标准少样本提示和<strong>思维链（CoT）</strong> 提示——模型在给出最终答案前生成逐步临床推理，模拟鉴别诊断过程。</p>
+<p>Singhal et al. (2022) 在 MedQA 上取得了 67.6% 的准确率，超越了被认为相当于通过 USMLE 分数的约 60% 阈值——这是首次有 AI 系统在标准化医学执照考试上展现这一能力。除自动化指标外，作者还进行了<strong>医生评估</strong>，使用涵盖事实性、循证推理、潜在危害和完整性的详细评分标准；Med-PaLM 的回答相较于网络搜索基线得到了积极评价，但仍低于专家医生水平。</p>
+<p>关键方法论发现是<strong>提示工程对性能有显著驱动作用</strong>：精心设计的少样本 CoT 示例使 MedQA 上的准确率比标准提示提高了约 9 个百分点。对提示设计的这种依赖是一个重大局限：性能对提示变化不够鲁棒——在非专业用户不使用最优提示方式进行查询的部署场景中，这是个现实问题。</p>
+<hr>
+<h3 id="q11-进阶-分析-med-palm-2-相对于原始-med-palm-的改进">Q11 [进阶] 分析 Med-PaLM 2 相对于原始 Med-PaLM 的改进</h3>
+<p><strong>Q:</strong> 哪些架构和方法论改进使 Med-PaLM 2 在医学基准上大幅超越 Med-PaLM，仍存在哪些差距？</p>
+<p><strong>A:</strong> <strong>Med-PaLM 2</strong>（Singhal et al., 2023）基于 PaLM 2 底座模型构建，引入三项方法论改进，共同将 MedQA 准确率从 67.6% 提升至 86.5%——超越了执业医生在同一基准上的平均得分（约 76%）。</p>
+<p>其一，<strong>更强的底座模型</strong>：PaLM 2 相比 PaLM 改进了预训练数据混合、架构设计和训练配方。PaLM 2 大幅增强的通用推理能力直接转化为医学推理性能，反映出医学问题求解与通用多步推理共享深层结构。</p>
+<p>其二，<strong>通过自我批评的集成细化</strong>（ensemble refinement）：Med-PaLM 2 采用集成细化程序，对同一问题生成多个独立的模型回答，再通过独立的细化过程将这些回答综合为最终答案。这类似于医生会诊：独立回答间的分歧标志着不确定性，细化步骤可识别并纠正错误。Singhal et al. (2023) 表明，集成细化显著优于对独立采样回答进行简单多数投票。</p>
+<p>其三，<strong>对抗性评估与详细医生标注</strong>：评估集包含针对事实错误和不安全建议专门构建的对抗性案例，沿 9 个维度进行标注，包括事实准确性、证据基础、对患者的潜在危害以及临床决策支持的适宜性。</p>
+<p>Singhal et al. (2023) 指出的持续差距是长文本临床推理（病例摘要、多步诊断链），其中事实错误会累积，幻觉引用在没有领域专业知识的情况下难以发现——这对临床部署尤为令人担忧。</p>
+<hr>
+<h3 id="q12-进阶-评估-chexagent-作为胸部-x-光分析统一基础模型的能力">Q12 [进阶] 评估 CheXagent 作为胸部 X 光分析统一基础模型的能力</h3>
+<p><strong>Q:</strong> CheXagent 如何在单一基础模型下统一胸部 X 光分析任务，哪些基准验证了其性能？</p>
+<p><strong>A:</strong> <strong>CheXagent</strong>（Chen et al., 2024）是一个视觉-语言基础模型，旨在将胸部 X 光（CXR）的分类、报告生成、视觉问答和报告摘要统一在单一可指令化模型下。这与此前针对每项 CXR 分析任务分别训练专用模型的范式形成对比。</p>
+<p>CheXagent 的架构由 CXR 专用视觉编码器（从视觉基础模型初始化并在放射影像上微调）、用于对齐放射学专用术语的 BioMedBERT 文本编码器，以及遵循指令的语言模型骨干网络组成。模型在 <strong>CheXinstruct</strong> 上训练——这是一个包含 600 万条指令-回答对的数据集，由现有放射学数据集（包括 CheXpert，Irvin et al., 2019，含来自 65,240 名患者的 224,316 张胸部X光）构建，并辅以 GPT-4 生成的多样化临床查询指令。</p>
+<p>统一训练使模型在<strong>推理时具备任务泛化能力</strong>：单一模型可生成完整放射科报告、回答二元发现查询（&ldquo;是否存在胸腔积液？&quot;）或提供鉴别诊断，输出格式根据指令措辞而条件化。Chen et al. (2024) 使用 <strong>CheXbench</strong>——一个涵盖报告生成质量（RadGraph F1、CheXbert 标签对齐）、临床视觉问答准确率和跨发现一致性的综合评估套件——在 18 个下游任务上评估了 CheXagent。CheXagent 在大多数任务上优于先前单任务和多任务 CXR 模型（Chen et al., 2024）；罕见发现的报告生成仍受限于 CheXpert 中病理的长尾分布。</p>
+<hr>
+<h3 id="q13-进阶-分析-llava-med-面向生物医学视觉问答的数据策略">Q13 [进阶] 分析 LLaVA-Med 面向生物医学视觉问答的数据策略</h3>
+<p><strong>Q:</strong> LLaVA-Med 如何将通用多模态 LLM 适配于生物医学视觉问答，其数据构建策略贡献了什么？</p>
+<p><strong>A:</strong> <strong>LLaVA-Med</strong>（Li et al., 2023）通过从 PMC（PubMed Central）图像-标注配对数据构建高质量指令调优数据集，以 GPT-4 作为指令数据生成器，将 LLaVA（大语言与视觉助手）框架适配到生物医学图像。</p>
+<p>数据流程如下：PMC 提供来自开放获取科学出版物的 150 万+ 生物医学图像-标注配对。每个标注被传递给 GPT-4，后者为每种图像类型生成多样化的指令-回答对：分类问题（&ldquo;此显微镜图像中描绘的是哪种细胞类型？&quot;）、比较问题（&ldquo;此 MRI 中的形态特征与正常表现有何不同？&quot;）和机制推理问题（&ldquo;组织学发现证明了何种病理过程？&quot;）。这创建了<strong>有基础的对话数据</strong>而无需专科标注——成本主要来自 GPT-4 API 调用而非临床专业知识。</p>
+<p>Li et al. (2023) 分两阶段训练 LLaVA-Med：首先，通过下一个 token 预测将视觉编码器（CLIP ViT-L）与 Vicuna LLM 骨干网络在生物医学图像-标注配对上对齐；其次，在带有视觉输入的 GPT-4 生成指令数据上进行指令微调。全部训练在 8 块 A100 GPU 上约一天内完成。</p>
+<p>在 PathVQA（病理学）、VQA-RAD（放射学）和 SLAKE（医学知识）基准上，LLaVA-Med 在封闭式问题上大幅优于通用 VLM，证明领域特定指令调优即使在训练图像与测试模态不同时也能迁移。核心局限是<strong>罕见疾病的幻觉</strong>：模型对 PMC 中低代表性的疾病生成似是而非但事实错误的描述——在罕见疾病患者因更难获得正确诊断而对 AI 辅助审查需求最迫切的临床场景中，这是特别危险的失效模式。</p>
+<hr>
+<h2 id="计算病理学">计算病理学</h2>
+<h3 id="q14-基础-刻画全切片图像分析的独特挑战">Q14 [基础] 刻画全切片图像分析的独特挑战</h3>
+<p><strong>Q:</strong> 全切片图像的哪些属性使计算病理学分析根本性地不同于标准医学图像分析？</p>
+<p><strong>A:</strong> <strong>全切片图像（WSI）</strong> 是在 20× 或 40× 放大倍数下扫描的数字化组织标本，产生分辨率为 100,000×100,000 像素（每张切片 10–20 GB）的图像。这一规模使 WSI 分析有别于所有其他医学成像模态，并带来三个相互关联的挑战。</p>
+<p><strong>端到端学习的显存不可行性</strong>：没有任何 GPU 能将完整 WSI 载入显存。模型必须将切片作为小图像块的集合（通常为 256×256 或 512×512 像素）进行处理，将块级表示聚合为切片级预测。聚合策略——如何将数千个图像块特征合并为单一诊断输出——是计算病理学中的核心研究问题。</p>
+<p><strong>弱监督</strong>：病理学标签（癌症亚型、分级、分子标志物状态）在常规诊断报告中仅在切片级别进行标注。像素级或区域级标注在大型队列中代价极高。因此模型必须在<strong>多实例学习（MIL）</strong> 框架下训练——切片被视为图像块实例的&quot;包&rdquo;，只有包级标签可用，而不知道哪些特定图像块包含诊断证据。</p>
+<p><strong>多尺度诊断推理</strong>：病理诊断整合跨越不同放大倍数的信息：4× 下可见整体组织架构；20× 下可分辨单个细胞和腺体形成；40× 下可识别核形态和有丝分裂象。有效的模型必须跨尺度整合特征——对于使用固定图像块尺寸单尺度输入设计的架构而言，这是一个根本性挑战。</p>
+<hr>
+<h3 id="q15-进阶-审视-clam-对全切片图像的注意力机制弱监督分类">Q15 [进阶] 审视 CLAM 对全切片图像的注意力机制弱监督分类</h3>
+<p><strong>Q:</strong> CLAM 如何实现对 WSI 的弱监督分类，其聚类约束注意力机制在标准 MIL 之外贡献了什么？</p>
+<p><strong>A:</strong> <strong>CLAM</strong>（聚类约束注意力多实例学习，Clustering-constrained Attention Multiple Instance Learning，Lu et al., 2021）是一个弱监督框架，以两项领域特定创新扩展了基于注意力的 MIL。</p>
+<p>在标准注意力 MIL 中，切片被表示为图像块嵌入的包 $\{h_1, \ldots, h_n\}$，切片级分类使用注意力加权表示 $z = \sum_k a_k h_k$，其中注意力权重 $a_k$ 来自可学习的门控注意力机制。切片级交叉熵损失对哪些图像块具有诊断意义不提供任何直接信号——注意力权重纯粹作为提升切片级预测的副产品而被学习。</p>
+<p>CLAM 的第一项创新是<strong>实例级聚类监督</strong>：计算注意力权重后，CLAM 识别注意力最高的 top-$K$ 和最低的 bottom-$K$ 图像块（高注意力假定编码正样本证据，低注意力编码负样本证据），并应用对比聚类损失，将高注意力图像块推向特征空间中切片的类原型，将低注意力图像块推向类外原型。这从包级标签中创建了伪监督的图像块级信号，在无需图像块级标注的情况下提升了学习到的图像块表示的判别性。</p>
+<p>CLAM 的第二项创新是为每个病理类别维护独立注意力分支的<strong>多分支架构</strong>，使不同类别能有特定的注意力模式，而非共享单一注意力机制。Lu et al. (2021) 证明，CLAM 在肺癌亚型分类（TCGA-LUAD vs. TCGA-LUSC）和肾细胞癌亚型分类上，仅使用全监督方法所需标注切片数的 10–20% 即可达到与完全监督方法相当或更优的性能。</p>
+<hr>
+<h3 id="q16-进阶-分析-hipt-对千兆像素病理图像的层次化自监督学习">Q16 [进阶] 分析 HIPT 对千兆像素病理图像的层次化自监督学习</h3>
+<p><strong>Q:</strong> HIPT 如何分解千兆像素 WSI 表示学习问题，层次化自监督预训练相较于扁平块级预训练实现了什么？</p>
+<p><strong>A:</strong> <strong>HIPT</strong>（层次化图像金字塔 Transformer，Hierarchical Image Pyramid Transformer，Chen et al., 2022）通过与组织图像自然结构组织相对应的三级层次化分解来解决 WSI 表示学习问题。</p>
+<p>在最底层，$256 \times 256$ 像素图像块由在来自 TCGA 的 10,678 个 WSI 上通过 <strong>DINO</strong>（无标签自蒸馏）预训练的 ViT-S/16 处理，产生编码局部细胞和腺体形态的 384 维图像块 token。在第二层，$4096 \times 4096$ 像素区域（每个包含 $16 \times 16 = 256$ 个图像块）由第二个 ViT-S/16 表示，该编码器以预先提取的图像块 token 为输入，在其上施加自注意力——同样使用 DINO 预训练。此第二层编码器在区域尺度上学习组织架构。在切片级别，MIL 聚合（均值或注意力池化）汇总完整 WSI 的所有区域 token。</p>
+<p>层次化设计的动机在于：病理特征具有尺度特异性——单个细胞形态在 $256 \times 256$ 分辨率下最相关，腺体和间质排列在 $4096 \times 4096$ 下最相关，肿瘤异质性和空间模式在全切片级别最相关。在每个尺度上独立使用 DINO 预训练编码器，使每个编码器能够独立发展与尺度相适应的表示。</p>
+<p>Chen et al. (2022) 证明 HIPT 在 TCGA 癌症类型的 6 个癌症生存预测任务和 4 个亚型分类任务上均取得了强劲性能。定性上，区域级 ViT 的注意力图在无任何监督的情况下能识别具有诊断意义的组织区域——肿瘤巢、三级淋巴样结构、坏死区域——为学习到的表示捕获了组织级诊断语义提供了可解释的证据。</p>
+<hr>
+<h3 id="q17-进阶-评估病理学专用基础模型的设计考量">Q17 [进阶] 评估病理学专用基础模型的设计考量</h3>
+<p><strong>Q:</strong> 有效的计算病理学基础模型与在病理图像上微调的通用视觉模型在数据、架构和预训练选择上有何区别？</p>
+<p><strong>A:</strong> 计算病理学基础模型面临领域特定挑战，而在病理图像上微调通用视觉模型并不能充分应对这些挑战。</p>
+<p><strong>染色变异性作为系统性分布偏移</strong>：苏木精-伊红（H&amp;E）染色在不同实验室、扫描仪和组织处理协议之间存在显著差异。在多机构多样化 WSI 上预训练的基础模型天然地暴露于这种变异，学习到对染色不变的组织表示。而在单一机构数据上微调的通用模型则将机构特定的染色方式嵌入为虚假特征，降低了跨站点的泛化能力。</p>
+<p><strong>块级预训练与切片级临床任务的权衡</strong>：计算病理学基础模型因显存限制而在块级进行预训练，但被部署于切片级临床预测。预训练目标必须产生对组织表型具有判别性的图像块特征——而非通用纹理特征——以支持有效的下游聚合。基于 DINO 的自蒸馏（如 HIPT 中所用，Chen et al., 2022）产生具有与组织结构对齐的强空间注意力属性的特征，在下游 MIL 聚合上优于 ImageNet 预训练的 ViT 特征。</p>
+<p><strong>预训练数据规模与癌症类型覆盖</strong>：有效的基础模型需要在多样化的癌症类型、组织类型和机构数据上预训练。TCGA 提供了跨 33 种癌症类型的约 30,000 个诊断 WSI，是主要的公开预训练语料库；补充了机构数据的模型在分布外癌症类型上持续优于仅使用 TCGA 预训练的基线。</p>
+<p><strong>放大倍数编码</strong>：病理诊断依赖于放大倍数——同一组织区域在 4× 与 40× 下具有不同的诊断意义。不编码放大倍数级别（通过显式位置嵌入元数据）的基础模型无法在每个尺度上区分具有诊断意义与无意义的特征，限制了其作为通用病理学编码器的适用性。</p>
+<hr>
+<h2 id="评测与临床落地">评测与临床落地</h2>
+<h3 id="q18-基础-辨别医学图像分割的关键评估指标">Q18 [基础] 辨别医学图像分割的关键评估指标</h3>
+<p><strong>Q:</strong> 医学影像中用于评估分割模型的定量指标有哪些，为何单一指标往往不够充分？</p>
+<p><strong>A:</strong> 医学图像分割用两类互补指标来评估，分别针对质量的不同方面。</p>
+<p><strong>重叠类指标</strong>衡量预测掩码与真实掩码之间的体积一致性。<strong>Dice 相似系数（DSC）</strong> 是使用最广泛的指标：$\text{DSC} = \frac{2|P \cap G|}{|P| + |G|}$，其中 $P$ 和 $G$ 分别为预测掩码和真实掩码。DSC 直接对应于 F1 分数，且对类别不平衡具有鲁棒性（不同于像素准确率）。然而，DSC 对边界精度不敏感：捕获了肿瘤主体但边界略有侵蚀的预测可能 $\text{DSC} > 0.95$，同时未能精确勾画肿瘤边缘——而对于毫米级误差直接影响肿瘤剂量覆盖和相邻器官保护的放疗计划，这至关重要。</p>
+<p><strong>表面距离指标</strong>衡量边界质量。<strong>第 95 百分位 Hausdorff 距离（HD95）</strong> 计算预测轮廓与真实轮廓间对称表面距离的第 95 百分位，舍弃最差 5% 的表面点以降低对标注不一致性引起的孤立异常值的敏感度。<strong>归一化表面距离（NSD）</strong> 衡量预测表面点中在临床规定容差 $\tau$（通常为 1–2 mm）范围内的比例，直接编码临床边界精度要求。</p>
+<p>在实践中，医学分割论文以 DSC 作为主要指标（可解释为体积重叠的精确率-召回率综合度量），以 HD95 作为次要指标（捕获边界质量）。单独报告 DSC 对于胰管、脊髓、视网膜血管等细小或细长结构可能具有误导性——这些结构的微小体积误差可能对应于影响临床实用性的灾难性大表面距离违反。</p>
+<hr>
+<h3 id="q19-进阶-刻画分布偏移对医疗-ai-部署性能的影响">Q19 [进阶] 刻画分布偏移对医疗 AI 部署性能的影响</h3>
+<p><strong>Q:</strong> 临床部署中遭遇的分布偏移形式与标准计算机视觉基准中有何不同，哪些策略可缓解其影响？</p>
+<p><strong>A:</strong> 医疗 AI 模型面临的系统性分布偏移，比标准鲁棒性基准中研究的自然图像分布偏移更具后果性且更难检测。</p>
+<p><strong>扫描仪与协议偏移</strong>是部署中的主要挑战。在采用特定重建核的西门子 FLASH CT 上训练的模型，当部署在具有不同噪声特性和层厚的 GE Revolution CT 上时可能失效。在 1.25 mm 层厚下训练的肺结节检测模型因部分体积平均效应而系统性地漏检 5 mm 层厚下的结节。与自然图像偏移（光照、视角）不同，扫描仪偏移对人类观察者不可见——图像在放射科医生看来是等价的——这使得仅凭目视检查无法发现偏移，必须依赖统计性能监控。</p>
+<p><strong>站点与群体偏移</strong>源于训练与部署群体间的人口统计学差异。主要在特定族裔群体上训练的糖尿病视网膜病变筛查模型，在代表性不足的群体上特异性较低，原因在于眼底色素和基线疾病患病率存在差异。这种偏移在已部署系统的回顾性审计中有充分文献记录，并推动了 FDA 要求对不同人口统计亚组进行算法偏差评估的指导意见。</p>
+<p><strong>时间偏移</strong>（概念漂移）发生在疾病流行病学、治疗实践和成像协议随时间演变时。在新冠疫情前训练的肺炎检测器在新冠肺炎上表现下降，尽管新冠肺炎与其他病毒性肺炎在视觉上有重叠——仅疾病患病率的变化即可改变操作点，即使视觉特征相似。</p>
+<p>缓解策略包括：（1）<strong>联邦学习</strong>（federated learning），在不集中患者数据的情况下跨多个机构训练模型，在训练期间将模型暴露于多站点变异；（2）<strong>域自适应</strong>（domain adaptation），使用未标注的目标域图像通过对抗训练或实例重加权来对齐特征分布；（3）<strong>模型卡和数据表</strong>（model cards and data sheets），记录训练数据人口统计信息，使部署团队能够前瞻性地评估偏移风险；（4）<strong>持续前瞻性监控</strong>，通过滚动性能仪表板检测模型置信度与实测准确率发生分歧的时刻。</p>
+<hr>
+<h3 id="q20-进阶-评估医疗-ai-监管审批与临床部署的主要障碍">Q20 [进阶] 评估医疗 AI 监管审批与临床部署的主要障碍</h3>
+<p><strong>Q:</strong> 哪些要求和失效模式将高性能研究原型与临床部署的医疗 AI 系统区分开来？</p>
+<p><strong>A:</strong> 医疗 AI 的临床转化在从同行评审发表到患者使用的多个环节失败，每个环节都提出了回顾性模型开发无法满足的要求。</p>
+<p><strong>监管路径与自适应模型治理</strong>：在美国，基于 AI 的医疗设备作为医疗软件（SaMD）由 FDA 监管。大多数影像 AI 系统通过 510(k) 途径寻求 II 类许可，要求证明与先行设备的实质等同性。FDA 2021 年 AI/ML SaMD 行动计划引入了<strong>预定变更控制计划</strong>（predetermined change control plans）：制造商必须在部署前前瞻性地规定模型更新将如何验证——因为在新数据上重新训练的模型可能在初始许可后改变性能特征。在欧盟，医疗器械法规（MDR）施加了类似的上市后临床跟踪要求。</p>
+<p><strong>前瞻性与回顾性性能差距</strong>：在策划测试集上的回顾性研究持续高估真实世界性能。回顾性队列研究中敏感性达 95% 的放射影像 AI 模型，在前瞻性部署中可能只有 80% 的敏感性——原因在于病例构成差异、工作流程整合导致的警报疲劳，以及研究标注与临床真实标注之间的标签质量差异。评估 AI 辅助与非辅助临床工作流程的随机对照试验是证明临床获益的金标准，但需要多年时间周期和大量基础设施投入。</p>
+<p><strong>可解释性与责任</strong>：临床医生对诊断错误承担法律责任。在不理解 AI 建议依据的情况下采纳该建议，产生了医学上和法律上均站不住脚的问责空白。显著性图和基于注意力的解释展示的是模型关注的位置，而非该区域与输出关联的原因——这对临床接受度远远不够。信任校准要求模型准确表达自身的不确定性，将低置信度案例路由给人工审核，而非强行给出预测。</p>
+<p><strong>标注与验证成本</strong>：在完整部署群体中验证模型需要大规模、有代表性、专家标注的验证数据集。对于罕见疾病，此类数据集可能仅存在于三级医疗中心之外。这产生了循环依赖：积累罕见疾病案例所需规模的部署，被部署前必须满足的验证要求所阻止。</p>
+<hr>
+<h2 id="快速参考">快速参考</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>难度</th>
+          <th>主题</th>
+          <th>章节</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>基础</td>
+          <td>医学影像挑战</td>
+          <td>医学影像基础</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>基础</td>
+          <td>U-Net 架构意义</td>
+          <td>医学影像基础</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>进阶</td>
+          <td>自监督预训练应对标注稀缺</td>
+          <td>医学影像基础</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>进阶</td>
+          <td>nnU-Net 自动化配置</td>
+          <td>医学影像基础</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>基础</td>
+          <td>Transformer 分割架构动机</td>
+          <td>分割架构</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>进阶</td>
+          <td>TransUNet 混合 CNN-Transformer 设计</td>
+          <td>分割架构</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>进阶</td>
+          <td>SAM 可迁移性与 MedSAM 适配</td>
+          <td>分割架构</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>进阶</td>
+          <td>SwinUNETR 用于三维体积分析</td>
+          <td>分割架构</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>基础</td>
+          <td>医疗基础模型定义</td>
+          <td>医疗基础模型</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>进阶</td>
+          <td>Med-PaLM 在 USMLE 基准上的表现</td>
+          <td>医疗基础模型</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>进阶</td>
+          <td>Med-PaLM 2 的改进</td>
+          <td>医疗基础模型</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>进阶</td>
+          <td>CheXagent 用于胸部 X 光分析</td>
+          <td>医疗基础模型</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>进阶</td>
+          <td>LLaVA-Med 用于生物医学视觉问答</td>
+          <td>医疗基础模型</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>基础</td>
+          <td>全切片图像分析挑战</td>
+          <td>计算病理学</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>进阶</td>
+          <td>CLAM 弱监督全切片分类</td>
+          <td>计算病理学</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>进阶</td>
+          <td>HIPT 层次化自监督学习</td>
+          <td>计算病理学</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>进阶</td>
+          <td>病理学基础模型设计考量</td>
+          <td>计算病理学</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>基础</td>
+          <td>分割评估指标</td>
+          <td>评测与临床落地</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>进阶</td>
+          <td>医疗 AI 部署中的分布偏移</td>
+          <td>评测与临床落地</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>进阶</td>
+          <td>临床落地障碍</td>
+          <td>评测与临床落地</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li>Ronneberger et al., <a href="https://arxiv.org/abs/1505.04597">U-Net: Convolutional Networks for Biomedical Image Segmentation</a> (2015)</li>
+<li>Zhang et al., <a href="https://arxiv.org/abs/2010.00747">Contrastive Learning of Medical Visual Representations from Paired Images and Text</a> (2020)</li>
+<li>Cao et al., <a href="https://arxiv.org/abs/2105.05537">Swin-Unet: Unet-like Pure Transformer for Medical Image Segmentation</a> (2021)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/2102.04306">TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation</a> (2021)</li>
+<li>Isensee et al., <a href="https://arxiv.org/abs/1809.10486">nnU-Net: A Self-configuring Method for Deep Learning-based Biomedical Image Segmentation</a> (2021)</li>
+<li>Lu et al., <a href="https://arxiv.org/abs/2004.09666">Data-Efficient and Weakly Supervised Computational Pathology on Whole-Slide Images</a> (2021)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/2206.02647">Scaling Vision Transformers to Gigapixel Images via Hierarchical Self-Supervised Learning</a> (2022)</li>
+<li>Tang et al., <a href="https://arxiv.org/abs/2201.01266">Self-Supervised Pre-Training of Swin Transformers for 3D Medical Image Analysis</a> (2022)</li>
+<li>Irvin et al., <a href="https://arxiv.org/abs/1901.07031">CheXpert: A Large Chest Radiograph Dataset with Uncertainty Labels and Expert Comparison</a> (2019)</li>
+<li>Singhal et al., <a href="https://arxiv.org/abs/2212.13138">Large Language Models Encode Clinical Knowledge</a> (2022)</li>
+<li>Kirillov et al., <a href="https://arxiv.org/abs/2304.02643">Segment Anything</a> (2023)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2306.00890">LLaVA-Med: Training a Large Language-and-Vision Assistant for Biomedicine in One Day</a> (2023)</li>
+<li>Singhal et al., <a href="https://arxiv.org/abs/2305.09617">Towards Expert-Level Medical Question Answering with Large Language Models</a> (2023)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/2401.12208">CheXagent: Towards a Foundation Model for Chest X-Ray Analysis</a> (2024)</li>
+<li>Ma et al., <a href="https://arxiv.org/abs/2304.12306">Segment Anything in Medical Images</a> (2024)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+
