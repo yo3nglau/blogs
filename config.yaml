@@ -27,12 +27,15 @@ menu:
     - name: Home
       url: ""
       weight: 1
+    - name: About
+      url: "about/"
+      weight: 2
     - name: Categories
       url: "categories/"
-      weight: 2
+      weight: 3
     - name: Tags
       url: "tags/"
-      weight: 3
+      weight: 4
 
 params:
   description: "With template [XMin](https://github.com/yihui/hugo-xmin) written by [Yihui Xie](https://yihui.org/) empowered by Hugo and blogdown."
