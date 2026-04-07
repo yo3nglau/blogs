@@ -6,13 +6,27 @@
     <description>Recent content in Tags on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Deep Learning</title>
       <link>https://yo3nglau.github.io/blogs/zh/tags/deep-learning/</link>
-      <pubDate>Thu, 02 Apr 2026 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/zh/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Knowledge Distillation</title>
+      <link>https://yo3nglau.github.io/blogs/zh/tags/knowledge-distillation/</link>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/tags/knowledge-distillation/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Model Compression</title>
+      <link>https://yo3nglau.github.io/blogs/zh/tags/model-compression/</link>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/tags/model-compression/</guid>
       <description></description>
     </item>
     <item>

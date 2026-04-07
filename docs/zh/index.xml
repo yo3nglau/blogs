@@ -6,8 +6,15 @@
     <description>Recent content on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>知识蒸馏：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/knowledge-distillation-interview-questions-and-answers/</link>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/knowledge-distillation-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;知识蒸馏基础&#34;&gt;知识蒸馏基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-解释软标签的动机&#34;&gt;Q1 [基础] 解释软标签的动机&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 为什么教师网络输出的软标签比独热标签能提供更丰富的训练信号？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 独热标签只编码了哪个类别是正确的，丢弃了所有关于不同类别之间相对相似性的信息。相比之下，教师的输出分布会对相关类别赋予非零概率——例如，一张猫的图像可能在&amp;quot;老虎&amp;quot;上获得一定的概率质量，而在&amp;quot;卡车&amp;quot;上接近为零——这反映了真实标签所缺失的已学习相似性结构。&lt;/p&gt;&#xA;&lt;p&gt;Hinton et al. (2015) 在现代知识蒸馏框架中将这一直觉形式化。当学生模型最小化与教师软化分布之间的交叉熵时，它获得了丰富的梯度信号，将其表征约束在教师的内部几何结构附近，而不仅仅是教师的 top-1 决策。每个软标签紧凑地编码了教师在整个训练集上学到的类间关系。&lt;/p&gt;&#xA;&lt;p&gt;从实验来看，当教师对&amp;quot;暗知识&amp;quot;（dark knowledge）类别——即正确类别以外的预测——分配显著概率质量时，软标签的信息量最为丰富。在 MNIST 上，Hinton et al. (2015) 证明了即使教师从未在数字&amp;quot;3&amp;quot;上训练过，经过蒸馏的模型仍能泛化到&amp;quot;3&amp;quot;，因为其他数字的软标签隐式地传递了与&amp;quot;3&amp;quot;相关的视觉结构。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-描述知识蒸馏中的温度缩放&#34;&gt;Q2 [基础] 描述知识蒸馏中的温度缩放&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 温度超参数如何控制教师分布的尖锐程度，为何需要对蒸馏损失施加缩放因子？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 标准 softmax 将 logit $z_i$ 转化为概率 $p_i = \exp(z_i) / \sum_j \exp(z_j)$。温度缩放的 softmax 在 softmax 之前将每个 logit 除以 $T$：$p_i^{(T)} = \exp(z_i / T) / \sum_j \exp(z_j / T)$。当 $T = 1$ 时还原为标准分布；当 $T &gt; 1$ 时分布变得更均匀，非最大类别的概率升高。&lt;/p&gt;&#xA;&lt;p&gt;完整的蒸馏损失将硬标签交叉熵项与软标签 KL 散度结合：&lt;/p&gt;&#xA;$$\mathcal{L}_\text{KD} = (1 - \alpha)\,\mathcal{L}_\text{CE}(y,\, p_S) + \alpha\, T^2\,\mathrm{KL}\!\left(p_T^{(T)} \,\Big\|\, p_S^{(T)}\right)$$&lt;p&gt;因子 $T^2$ 补偿了两个分布被软化时发生的梯度衰减：KL 项关于 logit 的梯度以 $1/T^2$ 为尺度缩小，因此乘以 $T^2$ 可以将其恢复到与交叉熵梯度相同的数量级（Hinton et al., 2015）。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>具身智能：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/embodied-ai-interview-questions-and-answers/</link>
