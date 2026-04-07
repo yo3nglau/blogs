@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://yo3nglau.github.io/blogs/categories/</loc>
-    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -16,7 +16,7 @@
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/deep-learning/</loc>
-    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -26,6 +26,57 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/tags/deep-learning/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/</loc>
+    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/categories/interview/</loc>
+    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/categories/interview/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/categories/interview/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/knowledge-distillation/</loc>
+    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/knowledge-distillation-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/model-compression/</loc>
+    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/</loc>
+    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/</loc>
+    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/embodied-ai/</loc>
@@ -52,32 +103,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/post/embodied-ai-interview-questions-and-answers/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/</loc>
-    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/categories/interview/</loc>
-    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/categories/interview/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/categories/interview/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/medical-ai/</loc>
@@ -119,9 +144,6 @@
                 href="https://yo3nglau.github.io/blogs/tags/medical-imaging/"
                 />
   </url><url>
-    <loc>https://yo3nglau.github.io/blogs/post/</loc>
-    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/robotics/</loc>
     <lastmod>2026-04-02T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -133,19 +155,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/tags/robotics/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/tags/</loc>
-    <lastmod>2026-04-02T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/agent/</loc>

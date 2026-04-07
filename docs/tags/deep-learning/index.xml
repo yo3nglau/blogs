@@ -6,8 +6,15 @@
     <description>Recent content in Deep Learning on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 02 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 07 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Knowledge Distillation: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/knowledge-distillation-interview-questions-and-answers/</link>
+      <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/knowledge-distillation-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;foundations-of-knowledge-distillation&#34;&gt;Foundations of Knowledge Distillation&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-the-motivation-for-soft-targets&#34;&gt;Q1 [Basic] Explain the motivation for soft targets&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Why do soft targets from a teacher network provide richer training signal than one-hot labels?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; One-hot labels encode only which class is correct, discarding all information about relative similarity among incorrect classes. A teacher&amp;rsquo;s output distribution, by contrast, assigns non-trivial probabilities to related classes — a cat image may receive modest probability mass on &amp;ldquo;tiger&amp;rdquo; and near-zero on &amp;ldquo;truck&amp;rdquo; — reflecting learned similarity structure absent from the ground-truth label.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Embodied AI: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/embodied-ai-interview-questions-and-answers/</link>
