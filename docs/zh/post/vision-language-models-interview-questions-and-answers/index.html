@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>视觉-语言模型：面试问题与推荐回答 | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">视觉-语言模型：面试问题与推荐回答</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/08</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/vision-language-models">Vision-Language Models</a> <a href="/blogs/tags/multimodal-learning">Multimodal Learning</a> 
+  
+  
+</p>
+</div>
+
+
+<p style="text-align: center;">
+  
+  <a href="/blogs/post/vision-language-models-interview-questions-and-answers/">View English Version</a>
+  
+</p>
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#对比视觉-语言预训练">对比视觉-语言预训练</a>
+      <ul>
+        <li><a href="#q1-基础-解释-clip-的对比训练目标">Q1 [基础] 解释 CLIP 的对比训练目标</a></li>
+        <li><a href="#q2-基础-描述-clip-的零样本迁移机制">Q2 [基础] 描述 CLIP 的零样本迁移机制</a></li>
+        <li><a href="#q3-基础-解释-align-如何扩展到噪声网络数据">Q3 [基础] 解释 ALIGN 如何扩展到噪声网络数据</a></li>
+        <li><a href="#q4-进阶-分析-siglip-的-sigmoid-损失及其批量大小影响">Q4 [进阶] 分析 SigLIP 的 Sigmoid 损失及其批量大小影响</a></li>
+      </ul>
+    </li>
+    <li><a href="#多模态模型的架构设计">多模态模型的架构设计</a>
+      <ul>
+        <li><a href="#q5-基础-描述-flamingo-的冻结模型架构">Q5 [基础] 描述 Flamingo 的冻结模型架构</a></li>
+        <li><a href="#q6-基础-解释-blip-2-中的-q-former">Q6 [基础] 解释 BLIP-2 中的 Q-Former</a></li>
+        <li><a href="#q7-进阶-分析-llava-的极简架构及其数据驱动洞察">Q7 [进阶] 分析 LLaVA 的极简架构及其数据驱动洞察</a></li>
+        <li><a href="#q8-进阶-比较交叉注意力融合与投影融合">Q8 [进阶] 比较交叉注意力融合与投影融合</a></li>
+      </ul>
+    </li>
+    <li><a href="#多模态指令微调与能力">多模态指令微调与能力</a>
+      <ul>
+        <li><a href="#q9-基础-描述视觉指令微调及其数据需求">Q9 [基础] 描述视觉指令微调及其数据需求</a></li>
+        <li><a href="#q10-进阶-解释-instructblip-的指令感知-q-former">Q10 [进阶] 解释 InstructBLIP 的指令感知 Q-Former</a></li>
+        <li><a href="#q11-进阶-分析-llava-15-的改进及其意义">Q11 [进阶] 分析 LLaVA-1.5 的改进及其意义</a></li>
+        <li><a href="#q12-进阶-识别多模态-llm-相对人类能力的失效之处">Q12 [进阶] 识别多模态 LLM 相对人类能力的失效之处</a></li>
+        <li><a href="#q13-进阶-比较闭源与开源-vlm-在多模态基准上的表现">Q13 [进阶] 比较闭源与开源 VLM 在多模态基准上的表现</a></li>
+      </ul>
+    </li>
+    <li><a href="#视觉定位与稠密视觉理解">视觉定位与稠密视觉理解</a>
+      <ul>
+        <li><a href="#q14-基础-解释-glip-基于定位的开放词汇检测">Q14 [基础] 解释 GLIP 基于定位的开放词汇检测</a></li>
+        <li><a href="#q15-进阶-解释-grounding-dino-的紧密特征融合策略">Q15 [进阶] 解释 Grounding DINO 的紧密特征融合策略</a></li>
+        <li><a href="#q16-进阶-对比指代表达理解与视觉问答">Q16 [进阶] 对比指代表达理解与视觉问答</a></li>
+        <li><a href="#q17-进阶-描述-vlm-如何扩展到像素级分割任务">Q17 [进阶] 描述 VLM 如何扩展到像素级分割任务</a></li>
+      </ul>
+    </li>
+    <li><a href="#幻觉评估基准与前沿方向">幻觉、评估基准与前沿方向</a>
+      <ul>
+        <li><a href="#q18-基础-定义目标幻觉及其衡量方式">Q18 [基础] 定义目标幻觉及其衡量方式</a></li>
+        <li><a href="#q19-进阶-解释基准性能与现实可靠性之间的差距">Q19 [进阶] 解释基准性能与现实可靠性之间的差距</a></li>
+        <li><a href="#q20-进阶-分析视频-语言模型的架构挑战">Q20 [进阶] 分析视频-语言模型的架构挑战</a></li>
+      </ul>
+    </li>
+    <li><a href="#快速参考">快速参考</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="对比视觉-语言预训练">对比视觉-语言预训练</h2>
+<h3 id="q1-基础-解释-clip-的对比训练目标">Q1 [基础] 解释 CLIP 的对比训练目标</h3>
+<p><strong>Q:</strong> CLIP 的核心训练目标是什么，它如何使图像表征能够跨任务泛化？</p>
+<p><strong>A:</strong> <strong>CLIP</strong>（Radford et al., 2021）通过最大化匹配图像-文本对之间的余弦相似度、同时最小化不匹配对之间的相似度，对图像编码器和文本编码器进行联合训练。给定一批 $N$ 个图像-文本对，对称 InfoNCE 损失将 $N$ 个同索引对视为正样本，将剩余的 $N^2 - N$ 个跨对视为负样本：</p>
+$$\mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N}\!\left[\log\frac{\exp(\mathrm{sim}(v_i, t_i)/\tau)}{\sum_{j}\exp(\mathrm{sim}(v_i, t_j)/\tau)} + \log\frac{\exp(\mathrm{sim}(t_i, v_i)/\tau)}{\sum_{j}\exp(\mathrm{sim}(t_i, v_j)/\tau)}\right]$$<p>其中 $\mathrm{sim}(\cdot,\cdot)$ 为余弦相似度，$\tau$ 为可学习温度。该目标将两个编码器推向共享嵌入空间，使语义相关的图像-文本对在其中聚集。</p>
+<p>CLIP 在 4 亿图像-文本对（WebImageText）上训练，图像编码器为 ResNet 或视觉 Transformer，文本编码器为 Transformer。与依赖精心策划数据集的先前工作不同，CLIP 利用网络爬取的图像-描述对中隐含的自然语言监督。其结果是一个学习到与语言对齐的语义丰富特征的视觉编码器，无需任务特定微调即可迁移到分类、检索和生成任务。CLIP ViT-L/14 在 ImageNet 上实现 76.2% 的零样本 top-1 准确率（Radford et al., 2021）。</p>
+<hr>
+<h3 id="q2-基础-描述-clip-的零样本迁移机制">Q2 [基础] 描述 CLIP 的零样本迁移机制</h3>
+<p><strong>Q:</strong> CLIP 如何在推理时将下游分类任务转化为相似度匹配问题，哪些设计选择影响零样本准确率？</p>
+<p><strong>A:</strong> CLIP 的零样本分类通过对所有类别名称进行文本编码，并选取文本嵌入与图像嵌入最相似的类别来实现。对于 $C$ 个类别：</p>
+$$p(y = c \mid x) \propto \exp\!\left(\mathrm{sim}(f_v(x),\, f_t(\text{``a photo of a \{class\}_c''}))/\tau\right)$$<p>推理时不发生梯度更新——直接应用预训练好的相似度函数。</p>
+<p><strong>提示工程</strong>（prompt engineering）对零样本准确率影响显著。使用&quot;a photo of a {class}&ldquo;比直接使用类别名称效果更好，因为网络文本中很少出现孤立的类别标签。对 80 个提示模板进行集成（例如&quot;a photo of many {class}&quot;、&ldquo;a photo of the large {class}&quot;），相比单一模板可将 ImageNet 零样本准确率提升最多 3.5 个百分点（Radford et al., 2021）。</p>
+<p><strong>分布偏移鲁棒性</strong>是另一个关键特性：由于未使用下游数据集的标注数据，CLIP 不会过拟合于数据集特有的虚假相关性。在分布偏移的 ImageNet 变体（ImageNet-V2、-Sketch、-A、-R）上，CLIP 维持了显著高于微调 ResNet 的准确率，表明语言监督促使模型学习语义上有意义的特征，而非数据集特有的捷径。</p>
+<hr>
+<h3 id="q3-基础-解释-align-如何扩展到噪声网络数据">Q3 [基础] 解释 ALIGN 如何扩展到噪声网络数据</h3>
+<p><strong>Q:</strong> ALIGN 的预训练方法与 CLIP 有何不同，其结果揭示了数据规模与数据质量各自扮演怎样的角色？</p>
+<p><strong>A:</strong> <strong>ALIGN</strong>（Jia et al., 2021）将对比视觉-语言预训练扩展至 18 亿条来自互联网的噪声图像-文本对，仅进行最少量的数据清洗——只用简单的基于规则的过滤去除极短的替代文本、重复项和不雅内容。与 CLIP 对 4 亿 WebImageText 数据集进行大量筛选不同，ALIGN 依赖规模来弥补噪声。</p>
+<p>ALIGN 使用 EfficientNet-L2 作为图像编码器，BERT 作为文本编码器，以等价于 InfoNCE 的归一化 softmax 损失训练。尽管在噪声更大的数据上训练，ALIGN 在 ImageNet 上取得了强劲的零样本性能，并在 MSCOCO 和 Flickr30k 上实现了有竞争力的跨模态检索性能（Jia et al., 2021），在相当规模下与 CLIP 旗鼓相当或有所超越。</p>
+<p>核心发现是：在所研究的规模下，视觉-语言预训练的瓶颈在于数据规模而非数据质量。网络爬取的数据尽管有噪声，却提供了近乎无限的图像-文本共现，编码了视觉概念的自然多样性。这使得后续工作转向以轻量过滤收集超大数据集，而非昂贵的人工策划，影响了此后几乎所有大型多模态模型的数据策略。</p>
+<hr>
+<h3 id="q4-进阶-分析-siglip-的-sigmoid-损失及其批量大小影响">Q4 [进阶] 分析 SigLIP 的 Sigmoid 损失及其批量大小影响</h3>
+<p><strong>Q:</strong> SigLIP 的 Sigmoid 损失与 CLIP 中基于 Softmax 的 InfoNCE 有何不同，这种解耦带来了哪些实际优势？</p>
+<p><strong>A:</strong> CLIP 中的 InfoNCE 损失对每个锚点在批内所有 $N$ 个对上施加 softmax，将每个正样本对与所有 $N-1$ 个负样本归一化：</p>
+$$\mathcal{L}_\text{InfoNCE} = -\frac{1}{N}\sum_i \log \frac{\exp(\mathrm{sim}(v_i, t_i)/\tau)}{\sum_j \exp(\mathrm{sim}(v_i, t_j)/\tau)}$$<p>这种全局归一化将批内所有样本耦合在一起：一对样本的梯度依赖于其他所有对的相似度。因此，InfoNCE 对批量大小高度敏感——更大的批次提供更多负样本和更尖锐的对比信号，这就是为什么 CLIP 需要极大批量（最多 32,768）才能有效训练。</p>
+<p><strong>SigLIP</strong>（Zhai et al., 2023）将其替换为对每个样本对独立施加的 Sigmoid 二元交叉熵：</p>
+$$\mathcal{L}_\text{SigLIP} = -\frac{1}{N^2}\sum_{i,j} \log \sigma\!\left(z_{ij} \cdot y_{ij} \cdot t - b\right)$$<p>其中 $z_{ij} = \mathrm{sim}(v_i, t_j)$，匹配对 $y_{ij} = +1$，不匹配对 $y_{ij} = -1$，$t$ 为可学习温度，$b$ 为可学习偏置。每对样本独立处理——无需对批次进行归一化。</p>
+<p>实际优势有两方面。其一，SigLIP 将批量大小与归一化解耦：由于不存在需要同时比较所有样本对的 softmax 分母，该方法对批量大小不那么敏感，可以用更小的批次训练而不出现性能崩溃。其二，来自多个来源的正样本对（来自不同数据集的描述）可以更自然地融入，因为它们不会相互影响各自的归一化。SigLIP 使用 ViT-So400M 在 ImageNet 上实现 83.1% 的零样本 top-1 准确率（Zhai et al., 2023），在相当模型规模下超越 CLIP。其表征此后已成为下游多模态 LLM（包括 LLaVA-1.5 和 InternVL）广泛使用的视觉骨干网络。</p>
+<hr>
+<h2 id="多模态模型的架构设计">多模态模型的架构设计</h2>
+<h3 id="q5-基础-描述-flamingo-的冻结模型架构">Q5 [基础] 描述 Flamingo 的冻结模型架构</h3>
+<p><strong>Q:</strong> Flamingo 引入了哪些组件，在不微调预训练视觉编码器和语言模型的情况下将二者连接起来？</p>
+<p><strong>A:</strong> <strong>Flamingo</strong>（Alayrac et al., 2022）将视觉编码器（预训练的 NFNet）和语言模型（Chinchilla 70B）均保持冻结，并在二者之间插入两个可学习组件。</p>
+<p>第一个是 <strong>Perceiver Resampler</strong>：一个交叉注意力模块，将任意数量输入图像或视频帧产生的可变数量视觉 token 映射为固定的 64 个视觉 token。无论输入分辨率或帧数如何，这都提供了紧凑的固定大小视觉表征，语言模型可以以可预测的计算成本高效处理。</p>
+<p>第二个是一组<strong>交叉注意力层</strong>，被交织插入冻结 LLM 的自注意力层之间。在每个插入位置，LLM 的隐藏状态对这 64 个视觉 token 做交叉注意力，将视觉信息注入语言生成过程。这些层通过初始化为零的可学习 $\tanh$ 门控系数进行门控，确保视觉贡献在训练开始时为中性，随后逐渐被整合。</p>
+<p>冻结方案在只训练交叉注意力层和 Perceiver Resampler（80B 总参数中约 10B）的同时，保留了语言模型已有的能力。Flamingo 80B 在 32 个上下文示例下于 VQAv2 上达到 82.0%，无需更新任何任务特定权重即超越了当时的微调模型（Alayrac et al., 2022）。该架构还继承了 LLM 的少样本学习能力：在上下文提示中提供图像-问题-答案三元组示例，无需梯度更新即可引导模型。</p>
+<hr>
+<h3 id="q6-基础-解释-blip-2-中的-q-former">Q6 [基础] 解释 BLIP-2 中的 Q-Former</h3>
+<p><strong>Q:</strong> Q-Former 解决了 BLIP-2 中的什么问题，它如何充当冻结视觉模型和语言模型之间的桥梁？</p>
+<p><strong>A:</strong> <strong>BLIP-2</strong>（Li et al., 2023a）解决了在不微调任意一方的情况下，将高维冻结图像编码器（例如参数量 14 亿、每张图像产生数百 token 的 ViT-G）与冻结 LLM 相连的挑战。直接将所有视觉 token 输入 LLM 在计算上代价高昂，且需要 LLM 解读其在语言预训练中从未接触过的原始视觉特征。</p>
+<p><strong>Q-Former</strong>（查询 Transformer）是一个含 32 个可学习查询向量的 1.88 亿参数模块。这些查询通过交叉注意力与图像特征交互，并通过自注意力相互交互。无论输入图像大小如何，输出始终是 32 个查询向量，通过一个线性层投影到 LLM 的输入维度，提供紧凑的视觉表征。</p>
+<p>BLIP-2 分两阶段训练 Q-Former。第一阶段在图像编码器冻结的情况下，通过分别控制查询 token 能否关注文本的注意力掩码，对图像-语言匹配、图像-文本对比学习、图像引导的文本生成三个目标联合训练 Q-Former。第二阶段将 Q-Former 输出接入冻结 LLM，训练其将视觉特征转化为 LLM 可生成的软视觉提示。</p>
+<p>Q-Former 充当信息瓶颈，只提取与语言最相关的视觉信息，过滤掉会干扰 LLM 的低层图像统计量。BLIP-2 搭配 FlanT5-XXL 在 VQAv2 上达到 65.0%（Li et al., 2023a），无需对 LLM 进行任何下游微调。</p>
+<hr>
+<h3 id="q7-进阶-分析-llava-的极简架构及其数据驱动洞察">Q7 [进阶] 分析 LLaVA 的极简架构及其数据驱动洞察</h3>
+<p><strong>Q:</strong> LLaVA 的设计选择与 Flamingo 或 BLIP-2 有何不同，其结果揭示了架构复杂度与数据质量各自的相对重要性？</p>
+<p><strong>A:</strong> <strong>LLaVA</strong>（Liu et al., 2023a）采用刻意极简的架构：CLIP ViT-L/14 图像编码器、单层线性投影层和 Vicuna 语言模型。既没有 Perceiver Resampler，也没有 Q-Former，更没有插入 LLM 的交叉注意力层。图像编码器输出固定数量的视觉 token，经线性层投影后拼接到文本 token 序列前，LLM 随后通过标准因果自注意力统一处理视觉和文本 token。</p>
+<p>关键创新在于<strong>训练数据</strong>。LLaVA 没有在网络上的大规模图像-文本对上训练，而是使用 GPT-4 生成了一个小而高质量的指令遵循数据集，共 158K 条样本。GPT-4 接收图像描述和边界框信息（而非图像本身），生成多轮对话、推理链和详细描述。这充分利用了 GPT-4 的推理能力，产生了比单纯图像-描述对更丰富的监督信号。</p>
+<p>训练分两个阶段：先在图像-文本对齐数据上只训练线性投影（LLM 冻结），再同时微调投影层和 LLM 进行视觉指令微调。LLaVA 在 ScienceQA 上达到 90.92%，以远比 BLIP-2 或 Flamingo 简单的架构超越了 GPT-4（83.99%）（Liu et al., 2023a）。</p>
+<p>这一结果表明，CLIP 视觉特征已经包含了足以支撑许多多模态任务的信息，真正的瓶颈在于指令遵循数据的质量，而非视觉-语言桥接模块的精复杂程度。这一发现推动了一代以数据质量为优先的极简架构的诞生。</p>
+<hr>
+<h3 id="q8-进阶-比较交叉注意力融合与投影融合">Q8 [进阶] 比较交叉注意力融合与投影融合</h3>
+<p><strong>Q:</strong> 交叉注意力融合与基于投影的融合在信息路由、计算成本和架构灵活性方面有何不同？</p>
+<p><strong>A:</strong> <strong>交叉注意力融合</strong>（cross-attention fusion，Flamingo；Alayrac et al., 2022）在语言模型的多个深度插入交叉注意力层。在每个交叉注意力层，LLM 的隐藏状态查询视觉 token，在多个抽象层次上动态检索视觉信息。视觉特征因此在整个深度上调制语言模型的表征，在每个处理阶段实现细粒度的视觉整合。</p>
+<p><strong>基于投影的融合</strong>（projection-based fusion，LLaVA，Liu et al., 2023a；LLaVA-1.5 中的 MLP 变体，Liu et al., 2023b）将所有视觉 token 通过单一投影层映射，并拼接在文本序列之前。LLM 通过标准自注意力统一处理视觉和文本 token，将视觉 token 视为固定前缀。视觉特征在每层都可通过自注意力获取，但其表征在投影后固定不变——LLM 无法像交叉注意力那样动态查询视觉特征。</p>
+<p>三个关键权衡如下。<strong>计算成本</strong>：每层 LLM 上的交叉注意力增加了 $O(L_\text{vis} \cdot L_\text{text})$ 的注意力操作。投影融合每层无额外操作，但拼接后的序列长度随视觉 token 数增长，使二次方自注意力成本上升。</p>
+<p><strong>冻结 LLM 兼容性</strong>：交叉注意力允许 LLM 严格保持冻结（如 Flamingo），因为新插入的参数吸收了所有视觉信息。基于投影的融合通常需要微调 LLM，因为视觉 token 必须在 LLM 的原生 token 空间中可被解读。</p>
+<p><strong>多图与视频的灵活性</strong>：交叉注意力通过 Perceiver Resampler 优雅地处理可变数量的图像或帧，将任意数量的视觉 token 压缩为固定的 $K$ 个。基于投影的方法必须通过限制分辨率或显式 token 压缩来控制视觉 token 数量，使长视频或多图输入更具挑战性。</p>
+<hr>
+<h2 id="多模态指令微调与能力">多模态指令微调与能力</h2>
+<h3 id="q9-基础-描述视觉指令微调及其数据需求">Q9 [基础] 描述视觉指令微调及其数据需求</h3>
+<p><strong>Q:</strong> 视觉指令微调与标准视觉问答微调有何不同，哪些类型的数据支持它？</p>
+<p><strong>A:</strong> <strong>视觉指令微调</strong>（visual instruction tuning）训练多模态模型遵循关于图像的自由格式自然语言指令，而非以固定的简答格式回答问题。标准 VQA 微调在窄分布上优化准确率（VQAv2 风格的简答 QA）；视觉指令微调训练模型处理多样化指令——生成详细描述、逐步推理、比较对象、以不同风格和长度作答——使模型具备对话实用性，而非只针对基准测试。</p>
+<p>数据格式由多轮对话构成，用户对图像提出指令，模型生成可变长度的回复。Liu et al. (2023a) 证明，GPT-4 可以仅凭图像元数据（描述、边界框）而无需直接访问图像来生成此类对话，产出 158K 条高质量指令遵循样本，涵盖三种输出类型：对话式问答、详细描述和复杂推理链。</p>
+<p>这类似于指令微调 LLM 扩展基础模型以供通用使用的方式：指令数据教会模型以开放式方式应用其视觉理解能力。训练信号——对 GPT-4 生成回复进行教师强制的生成——是标准交叉熵，但指令数据集的多样性对模型对话和推理能力的塑造远超损失函数本身。</p>
+<hr>
+<h3 id="q10-进阶-解释-instructblip-的指令感知-q-former">Q10 [进阶] 解释 InstructBLIP 的指令感知 Q-Former</h3>
+<p><strong>Q:</strong> InstructBLIP 解决了 BLIP-2 的什么局限，使 Q-Former 具备指令感知能力后改变了从图像中提取的内容？</p>
+<p><strong>A:</strong> <strong>InstructBLIP</strong>（Dai et al., 2023）发现了 BLIP-2 Q-Former 的一个关键局限：无论处理的是哪条指令，32 个可学习查询始终提取固定的视觉摘要。对于同一图像的不同指令——&ldquo;描述场景&rdquo;、&ldquo;数一数对象&rdquo;、&ldquo;读取标牌上的文字&rdquo;——传递给 LLM 的视觉 token 是完全相同的，尽管每条指令需要关注完全不同的视觉区域和属性。</p>
+<p>InstructBLIP 通过将指令文本与 32 个可学习查询一起通过自注意力机制输入 Q-Former 来解决这一问题。指令 token 嵌入与查询拼接，参与同一自注意力机制；在随后对图像特征的交叉注意力中，查询能够选择性地提取与当前指令最相关的视觉信息。注意力掩码确保查询可以关注指令 token，反之则不可——指令文本在不被修改的前提下调制提取过程。</p>
+<p>这一改动没有引入显著的额外参数：复用了 Q-Former 现有的文本编码器。输出仍为 32 个视觉 token，但现在它们是指令感知的：同一图像在面对数数、空间推理或 OCR 指令时，会产生不同的视觉 token。</p>
+<p>InstructBLIP 在涵盖 11 个任务类别的 26 个数据集上进行微调（Dai et al., 2023），包括 VQA、图像描述、推理和 OCR 任务。指令感知特征在零样本评估的保留基准上提升了性能，证明更丰富的逐指令视觉提取能够泛化到训练任务之外。</p>
+<hr>
+<h3 id="q11-进阶-分析-llava-15-的改进及其意义">Q11 [进阶] 分析 LLaVA-1.5 的改进及其意义</h3>
+<p><strong>Q:</strong> LLaVA-1.5 引入了哪些架构和数据层面的改动，这些改动如何体现了从原始 LLaVA 中汲取的经验？</p>
+<p><strong>A:</strong> <strong>LLaVA-1.5</strong>（Liu et al., 2023b）在 LLaVA 消融实验的基础上，进行了两处有针对性的改动。</p>
+<p>第一处改动是将线性投影连接器替换为两层 <strong>MLP 连接器</strong>（层间使用 GELU 激活）。线性投影只进行从视觉 token 空间到语言 token 空间的纯仿射映射；MLP 增加了非线性，使两种模态之间的对齐更具表达力。仅此一处改动就在各基准上稳定地提升了性能，而无需其他任何修改，证实了线性投影是表征能力的瓶颈。</p>
+<p>第二处改动是在原始 GPT-4 生成的对话数据基础上，补充了<strong>学术任务指令数据</strong>——将 VQAv2、GQA 和 TextVQA 转换为指令格式。原始 LLaVA 数据集擅长开放式推理，但缺乏对需要精确视觉阅读任务（OCR、图表、密集文本）的覆盖。以指令格式添加任务特定数据在保持对话风格的同时扩展了覆盖范围。</p>
+<p>LLaVA-1.5 还使用了更高分辨率的图像编码器（CLIP ViT-L/14，336×336 vs. 224×224），提供更细粒度的空间 token，提升了空间要求较高任务上的性能。</p>
+<p>LLaVA-1.5-13B 在 VQAv2 上达到 85.9%，在 MMBench 上达到 67.7%（Liu et al., 2023b），在多个基准上以更简单的架构和完全公开的训练数据超越了 Qwen-VL-Chat 和 InstructBLIP-13B 等模型。这些结果确立了 MLP 连接器和更广泛的指令数据是基于投影的多模态 LLM 一致有效的默认选择。</p>
+<hr>
+<h3 id="q12-进阶-识别多模态-llm-相对人类能力的失效之处">Q12 [进阶] 识别多模态 LLM 相对人类能力的失效之处</h3>
+<p><strong>Q:</strong> 当前 VLM 的性能在哪些方面与人类水平视觉理解差距最大，这些任务的哪些结构性特点解释了这一差距？</p>
+<p><strong>A:</strong> 当前多模态 LLM 在粗粒度视觉理解上表现良好——场景描述、关于显著目标的 VQA、对描绘情境的常识推断。相对于人类水平，性能差距集中在需要<strong>细粒度空间推理、精确计数和组合属性绑定</strong>的任务上。</p>
+<p><strong>空间推理</strong>：诸如&quot;红色书本是否在蓝色马克杯的左边？&ldquo;这样的问题，需要精确编码多个共现对象之间的空间关系。基于 ViT 的编码器通过全局自注意力处理图像，不显式编码绝对空间坐标；位置信息的编码相对于有根据的方向性判断所需的精度过于粗糙。即便能正确识别所有对象，模型也经常混淆左右和远近关系。</p>
+<p><strong>计数</strong>：即使能正确描述目标的类别和属性，VLM 通常也无法准确计数超过少量（$\leq 4$ 个）的目标。失败不在于识别实例，而在于跨分散空间位置聚合计数信息——这是一种均匀全局池化自然不支持的结构化迭代注意力形式。</p>
+<p><strong>组合描述下的属性绑定</strong>：&ldquo;立方体右边那个物体是什么颜色？&ldquo;需要将属性与通过关系空间链条识别出的特定实例相关联。VLM 在此类情况下表现出<strong>组合失效</strong>（compositional failures），报告的是视觉上最显著的属性，而非正确绑定到所引用对象的属性。</p>
+<p>MMMU 基准（Yue et al., 2024）揭示了另一个维度：需要领域专业知识的任务（医学影像解读、工程图纸、数学证明图）中，视觉推理和文本推理需要与学科知识紧密结合。GPT-4V 在 MMMU 上仅达到 56.8%，显著低于专家人类水平，表明当前 VLM 缺乏专家级多模态推理所需的结构化领域知识。</p>
+<hr>
+<h3 id="q13-进阶-比较闭源与开源-vlm-在多模态基准上的表现">Q13 [进阶] 比较闭源与开源 VLM 在多模态基准上的表现</h3>
+<p><strong>Q:</strong> 像 GPT-4V 这样的模型与开源 VLM 相比有哪些能力差异，基准证据揭示了这些差距的本质？</p>
+<p><strong>A:</strong> 包括 GPT-4V（OpenAI, 2023）在内的闭源 VLM 代表了当前大多数综合性多模态基准的性能上限。在 MMMU 上，GPT-4V 达到 56.8%，而 LLaVA-1.5-13B 为 36.4%（Yue et al., 2024）——在专家级知识任务上差距超过 20 个百分点。在 MMBench 上，GPT-4V 得分 77.0%，而 LLaVA-1.5-13B 为 67.7%（Liu et al., 2023b）。</p>
+<p>差距最为显著的能力包括<strong>多图交叉参照</strong>、<strong>OCR 与文档理解</strong>、<strong>细粒度空间推理</strong>以及<strong>带中间验证步骤的多步视觉推理链</strong>。GPT-4V 展现出更强的组合泛化能力——处理视觉和语言概念的新颖组合——并能产出带有明确中间推理步骤的更校准的解释。</p>
+<p>然而，直接比较受到未公开训练细节的干扰。闭源模型以未披露的数据集、RLHF 流程和思维链监督进行训练，性能差异归因于架构、数据还是规模是不可能的。InternVL（Chen et al., 2023）等开源模型通过结合更大的视觉编码器（ViT-6B 规模）、更强的指令微调数据集和更高分辨率输入，已逐步缩小差距，表明这一差距很大程度上反映的是训练方法的不同，而非根本性的架构限制。</p>
+<p>基准比较中一个实际隐患是<strong>数据污染导致的分数虚高</strong>：在基准发布后训练的指令微调模型可能已接触过测试集相邻数据，对来自公开数据集的基准尤为如此。专为降低污染风险而设计的基准（如 MMMU）显示出更大且更持久的差距，表明能力差异是真实存在的，只是在其他评估中被污染和捷径效应所掩盖。</p>
+<hr>
+<h2 id="视觉定位与稠密视觉理解">视觉定位与稠密视觉理解</h2>
+<h3 id="q14-基础-解释-glip-基于定位的开放词汇检测">Q14 [基础] 解释 GLIP 基于定位的开放词汇检测</h3>
+<p><strong>Q:</strong> 允许 GLIP 通过将检测重新表述为定位问题来检测任意目标类别的核心洞察是什么？</p>
+<p><strong>A:</strong> <strong>GLIP</strong>（Li et al., 2022）将目标检测重新表述为短语定位：给定图像和类别的文本描述，模型通过将每个名词短语定位到图像区域来预测边界框。标准检测将视觉特征分类到固定的 $C$ 个类别索引；GLIP 改为计算每个区域候选与每个短语 token 之间的相似度：</p>
+$$S = \text{ImageEncoder}(I) \cdot \text{TextEncoder}(P)^\top$$<p>其中 $S \in \mathbb{R}^{N_\text{boxes} \times N_\text{tokens}}$ 为对齐分数矩阵。检测通过寻找高相似度的（区域，短语）对来完成，将定位视为对齐问题而非分类问题。</p>
+<p>优势在于<strong>词汇泛化</strong>：由于文本编码器能嵌入任意名词短语，GLIP 可以检测任何能以语言表达的类别，而不仅限于训练时见过的类别。模型可被提示&quot;一个穿蓝色夹克、拎着手提箱的人&rdquo;，并在不针对该描述进行训练的情况下定位到匹配区域。GLIP-L 在 COCO 上以零样本方式达到 60.8 AP，不使用任何 COCO 训练数据（Li et al., 2022），通过在将边界框与描述中名词短语匹配的定位数据集（COCO Captions、Visual Genome、CC3M）上训练实现这一结果。</p>
+<p>这一重构还允许从带边界框标注的大规模图像-描述对中获取定位监督，大幅扩展了可用训练数据，远超精心策划的检测数据集所能提供的范围。</p>
+<hr>
+<h3 id="q15-进阶-解释-grounding-dino-的紧密特征融合策略">Q15 [进阶] 解释 Grounding DINO 的紧密特征融合策略</h3>
+<p><strong>Q:</strong> Grounding DINO 如何比 GLIP 更深入地将语言整合到检测流程中，为何更早的融合能提升性能？</p>
+<p><strong>A:</strong> <strong>Grounding DINO</strong>（Liu et al., 2023c）通过三个组件扩展了 DINO 检测框架，在整个检测流程中实现紧密的图像-文本特征融合，而非仅在最终对齐步骤如 GLIP 那样进行。</p>
+<p>第一个组件是<strong>特征增强器</strong>（feature enhancer），在多个尺度上对图像骨干特征和文本编码器特征施加跨模态注意力。图像特征和文本特征通过交替的交叉注意力和可变形自注意力层相互关注，使空间视觉特征在任何候选框选取发生之前，就已经显式受到文本查询的调制。由此产生的图像特征从处理的最早阶段起就具备语言感知能力。</p>
+<p>第二个组件是<strong>语言引导的查询选择</strong>：DINO 标准的基于图像特征选取 top-$K$ 区域候选的方式，被替换为基于图像-文本对齐分数的选取。与所描述短语有较高空间重叠的候选被选为解码器查询，确保只有与描述相关的区域进入解码器。</p>
+<p>第三个组件是<strong>跨模态解码器</strong>，目标查询在每个解码器层同时对视觉特征和文本特征做交叉注意力，联合精化边界框预测和短语分类分数。</p>
+<p>相比后期融合（GLIP 的事后对齐），早期融合的优势在于图像特征在回归边界框坐标之前已受语言调制，允许检测器从特征层面起就在空间上聚焦于被描述的区域，而非提取通用区域特征后再与文本比较。Grounding DINO 在 COCO 上以零样本方式达到 63.0 AP（无 COCO 训练数据），并在零样本和少样本定位基准上超越 GLIP（Liu et al., 2023c）。</p>
+<hr>
+<h3 id="q16-进阶-对比指代表达理解与视觉问答">Q16 [进阶] 对比指代表达理解与视觉问答</h3>
+<p><strong>Q:</strong> 指代表达理解在结构上比标准 VQA 难在哪里，它对架构提出了哪些特殊要求？</p>
+<p><strong>A:</strong> <strong>指代表达理解</strong>（Referring Expression Comprehension，REC）要求定位与特定实例的自然语言描述相对应的图像区域：给定&quot;站在左边穿红色衬衫的男人&rdquo;，模型必须输出边界框来精确识别那个人。VQA 通常只需要根据图像生成简短的文本答案（类别标签、计数、属性）。</p>
+<p>结构差异在于<strong>输出模态和空间精度要求</strong>。VQA 的输出是离散文本，用固定词表上的标准交叉熵处理即可。REC 的输出是连续的空间坐标，需要模型根据同时涉及多个属性和目标间关系的关系性描述精确定位实例。</p>
+<p>REC 对架构提出了独特要求。成功的模型必须：（1）将所描述实例的视觉属性（属性、类别）在图像中接地；（2）评估需要将候选区域与其他场景元素比较的关系空间断言（&ldquo;在桌子左边&rdquo;）；（3）当多个目标满足部分但非全部描述约束时，消解指代歧义。TransVG（Deng et al., 2021）通过基于 Transformer 的定位头，将语言特征与视觉区域候选做交叉注意力，从注意力后的表征预测边界框坐标来处理这一问题。</p>
+<p>REC 特有的一个关键失效模式是<strong>指代链失败</strong>（referential chain failure）：模型能孤立地识别每个词的视觉指称对象，却无法串联多个约束。&ldquo;坐在红色沙发左侧的那只狗，不是窗边那只&quot;需要组合颜色约束（红色沙发）、空间约束（左侧）和否定约束（不是窗边那只）——这是一个主要在 VQA 风格单约束问题上训练的 VLM 处理得很差的组合定位问题。</p>
+<hr>
+<h3 id="q17-进阶-描述-vlm-如何扩展到像素级分割任务">Q17 [进阶] 描述 VLM 如何扩展到像素级分割任务</h3>
+<p><strong>Q:</strong> 哪些机制将语言理解与视觉-语言分割系统中的稠密空间预测相连？</p>
+<p><strong>A:</strong> 标准 VLM 输出文本或边界框；分割需要逐像素预测。两大主要策略将语言与像素级输出相连。</p>
+<p><strong>模块化组合</strong>（modular composition）将语言引导的检测器与基于提示的分割模型结合。<strong>SAM</strong>（Kirillov et al., 2023）在 11 亿个掩码（SA-1B）上训练了一个可提示的掩码解码器，接受边界框、点或文本提示并生成高质量实例掩码。将 Grounding DINO（语言引导检测）与 SAM（掩码生成）结合，无需额外训练即可创建描述到掩码的流程：自然语言描述首先由 Grounding DINO 定位为边界框，再将其作为空间提示传递给 SAM 进行分割，实现对任意描述对象的开放词汇分割。</p>
+<p><strong>端到端推理分割</strong>（end-to-end reasoning segmentation）在多模态 LLM 内部整合语言和像素级预测。<strong>LISA</strong>（Lai et al., 2023）用一个特殊的 <code>&lt;SEG&gt;</code> token 扩展 LLM：生成时，<code>&lt;SEG&gt;</code> 位置的隐藏状态被传递给轻量级掩码解码器（基于 SAM 的解码器架构构建）以生成分割掩码。这实现了<strong>推理分割</strong>——给定&quot;分割最有助于切断绳子的物体&rdquo;，LISA 推理出答案是剪刀，生成包含 <code>&lt;SEG&gt;</code> 的回复，解码器随即对剪刀进行掩码。LLM 负责多步推理，掩码解码器负责空间精度。</p>
+<p>端到端方法的核心挑战在于，LLM 必须在 <code>&lt;SEG&gt;</code> 隐藏状态中编码足够的空间定位信息以使掩码解码器成功，同时还要维持连贯的高层语义推理。这两个目标——空间精度和语义推理——在不同的抽象层次上运作，在标准 LLM 训练中并不天然对齐。</p>
+<hr>
+<h2 id="幻觉评估基准与前沿方向">幻觉、评估基准与前沿方向</h2>
+<h3 id="q18-基础-定义目标幻觉及其衡量方式">Q18 [基础] 定义目标幻觉及其衡量方式</h3>
+<p><strong>Q:</strong> VLM 如何生成图像中不存在的目标，研究者开发了哪些评估协议来量化这一现象？</p>
+<p><strong>A:</strong> <strong>目标幻觉</strong>（object hallucination）是指多模态 LLM 的输出提及了给定图像中不存在的目标、属性或关系。一个描述含有狗碗的图像的模型，可能会自信地断言&quot;一只狗正在碗里吃东西&rdquo;，原因在于&quot;狗&quot;与&quot;狗碗&quot;在训练描述中频繁共现。语言模型生成的 token 在给定上下文下在统计上是合理的，而非严格基于视觉输入。</p>
+<p>根本原因是<strong>语言先验主导了视觉信号</strong>：VLM 在图像-描述对上训练，而描述反映的是网络上常见的共现统计规律。LLM 部分对下一 token 的强先验，可能会压过薄弱或不确定的视觉特征，产生对不存在目标的自信描述。</p>
+<p>两种评估协议被广泛使用。<strong>CHAIR</strong>（Rohrbach et al., 2018）——描述幻觉与图像相关性评估——衡量生成描述中有多大比例的名词指向图像中不存在的目标，以 COCO 目标标签为真值。它在描述级别（CHAIRs）和句子级别（CHAIRi）量化幻觉。</p>
+<p><strong>POPE</strong>（Li et al., 2023b）——基于轮询的目标探测评估——提出二值是/否问题：&ldquo;图像中是否有 {目标}？&ldquo;三种难度递增的采样策略测试不同的失效模式：<strong>随机</strong>（任意 COCO 目标）、<strong>流行</strong>（频繁出现的目标）和<strong>对抗性</strong>（通常与图像实际内容共现但实际缺失的目标）。语言先验较强的模型在对抗性划分上的得分显著低于随机划分，从而分离出回复在多大程度上由统计关联而非视觉定位驱动。</p>
+<hr>
+<h3 id="q19-进阶-解释基准性能与现实可靠性之间的差距">Q19 [进阶] 解释基准性能与现实可靠性之间的差距</h3>
+<p><strong>Q:</strong> 在标准基准上得分良好的 VLM 为何会在部署时失效，研究界在评估实践上有何演进？</p>
+<p><strong>A:</strong> 标准 VLM 基准分数反映的是特定图像分布和问题格式下固定测试集上的平均性能，可能无法捕捉实际部署中的方差和失效模式。若干系统性因素共同导致了这一差距。</p>
+<p><strong>训练分布偏移</strong>：大多数基准来自 MS COCO、Flickr 或维基百科图像——专业拍摄、光线良好、以显著目标为中心的照片。实际部署涉及截图、医学图像、卫星图像、低光捕获和不寻常视角。VLM 在预训练中代表性不足的分布偏移视觉风格上性能显著下降，原因是视觉编码器的特征分布发生变化，与 LLM 进行指令微调时使用的数据不再对齐。</p>
+<p><strong>捷径利用</strong>（shortcut exploitation）：多项基准分析发现，高 VQA 准确率可以通过利用语言偏差而非视觉理解来实现——对大多数&quot;多少个……？&ldquo;问题回答&quot;2&rdquo;，或对大多数二值问题回答&quot;是&rdquo;，在有偏数据集上就足以获得高于随机的准确率。优化这些指标的模型得分较高，在重新分布的问题集上却出现质性失效。</p>
+<p><strong>组合泛化失败</strong>（compositional generalization failure）：在概念的保留组合上测试的模型——&ldquo;一间客厅里的紫色大象&rdquo;——即使各组件单独处理均能应对，在组合情形下也频繁失败，表明模型记忆的是常见训练组合，而非学习到了组合视觉语义。</p>
+<p><strong>生成任务的指标-任务错位</strong>：用于描述的 BLEU 和 CIDEr 奖励与参考描述的词汇重叠，不惩罚使用高频词的幻觉目标，也不奖励对稀有目标的正确描述。MMMU 基准（Yue et al., 2024）通过需要联合视觉推理和学科知识的专家级知识密集型问题，旨在最小化这些影响——GPT-4V 与开源模型在 MMMU 上的差距远大于在 COCO 衍生基准上的差距，表明旧基准上报告的性能因污染和捷径效应而虚高。</p>
+<hr>
+<h3 id="q20-进阶-分析视频-语言模型的架构挑战">Q20 [进阶] 分析视频-语言模型的架构挑战</h3>
+<p><strong>Q:</strong> 将基于图像的 VLM 扩展到视频时会产生哪些计算和推理方面的挑战，当前方法如何应对？</p>
+<p><strong>A:</strong> 视频理解引入了图像 VLM 所不具备的两大挑战：<strong>token 规模</strong>和<strong>时序推理</strong>。由 ViT 骨干处理的 $T$ 帧视频产生 $T \times N_\text{patch}$ 个 token：以 ViT-L（每帧 256 个 token）、每秒 8 帧处理一段 10 秒的视频，将产生 20,480 个视觉 token——远超大多数 LLM 的上下文长度，并使自注意力的二次方计算成本急剧膨胀。</p>
+<p>主要架构应对措施是<strong>时序采样与压缩</strong>。大多数视频 LLM 选取固定数量的帧（通常 8-16 帧），通过图像编码器独立处理，然后在传入 LLM 之前通过时序池化或拼接进行聚合。<strong>Video-LLaMA</strong>（Zhang et al., 2023）增加了专用的视频 Q-Former，对帧级特征施加时序自注意力，将视频压缩为固定数量的 token 后再输入 LLM。<strong>VideoChat</strong>（Li et al., 2023c）采用类似的基于 Q-Former 的设计，并结合视频专用的指令微调数据用于对话式视频理解。</p>
+<p>更深层的挑战在于<strong>时序推理</strong>：正确排列事件顺序、推断动作间的因果关系，以及维持跨帧一致的实体追踪。稀疏帧采样可能遗漏关键时刻；模型必须从一系列静态视觉快照中整合证据，而非连续信号。当前视频 LLM 在短片段事件识别上表现尚可，但在长视频上举步维艰——关键信息分散在相隔数分钟的帧中，固定 token 预算强制进行有损压缩，而非选择性检索。</p>
+<p>一个新兴方向是<strong>流式视频理解</strong>（streaming video understanding），模型随着帧的到来逐帧处理，而非对预先分割的片段操作。这需要能高效总结已观测内容、同时对新到来帧保持敏感的记忆机制——结合循环压缩与选择性注意力——这是静态 VLM 架构自然不支持的设计空间，目前仍是活跃的研究领域。</p>
+<hr>
+<h2 id="快速参考">快速参考</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>难度</th>
+          <th>主题</th>
+          <th>章节</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>基础</td>
+          <td>CLIP 对比学习目标</td>
+          <td>对比视觉-语言预训练</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>基础</td>
+          <td>零样本迁移与提示工程</td>
+          <td>对比视觉-语言预训练</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>基础</td>
+          <td>ALIGN 与噪声大规模数据</td>
+          <td>对比视觉-语言预训练</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>进阶</td>
+          <td>SigLIP Sigmoid 损失与批量大小敏感性</td>
+          <td>对比视觉-语言预训练</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>基础</td>
+          <td>Flamingo 冻结模型架构</td>
+          <td>多模态模型的架构设计</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>基础</td>
+          <td>BLIP-2 Q-Former</td>
+          <td>多模态模型的架构设计</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>进阶</td>
+          <td>LLaVA 极简架构</td>
+          <td>多模态模型的架构设计</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>进阶</td>
+          <td>交叉注意力 vs. 投影融合</td>
+          <td>多模态模型的架构设计</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>基础</td>
+          <td>视觉指令微调</td>
+          <td>多模态指令微调与能力</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>进阶</td>
+          <td>InstructBLIP 指令感知 Q-Former</td>
+          <td>多模态指令微调与能力</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>进阶</td>
+          <td>LLaVA-1.5 MLP 连接器与数据扩展</td>
+          <td>多模态指令微调与能力</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>进阶</td>
+          <td>细粒度视觉理解的失效</td>
+          <td>多模态指令微调与能力</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>进阶</td>
+          <td>闭源 vs. 开源 VLMs</td>
+          <td>多模态指令微调与能力</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>基础</td>
+          <td>GLIP 开放词汇检测</td>
+          <td>视觉定位与稠密视觉理解</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>进阶</td>
+          <td>Grounding DINO 特征融合</td>
+          <td>视觉定位与稠密视觉理解</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>进阶</td>
+          <td>指代表达理解</td>
+          <td>视觉定位与稠密视觉理解</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>进阶</td>
+          <td>语言驱动的像素级分割</td>
+          <td>视觉定位与稠密视觉理解</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>基础</td>
+          <td>目标幻觉与 POPE</td>
+          <td>幻觉、评估基准与前沿方向</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>进阶</td>
+          <td>基准 vs. 现实可靠性</td>
+          <td>幻觉、评估基准与前沿方向</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>进阶</td>
+          <td>视频-语言模型架构</td>
+          <td>幻觉、评估基准与前沿方向</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li>Radford et al., <a href="https://arxiv.org/abs/2103.00020">Learning Transferable Visual Models From Natural Language Supervision</a> (2021)</li>
+<li>Jia et al., <a href="https://arxiv.org/abs/2102.05918">Scaling Up Visual and Vision-Language Representation Learning With Noisy Text Supervision</a> (2021)</li>
+<li>Zhai et al., <a href="https://arxiv.org/abs/2303.15343">Sigmoid Loss for Language Image Pre-Training</a> (2023)</li>
+<li>Alayrac et al., <a href="https://arxiv.org/abs/2204.14198">Flamingo: a Visual Language Model for Few-Shot Learning</a> (2022)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2301.12597">BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models</a> (2023a)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/2304.08485">Visual Instruction Tuning</a> (2023a)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/2310.03744">Improved Baselines with Visual Instruction Tuning</a> (2023b)</li>
+<li>Dai et al., <a href="https://arxiv.org/abs/2305.06500">InstructBLIP: Towards General-purpose Vision-Language Models with Instruction Tuning</a> (2023)</li>
+<li>Yue et al., <a href="https://arxiv.org/abs/2311.16502">MMMU: A Massive Multi-discipline Multimodal Understanding and Reasoning Benchmark for Expert AGI</a> (2024)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2112.03857">Grounded Language-Image Pre-training</a> (2022)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/2303.05499">Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection</a> (2023c)</li>
+<li>Deng et al., <a href="https://arxiv.org/abs/2104.08567">TransVG: End-to-End Visual Grounding with Transformers</a> (2021)</li>
+<li>Kirillov et al., <a href="https://arxiv.org/abs/2304.02643">Segment Anything</a> (2023)</li>
+<li>Lai et al., <a href="https://arxiv.org/abs/2308.00692">LISA: Reasoning Segmentation via Large Language Model</a> (2023)</li>
+<li>Rohrbach et al., <a href="https://arxiv.org/abs/1809.02156">Object Hallucination in Image Captioning</a> (2018)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2305.10355">Evaluating Object Hallucination in Large Vision-Language Models</a> (2023b)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/2312.14238">InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks</a> (2023)</li>
+<li>Zhang et al., <a href="https://arxiv.org/abs/2306.02858">Video-LLaMA: An Instruction-tuned Audio-Visual Language Model for Video Understanding</a> (2023)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2305.06355">VideoChat: Chat-Centric Video Understanding</a> (2023c)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+
