@@ -9,6 +9,13 @@
     <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Diffusion Models: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/diffusion-models-interview-questions-and-answers/</link>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/diffusion-models-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;foundations-of-diffusion-models&#34;&gt;Foundations of Diffusion Models&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-describe-the-forward-and-reverse-processes-in-ddpm&#34;&gt;Q1 [Basic] Describe the forward and reverse processes in DDPM&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How do the forward and reverse processes in DDPM define a generative model, and what mathematical structure makes the reverse process tractable?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;DDPM&lt;/strong&gt; (Ho et al., 2020) defines a generative model through two Markov chains. The &lt;strong&gt;forward process&lt;/strong&gt; $q(x_{1:T}|x_0)$ gradually corrupts a data sample $x_0$ by adding small amounts of Gaussian noise over $T$ steps:&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Vision-Language Models: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/vision-language-models-interview-questions-and-answers/</link>
       <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
