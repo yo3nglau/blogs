@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Model Compression on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/tags/model-compression/</link>
-    <description>Recent content in Model Compression on yo3nglau academic website</description>
+    <title>Quantization on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/quantization/</link>
+    <description>Recent content in Quantization on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/tags/model-compression/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/quantization/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Model Efficiency &amp; Quantization: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/model-efficiency--quantization-interview-questions-and-answers/</link>
       <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/post/model-efficiency--quantization-interview-questions-and-answers/</guid>
       <description>&lt;h2 id=&#34;quantization-fundamentals&#34;&gt;Quantization Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-the-key-design-choices-in-uniform-quantization&#34;&gt;Q1 [Basic] Explain the key design choices in uniform quantization&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What numerical decisions determine how a floating-point weight tensor is mapped to integers, and how do symmetric and asymmetric schemes differ?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;Uniform quantization&lt;/strong&gt; maps a floating-point range $[x_{\min}, x_{\max}]$ to $2^b$ evenly spaced integer values using two parameters: a &lt;strong&gt;scale factor&lt;/strong&gt; $s$ and a &lt;strong&gt;zero-point&lt;/strong&gt; $z$. The bit-width $b$ determines the number of representable levels — INT8 provides 256 levels, INT4 provides 16. The scale is set by the tensor&amp;rsquo;s range, and the clamp operation introduces &lt;strong&gt;clipping error&lt;/strong&gt; for values outside the chosen range; calibration-time decisions about where to set $x_{\min}$ and $x_{\max}$ trade clipping against rounding error (Nagel et al., 2021).&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Knowledge Distillation: Interview Questions and Answers</title>
-      <link>https://yo3nglau.github.io/blogs/post/knowledge-distillation-interview-questions-and-answers/</link>
-      <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/knowledge-distillation-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;foundations-of-knowledge-distillation&#34;&gt;Foundations of Knowledge Distillation&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-the-motivation-for-soft-targets&#34;&gt;Q1 [Basic] Explain the motivation for soft targets&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Why do soft targets from a teacher network provide richer training signal than one-hot labels?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; One-hot labels encode only which class is correct, discarding all information about relative similarity among incorrect classes. A teacher&amp;rsquo;s output distribution, by contrast, assigns non-trivial probabilities to related classes — a cat image may receive modest probability mass on &amp;ldquo;tiger&amp;rdquo; and near-zero on &amp;ldquo;truck&amp;rdquo; — reflecting learned similarity structure absent from the ground-truth label.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

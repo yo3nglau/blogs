@@ -106,6 +106,22 @@
                 href="https://yo3nglau.github.io/blogs/categories/interview/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/model-compression/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/model-compression/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/model-compression/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/model-efficiency--quantization-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/multimodal-learning/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -133,6 +149,9 @@
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/quantization/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/reinforcement-learning/</loc>
@@ -250,19 +269,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/post/knowledge-distillation-interview-questions-and-answers/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/tags/model-compression/</loc>
-    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/model-compression/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/model-compression/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/embodied-ai/</loc>

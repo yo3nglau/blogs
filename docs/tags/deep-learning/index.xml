@@ -16,6 +16,13 @@
       <description>&lt;h2 id=&#34;foundations-of-diffusion-models&#34;&gt;Foundations of Diffusion Models&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-describe-the-forward-and-reverse-processes-in-ddpm&#34;&gt;Q1 [Basic] Describe the forward and reverse processes in DDPM&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How do the forward and reverse processes in DDPM define a generative model, and what mathematical structure makes the reverse process tractable?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;DDPM&lt;/strong&gt; (Ho et al., 2020) defines a generative model through two Markov chains. The &lt;strong&gt;forward process&lt;/strong&gt; $q(x_{1:T}|x_0)$ gradually corrupts a data sample $x_0$ by adding small amounts of Gaussian noise over $T$ steps:&lt;/p&gt;</description>
     </item>
     <item>
+      <title>Model Efficiency &amp; Quantization: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/model-efficiency--quantization-interview-questions-and-answers/</link>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/model-efficiency--quantization-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;quantization-fundamentals&#34;&gt;Quantization Fundamentals&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-the-key-design-choices-in-uniform-quantization&#34;&gt;Q1 [Basic] Explain the key design choices in uniform quantization&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What numerical decisions determine how a floating-point weight tensor is mapped to integers, and how do symmetric and asymmetric schemes differ?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;Uniform quantization&lt;/strong&gt; maps a floating-point range $[x_{\min}, x_{\max}]$ to $2^b$ evenly spaced integer values using two parameters: a &lt;strong&gt;scale factor&lt;/strong&gt; $s$ and a &lt;strong&gt;zero-point&lt;/strong&gt; $z$. The bit-width $b$ determines the number of representable levels — INT8 provides 256 levels, INT4 provides 16. The scale is set by the tensor&amp;rsquo;s range, and the clamp operation introduces &lt;strong&gt;clipping error&lt;/strong&gt; for values outside the chosen range; calibration-time decisions about where to set $x_{\min}$ and $x_{\max}$ trade clipping against rounding error (Nagel et al., 2021).&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>RLHF and Alignment: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/rlhf-and-alignment-interview-questions-and-answers/</link>
       <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>

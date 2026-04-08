@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Model Efficiency &amp; Quantization: Interview Questions and Answers | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Model Efficiency &amp; Quantization: Interview Questions and Answers</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/08</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/quantization">Quantization</a> <a href="/blogs/tags/model-compression">Model Compression</a> 
+  
+  
+</p>
+</div>
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#quantization-fundamentals">Quantization Fundamentals</a>
+      <ul>
+        <li><a href="#q1-basic-explain-the-key-design-choices-in-uniform-quantization">Q1 [Basic] Explain the key design choices in uniform quantization</a></li>
+        <li><a href="#q2-basic-distinguish-post-training-quantization-from-quantization-aware-training">Q2 [Basic] Distinguish post-training quantization from quantization-aware training</a></li>
+        <li><a href="#q3-advanced-explain-why-activation-quantization-is-harder-than-weight-quantization">Q3 [Advanced] Explain why activation quantization is harder than weight quantization</a></li>
+        <li><a href="#q4-advanced-describe-how-gptq-achieves-accurate-weight-only-quantization-of-billion-parameter-models">Q4 [Advanced] Describe how GPTQ achieves accurate weight-only quantization of billion-parameter models</a></li>
+      </ul>
+    </li>
+    <li><a href="#quantization-for-large-language-models">Quantization for Large Language Models</a>
+      <ul>
+        <li><a href="#q5-advanced-explain-how-awq-identifies-and-protects-salient-weights-during-quantization">Q5 [Advanced] Explain how AWQ identifies and protects salient weights during quantization</a></li>
+        <li><a href="#q6-basic-contrast-weight-only-and-weight-activation-quantization-in-terms-of-deployment-trade-offs">Q6 [Basic] Contrast weight-only and weight-activation quantization in terms of deployment trade-offs</a></li>
+        <li><a href="#q7-advanced-describe-how-smoothquant-migrates-quantization-difficulty-from-activations-to-weights">Q7 [Advanced] Describe how SmoothQuant migrates quantization difficulty from activations to weights</a></li>
+        <li><a href="#q8-advanced-explain-how-llmint8-handles-activation-outliers-in-transformer-models">Q8 [Advanced] Explain how LLM.int8() handles activation outliers in transformer models</a></li>
+      </ul>
+    </li>
+    <li><a href="#pruning--sparsity">Pruning &amp; Sparsity</a>
+      <ul>
+        <li><a href="#q9-basic-contrast-structured-and-unstructured-pruning-in-their-impact-on-hardware-utilization">Q9 [Basic] Contrast structured and unstructured pruning in their impact on hardware utilization</a></li>
+        <li><a href="#q10-advanced-explain-the-lottery-ticket-hypothesis-and-what-it-reveals-about-neural-network-overparameterization">Q10 [Advanced] Explain the lottery ticket hypothesis and what it reveals about neural network overparameterization</a></li>
+        <li><a href="#q11-advanced-describe-how-sparsegpt-enables-one-shot-pruning-of-large-language-models">Q11 [Advanced] Describe how SparseGPT enables one-shot pruning of large language models</a></li>
+        <li><a href="#q12-advanced-compare-static-and-dynamic-sparse-training-and-how-rigl-advances-the-state-of-the-art">Q12 [Advanced] Compare static and dynamic sparse training and how RigL advances the state of the art</a></li>
+      </ul>
+    </li>
+    <li><a href="#knowledge-distillation--low-rank-compression">Knowledge Distillation &amp; Low-Rank Compression</a>
+      <ul>
+        <li><a href="#q13-basic-explain-how-soft-target-knowledge-distillation-works-and-what-the-teacher-provides-beyond-hard-labels">Q13 [Basic] Explain how soft-target knowledge distillation works and what the teacher provides beyond hard labels</a></li>
+        <li><a href="#q14-advanced-describe-feature-level-distillation-and-the-challenges-of-aligning-intermediate-representations">Q14 [Advanced] Describe feature-level distillation and the challenges of aligning intermediate representations</a></li>
+        <li><a href="#q15-basic-explain-how-lora-reduces-trainable-parameters-during-fine-tuning-without-modifying-the-original-weights">Q15 [Basic] Explain how LoRA reduces trainable parameters during fine-tuning without modifying the original weights</a></li>
+        <li><a href="#q16-advanced-describe-how-truncated-svd-approximates-and-compresses-linear-and-convolutional-layers">Q16 [Advanced] Describe how truncated SVD approximates and compresses linear and convolutional layers</a></li>
+      </ul>
+    </li>
+    <li><a href="#efficient-architectures--inference">Efficient Architectures &amp; Inference</a>
+      <ul>
+        <li><a href="#q17-basic-explain-how-depthwise-separable-convolutions-reduce-computation-compared-to-standard-convolutions">Q17 [Basic] Explain how depthwise separable convolutions reduce computation compared to standard convolutions</a></li>
+        <li><a href="#q18-advanced-describe-how-flashattention-reduces-memory-and-increases-throughput-in-transformer-computation">Q18 [Advanced] Describe how FlashAttention reduces memory and increases throughput in transformer computation</a></li>
+        <li><a href="#q19-advanced-explain-how-speculative-decoding-accelerates-auto-regressive-token-generation">Q19 [Advanced] Explain how speculative decoding accelerates auto-regressive token generation</a></li>
+        <li><a href="#q20-basic-describe-how-differentiable-architecture-search-finds-efficient-neural-network-architectures">Q20 [Basic] Describe how differentiable architecture search finds efficient neural network architectures</a></li>
+      </ul>
+    </li>
+    <li><a href="#quick-reference">Quick Reference</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="quantization-fundamentals">Quantization Fundamentals</h2>
+<h3 id="q1-basic-explain-the-key-design-choices-in-uniform-quantization">Q1 [Basic] Explain the key design choices in uniform quantization</h3>
+<p><strong>Q:</strong> What numerical decisions determine how a floating-point weight tensor is mapped to integers, and how do symmetric and asymmetric schemes differ?</p>
+<p><strong>A:</strong> <strong>Uniform quantization</strong> maps a floating-point range $[x_{\min}, x_{\max}]$ to $2^b$ evenly spaced integer values using two parameters: a <strong>scale factor</strong> $s$ and a <strong>zero-point</strong> $z$. The bit-width $b$ determines the number of representable levels — INT8 provides 256 levels, INT4 provides 16. The scale is set by the tensor&rsquo;s range, and the clamp operation introduces <strong>clipping error</strong> for values outside the chosen range; calibration-time decisions about where to set $x_{\min}$ and $x_{\max}$ trade clipping against rounding error (Nagel et al., 2021).</p>
+<p><strong>Symmetric</strong> quantization sets $z = 0$ and clips symmetrically ($x_{\min} = -x_{\max}$), which simplifies computation: zero maps exactly to the integer 0 and the zero-point can be dropped from the multiply-accumulate path. <strong>Asymmetric</strong> quantization allows $z \neq 0$ to shift the quantization grid to cover the actual data range more efficiently for skewed distributions — post-ReLU activations, for example, are always non-negative and benefit from an asymmetric grid that concentrates levels in $[0, x_{\max}]$. The downside is a zero-point correction term in every matrix multiply.</p>
+<p>Granularity is a third dimension: <strong>per-tensor</strong> quantization uses a single $s$ and $z$ for the entire weight matrix, while <strong>per-channel</strong> quantization uses separate values per output channel. Different output channels can have very different dynamic ranges, so per-channel calibration reduces quantization error substantially at negligible inference cost. Nagel et al. (2021) provide a comprehensive analysis of the interactions between these choices across CNN and transformer architectures.</p>
+<hr>
+<h3 id="q2-basic-distinguish-post-training-quantization-from-quantization-aware-training">Q2 [Basic] Distinguish post-training quantization from quantization-aware training</h3>
+<p><strong>Q:</strong> How do PTQ and QAT differ in when quantization is applied relative to training, and what determines which approach is appropriate?</p>
+<p><strong>A:</strong> <strong>Post-training quantization</strong> (PTQ) applies quantization to a fully trained floating-point model without any gradient-based optimization. A small calibration dataset (typically a few hundred to a few thousand samples) is passed through the model to collect activation statistics for setting scale and zero-point per layer. PTQ requires no access to the original training pipeline and produces a quantized model in minutes. The limitation is that quantization error cannot be compensated by weight updates, so accuracy degrades more than QAT — especially below 8 bits — and sensitive layers may require more careful calibration (Nagel et al., 2021).</p>
+<p><strong>Quantization-aware training</strong> (QAT) inserts <strong>fake quantization</strong> nodes into the forward pass during training: each tensor is quantized and immediately dequantized, injecting quantization error into the loss while keeping the computation in floating point for gradient propagation. Because the rounding operation has zero gradient, the <strong>straight-through estimator</strong> (STE) passes gradients through the clamp as if it were the identity (Jacob et al., 2018). This allows the optimizer to learn weights that are more tolerant of quantization, typically recovering most of PTQ&rsquo;s accuracy loss at INT8 and enabling usable accuracy at INT4.</p>
+<p>In practice, PTQ is preferred when training data is unavailable, when targeting INT8 (where PTQ accuracy loss is modest), or when rapid deployment is needed. QAT is worth the infrastructure cost when targeting INT4 or lower, or when task-specific accuracy requirements are tight.</p>
+<hr>
+<h3 id="q3-advanced-explain-why-activation-quantization-is-harder-than-weight-quantization">Q3 [Advanced] Explain why activation quantization is harder than weight quantization</h3>
+<p><strong>Q:</strong> What properties of neural network activations create quantization challenges that do not arise for weights, and how does this problem intensify in large language models?</p>
+<p><strong>A:</strong> Weights are <strong>static</strong> after training: their distribution is fully known at quantization time, and optimal per-channel scale factors can be computed exactly from the saved checkpoints. Activations are <strong>dynamic</strong>: their distribution changes with every input. A scale factor calibrated on a representative dataset may be mismatched for out-of-distribution inputs, causing either excessive clipping (large values saturate) or excessive rounding error (scale set too conservatively, wasting bit-width on the normal range). This input-dependence forces either conservative static calibration or expensive per-token dynamic quantization at inference time, each carrying accuracy or latency costs.</p>
+<p>More fundamentally, activation distributions in transformer models can be highly non-Gaussian. Dettmers et al. (2022) showed that in OPT and BLOOM models above approximately 6B parameters, a small fraction (roughly $0.1\%$) of activation dimensions consistently exhibit values 100× larger than the rest — <strong>systematic outlier channels</strong> that appear reliably across all inputs once the model reaches a critical scale. Quantizing the entire tensor to the scale of these outliers wastes nearly all representable integers on the normal range; quantizing to the normal range causes outliers to saturate. Neither is acceptable at INT8.</p>
+<p>A third challenge is that per-channel quantization — highly effective for weights — is harder to apply to activations indexed by (batch, token, channel): different tokens in the same batch may have very different per-channel statistics, making a static per-channel calibration unreliable. The combination of dynamic range, input-dependence, and systematic outliers explains why activations require specialized solutions (SmoothQuant, LLM.int8()) rather than the straightforward per-channel PTQ that works well for weights.</p>
+<hr>
+<h3 id="q4-advanced-describe-how-gptq-achieves-accurate-weight-only-quantization-of-billion-parameter-models">Q4 [Advanced] Describe how GPTQ achieves accurate weight-only quantization of billion-parameter models</h3>
+<p><strong>Q:</strong> What optimization principle does GPTQ apply to minimize layer-wise quantization error, and what algorithmic changes make it tractable at 175B-parameter scale?</p>
+<p><strong>A:</strong> GPTQ is a one-shot PTQ method grounded in the <strong>Optimal Brain Quantization</strong> (OBQ) framework (Frantar et al., 2022). OBQ extends the Optimal Brain Surgeon (OBS) approach from pruning to quantization: when weight $w_q$ is rounded to $\hat{w}_q$, the remaining unquantized weights in the same layer are updated to compensate for the introduced error. The optimal update for the remaining weights $F$ when quantizing index $q$ is:</p>
+$$\delta_F = -\frac{w_q - \hat{w}_q}{[\mathbf{H}_F^{-1}]_{qq}} \cdot (\mathbf{H}_F^{-1})_{:,q}$$<p>where $\mathbf{H}_F = 2\mathbf{X}\mathbf{X}^T$ is the Hessian of the layer&rsquo;s output reconstruction error with respect to weights (for a linear layer with calibration input $\mathbf{X}$). This greedy per-weight compensation exploits second-order information to choose better quantization targets.</p>
+<p>Naïve OBQ scales as $O(d^3)$ per layer (from Hessian inversion) and processes one weight at a time — intractable for layers with millions of parameters. GPTQ introduces two modifications. First, all weights within a column block of width 128 are quantized simultaneously, accumulating the inverse-Hessian updates in a <strong>lazy batch</strong>: Hessian inverse rows needed for future updates are precomputed once and reused, reducing redundant computation. Second, rather than dynamically reordering weights by inverse-Hessian diagonal (as OBQ does), GPTQ processes weights in column order, which is hardware-friendly and cache-efficient. Frantar et al. (2022) quantized OPT-175B to INT4 in approximately 4 GPU-hours on a single A100, with less than 1 perplexity point of degradation on WikiText-2.</p>
+<hr>
+<h2 id="quantization-for-large-language-models">Quantization for Large Language Models</h2>
+<h3 id="q5-advanced-explain-how-awq-identifies-and-protects-salient-weights-during-quantization">Q5 [Advanced] Explain how AWQ identifies and protects salient weights during quantization</h3>
+<p><strong>Q:</strong> What observation motivates AWQ&rsquo;s selective treatment of weight channels, and how are the optimal protection scales determined without retraining?</p>
+<p><strong>A:</strong> <strong>AWQ</strong> (Activation-aware Weight Quantization) is built on the finding that weight channels corresponding to large-magnitude activations contribute disproportionately to quantization error: approximately $1\%$ of weight channels dominate the accuracy loss when quantized to INT4 (Lin et al., 2023). The naive fix — keeping these salient channels in FP16 while quantizing the rest — is hardware-inefficient because mixing precision at fine channel granularity introduces irregular memory access.</p>
+<p>AWQ instead applies a per-channel <strong>activation-aware scale</strong> before quantization. Multiplying a weight channel by $s > 1$ reduces its relative quantization error ($\Delta w / w$ decreases as $w$ grows), effectively allocating more precision to it without changing the integer format. The corresponding activation dimension is divided by $s$ to preserve the matrix product. The scale is applied offline to the weight matrix and absorbed into the preceding normalization layer&rsquo;s affine parameters, so inference cost is unchanged.</p>
+<p>The optimal per-channel scales are found by minimizing output reconstruction error on a calibration set:</p>
+$$s^* = \arg\min_{s} \|\mathbf{W}_q(\mathbf{s})\mathbf{x} - \mathbf{W}\mathbf{x}\|^2$$<p>where $\mathbf{W}_q(\mathbf{s})$ denotes $\mathbf{W}$ quantized after scaling by $s$. Lin et al. (2023) parameterized $s_j = \bar{a}_j^\alpha$ where $\bar{a}_j$ is the mean activation magnitude of channel $j$ and $\alpha \in [0, 1]$ is grid-searched over roughly 20 values — making the search efficient and requiring only a small calibration set. On LLaMA-7B with INT4, AWQ achieved lower perplexity than GPTQ at comparable hardware throughput, showing that activation-guided scaling is a more effective proxy for quantization sensitivity than pure second-order weight information.</p>
+<hr>
+<h3 id="q6-basic-contrast-weight-only-and-weight-activation-quantization-in-terms-of-deployment-trade-offs">Q6 [Basic] Contrast weight-only and weight-activation quantization in terms of deployment trade-offs</h3>
+<p><strong>Q:</strong> When would a practitioner prefer quantizing only weights versus both weights and activations, and what hardware characteristics drive this choice?</p>
+<p><strong>A:</strong> <strong>Weight-only quantization</strong> (W4A16 or W8A16) stores model weights in low precision but performs matrix multiplications in FP16, dequantizing weights on the fly before the operation. The primary gain is <strong>memory bandwidth reduction</strong>: in LLM auto-regressive decoding with batch size 1, the bottleneck is loading weight matrices from GPU HBM to on-chip compute units — weight-only quantization at INT4 reduces this transfer by $4\times$, directly improving token throughput. Methods such as GPTQ (Frantar et al., 2022) and AWQ (Lin et al., 2023) follow this strategy, enabling larger models on the same hardware with minimal accuracy loss.</p>
+<p><strong>Weight-activation quantization</strong> (W8A8) quantizes both tensors, enabling the use of integer arithmetic units — INT8 tensor cores on NVIDIA GPUs offer higher peak throughput than FP16 units, beneficial when the operation is <strong>compute-bound</strong>. This regime occurs at large batch sizes where the arithmetic intensity (FLOPs per byte) is high enough to saturate the ALUs rather than the memory bus. Methods such as SmoothQuant (Xiao et al., 2022) and LLM.int8() (Dettmers et al., 2022) target this regime, enabling high-throughput serving of many concurrent requests. The cost is the added difficulty of quantizing activations accurately (Q3).</p>
+<p>In practice, single-user LLM inference is strongly memory-bandwidth-bound (W4A16 preferred), while serving many concurrent requests with large batches is often compute-bound (W8A8 preferred). The transition point depends on model size, hardware generation, and serving batch size.</p>
+<hr>
+<h3 id="q7-advanced-describe-how-smoothquant-migrates-quantization-difficulty-from-activations-to-weights">Q7 [Advanced] Describe how SmoothQuant migrates quantization difficulty from activations to weights</h3>
+<p><strong>Q:</strong> What is the mathematical identity at the core of SmoothQuant, and why does shifting the scale from activations to weights solve the outlier problem?</p>
+<p><strong>A:</strong> <strong>SmoothQuant</strong> exploits a key structural observation: the outlier channels in transformer activations are <strong>consistent across tokens</strong> — the same feature dimensions are large for all inputs (Xiao et al., 2022). This consistency means the outlier pattern can be characterized offline and countered with a fixed per-channel transformation. For any per-channel scale vector $\mathbf{s} \in \mathbb{R}^{C_{\text{in}}}$, the linear layer output is preserved exactly by:</p>
+$$\mathbf{Y} = \mathbf{X}\mathbf{W} = (\mathbf{X}\operatorname{diag}(\mathbf{s})^{-1}) \cdot (\operatorname{diag}(\mathbf{s})\mathbf{W})$$<p>Setting $s_j$ proportional to the observed magnitude of channel $j$ in activations, the transformed activation $\hat{\mathbf{X}} = \mathbf{X}\operatorname{diag}(\mathbf{s})^{-1}$ has outlier channels scaled down to the same range as other channels, while the transformed weight $\hat{\mathbf{W}} = \operatorname{diag}(\mathbf{s})\mathbf{W}$ has those columns scaled up. Weights are already easy to quantize, and the per-channel scale for weights can simply be absorbed into the quantization scale — the difficulty migrates to a medium that handles it well.</p>
+<p>The migration strength is controlled by a per-channel parameter $\alpha$:</p>
+$$s_j = \frac{\max(|\mathbf{X}_{:,j}|)^\alpha}{\max(|\mathbf{W}_{j,:}|)^{1-\alpha}}$$<p>with $\alpha = 0.5$ as a robust default. The scales are folded into the preceding LayerNorm&rsquo;s affine parameters offline, adding zero inference overhead. Xiao et al. (2022) demonstrated near-lossless INT8 inference for OPT-175B and BLOOM-176B on both perplexity and downstream zero-shot benchmarks, achieving the first practical W8A8 quantization of 176B-scale models.</p>
+<hr>
+<h3 id="q8-advanced-explain-how-llmint8-handles-activation-outliers-in-transformer-models">Q8 [Advanced] Explain how LLM.int8() handles activation outliers in transformer models</h3>
+<p><strong>Q:</strong> What computational decomposition does LLM.int8() use to enable accurate INT8 inference, and why does this approach become necessary specifically for large models?</p>
+<p><strong>A:</strong> <strong>LLM.int8()</strong> (Dettmers et al., 2022) addresses the outlier problem through <strong>mixed-precision decomposition</strong>: rather than quantizing the entire activation tensor, it separates the matrix multiplication based on whether each input feature dimension contains an outlier. Feature dimensions whose activation values exceed a threshold (typically $|x| > 6$) are extracted into an <strong>outlier matrix</strong> $\mathbf{X}_o \in \mathbb{R}^{B \times C_o}$; the remainder forms $\mathbf{X}_r \in \mathbb{R}^{B \times C_r}$. The weight matrix is partitioned correspondingly into $\mathbf{W}_o$ and $\mathbf{W}_r$:</p>
+$$\mathbf{Y} = \mathbf{X}_o \mathbf{W}_o^T + \operatorname{Int8}(\mathbf{X}_r) \cdot \operatorname{Int8}(\mathbf{W}_r)^T$$<p>The outlier portion (roughly $0.1\%$ of feature dimensions) is computed in FP16; the remaining $\sim 99.9\%$ uses INT8 tensor cores. The INT8 path dominates cost; the FP16 path adds modest overhead. Because outlier channels are persistent — Dettmers et al. (2022) showed they emerge as a phase transition at model scale ($\gtrsim 6$B parameters) and are consistent across all inputs — the outlier set can be determined once from calibration data and reused at inference.</p>
+<p>The practical motivation is memory: a FP16 175B-parameter model requires approximately 350 GB of GPU memory; LLM.int8() reduces weight storage to roughly 175 GB (INT8), enabling inference of 176B models on 4× 48 GB GPUs versus 8× in FP16. Dettmers et al. (2022) reported less than $1\%$ performance degradation across OPT and BLOOM models on standard zero-shot benchmarks.</p>
+<hr>
+<h2 id="pruning--sparsity">Pruning &amp; Sparsity</h2>
+<h3 id="q9-basic-contrast-structured-and-unstructured-pruning-in-their-impact-on-hardware-utilization">Q9 [Basic] Contrast structured and unstructured pruning in their impact on hardware utilization</h3>
+<p><strong>Q:</strong> Why does achieving 90% sparsity through unstructured pruning often fail to deliver real inference speedup, while structured pruning at 50% sparsity does?</p>
+<p><strong>A:</strong> <strong>Unstructured pruning</strong> removes individual weights regardless of their positions, producing irregular zero patterns scattered throughout the weight matrices. Despite high sparsity ratios, modern GPUs and TPUs execute matrix multiplications on dense rectangular blocks — they do not skip computation over individual zeros unless the zeros happen to conform to a specific hardware-supported pattern (such as NVIDIA A100&rsquo;s 2:4 structured sparsity). Without special sparse kernels, a $90\%$-sparse dense matrix still occupies the same memory layout as the original and executes in approximately the same time (Han et al., 2016). Even with sparse format (CSR, CSC), the irregular indexing overhead and poor vectorization often reduce the speedup below what the sparsity ratio would suggest.</p>
+<p><strong>Structured pruning</strong> removes entire computational units — output channels, attention heads, FFN neurons, or whole transformer layers — producing a smaller <strong>dense</strong> model. A model with $50\%$ of its output channels removed runs the corresponding matrix multiplications at $50\%$ of the original cost on any hardware that supports dense operations, with no sparse format overhead. The pruned dimension simply disappears from the weight tensor shape.</p>
+<p>The practical implication is that unstructured pruning is primarily a <strong>storage compression</strong> technique — reducing model size on disk and in memory — while structured pruning directly reduces latency and memory at inference time. For deployment on commodity hardware (CPUs, standard GPUs), structured pruning is the path to measurable speedup.</p>
+<hr>
+<h3 id="q10-advanced-explain-the-lottery-ticket-hypothesis-and-what-it-reveals-about-neural-network-overparameterization">Q10 [Advanced] Explain the lottery ticket hypothesis and what it reveals about neural network overparameterization</h3>
+<p><strong>Q:</strong> What did Frankle and Carlin find about sparse subnetworks within dense networks, and why does the initialization of the subnetwork matter?</p>
+<p><strong>A:</strong> The <strong>Lottery Ticket Hypothesis</strong> (Frankle &amp; Carlin, 2019) states that a randomly initialized dense network contains a sparse subnetwork — the &ldquo;winning ticket&rdquo; — that, when trained in isolation starting from its <strong>original initialization</strong> (not re-initialized randomly), converges in a comparable number of steps to similar or better accuracy than the full network. Frankle &amp; Carlin (2019) found these tickets via <strong>iterative magnitude pruning</strong>: train the network, prune the $p\%$ of weights with smallest final magnitude, reset remaining weights to their initialization values, and repeat. After several rounds, sparse subnetworks at $10$–$20\%$ of original size matched the full network&rsquo;s accuracy on MNIST and CIFAR-10.</p>
+<p>The critical and surprising finding is that the <strong>initial weight values matter</strong>: taking the winning subnetwork but re-initializing it randomly instead of using the original initialization destroys the performance advantage. The winning ticket&rsquo;s initial values appear to encode a favorable optimization trajectory — perhaps better gradient signal early in training. This implies that the dense network&rsquo;s role is partially as a search procedure: it implicitly identifies which sparse substructure to preserve and which initialization is effective for it.</p>
+<p>For larger networks (ResNet-50, language models), Frankle &amp; Carlin (2019) found that the pure initialization reset no longer works: weights must be reset to their values at a small number of early training steps (<strong>rewinding</strong>) rather than initialization. This &ldquo;late resetting&rdquo; requirement suggests that the useful inductive bias for large networks is established in early training dynamics, not at initialization. The hypothesis has implications for understanding why overparameterization aids optimization — it increases the probability of containing a well-initialized winning ticket — and motivates research into finding sparse subnetworks before training rather than after.</p>
+<hr>
+<h3 id="q11-advanced-describe-how-sparsegpt-enables-one-shot-pruning-of-large-language-models">Q11 [Advanced] Describe how SparseGPT enables one-shot pruning of large language models</h3>
+<p><strong>Q:</strong> What makes iterative pruning infeasible for LLMs, and what algorithmic principle does SparseGPT use to prune without any gradient updates?</p>
+<p><strong>A:</strong> Iterative pruning requires gradient-based fine-tuning after each pruning round to recover accuracy. For ResNets, this is standard practice, but for 100B+ parameter LLMs even a single epoch of fine-tuning requires processing the full pre-training corpus with backpropagation — computationally infeasible outside large research clusters, and often impractical even within them. <strong>SparseGPT</strong> (Frantar &amp; Alistarh, 2023) removes the need for any gradient updates by solving, for each linear layer, a weight reconstruction problem: find sparse weights $\hat{\mathbf{W}}$ that minimize output reconstruction error on a small calibration set:</p>
+$$\min_{\hat{\mathbf{W}}} \|\mathbf{W}\mathbf{X} - \hat{\mathbf{W}}\mathbf{X}\|_F^2 \quad \text{s.t.} \quad \|\hat{\mathbf{W}}\|_0 \leq k$$<p>This is solved using the same OBS/OBQ second-order framework as GPTQ (Q4): when a weight is pruned (set to zero), the remaining row weights are updated by the inverse-Hessian correction $\delta_F$ to compensate for the introduced error. Processing is done row-by-row, which is parallelizable, and uses the lazy batch-update trick to amortize Hessian operations across weight blocks.</p>
+<p>Frantar &amp; Alistarh (2023) demonstrated that OPT-175B can be pruned to $50\%$ unstructured sparsity with less than 1 perplexity point of degradation on WikiText-2, completing in approximately 4 GPU-hours on a single A100. At $2{:}4$ structured sparsity (the NVIDIA-native format that enables hardware speedup), SparseGPT achieved roughly 2 perplexity points of degradation — a usable accuracy level. They also showed that combining SparseGPT with quantization (sparse-quantized models) maintained competitive accuracy at higher compression ratios, suggesting that sparsity and quantization are complementary along different compression axes.</p>
+<hr>
+<h3 id="q12-advanced-compare-static-and-dynamic-sparse-training-and-how-rigl-advances-the-state-of-the-art">Q12 [Advanced] Compare static and dynamic sparse training and how RigL advances the state of the art</h3>
+<p><strong>Q:</strong> Why does training a sparse network from a random fixed mask underperform the dense-then-prune pipeline, and how does RigL overcome this without a dense training phase?</p>
+<p><strong>A:</strong> <strong>Static sparse training</strong> — fixing a random sparsity mask at initialization and training only the selected weights — typically underperforms the dense-then-prune pipeline at the same final sparsity. The lottery ticket hypothesis explains why: random sparse initialization lacks the favorable structure that magnitude pruning discovers after dense training. The winning ticket&rsquo;s value comes from both its topology and its initial weights; a random mask with reinitialized weights captures neither. Static sparse training thus starts from a structurally poor subgraph that is difficult to optimize even at high learning rates.</p>
+<p><strong>Dynamic sparse training</strong> alternates between sparse training steps and mask update steps that grow new connections while pruning existing ones. <strong>RigL</strong> (Rigging the Lottery, Evci et al., 2020) grows connections by computing the <strong>instantaneous gradient</strong> of the loss with respect to currently-zero weights during the sparse forward pass — weights with large gradients would reduce the loss significantly if activated. Connections are pruned by <strong>weight magnitude</strong>, since small active weights contribute little to the output. The mask is updated periodically every $\Delta T$ steps, with a cosine-decaying update fraction that starts large (aggressive topology exploration) and decreases as training converges.</p>
+<p>Evci et al. (2020) showed that RigL at the same training FLOPs as standard dense training matches or outperforms iterative magnitude pruning with fine-tuning at high sparsity ($80$–$99\%$) on ImageNet with ResNets. At a $2\times$ FLOP budget, RigL surpasses the dense baseline at $90\%$ sparsity — the first sparse training method to exceed dense training quality at matching FLOP cost. The key advantage is discovering task-adaptive sparsity patterns during training rather than relying on the post-hoc magnitude ordering found by the pruning pipeline.</p>
+<hr>
+<h2 id="knowledge-distillation--low-rank-compression">Knowledge Distillation &amp; Low-Rank Compression</h2>
+<h3 id="q13-basic-explain-how-soft-target-knowledge-distillation-works-and-what-the-teacher-provides-beyond-hard-labels">Q13 [Basic] Explain how soft-target knowledge distillation works and what the teacher provides beyond hard labels</h3>
+<p><strong>Q:</strong> What does a teacher model&rsquo;s output distribution encode that one-hot labels discard, and how does temperature scaling affect the quality of the distillation signal?</p>
+<p><strong>A:</strong> <strong>Knowledge distillation</strong> (Hinton et al., 2015) trains a smaller student model to match the full output distribution of a larger teacher, rather than only the ground-truth hard label. A well-trained teacher assigns non-trivial probabilities to incorrect classes — e.g., for an image of a car, it might output $p(\text{car}) = 0.7$, $p(\text{truck}) = 0.2$, $p(\text{bus}) = 0.08$. These <strong>soft targets</strong> encode the teacher&rsquo;s knowledge about <strong>inter-class similarity</strong>: the large car/truck probability reflects that these categories are visually similar and often confused. Hard labels (car=1, all others=0) discard this relational information entirely. The student trained on soft targets learns not just &ldquo;this is a car&rdquo; but also &ldquo;cars resemble trucks more than they resemble birds,&rdquo; which provides richer supervision.</p>
+<p>The student minimizes a weighted combination of the cross-entropy with hard labels and the KL divergence from the teacher&rsquo;s softened distribution:</p>
+$$\mathcal{L} = (1-\lambda)\,\mathcal{L}_{\text{CE}}(y,\, \sigma(\mathbf{z}_s)) + \lambda T^2\,\mathcal{L}_{\text{KL}}(\sigma(\mathbf{z}_t/T),\, \sigma(\mathbf{z}_s/T))$$<p>where $T$ is a <strong>temperature</strong> parameter. At $T = 1$, the teacher&rsquo;s distribution is sharply peaked and provides little signal about secondary classes. Raising $T$ flattens the distribution, amplifying the relative probabilities of non-dominant classes. The $T^2$ factor compensates for the reduced gradient magnitude at high temperature (Hinton et al., 2015). Typical values are $T \in [2, 20]$, chosen by validation.</p>
+<hr>
+<h3 id="q14-advanced-describe-feature-level-distillation-and-the-challenges-of-aligning-intermediate-representations">Q14 [Advanced] Describe feature-level distillation and the challenges of aligning intermediate representations</h3>
+<p><strong>Q:</strong> What does feature-level distillation transfer that output distillation cannot, and what makes matching intermediate representations across different-capacity networks difficult?</p>
+<p><strong>A:</strong> Output distillation compresses the teacher&rsquo;s knowledge into a $K$-class probability vector. Feature-level distillation additionally transfers the <strong>internal representations</strong> learned in intermediate layers — spatial feature maps, attention patterns, or hidden states — which contain richer structural information. <strong>FitNets</strong> (Romero et al., 2015) proposed training the student to minimize the MSE between its intermediate activations and a designated &ldquo;hint&rdquo; layer of the teacher:</p>
+$$\mathcal{L}_{\text{hint}} = \frac{1}{2}\|f_t(\mathbf{x}) - W_r f_s(\mathbf{x})\|_2^2$$<p>where $W_r$ is a learned <strong>regressor</strong> that projects the student&rsquo;s feature dimension to match the teacher&rsquo;s. This projection is necessary because teacher and student layers typically have different widths; without it the student would need to exactly replicate the teacher&rsquo;s dimensionality at every intermediate layer, which is architecturally constraining.</p>
+<p>A deeper difficulty is that different-capacity networks learn qualitatively different internal representations even when solving the same task. A large teacher may distribute information across many channels; a small student may concentrate the same information into fewer, denser features. Forcing the student to precisely mimic the teacher&rsquo;s high-dimensional feature maps can be an overly rigid constraint that prevents it from finding its own efficient representation. MSE over activations is also dominated by channels with high variance, which may not be the most informative ones. <strong>Relational Knowledge Distillation</strong> (RKD, Park et al., 2019) addresses this by transferring relational structure — pairwise distances and angles between sample embeddings — rather than absolute activation values, allowing the student freedom to find its own representation geometry while preserving the relative structure the teacher learned.</p>
+<hr>
+<h3 id="q15-basic-explain-how-lora-reduces-trainable-parameters-during-fine-tuning-without-modifying-the-original-weights">Q15 [Basic] Explain how LoRA reduces trainable parameters during fine-tuning without modifying the original weights</h3>
+<p><strong>Q:</strong> What low-rank structure does LoRA introduce, and how does it preserve the pre-trained model while enabling task-specific adaptation?</p>
+<p><strong>A:</strong> <strong>LoRA</strong> (Low-Rank Adaptation, Hu et al., 2022) is motivated by the observation that the weight update $\Delta W$ needed to adapt a large pre-trained model to a downstream task has low intrinsic rank — the task-specific adaptation lies in a much lower-dimensional subspace than the full weight matrix. Rather than updating the full $d \times k$ weight matrix, LoRA parameterizes the update as a product of two small matrices:</p>
+$$W' = W_0 + \Delta W = W_0 + BA$$<p>where $B \in \mathbb{R}^{d \times r}$, $A \in \mathbb{R}^{r \times k}$, and rank $r \ll \min(d, k)$. The original weights $W_0$ are frozen; only $A$ and $B$ are trained. For a GPT-3-scale attention projection with $d = k = 12{,}288$ and $r = 8$, trainable parameters drop from $\sim 151\text{M}$ to $\sim 196\text{K}$ — a $770\times$ reduction per matrix.</p>
+<p>$A$ is initialized from a small Gaussian and $B$ to zero, so $\Delta W = BA = 0$ at initialization — training starts from the exact pre-trained output. At inference, the LoRA weights are merged by computing $W' = W_0 + BA$ once, incurring no inference overhead. Hu et al. (2022) showed that LoRA applied to the attention weight matrices of GPT-3 matches or exceeds full fine-tuning on downstream NLP benchmarks while reducing trainable parameters by $10{,}000\times$. Multiple task-specific LoRA adapters can be maintained simultaneously for a single base model, with negligible per-adapter storage cost.</p>
+<hr>
+<h3 id="q16-advanced-describe-how-truncated-svd-approximates-and-compresses-linear-and-convolutional-layers">Q16 [Advanced] Describe how truncated SVD approximates and compresses linear and convolutional layers</h3>
+<p><strong>Q:</strong> How does low-rank matrix decomposition reduce parameter count and FLOPs in a layer, and what properties of trained weight matrices limit its effectiveness?</p>
+<p><strong>A:</strong> Given a weight matrix $\mathbf{W} \in \mathbb{R}^{m \times n}$, its singular value decomposition (SVD) is $\mathbf{W} = \mathbf{U}\boldsymbol{\Sigma}\mathbf{V}^T$ with singular values $\sigma_1 \geq \sigma_2 \geq \ldots \geq 0$. The <strong>truncated rank-$r$ approximation</strong> retains only the top $r$ singular triplets:</p>
+$$\hat{\mathbf{W}}_r = \mathbf{U}_r \boldsymbol{\Sigma}_r \mathbf{V}_r^T = (\mathbf{U}_r \boldsymbol{\Sigma}_r^{1/2})(\boldsymbol{\Sigma}_r^{1/2}\mathbf{V}_r^T)$$<p>This replaces one matrix multiply of cost $O(mn)$ with two sequential multiplies of costs $O(mr)$ and $O(rn)$, totaling $O(r(m+n))$ — a FLOPs reduction factor of $mn / (r(m+n))$. Storage similarly reduces from $mn$ to $r(m+n)$.</p>
+<p>For convolutional networks, Denton et al. (2014) applied SVD to reshaped filter banks, achieving approximately $2\times$ speedup on VGG-style networks with roughly $1\%$ top-5 accuracy degradation on ImageNet. The fundamental limitation is that the singular value spectrum of weight matrices in trained networks tends to <strong>decay slowly</strong>: many singular values have similar magnitudes, so a rank-$r$ truncation must use large $r$ to avoid significant approximation error. Layers near the input and square layers ($m \approx n$) tend to have flatter spectra and resist compression. The compression ratio is thus highly layer-dependent — most of the spectral mass may be concentrated in the top few singular values for some layers and spread broadly for others — making non-uniform rank allocation (larger $r$ for critical layers) important for achieving a good accuracy-compression trade-off in practice.</p>
+<hr>
+<h2 id="efficient-architectures--inference">Efficient Architectures &amp; Inference</h2>
+<h3 id="q17-basic-explain-how-depthwise-separable-convolutions-reduce-computation-compared-to-standard-convolutions">Q17 [Basic] Explain how depthwise separable convolutions reduce computation compared to standard convolutions</h3>
+<p><strong>Q:</strong> How does factorizing a convolution into depthwise and pointwise stages change the total operation count, and where does the computational saving come from?</p>
+<p><strong>A:</strong> A <strong>standard convolution</strong> with $M$ input channels, $N$ output channels, kernel size $D_K \times D_K$, and output spatial size $D_F \times D_F$ performs $D_K^2 \cdot M \cdot N \cdot D_F^2$ multiply-accumulate (MAC) operations: each of the $N$ output filters slides over all $M$ input channels.</p>
+<p>A <strong>depthwise separable convolution</strong> (Howard et al., 2017) factorizes this into two stages. First, a <strong>depthwise convolution</strong> applies one $D_K \times D_K$ filter independently per input channel, costing $D_K^2 \cdot M \cdot D_F^2$ MACs (captures spatial patterns, no channel mixing). Second, a <strong>pointwise convolution</strong> ($1 \times 1$) mixes channel information to produce $N$ output features, costing $M \cdot N \cdot D_F^2$ MACs. Total cost: $(D_K^2 + N) \cdot M \cdot D_F^2$. The reduction ratio relative to standard convolution is:</p>
+$$\frac{D_K^2 \cdot M \cdot D_F^2 + M \cdot N \cdot D_F^2}{D_K^2 \cdot M \cdot N \cdot D_F^2} = \frac{1}{N} + \frac{1}{D_K^2}$$<p>For $D_K = 3$ and large $N$, this approaches $1/9 \approx 8$–$9\times$ reduction. Howard et al. (2017) demonstrated that MobileNets built entirely from depthwise separable convolutions achieve roughly $1\%$ lower top-1 accuracy on ImageNet than VGG-16 while using approximately $27\times$ fewer MACs and $32\times$ fewer parameters — establishing depthwise separable convolutions as the key primitive for mobile-scale vision models.</p>
+<hr>
+<h3 id="q18-advanced-describe-how-flashattention-reduces-memory-and-increases-throughput-in-transformer-computation">Q18 [Advanced] Describe how FlashAttention reduces memory and increases throughput in transformer computation</h3>
+<p><strong>Q:</strong> What is the memory and bandwidth bottleneck in standard scaled dot-product attention, and how does FlashAttention&rsquo;s tiling approach eliminate it without changing the mathematical output?</p>
+<p><strong>A:</strong> Standard scaled dot-product attention $\text{softmax}(\mathbf{QK}^T/\sqrt{d})\mathbf{V}$ requires materializing the $N \times N$ attention score matrix in GPU HBM (high-bandwidth memory), where $N$ is the sequence length. This is an $O(N^2)$ memory footprint that becomes prohibitive for long sequences. More critically, attention is <strong>IO-bound</strong> rather than compute-bound: modern GPUs have far more arithmetic throughput than memory bandwidth, so the repeated HBM reads and writes of large activation tensors dominate wall time. Dao et al. (2022) estimated that naïve PyTorch attention spends the majority of its time on memory reads/writes rather than FLOPs.</p>
+<p><strong>FlashAttention</strong> eliminates HBM materialization of the $N \times N$ matrix by computing attention in <strong>tiles</strong> sized to fit in on-chip SRAM. For each tile of queries $\mathbf{Q}_i$, it iterates over all tiles of keys $\mathbf{K}_j$ and values $\mathbf{V}_j$, maintaining running statistics using the <strong>online softmax</strong> algorithm: a running maximum $m_i$ and normalization constant $\ell_i$ are updated incrementally, allowing the partial attention output to be corrected without storing all scores:</p>
+$$m_i^{(j)} = \max\!\left(m_i^{(j-1)},\, \operatorname{rowmax}\!\left(\mathbf{Q}_i \mathbf{K}_j^T / \sqrt{d}\right)\right)$$<p>The final output is assembled tile by tile with a single pass, never writing the $N \times N$ matrix to HBM. The mathematical result is identical to standard attention (Dao et al., 2022).</p>
+<p>FlashAttention reduces HBM memory from $O(N^2)$ to $O(N)$ and achieves 2–4× wall-clock speedup over PyTorch attention on A100 GPUs for sequence lengths 1K–16K. FlashAttention-2 (Dao, 2023) further improved throughput by roughly $2\times$ through better parallelization across the sequence dimension and reduction of non-matmul FLOPs in the attention kernel.</p>
+<hr>
+<h3 id="q19-advanced-explain-how-speculative-decoding-accelerates-auto-regressive-token-generation">Q19 [Advanced] Explain how speculative decoding accelerates auto-regressive token generation</h3>
+<p><strong>Q:</strong> What inefficiency in standard token-by-token generation does speculative decoding exploit, and how does it guarantee that the output distribution is unchanged?</p>
+<p><strong>A:</strong> In standard auto-regressive generation, the target LLM generates one token per forward pass. For large models, each forward pass is <strong>memory-bandwidth-bound</strong>: weight matrices must be loaded from HBM for every token, and at batch size 1 the GPU arithmetic units are largely idle while waiting for data. Generating a sequence of $T$ tokens requires $T$ sequential forward passes, each underutilizing the available compute (Leviathan et al., 2022).</p>
+<p><strong>Speculative decoding</strong> uses a small, fast <strong>draft model</strong> to propose $k$ candidate tokens in $k$ cheap sequential steps. These $k$ tokens are then verified in a <strong>single parallel forward pass</strong> of the target model. Because the target pass over $k$ tokens loads weights once and processes all positions simultaneously, it costs approximately the same as one standard token generation step — yet it potentially accepts multiple tokens. When all $k$ draft tokens are accepted, the algorithm achieves $k\times$ throughput; if some are rejected, at least one new token is always produced.</p>
+<p>Correctness is guaranteed by a rejection sampling scheme: draft token $x_i$ at position $i$ is accepted with probability $\min(1,\, p(x_i|x_{<i}) / q(x_i|x_{<i}))$, where $p$ is the target distribution and $q$ is the draft distribution. If rejected, a new token is sampled from a corrected distribution $\text{norm}(\max(0,\, p(\cdot) - q(\cdot)))$. The resulting token sequence has the <strong>exact same distribution as the target model</strong> sampling alone — no approximation is introduced (Leviathan et al., 2022).</p>
+<p>The expected speedup scales as approximately $\frac{1-\alpha^{k+1}}{(1-\alpha)(1 + k \cdot c)}$, where $\alpha$ is the per-token acceptance probability and $c$ is the cost ratio of one draft step to one target step. Leviathan et al. (2022) reported 2–3× speedup on T5-XXL using T5-Small as the draft model, with identical output quality, demonstrating that the performance of the expensive target model is fully preserved.</p>
+<hr>
+<h3 id="q20-basic-describe-how-differentiable-architecture-search-finds-efficient-neural-network-architectures">Q20 [Basic] Describe how differentiable architecture search finds efficient neural network architectures</h3>
+<p><strong>Q:</strong> What made early NAS methods prohibitively expensive, and how does DARTS make architecture search tractable through continuous relaxation?</p>
+<p><strong>A:</strong> Classical Neural Architecture Search (Zoph &amp; Le, 2017) uses a reinforcement learning controller to sample candidate architectures, trains each from scratch on the target dataset to evaluate validation accuracy, and updates the controller based on the reward. Zoph &amp; Le (2017) required 800 GPUs running for 28 days to discover competitive architectures on CIFAR-10 — the cost of evaluating each architecture independently makes exhaustive or RL-guided search over large spaces impractical for most research settings.</p>
+<p><strong>DARTS</strong> (Differentiable Architecture Search, Liu et al., 2019) makes search tractable through <strong>continuous relaxation</strong>: each edge $(i, j)$ in the architecture cell (a DAG where nodes are feature maps) holds a mixture over $|\mathcal{O}|$ candidate operations, weighted by softmax-normalized architecture parameters $\boldsymbol{\alpha}$:</p>
+$$\bar{o}^{(i,j)}(\mathbf{x}) = \sum_{o \in \mathcal{O}} \frac{\exp(\alpha_o^{(i,j)})}{\sum_{o'} \exp(\alpha_{o'}^{(i,j)})} \cdot o(\mathbf{x})$$<p>The architecture parameters $\boldsymbol{\alpha}$ and network weights $\mathbf{w}$ are jointly optimized by <strong>bilevel optimization</strong>: $\mathbf{w}$ is updated on training data, $\boldsymbol{\alpha}$ on validation data, alternating within a single training run on the full dataset. After search, the discrete architecture is derived by selecting the highest-weighted operation on each edge. DARTS reduces search cost from thousands of GPU-days to approximately 4 GPU-days on CIFAR-10, discovering architectures that transfer competitively to ImageNet without retraining (Liu et al., 2019).</p>
+<hr>
+<h2 id="quick-reference">Quick Reference</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>Difficulty</th>
+          <th>Topic</th>
+          <th>Section</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>Basic</td>
+          <td>Uniform quantization: scale, zero-point, granularity</td>
+          <td>Quantization Fundamentals</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>Basic</td>
+          <td>PTQ vs QAT</td>
+          <td>Quantization Fundamentals</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>Advanced</td>
+          <td>Why activations are harder to quantize than weights</td>
+          <td>Quantization Fundamentals</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>Advanced</td>
+          <td>GPTQ one-shot weight quantization</td>
+          <td>Quantization Fundamentals</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>Advanced</td>
+          <td>AWQ salient-weight-aware quantization</td>
+          <td>Quantization for Large Language Models</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>Basic</td>
+          <td>Weight-only vs weight-activation quantization</td>
+          <td>Quantization for Large Language Models</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>Advanced</td>
+          <td>SmoothQuant activation-to-weight difficulty migration</td>
+          <td>Quantization for Large Language Models</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>Advanced</td>
+          <td>LLM.int8() mixed-precision decomposition</td>
+          <td>Quantization for Large Language Models</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>Basic</td>
+          <td>Structured vs unstructured pruning</td>
+          <td>Pruning &amp; Sparsity</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>Advanced</td>
+          <td>Lottery ticket hypothesis</td>
+          <td>Pruning &amp; Sparsity</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>Advanced</td>
+          <td>SparseGPT one-shot LLM pruning</td>
+          <td>Pruning &amp; Sparsity</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>Advanced</td>
+          <td>Static vs dynamic sparse training and RigL</td>
+          <td>Pruning &amp; Sparsity</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>Basic</td>
+          <td>Soft-target knowledge distillation</td>
+          <td>Knowledge Distillation &amp; Low-Rank Compression</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>Advanced</td>
+          <td>Feature-level distillation and relational KD</td>
+          <td>Knowledge Distillation &amp; Low-Rank Compression</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>Basic</td>
+          <td>LoRA low-rank fine-tuning</td>
+          <td>Knowledge Distillation &amp; Low-Rank Compression</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>Advanced</td>
+          <td>Truncated SVD layer compression</td>
+          <td>Knowledge Distillation &amp; Low-Rank Compression</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>Basic</td>
+          <td>Depthwise separable convolutions</td>
+          <td>Efficient Architectures &amp; Inference</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>Advanced</td>
+          <td>FlashAttention IO-aware tiling</td>
+          <td>Efficient Architectures &amp; Inference</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>Advanced</td>
+          <td>Speculative decoding</td>
+          <td>Efficient Architectures &amp; Inference</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>Basic</td>
+          <td>DARTS differentiable architecture search</td>
+          <td>Efficient Architectures &amp; Inference</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="resources">Resources</h2>
+<ul>
+<li>Nagel et al., <a href="https://arxiv.org/abs/2106.08295">A White Paper on Neural Network Quantization</a> (2021)</li>
+<li>Jacob et al., <a href="https://arxiv.org/abs/1712.05877">Quantization and Training of Neural Networks for Inference at Integer Arithmetic</a> (2018)</li>
+<li>Frantar et al., <a href="https://arxiv.org/abs/2210.17323">GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers</a> (2022)</li>
+<li>Lin et al., <a href="https://arxiv.org/abs/2306.00978">AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration</a> (2023)</li>
+<li>Xiao et al., <a href="https://arxiv.org/abs/2211.10438">SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models</a> (2022)</li>
+<li>Dettmers et al., <a href="https://arxiv.org/abs/2208.07339">LLM.int8(): 8-bit Matrix Multiplication for Transformers at Scale</a> (2022)</li>
+<li>Han et al., <a href="https://arxiv.org/abs/1510.00149">Deep Compression: Compressing Deep Neural Networks with Pruning, Trained Quantization and Huffman Coding</a> (2016)</li>
+<li>Frankle &amp; Carlin, <a href="https://arxiv.org/abs/1803.03635">The Lottery Ticket Hypothesis: Finding Sparse, Trainable Neural Networks</a> (2019)</li>
+<li>Frantar &amp; Alistarh, <a href="https://arxiv.org/abs/2301.00774">SparseGPT: Massive Language Models Can be Accurately Pruned in One Shot</a> (2023)</li>
+<li>Evci et al., <a href="https://arxiv.org/abs/1911.11134">Rigging the Lottery: Making All Tickets Winners</a> (2020)</li>
+<li>Hinton et al., <a href="https://arxiv.org/abs/1503.02531">Distilling the Knowledge in a Neural Network</a> (2015)</li>
+<li>Romero et al., <a href="https://arxiv.org/abs/1412.6550">FitNets: Hints for Thin Deep Nets</a> (2015)</li>
+<li>Park et al., <a href="https://arxiv.org/abs/1904.05068">Relational Knowledge Distillation</a> (2019)</li>
+<li>Hu et al., <a href="https://arxiv.org/abs/2106.09685">LoRA: Low-Rank Adaptation of Large Language Models</a> (2022)</li>
+<li>Denton et al., <a href="https://arxiv.org/abs/1404.0736">Exploiting Linear Structure Within Convolutional Networks for Efficient Evaluation</a> (2014)</li>
+<li>Howard et al., <a href="https://arxiv.org/abs/1704.04861">MobileNets: Efficient Convolutional Neural Networks for Mobile Vision Applications</a> (2017)</li>
+<li>Dao et al., <a href="https://arxiv.org/abs/2205.14135">FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</a> (2022)</li>
+<li>Dao, <a href="https://arxiv.org/abs/2307.08691">FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning</a> (2023)</li>
+<li>Leviathan et al., <a href="https://arxiv.org/abs/2211.17192">Fast Inference from Transformers via Speculative Decoding</a> (2022)</li>
+<li>Zoph &amp; Le, <a href="https://arxiv.org/abs/1611.01578">Neural Architecture Search with Reinforcement Learning</a> (2017)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/1806.09055">DARTS: Differentiable Architecture Search</a> (2019)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+
