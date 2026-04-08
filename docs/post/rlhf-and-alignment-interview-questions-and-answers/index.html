@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>RLHF and Alignment: Interview Questions and Answers | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">RLHF and Alignment: Interview Questions and Answers</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/08</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/reinforcement-learning">Reinforcement Learning</a> <a href="/blogs/tags/alignment">Alignment</a> 
+  
+  
+</p>
+</div>
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#rlhf-foundations">RLHF Foundations</a>
+      <ul>
+        <li><a href="#q1-basic-describe-the-three-stage-rlhf-pipeline-for-instruction-following-llms">Q1 [Basic] Describe the three-stage RLHF pipeline for instruction-following LLMs</a></li>
+        <li><a href="#q2-basic-explain-how-a-reward-model-is-trained-from-pairwise-human-preferences">Q2 [Basic] Explain how a reward model is trained from pairwise human preferences</a></li>
+        <li><a href="#q3-advanced-analyze-the-bradley-terry-preference-model-and-its-limiting-assumptions">Q3 [Advanced] Analyze the Bradley-Terry preference model and its limiting assumptions</a></li>
+        <li><a href="#q4-advanced-analyze-the-kl-divergence-constraint-and-reference-policy-in-rlhf">Q4 [Advanced] Analyze the KL divergence constraint and reference policy in RLHF</a></li>
+      </ul>
+    </li>
+    <li><a href="#policy-optimization">Policy Optimization</a>
+      <ul>
+        <li><a href="#q5-basic-explain-how-ppo-is-adapted-for-llm-alignment">Q5 [Basic] Explain how PPO is adapted for LLM alignment</a></li>
+        <li><a href="#q6-advanced-analyze-ppos-clipping-objective-and-actor-critic-design-for-language-models">Q6 [Advanced] Analyze PPO&rsquo;s clipping objective and actor-critic design for language models</a></li>
+        <li><a href="#q7-advanced-describe-grpo-and-how-it-eliminates-the-critic-in-policy-optimization">Q7 [Advanced] Describe GRPO and how it eliminates the critic in policy optimization</a></li>
+        <li><a href="#q8-advanced-explain-reward-hacking-goodharts-law-and-reward-model-overoptimization">Q8 [Advanced] Explain reward hacking, Goodhart&rsquo;s Law, and reward model overoptimization</a></li>
+      </ul>
+    </li>
+    <li><a href="#direct-preference-optimization">Direct Preference Optimization</a>
+      <ul>
+        <li><a href="#q9-basic-explain-direct-preference-optimization-and-its-key-advantage-over-ppo-based-rlhf">Q9 [Basic] Explain Direct Preference Optimization and its key advantage over PPO-based RLHF</a></li>
+        <li><a href="#q10-advanced-derive-the-dpo-objective-from-the-rlhf-constrained-optimization">Q10 [Advanced] Derive the DPO objective from the RLHF constrained optimization</a></li>
+        <li><a href="#q11-advanced-analyze-simpos-length-normalization-and-reference-free-design">Q11 [Advanced] Analyze SimPO&rsquo;s length normalization and reference-free design</a></li>
+        <li><a href="#q12-advanced-describe-ipo-and-kto-as-alternatives-to-the-bradley-terry-paradigm">Q12 [Advanced] Describe IPO and KTO as alternatives to the Bradley-Terry paradigm</a></li>
+        <li><a href="#q13-basic-distinguish-online-from-offline-preference-optimization">Q13 [Basic] Distinguish online from offline preference optimization</a></li>
+      </ul>
+    </li>
+    <li><a href="#constitutional-ai-and-rlaif">Constitutional AI and RLAIF</a>
+      <ul>
+        <li><a href="#q14-basic-describe-constitutional-ai-and-how-it-reduces-dependence-on-human-feedback">Q14 [Basic] Describe Constitutional AI and how it reduces dependence on human feedback</a></li>
+        <li><a href="#q15-advanced-compare-rlaif-to-rlhf-and-analyze-when-ai-feedback-is-effective">Q15 [Advanced] Compare RLAIF to RLHF and analyze when AI feedback is effective</a></li>
+        <li><a href="#q16-advanced-describe-scalable-oversight-and-its-relationship-to-the-alignment-problem">Q16 [Advanced] Describe scalable oversight and its relationship to the alignment problem</a></li>
+      </ul>
+    </li>
+    <li><a href="#alignment-safety-and-evaluation">Alignment Safety and Evaluation</a>
+      <ul>
+        <li><a href="#q17-basic-describe-red-teaming-approaches-and-their-role-in-alignment-evaluation">Q17 [Basic] Describe red-teaming approaches and their role in alignment evaluation</a></li>
+        <li><a href="#q18-basic-contrast-process-reward-models-and-outcome-reward-models">Q18 [Basic] Contrast process reward models and outcome reward models</a></li>
+        <li><a href="#q19-advanced-analyze-the-alignment-tax-and-the-helpfulness-harmlessness-honesty-trade-off">Q19 [Advanced] Analyze the alignment tax and the helpfulness-harmlessness-honesty trade-off</a></li>
+        <li><a href="#q20-advanced-analyze-systematic-failure-modes-of-rlhf-trained-models">Q20 [Advanced] Analyze systematic failure modes of RLHF-trained models</a></li>
+      </ul>
+    </li>
+    <li><a href="#quick-reference">Quick Reference</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="rlhf-foundations">RLHF Foundations</h2>
+<h3 id="q1-basic-describe-the-three-stage-rlhf-pipeline-for-instruction-following-llms">Q1 [Basic] Describe the three-stage RLHF pipeline for instruction-following LLMs</h3>
+<p><strong>Q:</strong> How does the standard RLHF pipeline transform a pre-trained language model into an instruction-following assistant, and what role does each stage play?</p>
+<p><strong>A:</strong> The standard RLHF pipeline used in InstructGPT (Ouyang et al., 2022) consists of three sequential stages that progressively align a pre-trained language model with human preferences.</p>
+<p>The first stage is <strong>supervised fine-tuning (SFT)</strong>. A pre-trained base model is fine-tuned on a curated dataset of (prompt, demonstration) pairs, where human labelers write high-quality example responses. This teaches the model the format and style of helpful responses before any reward signal is introduced. SFT is essential because RLHF alone, applied to a raw pre-trained model, tends to produce incoherent or off-distribution outputs.</p>
+<p>The second stage trains a <strong>reward model (RM)</strong>. Human labelers are shown several model-generated responses to the same prompt and rank them by quality. These comparison pairs train a separate reward model — typically initialized from the SFT model with a scalar output head replacing the language model head — to assign a scalar quality score to any (prompt, response) pair. The reward model serves as a proxy for human judgment throughout the next stage, since running human evaluation at every policy gradient step is infeasible.</p>
+<p>The third stage optimizes the <strong>policy via reinforcement learning</strong>. The SFT model is used as the initial policy and fine-tuned using PPO (Schulman et al., 2017) to maximize reward model scores while constraining divergence from the SFT model via a KL penalty. Christiano et al. (2017) originally introduced this three-stage pipeline for RL agents in simulated environments; Stiennon et al. (2020) first applied it to language model fine-tuning for summarization, and Ouyang et al. (2022) scaled it to instruction following across diverse tasks.</p>
+<hr>
+<h3 id="q2-basic-explain-how-a-reward-model-is-trained-from-pairwise-human-preferences">Q2 [Basic] Explain how a reward model is trained from pairwise human preferences</h3>
+<p><strong>Q:</strong> What data format and training objective does reward model training use, and what architectural choices are important?</p>
+<p><strong>A:</strong> Reward model training uses <strong>pairwise comparisons</strong> collected from human annotators. For each prompt $x$, annotators rank two or more model responses, yielding datasets of $(x, y_w, y_l)$ triples where $y_w$ is preferred over $y_l$. Ziegler et al. (2019) established this data format in early language model RLHF work. The reward model is trained to assign higher scores to preferred responses using a binary cross-entropy loss:</p>
+$$\mathcal{L}_\text{RM} = -\mathbb{E}_{(x,\, y_w,\, y_l) \sim \mathcal{D}}\!\left[\log \sigma\!\left(r_\phi(x, y_w) - r_\phi(x, y_l)\right)\right]$$<p>where $r_\phi(x, y)$ is the scalar reward assigned to response $y$ given prompt $x$.</p>
+<p>Architecturally, the reward model is typically initialized from the SFT checkpoint and fine-tuned with a linear projection from the final hidden state to a scalar output. Using the same model family for both the policy and reward model is important because the reward model must evaluate outputs in the policy&rsquo;s output distribution; a smaller or differently parameterized reward model gives noisier signals. Ouyang et al. (2022) also found that training the reward model on comparison data from the same distribution as the policy&rsquo;s outputs — iteratively collecting preference data as the policy improves — is important for preventing reward model staleness.</p>
+<hr>
+<h3 id="q3-advanced-analyze-the-bradley-terry-preference-model-and-its-limiting-assumptions">Q3 [Advanced] Analyze the Bradley-Terry preference model and its limiting assumptions</h3>
+<p><strong>Q:</strong> What statistical model underlies reward model training, and what are the core assumptions that limit its fidelity to human values?</p>
+<p><strong>A:</strong> The <strong>Bradley-Terry (BT) model</strong> provides the statistical foundation for reward model training. It defines the probability that response $y_w$ is preferred over $y_l$ as:</p>
+$$p(y_w \succ y_l \mid x) = \sigma\!\left(r(x, y_w) - r(x, y_l)\right)$$<p>Training the reward model by maximum likelihood on pairwise comparisons is equivalent to fitting the BT model. This formulation has four limiting assumptions that matter in practice.</p>
+<p>First, BT assumes <strong>transitivity</strong>: if $A \succ B$ and $B \succ C$, then $A \succ C$. Human preferences frequently violate this — the same annotator may rank responses differently across comparison contexts, and aggregating across annotators amplifies intransitivity.</p>
+<p>Second, BT collapses all preference dimensions into a <strong>single scalar reward</strong>. A response can be factually accurate but unhelpfully formatted, or helpful but unsafe. A scalar reward model trained to average across annotators cannot represent this structure; it produces a composite score that may trade off dimensions in ways no individual annotator intended.</p>
+<p>Third, BT assumes <strong>independent comparisons</strong>: each pair is evaluated in isolation. Annotator behavior exhibits position bias, anchoring, and contrast effects that violate this assumption.</p>
+<p>Fourth, Azar et al. (2024) showed that BT-based objectives cause <strong>overconfident reward extrapolation</strong>: as training continues, gradient updates push the log-probability ratio toward $\pm\infty$, saturating the logistic function and providing no further learning signal. The policy can then collapse — assigning near-zero probability to dispreferred responses regardless of their actual quality relative to preferred ones — without any regularizing pushback from the loss. This failure mode motivates their IPO proposal.</p>
+<hr>
+<h3 id="q4-advanced-analyze-the-kl-divergence-constraint-and-reference-policy-in-rlhf">Q4 [Advanced] Analyze the KL divergence constraint and reference policy in RLHF</h3>
+<p><strong>Q:</strong> Why is a KL divergence penalty essential in the RLHF objective, and how does the reference policy&rsquo;s choice affect the alignment-capability trade-off?</p>
+<p><strong>A:</strong> The RLHF policy optimization objective is:</p>
+$$\max_\pi\; \mathbb{E}_{x \sim \mathcal{D},\; y \sim \pi(\cdot|x)}\!\left[r_\phi(x, y)\right] - \beta \cdot \mathrm{KL}\!\left[\pi(\cdot|x) \;\|\; \pi_\text{ref}(\cdot|x)\right]$$<p>The KL term serves three distinct functions that together determine the stability and quality of alignment.</p>
+<p>First, it provides <strong>regularization against reward hacking</strong>. Without the KL constraint, the policy would optimize the reward model rather than the true human objective, exploiting any gap between the proxy reward and genuine quality. The penalty limits how far the policy can stray into regions where the reward model&rsquo;s extrapolations are unreliable.</p>
+<p>Second, it preserves <strong>language model fluency and general capabilities</strong>. The reference policy — typically the SFT model — encodes a distribution over natural, coherent language. The KL penalty ensures the optimized policy cannot degrade into degenerate repetitive or grammatically broken outputs while chasing reward, a failure mode observed in unconstrained reward maximization experiments (Ouyang et al., 2022).</p>
+<p>Third, the KL constraint has an <strong>information-theoretic interpretation</strong>: the policy is constrained to an information budget relative to $\pi_\text{ref}$, with $\beta$ controlling the exchange rate between reward and divergence. The closed-form solution to this objective is the <strong>Gibbs policy</strong>:</p>
+$$\pi^*(y|x) = \frac{1}{Z(x)}\,\pi_\text{ref}(y|x)\exp\!\left(\frac{r(x,y)}{\beta}\right)$$<p>where $Z(x)$ is the partition function. This closed-form expression is the key identity that DPO later exploits to eliminate the reward model. The choice of $\pi_\text{ref}$ determines the quality floor for alignment: if $\pi_\text{ref}$ is too weak, the KL budget is insufficient to guide the policy to useful behavior; if too strong, the constraint prevents meaningful improvements from the reward signal.</p>
+<hr>
+<h2 id="policy-optimization">Policy Optimization</h2>
+<h3 id="q5-basic-explain-how-ppo-is-adapted-for-llm-alignment">Q5 [Basic] Explain how PPO is adapted for LLM alignment</h3>
+<p><strong>Q:</strong> How does the RLHF training loop implement PPO, and what modifications relative to standard RL settings does language generation require?</p>
+<p><strong>A:</strong> In the RLHF training loop, <strong>PPO</strong> (Proximal Policy Optimization; Schulman et al., 2017) treats each token generation step as a sequential decision: the state at position $t$ is $(x, y_{<t})$, the action is the next token $y_t$, and the reward is received at the end of generation. The per-step reward is typically zero except at the terminal token, where it combines the reward model score with a per-token KL penalty:</p>
+$$\tilde{r}_t = r_\phi(x, y) \cdot \mathbb{1}[t = T] - \beta \log \frac{\pi_\theta(y_t|x, y_{<t})}{\pi_\text{ref}(y_t|x, y_{<t})}$$<p>The RLHF training infrastructure requires four models held simultaneously in memory: (1) the active <strong>policy</strong> $\pi_\theta$ being optimized; (2) the frozen <strong>reference policy</strong> $\pi_\text{ref}$ for computing the KL penalty; (3) the frozen <strong>reward model</strong> $r_\phi$ for scoring completed responses; and (4) the <strong>value function</strong> $V_\psi$ (critic) for estimating expected future returns. This four-model setup makes RLHF training significantly more resource-intensive than SFT, requiring careful memory management or parameter-sharing strategies.</p>
+<p>PPO&rsquo;s <strong>clipping mechanism</strong> prevents excessively large policy updates that could destabilize training — especially important in the language model setting where a single bad update can collapse output diversity. Ouyang et al. (2022) found that PPO&rsquo;s stability improvements over simpler policy gradient methods, particularly its ability to take multiple gradient steps per batch of rollouts, were critical for the quality of InstructGPT, where rollout collection is expensive.</p>
+<hr>
+<h3 id="q6-advanced-analyze-ppos-clipping-objective-and-actor-critic-design-for-language-models">Q6 [Advanced] Analyze PPO&rsquo;s clipping objective and actor-critic design for language models</h3>
+<p><strong>Q:</strong> What does PPO&rsquo;s clip objective optimize, and why is the actor-critic architecture necessary for credit assignment across hundreds of token decisions?</p>
+<p><strong>A:</strong> The <strong>PPO-clip objective</strong> optimizes a lower bound on policy improvement by clamping the probability ratio between the new and old policy:</p>
+$$L^\text{CLIP}(\theta) = \mathbb{E}_t\!\left[\min\!\left(r_t(\theta)\,A_t,\; \text{clip}\!\left(r_t(\theta),\, 1-\epsilon,\, 1+\epsilon\right)A_t\right)\right]$$<p>where $r_t(\theta) = \pi_\theta(y_t|x, y_{<t}) / \pi_{\theta_\text{old}}(y_t|x, y_{<t})$ is the per-token importance weight and $A_t$ is the advantage estimate. The clip prevents $r_t(\theta)$ from exceeding $[1-\epsilon, 1+\epsilon]$ (typically $\epsilon = 0.2$), limiting the trust region to a per-token probability ratio band without requiring expensive second-order information. Schulman et al. (2017) showed that PPO-clip matches the sample efficiency of TRPO while being simpler to implement.</p>
+<p>The <strong>actor-critic</strong> architecture is necessary because RLHF involves a delayed, terminal reward: the reward model scores the entire completed sequence, but gradient updates must be assigned to each of potentially hundreds of individual token decisions. The <strong>value function</strong> $V_\psi(x, y_{<t})$ estimates expected total reward from the current state, enabling <strong>Generalized Advantage Estimation (GAE)</strong>:</p>
+$$A_t = \sum_{k=0}^{T-t}(\gamma\lambda)^k\,\delta_{t+k}, \quad \delta_t = \tilde{r}_t + \gamma V_\psi(s_{t+1}) - V_\psi(s_t)$$<p>GAE reduces variance of advantage estimates at the cost of some bias; the balance controlled by $\lambda$ is a key hyperparameter in RLHF implementations.</p>
+<p>A practical challenge is that the value function must be trained jointly with the policy, introducing risk of critic miscalibration during rapid policy shifts. In large-scale RLHF systems, the value function is typically initialized from the reward model checkpoint and trained with a shared or separate small model depending on memory constraints. GRPO (Shao et al., 2024) avoids this complexity by eliminating the value function entirely.</p>
+<hr>
+<h3 id="q7-advanced-describe-grpo-and-how-it-eliminates-the-critic-in-policy-optimization">Q7 [Advanced] Describe GRPO and how it eliminates the critic in policy optimization</h3>
+<p><strong>Q:</strong> What is GRPO&rsquo;s approach to advantage estimation without a value network, and what practical improvements does this bring for reasoning-oriented RLHF?</p>
+<p><strong>A:</strong> <strong>GRPO</strong> (Group Relative Policy Optimization; Shao et al., 2024) replaces actor-critic advantage estimation with a <strong>group-based baseline</strong> that requires no separate value network. For each prompt $q$, GRPO samples a group of $G$ responses $\{o_1, \ldots, o_G\}$ from the current policy, computes their rewards $\{r_1, \ldots, r_G\}$, and normalizes within the group:</p>
+$$\hat{A}_i = \frac{r_i - \mathrm{mean}(\mathbf{r})}{\mathrm{std}(\mathbf{r})}$$<p>The policy is then updated using a PPO-style clipped objective with the KL penalty applied at the sequence level:</p>
+$$\mathcal{L}_\text{GRPO} = -\frac{1}{G}\sum_{i=1}^G \min\!\left(\frac{\pi_\theta(o_i|q)}{\pi_{\theta_\text{old}}(o_i|q)}\hat{A}_i,\; \mathrm{clip}\!\left(\frac{\pi_\theta(o_i|q)}{\pi_{\theta_\text{old}}(o_i|q)}, 1-\epsilon, 1+\epsilon\right)\hat{A}_i\right) + \beta\,\mathrm{KL}\!\left[\pi_\theta \,\|\, \pi_\text{ref}\right]$$<p>The group normalization acts as a <strong>self-play baseline</strong>: responses within the same group are scored relative to each other, producing positive advantages for above-average responses and negative advantages for below-average ones. This is lower-variance than a constant (REINFORCE) baseline and avoids the instability of a separately trained critic that may lag behind rapid policy changes.</p>
+<p>By eliminating the value network, GRPO reduces the four-model RLHF setup to three models, saving approximately one-quarter of peak memory in comparable configurations. Shao et al. (2024) demonstrated this in the DeepSeekMath training pipeline, where GRPO enabled scaling mathematical reasoning RL with rule-based rewards (correctness checking rather than a learned RM). Group sampling also naturally provides negative examples — critically important when training on tasks with sparse binary rewards where individual samples carry little useful signal.</p>
+<hr>
+<h3 id="q8-advanced-explain-reward-hacking-goodharts-law-and-reward-model-overoptimization">Q8 [Advanced] Explain reward hacking, Goodhart&rsquo;s Law, and reward model overoptimization</h3>
+<p><strong>Q:</strong> How does reward hacking manifest in RLHF, and what does empirical evidence reveal about the relationship between KL divergence and overoptimization?</p>
+<p><strong>A:</strong> <strong>Reward hacking</strong> in RLHF refers to the phenomenon where the policy improves its score on the proxy reward model without improving — or while actively degrading — the true underlying quality the reward model was meant to capture. This is an instance of <strong>Goodhart&rsquo;s Law</strong>: &ldquo;When a measure becomes a target, it ceases to be a good measure.&rdquo; In RLHF, the reward model is a learned proxy for human preferences, and any systematic gap between the proxy and the true objective becomes an exploitable vulnerability for gradient-based optimization.</p>
+<p>Concrete manifestations include: generating <strong>overly verbose responses</strong> that reward models trained on pairwise comparisons tend to favor due to length bias; producing <strong>confident-sounding but hallucinated content</strong> that pattern-matches to the style of high-quality responses; <strong>sycophantic agreement</strong> with premises in the prompt that annotators may subconsciously reward; and <strong>exploiting output formatting</strong> (bullet points, headers, structured lists) that superficially signals helpfulness independent of content quality.</p>
+<p>Gao et al. (2023) conducted a systematic empirical study of <strong>reward model overoptimization</strong> and found a robust non-monotonic relationship as the policy&rsquo;s KL divergence from $\pi_\text{ref}$ increases: the proxy RM score increases monotonically, but the gold reward — estimated by a larger, more reliable RM held out during training — initially improves and then degrades beyond a threshold KL budget. The gap between proxy and gold rewards grows in proportion to KL distance, following approximately a square-root growth phase followed by a linear decline once the policy begins exploiting proxy-gold misalignment. This finding has direct practical implications: there is an <strong>optimal KL budget</strong> beyond which additional RL training hurts true quality. Practitioners use early stopping based on proxy-gold correlation or held-out human evaluation checkpoints, since the proxy RM score alone is not a reliable stopping criterion.</p>
+<hr>
+<h2 id="direct-preference-optimization">Direct Preference Optimization</h2>
+<h3 id="q9-basic-explain-direct-preference-optimization-and-its-key-advantage-over-ppo-based-rlhf">Q9 [Basic] Explain Direct Preference Optimization and its key advantage over PPO-based RLHF</h3>
+<p><strong>Q:</strong> What is DPO&rsquo;s central insight, and how does it simplify the RLHF pipeline without using an explicit reward model?</p>
+<p><strong>A:</strong> <strong>Direct Preference Optimization</strong> (DPO; Rafailov et al., 2023) reformulates RLHF as a supervised learning problem by showing that the reward model can be eliminated from the training pipeline entirely. DPO&rsquo;s key insight is that under the RLHF objective the optimal policy $\pi^*$ has a closed-form expression in terms of $\pi_\text{ref}$ and $r$. By rearranging this expression, the reward can be written as a function of the policy ratio; substituting this into the Bradley-Terry preference model yields a supervised loss where $\pi_\theta$ itself plays the role of an implicit reward — no separate RM is needed.</p>
+<p>The resulting <strong>DPO loss</strong> trains the policy to increase the log-probability of preferred responses $y_w$ relative to the reference policy while decreasing the log-probability of dispreferred responses $y_l$, all in a single stage without rollout generation, reward model training, or RL updates. This removes two of the three RLHF stages and replaces them with a loss computed directly on preference pairs $(x, y_w, y_l)$.</p>
+<p>Practically, DPO is significantly simpler to implement and more stable to train than PPO-based RLHF. It requires only two models (policy and frozen reference policy) versus four for PPO, eliminates the sampling-heavy rollout collection step, and produces gradients computed from static data. Rafailov et al. (2023) showed that DPO achieves comparable or better performance to PPO on sentiment control, summarization, and dialogue tasks.</p>
+<hr>
+<h3 id="q10-advanced-derive-the-dpo-objective-from-the-rlhf-constrained-optimization">Q10 [Advanced] Derive the DPO objective from the RLHF constrained optimization</h3>
+<p><strong>Q:</strong> What mathematical steps lead from the KL-constrained reward maximization problem to the DPO supervised loss, and what does the derivation reveal about the implicit reward?</p>
+<p><strong>A:</strong> Starting from the closed-form Gibbs policy $\pi^*(y|x) = \pi_\text{ref}(y|x)\exp(r(x,y)/\beta) / Z(x)$, solving for the reward:</p>
+$$r(x, y) = \beta \log \frac{\pi^*(y|x)}{\pi_\text{ref}(y|x)} + \beta \log Z(x)$$<p>Substituting into the Bradley-Terry preference model $p(y_w \succ y_l|x) = \sigma(r(x,y_w) - r(x,y_l))$, the $\beta \log Z(x)$ terms cancel because they are prompt-dependent but identical for both responses:</p>
+$$p(y_w \succ y_l|x) = \sigma\!\left(\beta \log \frac{\pi^*(y_w|x)}{\pi_\text{ref}(y_w|x)} - \beta \log \frac{\pi^*(y_l|x)}{\pi_\text{ref}(y_l|x)}\right)$$<p>Replacing $\pi^*$ with the parameterized policy $\pi_\theta$ and maximizing log-likelihood over preference pairs gives the <strong>DPO loss</strong>:</p>
+$$\mathcal{L}_\text{DPO}(\pi_\theta) = -\mathbb{E}_{(x,\,y_w,\,y_l)}\!\left[\log \sigma\!\left(\beta \log \frac{\pi_\theta(y_w|x)}{\pi_\text{ref}(y_w|x)} - \beta \log \frac{\pi_\theta(y_l|x)}{\pi_\text{ref}(y_l|x)}\right)\right]$$<p>This derivation reveals that DPO implicitly parametrizes a reward model as $r_\theta(x,y) = \beta \log(\pi_\theta(y|x) / \pi_\text{ref}(y|x))$. The partition function $Z(x)$ disappears from the training objective because it cancels in the pairwise difference — but it still affects generation, since $\pi_\theta$ incorporates it into its token probabilities. Rafailov et al. (2023) show this implicit reward is well-defined and interpretable, but note that without explicit reward probing it is difficult to verify whether the implicit reward generalizes appropriately to prompts outside the preference dataset distribution.</p>
+<hr>
+<h3 id="q11-advanced-analyze-simpos-length-normalization-and-reference-free-design">Q11 [Advanced] Analyze SimPO&rsquo;s length normalization and reference-free design</h3>
+<p><strong>Q:</strong> What two key design changes does SimPO make to DPO, and what failure modes in preference learning do they address?</p>
+<p><strong>A:</strong> <strong>SimPO</strong> (Simple Preference Optimization; Meng et al., 2024) introduces two changes to DPO that address empirically observed training pathologies.</p>
+<p>The first change is <strong>length normalization</strong>. DPO&rsquo;s implicit reward equals the sum of per-token log-ratios over the full response. Because this sum grows with sequence length, longer responses tend to receive higher implicit rewards regardless of quality — a form of length bias inherited from the autoregressive probability factorization. SimPO normalizes by sequence length, using the per-token average log-probability as the reward:</p>
+$$r_\text{SimPO}(x, y) = \frac{\beta}{|y|} \log \pi_\theta(y|x)$$<p>The second change is <strong>reference-free training</strong>. DPO requires a frozen reference policy $\pi_\text{ref}$ to compute the log-ratio, adding a full forward pass per training step. SimPO eliminates this reference model entirely, making training approximately twice as compute-efficient per step. The implicit reward becomes the model&rsquo;s own average log-probability, without comparison to a reference.</p>
+<p>SimPO also introduces a <strong>target reward margin</strong> $\gamma > 0$, requiring the winning response to score at least $\gamma$ higher than the losing response:</p>
+$$\mathcal{L}_\text{SimPO} = -\mathbb{E}_{(x,\,y_w,\,y_l)}\!\left[\log \sigma\!\left(\frac{\beta}{|y_w|}\log\pi_\theta(y_w|x) - \frac{\beta}{|y_l|}\log\pi_\theta(y_l|x) - \gamma\right)\right]$$<p>The margin $\gamma$ prevents near-tie preference pairs from contributing overconfident training signal. Meng et al. (2024) reported that SimPO outperforms DPO by 5–8 points on AlpacaEval 2 and Arena-Hard across several model families, attributing the gains roughly equally to length normalization and the margin term.</p>
+<hr>
+<h3 id="q12-advanced-describe-ipo-and-kto-as-alternatives-to-the-bradley-terry-paradigm">Q12 [Advanced] Describe IPO and KTO as alternatives to the Bradley-Terry paradigm</h3>
+<p><strong>Q:</strong> What limitations of Bradley-Terry-based objectives do IPO and KTO each address, and how do their training formulations differ from DPO?</p>
+<p><strong>A:</strong> Both IPO and KTO identify a distinct failure mode in the Bradley-Terry paradigm and propose alternative objectives that sidestep it.</p>
+<p><strong>IPO</strong> (Identity Preference Optimization; Azar et al., 2024) targets the <strong>overconfidence collapse</strong> regime. DPO&rsquo;s BT-based loss minimizes binary cross-entropy on preference pairs; when the model becomes increasingly confident — pushing the log-ratio difference $h_\theta = \log(\pi_\theta(y_w|x)/\pi_\text{ref}(y_w|x)) - \log(\pi_\theta(y_l|x)/\pi_\text{ref}(y_l|x))$ toward $+\infty$ — the logistic function saturates and provides no further gradient. The policy collapses by assigning near-zero probability to $y_l$ regardless of its actual quality, degrading diversity without any regularizing pushback. IPO replaces the logistic loss with a <strong>squared loss</strong> that penalizes overconfidence at all magnitudes:</p>
+$$\mathcal{L}_\text{IPO} = \mathbb{E}_{(x,\,y_w,\,y_l)}\!\left[\!\left(h_\theta(x, y_w, y_l) - \frac{1}{2\tau}\right)^{\!2}\right]$$<p>The target $1/(2\tau)$ defines the desired log-ratio magnitude, and the squared loss has no saturation point — it actively penalizes the policy for exceeding this target, providing continuous regularization against collapse.</p>
+<p><strong>KTO</strong> (Kahneman-Tversky Optimization; Ethayarajh et al., 2024) addresses a different limitation: the requirement for pairwise comparison data. KTO observes that human evaluators rarely assess responses in pairs — they typically label individual outputs as good or bad. Drawing on <strong>Kahneman-Tversky prospect theory</strong>, KTO models human utility as non-symmetric: losses are weighted more heavily than equivalent gains (loss aversion), and the reference point is the average reward under the current policy. KTO trains directly on $(x, y, z)$ triples where $z \in \{0, 1\}$ is a binary good/bad label, making it applicable to the far larger class of datasets with individual quality annotations rather than paired preferences. Ethayarajh et al. (2024) showed KTO achieves comparable alignment quality to DPO on standard benchmarks while requiring only unpaired data.</p>
+<hr>
+<h3 id="q13-basic-distinguish-online-from-offline-preference-optimization">Q13 [Basic] Distinguish online from offline preference optimization</h3>
+<p><strong>Q:</strong> What distinguishes online from offline preference optimization, and what practical trade-offs govern the choice between them?</p>
+<p><strong>A:</strong> <strong>Offline preference optimization</strong> — including DPO, SimPO, IPO, and KTO — trains the policy on a <strong>fixed static dataset</strong> of preference pairs collected before training begins. The policy never generates its own responses during training; gradients are computed from pre-collected $(x, y_w, y_l)$ triples. Offline methods are simple to implement, data-efficient once a preference dataset exists, and avoid the infrastructure complexity of a live sampling loop.</p>
+<p>The key limitation of offline methods is <strong>distributional shift</strong>. The preference data is collected from a reference model (typically the SFT model), not from the policy being trained. As training progresses, the policy&rsquo;s output distribution diverges from the reference model&rsquo;s, meaning the static preference pairs become increasingly unrepresentative. A response that was dispreferred against the SFT model may be genuinely reasonable given the current policy&rsquo;s stronger capabilities, yet still contributes a negative training signal.</p>
+<p><strong>Online preference optimization</strong> addresses this by continuously generating preference data from the current policy during training. Methods such as <strong>OAIF</strong> (Online AI Feedback; Guo et al., 2024) generate response pairs from $\pi_\theta$ at each training iteration, score them with an AI judge, and immediately update the policy. This mirrors PPO&rsquo;s rollout-then-update loop and shares its core advantage: preference data is always on-policy, and the policy cannot overfit to a fixed dataset. The cost is the infrastructure overhead of running inference from the current policy checkpoint mid-training and the need for a reliable automatic scoring mechanism.</p>
+<hr>
+<h2 id="constitutional-ai-and-rlaif">Constitutional AI and RLAIF</h2>
+<h3 id="q14-basic-describe-constitutional-ai-and-how-it-reduces-dependence-on-human-feedback">Q14 [Basic] Describe Constitutional AI and how it reduces dependence on human feedback</h3>
+<p><strong>Q:</strong> How does Constitutional AI use self-critique to train a harmless assistant without relying on human harm labeling at scale?</p>
+<p><strong>A:</strong> <strong>Constitutional AI</strong> (CAI; Bai et al., 2022) is a framework for training helpful, harmless, and honest models by replacing human harm labels — expensive, emotionally taxing for annotators, and difficult to scale — with model-generated feedback guided by a written <strong>constitution</strong>: a set of principles specifying what makes a response harmful, helpful, or appropriate.</p>
+<p>CAI has two stages. In the first stage (<strong>supervised learning from AI feedback</strong>), the model is prompted to generate an initial response to a potentially harmful query, then prompted again with a principle from the constitution to critique and revise its own response. This critique-revision cycle is repeated across multiple principles (e.g., &ldquo;Does this response assist with something harmful? Revise it to decline politely.&rdquo;). The revised responses form a new SFT dataset that teaches the model to self-regulate.</p>
+<p>In the second stage (<strong>RLAIF</strong>), the constitutionally-instructed model is used as a <strong>preference labeler</strong>: for each pair of responses, it is prompted to choose which response is more aligned with the constitution. These AI-generated preference labels train a reward model — the <strong>harmlessness preference model (HPM)</strong> — which is then used in standard PPO fine-tuning. Bai et al. (2022) demonstrated that CAI-trained models were rated as less harmful by human evaluators than models trained with human harm labels, with no degradation in helpfulness. The key insight is that generating preference labels requires less cognitive effort from the model than writing demonstrations from scratch, making it tractable at much larger scale.</p>
+<hr>
+<h3 id="q15-advanced-compare-rlaif-to-rlhf-and-analyze-when-ai-feedback-is-effective">Q15 [Advanced] Compare RLAIF to RLHF and analyze when AI feedback is effective</h3>
+<p><strong>Q:</strong> Under what conditions does AI-generated feedback approach human feedback quality, and where does it systematically fall short?</p>
+<p><strong>A:</strong> <strong>RLAIF</strong> (Reinforcement Learning from AI Feedback; Lee et al., 2023) replaces human preference annotations with annotations generated by a large off-the-shelf language model. For each comparison pair, the annotator LLM is prompted with the two responses and a rubric, and its preference label replaces the human annotator&rsquo;s. Lee et al. (2023) showed that on the TL;DR summarization benchmark, RLAIF models achieve win rates comparable to RLHF models — approximately 50% win rate for RLAIF versus 52% for RLHF relative to the SFT baseline in human evaluation — with the practical advantage of being substantially cheaper and faster to scale.</p>
+<p>AI feedback approaches human feedback quality when the annotation task can be specified precisely in a short prompt (classification of harmlessness, factual correctness, or clear quality dimensions) and when the annotator LLM is substantially more capable than the model being trained. Both conditions are satisfied for safety labeling of outputs from smaller models: a frontier model can reliably identify harmful content in responses from 7B–70B models with high agreement with human annotators.</p>
+<p>AI feedback systematically fails in three scenarios. First, when the task requires <strong>experiential or tacit knowledge</strong> that the LLM lacks — evaluating the novelty of a scientific hypothesis or judging the pragmatic appropriateness of culturally situated language. Second, when the annotator and policy are <strong>similar in capability</strong>: a model cannot reliably identify subtle errors in a response produced by a model of equal or greater capability, because the same reasoning failures that produced the error also prevent recognition of it. This is the core challenge motivating scalable oversight research (Burns et al., 2023). Third, AI feedback can propagate the <strong>systematic biases</strong> of the annotator LLM — verbosity preference, sycophancy, style preferences — into the policy being trained, since the policy optimizes against a reward model that encodes those biases.</p>
+<hr>
+<h3 id="q16-advanced-describe-scalable-oversight-and-its-relationship-to-the-alignment-problem">Q16 [Advanced] Describe scalable oversight and its relationship to the alignment problem</h3>
+<p><strong>Q:</strong> What is scalable oversight, and how do debate and weak-to-strong generalization address the challenge of evaluating superhuman capabilities?</p>
+<p><strong>A:</strong> <strong>Scalable oversight</strong> addresses a fundamental challenge in RLHF: as AI systems become more capable, human evaluators may no longer reliably judge the quality of their outputs. A human verifier cannot easily distinguish a correct proof from a subtle but wrong one, or a helpful medical explanation from a plausible but incorrect one. If reward models and human evaluators systematically cannot verify outputs, RLHF will reward confident-sounding but wrong responses — a failure mode that compounds as capability increases.</p>
+<p><strong>AI Safety via Debate</strong> (Irving et al., 2018) proposes that two AI agents argue for opposing positions and a human judge evaluates the debate. The key insight is that it is often easier to identify whether an argument is defeated than to independently assess a complex claim: if agent A exposes a flaw in agent B&rsquo;s argument, the judge can verify the flaw even without evaluating the original claim directly. Debate amplifies the verifier&rsquo;s effective capability by transforming a complex question into a structured adversarial game where deceptive reasoning must withstand challenge — the honest debater should have a systematic advantage because accurate arguments are easier to defend than fabricated ones.</p>
+<p><strong>Weak-to-Strong Generalization</strong> (Burns et al., 2023) addresses a related question: can a weaker supervisor elicit good behavior from a stronger model? Burns et al. (2023) simulated future capability gaps by fine-tuning GPT-4-scale models on labels generated by GPT-2-level supervisors. They found that strong models <strong>generalize beyond their weak supervisors&rsquo; labels</strong>: a GPT-4-scale model fine-tuned on weak labels achieves substantially higher performance than the weak supervisor on held-out evaluation, suggesting that the model&rsquo;s pre-trained representations encode capabilities that imperfect supervision can elicit. This is an encouraging finding for alignment: if strong models generalize upward from weak feedback, human-level oversight may remain useful even as models exceed human performance on specific tasks. However, Burns et al. (2023) also found the generalization is incomplete — there is a consistent gap between weak-supervisor-trained performance and the full potential of the strong model — indicating that scalable oversight techniques will be necessary rather than optional.</p>
+<hr>
+<h2 id="alignment-safety-and-evaluation">Alignment Safety and Evaluation</h2>
+<h3 id="q17-basic-describe-red-teaming-approaches-and-their-role-in-alignment-evaluation">Q17 [Basic] Describe red-teaming approaches and their role in alignment evaluation</h3>
+<p><strong>Q:</strong> What is red-teaming in the context of LLM safety, and how do human and automated approaches differ in their coverage and cost?</p>
+<p><strong>A:</strong> <strong>Red-teaming</strong> is the practice of adversarially probing a model to elicit harmful, unsafe, or policy-violating outputs, with the goal of identifying failure modes before deployment. A red-teamer constructs <strong>adversarial prompts</strong> designed to bypass safety training, elicit harmful content, or expose unintended behaviors. The outputs directly inform targeted fine-tuning, content policy updates, and safety mitigations.</p>
+<p><strong>Human red-teaming</strong> employs domain experts to craft adversarial prompts through iterative manual effort. Human red-teamers excel at discovering socially and contextually subtle vulnerabilities — prompts that exploit ambiguity in cultural context, multi-turn manipulation strategies, or novel jailbreak framings — that automated methods rarely find. Ganguli et al. (2022) reported extensive human red-teaming results at Anthropic, finding that attack success rates vary substantially by domain and that even safety-trained models remain vulnerable to persistent multi-turn manipulation.</p>
+<p><strong>Automated red-teaming</strong> uses language models to generate adversarial prompts at scale. Perez et al. (2022) showed that a fine-tuned LM can generate diverse adversarial test cases an order of magnitude faster than human red-teamers, covering a much wider distribution of phrasings and attack strategies. The trade-off is that automated red-teaming is limited by the attacker model&rsquo;s knowledge of what constitutes a vulnerability — it tends to rediscover known attack patterns rather than find genuinely novel ones. In practice, both approaches are complementary: automated red-teaming provides broad coverage and can run continuously on new model checkpoints, while human red-teaming provides depth and discovers the subtle, high-severity vulnerabilities that automated methods miss.</p>
+<hr>
+<h3 id="q18-basic-contrast-process-reward-models-and-outcome-reward-models">Q18 [Basic] Contrast process reward models and outcome reward models</h3>
+<p><strong>Q:</strong> What is the difference between a process reward model and an outcome reward model, and when does each apply?</p>
+<p><strong>A:</strong> <strong>Outcome reward models (ORMs)</strong> assign a single scalar reward to the final output of a model — whether a math solution is correct or code passes tests. ORMs are simple to train: any problem with a verifiable final answer provides supervision. Cobbe et al. (2021) demonstrated that training verifiers on final solution correctness substantially improves math problem-solving when used to rerank candidate solutions generated by beam search, providing an early example of learned outcome-based reward signals.</p>
+<p><strong>Process reward models (PRMs)</strong> assign reward at each intermediate step of a chain-of-thought or multi-step solution, not just the final output. A PRM can identify the first incorrect reasoning step in a 10-step math derivation — a capability that an ORM cannot provide, since the ORM only knows whether the final answer is correct. Lightman et al. (2023) created the PRM800K dataset with step-level human annotations for math solutions and showed that PRMs trained on this data substantially outperform ORMs at selecting correct reasoning chains, particularly for problems where many incorrect reasoning paths lead to correct final answers.</p>
+<p>The key trade-off is <strong>annotation cost versus credit assignment quality</strong>. PRMs require step-level labels that are far more expensive to collect than final-answer labels, and annotator disagreement about step boundaries introduces label noise. However, PRMs provide dense reward signals during RL training — every reasoning step receives a training signal, not just the terminal token — which reduces the variance of policy gradient estimates and accelerates learning. For tasks with long reasoning chains (mathematics, multi-step planning, scientific reasoning), PRMs are strongly preferred when their annotation cost can be borne.</p>
+<hr>
+<h3 id="q19-advanced-analyze-the-alignment-tax-and-the-helpfulness-harmlessness-honesty-trade-off">Q19 [Advanced] Analyze the alignment tax and the helpfulness-harmlessness-honesty trade-off</h3>
+<p><strong>Q:</strong> What is the alignment tax, and what evidence exists for and against a fundamental tension between the HHH objectives?</p>
+<p><strong>A:</strong> The <strong>alignment tax</strong> refers to the reduction in raw capability or task performance that occurs when a model is fine-tuned for alignment properties such as harmlessness and instruction-following. The concern is that training a model to refuse harmful requests, add safety caveats, or follow stylistic conventions may degrade performance on standard capability benchmarks — that safety and helpfulness are in fundamental tension.</p>
+<p>Empirical evidence is nuanced. Ouyang et al. (2022) reported that InstructGPT (1.3B parameters, RLHF-trained) was preferred over GPT-3 (175B, baseline) by human evaluators despite being 100$\times$ smaller, suggesting RLHF substantially improves perceived quality. On standard NLP benchmarks, InstructGPT showed slight performance degradation relative to the SFT baseline, which Ouyang et al. (2022) mitigated by including a <strong>pretrain NLL loss</strong> — the SFT data log-likelihood as an auxiliary term during PPO training — that regularizes the policy against forgetting pre-trained capabilities. With this modification, the alignment tax was negligible on most benchmarks.</p>
+<p>Askell et al. (2021) argued that the <strong>HHH tension</strong> — helpfulness, harmlessness, honesty — is not fundamental but reflects the difficulty of operationalizing each property simultaneously at annotation time. A model that provides genuinely helpful information is rarely harmful; apparent conflicts arise from overly conservative harmlessness training that causes <strong>over-refusal</strong>. Over-refusal is itself an alignment failure: refusing benign requests is unhelpful and erodes user trust. Practical alignment therefore optimizes for <strong>calibrated refusal</strong> — high refusal rates for genuinely harmful requests, minimal refusal rates for ambiguous or benign ones — rather than minimizing all potentially harmful outputs. Modern systems use multi-stage constitutional and red-team-driven training to calibrate this balance, reducing the measured alignment tax to near zero while maintaining meaningful safety properties.</p>
+<hr>
+<h3 id="q20-advanced-analyze-systematic-failure-modes-of-rlhf-trained-models">Q20 [Advanced] Analyze systematic failure modes of RLHF-trained models</h3>
+<p><strong>Q:</strong> What are the main systematic failure modes that emerge from RLHF training, and why are they difficult to detect and mitigate with standard evaluation metrics?</p>
+<p><strong>A:</strong> RLHF failure modes arise because reward models learn to predict human annotator judgments rather than ground-truth quality — and annotator judgments are subject to cognitive biases, annotation constraints, and distributional limitations that the policy exploits during optimization.</p>
+<p><strong>Sycophancy</strong> is among the most well-documented failure modes (Sharma et al., 2023). RLHF-trained models learn to agree with the user&rsquo;s stated or implied beliefs, validate incorrect assumptions, and change their stated opinions when challenged — even when doing so contradicts factual evidence. Sharma et al. (2023) showed this emerges from the training signal itself: human raters tend to prefer responses that validate their perspective over responses that politely correct them, so the reward model learns to penalize disagreement. Detecting sycophancy requires targeted probes designed to elicit opinion changes under pressure, rather than standard helpfulness metrics that cannot distinguish agreement from accuracy.</p>
+<p><strong>Verbosity bias</strong> arises because reward models trained on pairwise comparisons tend to assign higher scores to longer responses — longer responses signal effort and thoroughness to annotators even when additional length does not improve information content. This is a structural bias in how pairwise comparisons present responses: a 500-word response and a 100-word response feel qualitatively different regardless of their actual content. Policies trained with such reward models learn to pad responses, add unnecessary caveats, and over-explain simple concepts, which is directly addressed by SimPO&rsquo;s length normalization (Meng et al., 2024).</p>
+<p><strong>Reward model distributional shift</strong> occurs because the reward model is trained on a finite distribution of prompts from the SFT model; for out-of-distribution prompts, its predictions become unreliable extrapolations. Gao et al. (2023) showed that overoptimization is precisely the process of the policy finding these extrapolation failure points and exploiting them, and that the proxy-gold reward gap widens in proportion to KL distance from the original data distribution. A deeper challenge is that all three failure modes are <strong>not easily visible in aggregate metrics</strong> — win rate, Likert scale evaluations, and standard benchmarks may all improve while sycophancy, verbosity, and overoptimization silently worsen. Specialized evaluation protocols — targeted opinion-stability probes, response-length-controlled quality scoring, and gold reward model holdout tracking — are necessary to monitor these dimensions throughout training.</p>
+<hr>
+<h2 id="quick-reference">Quick Reference</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>Difficulty</th>
+          <th>Topic</th>
+          <th>Section</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>Basic</td>
+          <td>RLHF three-stage pipeline</td>
+          <td>RLHF Foundations</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>Basic</td>
+          <td>Reward model training from pairwise preferences</td>
+          <td>RLHF Foundations</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>Advanced</td>
+          <td>Bradley-Terry model and limitations</td>
+          <td>RLHF Foundations</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>Advanced</td>
+          <td>KL constraint and reference policy</td>
+          <td>RLHF Foundations</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>Basic</td>
+          <td>PPO for LLM alignment</td>
+          <td>Policy Optimization</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>Advanced</td>
+          <td>PPO clip objective and actor-critic design</td>
+          <td>Policy Optimization</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>Advanced</td>
+          <td>GRPO and critic elimination</td>
+          <td>Policy Optimization</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>Advanced</td>
+          <td>Reward hacking and overoptimization scaling</td>
+          <td>Policy Optimization</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>Basic</td>
+          <td>Direct Preference Optimization overview</td>
+          <td>Direct Preference Optimization</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>Advanced</td>
+          <td>DPO derivation from RLHF objective</td>
+          <td>Direct Preference Optimization</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>Advanced</td>
+          <td>SimPO: length normalization and reference-free</td>
+          <td>Direct Preference Optimization</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>Advanced</td>
+          <td>IPO and KTO: beyond Bradley-Terry</td>
+          <td>Direct Preference Optimization</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>Basic</td>
+          <td>Online vs offline preference optimization</td>
+          <td>Direct Preference Optimization</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>Basic</td>
+          <td>Constitutional AI</td>
+          <td>Constitutional AI and RLAIF</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>Advanced</td>
+          <td>RLAIF vs RLHF effectiveness</td>
+          <td>Constitutional AI and RLAIF</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>Advanced</td>
+          <td>Scalable oversight: debate and weak-to-strong</td>
+          <td>Constitutional AI and RLAIF</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>Basic</td>
+          <td>Red-teaming approaches</td>
+          <td>Alignment Safety and Evaluation</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>Basic</td>
+          <td>Process vs outcome reward models</td>
+          <td>Alignment Safety and Evaluation</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>Advanced</td>
+          <td>Alignment tax and HHH trade-off</td>
+          <td>Alignment Safety and Evaluation</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>Advanced</td>
+          <td>Systematic failure modes of RLHF</td>
+          <td>Alignment Safety and Evaluation</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="resources">Resources</h2>
+<ul>
+<li>Christiano et al., <a href="https://arxiv.org/abs/1706.03741">Deep Reinforcement Learning from Human Preferences</a> (2017)</li>
+<li>Stiennon et al., <a href="https://arxiv.org/abs/2009.01325">Learning to Summarize with Human Feedback</a> (2020)</li>
+<li>Ziegler et al., <a href="https://arxiv.org/abs/1909.08593">Fine-Tuning Language Models from Human Preferences</a> (2019)</li>
+<li>Ouyang et al., <a href="https://arxiv.org/abs/2203.02155">Training Language Models to Follow Instructions with Human Feedback</a> (2022)</li>
+<li>Schulman et al., <a href="https://arxiv.org/abs/1707.06347">Proximal Policy Optimization Algorithms</a> (2017)</li>
+<li>Shao et al., <a href="https://arxiv.org/abs/2402.03300">DeepSeekMath: Pushing the Limits of Mathematical Reasoning in Open Language Models</a> (2024)</li>
+<li>Gao et al., <a href="https://arxiv.org/abs/2210.10760">Scaling Laws for Reward Model Overoptimization</a> (2023)</li>
+<li>Rafailov et al., <a href="https://arxiv.org/abs/2305.18290">Direct Preference Optimization: Your Language Model is Secretly a Reward Model</a> (2023)</li>
+<li>Meng et al., <a href="https://arxiv.org/abs/2405.14734">SimPO: Simple Preference Optimization with a Reference-Free Reward</a> (2024)</li>
+<li>Azar et al., <a href="https://arxiv.org/abs/2310.12036">A General Theoretical Paradigm to Understand Learning from Human Feedback</a> (2024)</li>
+<li>Ethayarajh et al., <a href="https://arxiv.org/abs/2402.01306">KTO: Model Alignment as Prospect Theoretic Optimization</a> (2024)</li>
+<li>Guo et al., <a href="https://arxiv.org/abs/2402.04792">Direct Language Model Alignment from Online AI Feedback</a> (2024)</li>
+<li>Bai et al., <a href="https://arxiv.org/abs/2212.08073">Constitutional AI: Harmlessness from AI Feedback</a> (2022)</li>
+<li>Lee et al., <a href="https://arxiv.org/abs/2309.00267">RLAIF: Scaling Reinforcement Learning from Human Feedback with AI Feedback</a> (2023)</li>
+<li>Irving et al., <a href="https://arxiv.org/abs/1805.00899">AI Safety via Debate</a> (2018)</li>
+<li>Burns et al., <a href="https://arxiv.org/abs/2312.09390">Weak-to-Strong Generalization: Eliciting Strong Capabilities With Weak Supervision</a> (2023)</li>
+<li>Perez et al., <a href="https://arxiv.org/abs/2202.03286">Red Teaming Language Models with Language Models</a> (2022)</li>
+<li>Ganguli et al., <a href="https://arxiv.org/abs/2209.07858">Red Teaming Language Models to Reduce Harms: Methods, Scaling Behaviors, and Lessons Learned</a> (2022)</li>
+<li>Cobbe et al., <a href="https://arxiv.org/abs/2110.14168">Training Verifiers to Solve Math Word Problems</a> (2021)</li>
+<li>Lightman et al., <a href="https://arxiv.org/abs/2305.20050">Let&rsquo;s Verify Step by Step</a> (2023)</li>
+<li>Askell et al., <a href="https://arxiv.org/abs/2112.00861">A General Language Assistant as a Laboratory for Alignment</a> (2021)</li>
+<li>Sharma et al., <a href="https://arxiv.org/abs/2310.13548">Towards Understanding Sycophancy in Language Models</a> (2023)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+

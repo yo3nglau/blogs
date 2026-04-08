@@ -2,6 +2,9 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://yo3nglau.github.io/blogs/tags/alignment/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/categories/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -107,6 +110,22 @@
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/reinforcement-learning/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/reinforcement-learning/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/rlhf-and-alignment-interview-questions-and-answers/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/</loc>
@@ -302,19 +321,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/post/llm-based-agents-interview-questions-and-answers/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/tags/reinforcement-learning/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/reinforcement-learning/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/world-model/</loc>

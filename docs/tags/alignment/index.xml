@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Alignment on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/alignment/</link>
+    <description>Recent content in Alignment on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/alignment/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>RLHF and Alignment: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/rlhf-and-alignment-interview-questions-and-answers/</link>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/rlhf-and-alignment-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;rlhf-foundations&#34;&gt;RLHF Foundations&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-describe-the-three-stage-rlhf-pipeline-for-instruction-following-llms&#34;&gt;Q1 [Basic] Describe the three-stage RLHF pipeline for instruction-following LLMs&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How does the standard RLHF pipeline transform a pre-trained language model into an instruction-following assistant, and what role does each stage play?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; The standard RLHF pipeline used in InstructGPT (Ouyang et al., 2022) consists of three sequential stages that progressively align a pre-trained language model with human preferences.&lt;/p&gt;&#xA;&lt;p&gt;The first stage is &lt;strong&gt;supervised fine-tuning (SFT)&lt;/strong&gt;. A pre-trained base model is fine-tuned on a curated dataset of (prompt, demonstration) pairs, where human labelers write high-quality example responses. This teaches the model the format and style of helpful responses before any reward signal is introduced. SFT is essential because RLHF alone, applied to a raw pre-trained model, tends to produce incoherent or off-distribution outputs.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
