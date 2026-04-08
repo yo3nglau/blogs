@@ -6,8 +6,15 @@
     <description>Recent content in Home on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 07 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Vision-Language Models: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/vision-language-models-interview-questions-and-answers/</link>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/vision-language-models-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;contrastive-vision-language-pretraining&#34;&gt;Contrastive Vision-Language Pretraining&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-clips-contrastive-training-objective&#34;&gt;Q1 [Basic] Explain CLIP&amp;rsquo;s contrastive training objective&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What is the core training objective of CLIP, and how does it enable image representations that generalize across tasks?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;CLIP&lt;/strong&gt; (Radford et al., 2021) trains an image encoder and a text encoder jointly by maximizing the cosine similarity between matching image-text pairs while minimizing it for non-matching pairs. Given a batch of $N$ image-text pairs, the symmetric InfoNCE loss treats the $N$ same-index pairs as positives and the remaining $N^2 - N$ cross-pairs as negatives:&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Knowledge Distillation: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/knowledge-distillation-interview-questions-and-answers/</link>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Vision-Language Models: Interview Questions and Answers | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Vision-Language Models: Interview Questions and Answers</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/08</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/vision-language-models">Vision-Language Models</a> <a href="/blogs/tags/multimodal-learning">Multimodal Learning</a> 
+  
+  
+</p>
+</div>
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#contrastive-vision-language-pretraining">Contrastive Vision-Language Pretraining</a>
+      <ul>
+        <li><a href="#q1-basic-explain-clips-contrastive-training-objective">Q1 [Basic] Explain CLIP&rsquo;s contrastive training objective</a></li>
+        <li><a href="#q2-basic-describe-clips-zero-shot-transfer-mechanism">Q2 [Basic] Describe CLIP&rsquo;s zero-shot transfer mechanism</a></li>
+        <li><a href="#q3-basic-explain-how-align-scales-to-noisy-web-data">Q3 [Basic] Explain how ALIGN scales to noisy web data</a></li>
+        <li><a href="#q4-advanced-analyze-siglips-sigmoid-loss-and-its-batch-size-implications">Q4 [Advanced] Analyze SigLIP&rsquo;s sigmoid loss and its batch-size implications</a></li>
+      </ul>
+    </li>
+    <li><a href="#architecture-design-for-multimodal-models">Architecture Design for Multimodal Models</a>
+      <ul>
+        <li><a href="#q5-basic-describe-flamingos-frozen-model-architecture">Q5 [Basic] Describe Flamingo&rsquo;s frozen-model architecture</a></li>
+        <li><a href="#q6-basic-explain-the-q-former-in-blip-2">Q6 [Basic] Explain the Q-Former in BLIP-2</a></li>
+        <li><a href="#q7-advanced-analyze-llavas-minimal-architecture-and-its-data-driven-insight">Q7 [Advanced] Analyze LLaVA&rsquo;s minimal architecture and its data-driven insight</a></li>
+        <li><a href="#q8-advanced-compare-cross-attention-fusion-and-projection-based-fusion">Q8 [Advanced] Compare cross-attention fusion and projection-based fusion</a></li>
+      </ul>
+    </li>
+    <li><a href="#multimodal-instruction-tuning-and-capabilities">Multimodal Instruction Tuning and Capabilities</a>
+      <ul>
+        <li><a href="#q9-basic-describe-visual-instruction-tuning-and-its-data-requirements">Q9 [Basic] Describe visual instruction tuning and its data requirements</a></li>
+        <li><a href="#q10-advanced-explain-instructblips-instruction-aware-q-former">Q10 [Advanced] Explain InstructBLIP&rsquo;s instruction-aware Q-Former</a></li>
+        <li><a href="#q11-advanced-identify-what-llava-15-changes-and-why-it-matters">Q11 [Advanced] Identify what LLaVA-1.5 changes and why it matters</a></li>
+        <li><a href="#q12-advanced-identify-where-multimodal-llms-fail-relative-to-human-ability">Q12 [Advanced] Identify where multimodal LLMs fail relative to human ability</a></li>
+        <li><a href="#q13-advanced-compare-closed-source-and-open-source-vlms-on-multimodal-benchmarks">Q13 [Advanced] Compare closed-source and open-source VLMs on multimodal benchmarks</a></li>
+      </ul>
+    </li>
+    <li><a href="#visual-grounding-and-dense-visual-understanding">Visual Grounding and Dense Visual Understanding</a>
+      <ul>
+        <li><a href="#q14-basic-explain-glips-grounding-based-formulation-of-open-vocabulary-detection">Q14 [Basic] Explain GLIP&rsquo;s grounding-based formulation of open-vocabulary detection</a></li>
+        <li><a href="#q15-advanced-explain-grounding-dinos-tight-feature-fusion-strategy">Q15 [Advanced] Explain Grounding DINO&rsquo;s tight feature fusion strategy</a></li>
+        <li><a href="#q16-advanced-contrast-referring-expression-comprehension-with-visual-question-answering">Q16 [Advanced] Contrast referring expression comprehension with visual question answering</a></li>
+        <li><a href="#q17-advanced-describe-how-vlms-extend-to-pixel-level-segmentation-tasks">Q17 [Advanced] Describe how VLMs extend to pixel-level segmentation tasks</a></li>
+      </ul>
+    </li>
+    <li><a href="#hallucination-benchmarks-and-frontiers">Hallucination, Benchmarks, and Frontiers</a>
+      <ul>
+        <li><a href="#q18-basic-define-object-hallucination-and-describe-how-it-is-measured">Q18 [Basic] Define object hallucination and describe how it is measured</a></li>
+        <li><a href="#q19-advanced-explain-the-gap-between-benchmark-performance-and-real-world-reliability">Q19 [Advanced] Explain the gap between benchmark performance and real-world reliability</a></li>
+        <li><a href="#q20-advanced-analyze-the-architectural-challenges-of-video-language-models">Q20 [Advanced] Analyze the architectural challenges of video-language models</a></li>
+      </ul>
+    </li>
+    <li><a href="#quick-reference">Quick Reference</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="contrastive-vision-language-pretraining">Contrastive Vision-Language Pretraining</h2>
+<h3 id="q1-basic-explain-clips-contrastive-training-objective">Q1 [Basic] Explain CLIP&rsquo;s contrastive training objective</h3>
+<p><strong>Q:</strong> What is the core training objective of CLIP, and how does it enable image representations that generalize across tasks?</p>
+<p><strong>A:</strong> <strong>CLIP</strong> (Radford et al., 2021) trains an image encoder and a text encoder jointly by maximizing the cosine similarity between matching image-text pairs while minimizing it for non-matching pairs. Given a batch of $N$ image-text pairs, the symmetric InfoNCE loss treats the $N$ same-index pairs as positives and the remaining $N^2 - N$ cross-pairs as negatives:</p>
+$$\mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N}\!\left[\log\frac{\exp(\mathrm{sim}(v_i, t_i)/\tau)}{\sum_{j}\exp(\mathrm{sim}(v_i, t_j)/\tau)} + \log\frac{\exp(\mathrm{sim}(t_i, v_i)/\tau)}{\sum_{j}\exp(\mathrm{sim}(t_i, v_j)/\tau)}\right]$$<p>where $\mathrm{sim}(\cdot,\cdot)$ is cosine similarity and $\tau$ is a learnable temperature. This objective pushes both encoders toward a shared embedding space where semantically related image-text pairs cluster together.</p>
+<p>CLIP was trained on 400M image-text pairs (WebImageText) using either a ResNet or Vision Transformer as the image encoder and a Transformer as the text encoder. Unlike prior work relying on curated datasets, CLIP leverages natural language supervision implicit in web-crawled image-caption pairs. The result is a visual encoder that learns semantically rich features aligned with language, which transfer across classification, retrieval, and generative tasks without task-specific fine-tuning. CLIP ViT-L/14 achieves 76.2% zero-shot top-1 accuracy on ImageNet (Radford et al., 2021).</p>
+<hr>
+<h3 id="q2-basic-describe-clips-zero-shot-transfer-mechanism">Q2 [Basic] Describe CLIP&rsquo;s zero-shot transfer mechanism</h3>
+<p><strong>Q:</strong> How does CLIP convert a downstream classification task into a similarity matching problem at inference, and what design choices influence zero-shot accuracy?</p>
+<p><strong>A:</strong> CLIP&rsquo;s zero-shot classification works by encoding all class names using the text encoder and selecting the class whose text embedding is most similar to the image embedding. For $C$ classes:</p>
+$$p(y = c \mid x) \propto \exp\!\left(\mathrm{sim}(f_v(x),\, f_t(\text{``a photo of a \{class\}_c''}))/\tau\right)$$<p>No gradient updates occur at inference — the pre-trained similarity function is applied directly.</p>
+<p><strong>Prompt engineering</strong> substantially affects zero-shot accuracy. Using &ldquo;a photo of a {class}&rdquo; outperforms bare class names, because web text rarely contains isolated labels. Ensembling over 80 prompt templates (e.g., &ldquo;a photo of many {class}&rdquo;, &ldquo;a photo of the large {class}&rdquo;) improves ImageNet zero-shot accuracy by up to 3.5 percentage points relative to a single template (Radford et al., 2021).</p>
+<p><strong>Distribution shift robustness</strong> is another key property: because no labeled data from the downstream dataset is used, CLIP does not overfit to dataset-specific spurious correlations. On distribution-shifted ImageNet variants (ImageNet-V2, -Sketch, -A, -R), CLIP maintains substantially higher accuracy than fine-tuned ResNets, suggesting that linguistic supervision encourages learning semantically meaningful features rather than dataset-specific shortcuts.</p>
+<hr>
+<h3 id="q3-basic-explain-how-align-scales-to-noisy-web-data">Q3 [Basic] Explain how ALIGN scales to noisy web data</h3>
+<p><strong>Q:</strong> What distinguishes ALIGN&rsquo;s pretraining approach from CLIP, and what does its result reveal about the role of data scale versus curation?</p>
+<p><strong>A:</strong> <strong>ALIGN</strong> (Jia et al., 2021) scales contrastive vision-language pretraining to 1.8 billion noisy image-text pairs from the internet with minimal curation — only simple rule-based filtering to remove very short alt-texts, duplicates, and explicit content. Unlike CLIP, which applied substantial filtering to produce its 400M WebImageText dataset, ALIGN relies on scale to compensate for noise.</p>
+<p>ALIGN uses EfficientNet-L2 as the image encoder and BERT as the text encoder, trained with a normalized softmax loss equivalent to InfoNCE. Despite training on noisier data, ALIGN achieves strong zero-shot performance on ImageNet and competitive cross-modal retrieval performance on MSCOCO and Flickr30k (Jia et al., 2021), matching or exceeding CLIP at comparable scale.</p>
+<p>The key finding is that the bottleneck in vision-language pretraining is data scale rather than data quality at the scale studied. Web-crawled data, despite its noise, provides an essentially unlimited supply of image-text co-occurrences encoding the natural diversity of visual concepts. This shifted subsequent work toward harvesting very large datasets with lightweight filtering rather than expensive manual curation, influencing the data strategy of nearly all large multimodal models that followed.</p>
+<hr>
+<h3 id="q4-advanced-analyze-siglips-sigmoid-loss-and-its-batch-size-implications">Q4 [Advanced] Analyze SigLIP&rsquo;s sigmoid loss and its batch-size implications</h3>
+<p><strong>Q:</strong> How does SigLIP&rsquo;s sigmoid loss differ from the softmax-based InfoNCE used in CLIP, and what practical advantages does this decoupling bring?</p>
+<p><strong>A:</strong> The InfoNCE loss in CLIP applies a softmax over all $N$ pairs in a batch for each anchor, normalizing each positive pair against all $N-1$ negatives:</p>
+$$\mathcal{L}_\text{InfoNCE} = -\frac{1}{N}\sum_i \log \frac{\exp(\mathrm{sim}(v_i, t_i)/\tau)}{\sum_j \exp(\mathrm{sim}(v_i, t_j)/\tau)}$$<p>This global normalization couples all examples within a batch: the gradient for one pair depends on the similarities of all other pairs. Consequently, InfoNCE is highly sensitive to batch size — larger batches provide more negatives and a sharper contrastive signal, which is why CLIP required extremely large batch sizes (up to 32,768) to train effectively.</p>
+<p><strong>SigLIP</strong> (Zhai et al., 2023) replaces this with an independent sigmoid binary cross-entropy applied to each pair:</p>
+$$\mathcal{L}_\text{SigLIP} = -\frac{1}{N^2}\sum_{i,j} \log \sigma\!\left(z_{ij} \cdot y_{ij} \cdot t - b\right)$$<p>where $z_{ij} = \mathrm{sim}(v_i, t_j)$, $y_{ij} = +1$ for matching pairs and $-1$ for non-matching, $t$ is a learnable temperature, and $b$ is a learnable bias. Each pair is treated independently — no normalization over the batch is required.</p>
+<p>The practical advantages are twofold. First, SigLIP decouples batch size from normalization: because there is no softmax denominator requiring all pairs to be compared simultaneously, the method is less batch-size sensitive and can work with smaller batches without performance collapse. Second, positive pairs from multiple sources (captions from different datasets) can be incorporated more naturally since they do not affect each other&rsquo;s normalization. SigLIP with ViT-So400M achieves 83.1% zero-shot ImageNet top-1 (Zhai et al., 2023), outperforming CLIP at comparable model scale. Its representations have since become a widely used visual backbone for downstream multimodal LLMs including LLaVA-1.5 and InternVL.</p>
+<hr>
+<h2 id="architecture-design-for-multimodal-models">Architecture Design for Multimodal Models</h2>
+<h3 id="q5-basic-describe-flamingos-frozen-model-architecture">Q5 [Basic] Describe Flamingo&rsquo;s frozen-model architecture</h3>
+<p><strong>Q:</strong> What components does Flamingo introduce to bridge a pre-trained vision encoder and a large language model without fine-tuning either?</p>
+<p><strong>A:</strong> <strong>Flamingo</strong> (Alayrac et al., 2022) keeps both the vision encoder (a pre-trained NFNet) and the language model (Chinchilla 70B) frozen and inserts two learnable components between them.</p>
+<p>The first is the <strong>Perceiver Resampler</strong>: a cross-attention module that maps a variable number of vision tokens — from any number of input images or video frames — to a fixed set of 64 visual tokens. This provides a compact, fixed-size visual representation regardless of input resolution or number of frames, which the LLM can efficiently process at a predictable cost.</p>
+<p>The second is a set of <strong>cross-attention layers</strong> interleaved with the frozen LLM&rsquo;s self-attention layers. At each interleaved position, the LLM&rsquo;s hidden states cross-attend to the 64 visual tokens, injecting visual information into the language generation process. These layers are gated with a learned $\tanh$ coefficient initialized to zero, ensuring the visual contribution starts neutral and is gradually integrated during training.</p>
+<p>The frozen approach preserves the language model&rsquo;s existing capabilities while training only the cross-attention layers and Perceiver Resampler — roughly 10B out of 80B total parameters. Flamingo 80B achieves 82.0% on VQAv2 with 32 in-context examples, surpassing fine-tuned models of the era without updating any task-specific weights (Alayrac et al., 2022). The architecture also inherits the LLM&rsquo;s few-shot learning ability: providing example image-question-answer triples in the context prompt is sufficient to steer the model without gradient updates.</p>
+<hr>
+<h3 id="q6-basic-explain-the-q-former-in-blip-2">Q6 [Basic] Explain the Q-Former in BLIP-2</h3>
+<p><strong>Q:</strong> What problem does Q-Former solve in BLIP-2, and how does it act as a bridge between frozen vision and language models?</p>
+<p><strong>A:</strong> <strong>BLIP-2</strong> (Li et al., 2023a) addresses the challenge of connecting a high-dimensional frozen image encoder (e.g., ViT-G with 1.4B parameters producing hundreds of tokens per image) to a frozen LLM without fine-tuning either. Directly feeding all vision tokens into the LLM is computationally prohibitive and requires the LLM to interpret raw visual features it was never exposed to during language pretraining.</p>
+<p>The <strong>Q-Former</strong> (Querying Transformer) is a 188M-parameter module containing 32 learnable query vectors. These queries interact with image features via cross-attention and with each other via self-attention. The output is always 32 query vectors regardless of input image size, providing a compact visual representation that is then projected to the LLM&rsquo;s input dimension via a linear layer.</p>
+<p>BLIP-2 trains Q-Former in two stages. In the first stage, with the image encoder frozen, Q-Former is trained jointly on image-language matching, image-text contrastive learning, and image-grounded text generation — three objectives jointly applied via separate attention masks that control which query tokens can attend to text. In the second stage, the Q-Former output is connected to a frozen LLM and trained to convert visual features into soft visual prompts the LLM generates from.</p>
+<p>The Q-Former acts as an information bottleneck that extracts only the visual information most relevant to language, filtering out low-level image statistics that would confuse the LLM. BLIP-2 with FlanT5-XXL achieves 65.0% on VQAv2 (Li et al., 2023a) without any downstream fine-tuning of the LLM.</p>
+<hr>
+<h3 id="q7-advanced-analyze-llavas-minimal-architecture-and-its-data-driven-insight">Q7 [Advanced] Analyze LLaVA&rsquo;s minimal architecture and its data-driven insight</h3>
+<p><strong>Q:</strong> What design choices distinguish LLaVA from Flamingo or BLIP-2, and what do its results reveal about the relative importance of architecture versus data?</p>
+<p><strong>A:</strong> <strong>LLaVA</strong> (Liu et al., 2023a) adopts a deliberately minimal architecture: a CLIP ViT-L/14 image encoder, a single linear projection layer, and a Vicuna language model. There is no Perceiver Resampler, no Q-Former, and no cross-attention layers inserted into the LLM. The image encoder outputs a fixed sequence of visual tokens that are projected by the linear layer and prepended to the text token sequence; the LLM then processes visual and text tokens together with its standard causal self-attention.</p>
+<p>The critical innovation is in the <strong>training data</strong>. Rather than training on large-scale image-text pairs from the web, LLaVA uses GPT-4 to generate a small but high-quality instruction-following dataset of 158K samples. GPT-4 receives image captions and bounding box descriptions (not the image itself) and generates multi-turn conversations, reasoning chains, and detailed descriptions. This leverages GPT-4&rsquo;s reasoning capability to produce richer supervision signal than image-caption pairs alone.</p>
+<p>Training proceeds in two stages: a pretraining stage that trains only the linear projection on image-text alignment data (LLM frozen), followed by a visual instruction tuning stage that fine-tunes both the projection and the LLM. LLaVA achieves 90.92% on ScienceQA, surpassing GPT-4 (83.99%) despite a far simpler architecture than BLIP-2 or Flamingo (Liu et al., 2023a).</p>
+<p>The implication is that CLIP visual features contain sufficient information for many multimodal tasks, and the real bottleneck is the quality of instruction-following data, not the sophistication of the vision-language bridge. This finding motivated a generation of simplified architectures that prioritize data quality.</p>
+<hr>
+<h3 id="q8-advanced-compare-cross-attention-fusion-and-projection-based-fusion">Q8 [Advanced] Compare cross-attention fusion and projection-based fusion</h3>
+<p><strong>Q:</strong> How do cross-attention fusion and projection-based fusion differ in information routing, computational cost, and architectural flexibility?</p>
+<p><strong>A:</strong> <strong>Cross-attention fusion</strong> (Flamingo; Alayrac et al., 2022) inserts cross-attention layers at multiple depths within the language model. At each cross-attention layer, the LLM&rsquo;s hidden states query the visual tokens, dynamically retrieving visual information at multiple abstraction levels. Visual features thus condition the language model&rsquo;s representations throughout its full depth, enabling fine-grained visual integration at every processing stage.</p>
+<p><strong>Projection-based fusion</strong> (LLaVA, Liu et al., 2023a; MLP variant in LLaVA-1.5, Liu et al., 2023b) maps all visual tokens through a single projection and prepends them to the text sequence. The LLM processes visual and text tokens together through its standard self-attention, treating visual tokens as a fixed prefix. Visual features are available at every layer through self-attention, but their representation is fixed after projection — the LLM cannot query visual features dynamically as it can through cross-attention.</p>
+<p>Three trade-offs are key. <strong>Computational cost</strong>: cross-attention at every LLM layer adds $O(L_\text{vis} \cdot L_\text{text})$ attention operations per layer. Projection fusion incurs no extra operations per layer, but the concatenated sequence length grows with the number of visual tokens, increasing quadratic self-attention cost.</p>
+<p><strong>Frozen LLM compatibility</strong>: cross-attention enables keeping the LLM strictly frozen (as in Flamingo), because new inserted parameters absorb all visual information. Projection-based fusion typically requires fine-tuning the LLM, because visual tokens must be interpretable in the LLM&rsquo;s native token space.</p>
+<p><strong>Multi-image and video flexibility</strong>: cross-attention handles variable numbers of images or frames gracefully through the Perceiver Resampler, which compresses any number of visual tokens to a fixed $K$. Projection-based methods must control visual token count by limiting resolution or using explicit token compression, making long video or multi-image inputs more challenging.</p>
+<hr>
+<h2 id="multimodal-instruction-tuning-and-capabilities">Multimodal Instruction Tuning and Capabilities</h2>
+<h3 id="q9-basic-describe-visual-instruction-tuning-and-its-data-requirements">Q9 [Basic] Describe visual instruction tuning and its data requirements</h3>
+<p><strong>Q:</strong> How does visual instruction tuning differ from standard visual question answering fine-tuning, and what types of data enable it?</p>
+<p><strong>A:</strong> <strong>Visual instruction tuning</strong> trains a multimodal model to follow free-form natural language instructions about images, rather than answering questions in a fixed short-answer format. Standard VQA fine-tuning optimizes accuracy on a narrow distribution (short-answer VQAv2-style QA); visual instruction tuning trains the model to handle diverse instructions — generating detailed descriptions, reasoning step-by-step, comparing objects, answering in different styles and lengths — making the model conversationally useful rather than benchmark-specialized.</p>
+<p>The data format consists of multi-turn conversations where the user provides instructions about an image and the model generates variable-length responses. Liu et al. (2023a) demonstrated that GPT-4 can generate such conversations from image metadata (captions, bounding boxes) without direct image access, producing 158K high-quality instruction-following samples covering three output types: conversational QA, detailed description, and complex reasoning chains.</p>
+<p>This is analogous to how instruction-tuned LLMs extend base models for general-purpose use: the instruction data teaches the model to apply its visual understanding in open-ended ways. The training signal — teacher-forced generation on GPT-4-produced responses — is standard cross-entropy, but the diversity of the instruction dataset shapes the model&rsquo;s conversational and reasoning capabilities far more than the loss function itself.</p>
+<hr>
+<h3 id="q10-advanced-explain-instructblips-instruction-aware-q-former">Q10 [Advanced] Explain InstructBLIP&rsquo;s instruction-aware Q-Former</h3>
+<p><strong>Q:</strong> What limitation in BLIP-2 does InstructBLIP address, and how does making the Q-Former instruction-aware change what is extracted from the image?</p>
+<p><strong>A:</strong> <strong>InstructBLIP</strong> (Dai et al., 2023) identifies a key limitation in BLIP-2&rsquo;s Q-Former: the 32 learned queries extract a fixed visual summary regardless of which instruction is being processed. For different instructions about the same image — &ldquo;describe the scene,&rdquo; &ldquo;count the objects,&rdquo; &ldquo;read the text on the sign&rdquo; — identical visual tokens are provided to the LLM, even though each instruction requires attention to entirely different visual regions and properties.</p>
+<p>InstructBLIP resolves this by feeding the instruction text into the Q-Former alongside the 32 learnable queries via self-attention. Instruction token embeddings are concatenated with the queries and participate in the same self-attention mechanism; through the subsequent cross-attention to image features, the queries can then selectively extract the visual information most relevant to the current instruction. An attention mask ensures queries can attend to instruction tokens but not vice versa — the instruction text conditions the extraction process without being modified.</p>
+<p>This modification does not add significant parameters: it reuses the Q-Former&rsquo;s existing text encoder. The output remains 32 visual tokens, but they are now instruction-conditioned: the same image yields different visual tokens depending on whether the instruction asks for counting, spatial reasoning, or OCR.</p>
+<p>InstructBLIP is fine-tuned on 26 datasets spanning 11 task categories (Dai et al., 2023), covering VQA, image captioning, reasoning, and OCR tasks. The instruction-aware features improve performance on held-out benchmarks in a zero-shot setting, demonstrating that richer per-instruction visual extraction generalizes beyond the training tasks.</p>
+<hr>
+<h3 id="q11-advanced-identify-what-llava-15-changes-and-why-it-matters">Q11 [Advanced] Identify what LLaVA-1.5 changes and why it matters</h3>
+<p><strong>Q:</strong> What architectural and data modifications does LLaVA-1.5 introduce, and how do these changes reflect lessons from the original LLaVA?</p>
+<p><strong>A:</strong> <strong>LLaVA-1.5</strong> (Liu et al., 2023b) makes two targeted changes informed by ablations on LLaVA&rsquo;s design.</p>
+<p>The first change replaces the linear projection connector with a two-layer <strong>MLP connector</strong> (GELU activation between layers). The linear projection performs a purely affine mapping from visual to language token space; the MLP adds nonlinearity that enables more expressive alignment between the two modalities. This single change consistently improves performance across benchmarks without any other modifications, confirming that the linear projection was a representational bottleneck.</p>
+<p>The second change augments the instruction-following data with <strong>academic task instruction data</strong> — VQAv2, GQA, and TextVQA converted to instruction format — alongside the original GPT-4-generated conversational data. The original LLaVA dataset is strong for open-ended reasoning but lacks coverage of tasks requiring precise visual reading (OCR, charts, dense text). Adding task-specific data in instruction format expands coverage while maintaining the conversational style.</p>
+<p>LLaVA-1.5 also uses a higher-resolution image encoder (CLIP ViT-L/14 at 336×336 vs. 224×224), providing finer-grained spatial tokens that improve performance on spatially demanding tasks.</p>
+<p>LLaVA-1.5-13B achieves 85.9% on VQAv2 and 67.7% on MMBench (Liu et al., 2023b), outperforming models like Qwen-VL-Chat and InstructBLIP-13B on multiple benchmarks while using a simpler architecture and fully publicly available training data. The results established that MLP connectors and broader instruction data were consistently beneficial defaults for projection-based multimodal LLMs.</p>
+<hr>
+<h3 id="q12-advanced-identify-where-multimodal-llms-fail-relative-to-human-ability">Q12 [Advanced] Identify where multimodal LLMs fail relative to human ability</h3>
+<p><strong>Q:</strong> Where does current VLM performance most sharply diverge from human-level visual understanding, and what structural properties of these tasks explain the gap?</p>
+<p><strong>A:</strong> Current multimodal LLMs perform well on coarse-grained visual understanding — scene description, VQA about salient objects, commonsense inference about depicted situations. The gap relative to human performance is concentrated in tasks requiring <strong>fine-grained spatial reasoning, precise counting, and compositional attribute binding</strong>.</p>
+<p><strong>Spatial reasoning</strong>: Questions like &ldquo;is the red book to the left of the blue mug?&rdquo; require encoding precise spatial relationships between multiple co-present objects. ViT-based encoders process images with global self-attention and do not explicitly encode absolute spatial coordinates; positional information is encoded coarsely relative to the precision required for grounded directional claims. Models frequently confuse left/right and near/far relationships even when correctly identifying all objects.</p>
+<p><strong>Counting</strong>: VLMs often fail to accurately count objects beyond small numbers ($\leq 4$), even when they correctly describe object identity and categories. The failure is not in recognizing instances but in aggregating count information across distributed spatial positions — a form of structured, iterative attention that uniform global pooling does not naturally support.</p>
+<p><strong>Attribute binding under compositional descriptions</strong>: &ldquo;What color is the object to the right of the cube?&rdquo; requires associating an attribute with a specific instance identified via a relational spatial chain. VLMs exhibit <strong>compositional failures</strong> in such cases, reporting the most visually prominent attribute rather than the one correctly bound to the referenced object.</p>
+<p>The MMMU benchmark (Yue et al., 2024) reveals a related dimension: tasks requiring domain-specific expert knowledge (medical imaging, engineering diagrams, mathematical proof figures) where visual and textual reasoning must be tightly integrated with disciplinary grounding. GPT-4V achieves 56.8% on MMMU, substantially below expert human performance, indicating that current VLMs lack the structured domain knowledge required for expert-level multimodal reasoning.</p>
+<hr>
+<h3 id="q13-advanced-compare-closed-source-and-open-source-vlms-on-multimodal-benchmarks">Q13 [Advanced] Compare closed-source and open-source VLMs on multimodal benchmarks</h3>
+<p><strong>Q:</strong> What capabilities distinguish models like GPT-4V from open-source VLMs, and what does benchmark evidence reveal about the nature of these gaps?</p>
+<p><strong>A:</strong> Closed-source VLMs, including GPT-4V (OpenAI, 2023), represent the current performance ceiling on most comprehensive multimodal benchmarks. On MMMU, GPT-4V achieves 56.8% versus LLaVA-1.5-13B at 36.4% (Yue et al., 2024) — a gap exceeding 20 percentage points on expert-level knowledge tasks. On MMBench, GPT-4V scores 77.0% compared to LLaVA-1.5-13B at 67.7% (Liu et al., 2023b).</p>
+<p>The capabilities where the gap is most pronounced are <strong>multi-image cross-referencing</strong>, <strong>OCR and document understanding</strong>, <strong>fine-grained spatial reasoning</strong>, and <strong>multi-step visual reasoning chains with intermediate verification</strong>. GPT-4V demonstrates stronger compositional generalization — handling novel combinations of visual and linguistic concepts — and produces more calibrated explanations with explicit intermediate reasoning steps.</p>
+<p>However, direct comparisons are complicated by undisclosed training details. Closed-source models are trained with undisclosed datasets, RLHF pipelines, and chain-of-thought supervision; attributing performance differences to architecture versus data versus scale is not possible. Open-source models such as InternVL (Chen et al., 2023) have progressively closed the gap by combining larger vision encoders (ViT-6B scale), stronger instruction tuning datasets, and higher resolution inputs, suggesting that much of the gap reflects training recipe differences rather than fundamental architectural limits.</p>
+<p>A practical concern in benchmark comparisons is <strong>score inflation from data contamination</strong>: instruction-tuned models trained after benchmark release may have seen test-set-adjacent data, particularly for benchmarks derived from publicly available datasets. Benchmarks designed to minimize contamination risk — such as MMMU — show larger and more persistent gaps, suggesting that the capability differences are real but partly masked by contamination in other evaluations.</p>
+<hr>
+<h2 id="visual-grounding-and-dense-visual-understanding">Visual Grounding and Dense Visual Understanding</h2>
+<h3 id="q14-basic-explain-glips-grounding-based-formulation-of-open-vocabulary-detection">Q14 [Basic] Explain GLIP&rsquo;s grounding-based formulation of open-vocabulary detection</h3>
+<p><strong>Q:</strong> What is the core insight that allows GLIP to detect arbitrary object categories by reformulating detection as a grounding problem?</p>
+<p><strong>A:</strong> <strong>GLIP</strong> (Li et al., 2022) reformulates object detection as phrase grounding: given an image and a text description of categories, the model predicts bounding boxes by grounding each noun phrase to image regions. Standard detection classifies visual features against a fixed set of $C$ category indices; GLIP instead computes a similarity between each region proposal and each phrase token:</p>
+$$S = \text{ImageEncoder}(I) \cdot \text{TextEncoder}(P)^\top$$<p>where $S \in \mathbb{R}^{N_\text{boxes} \times N_\text{tokens}}$ is the alignment score matrix. Detection proceeds by finding high-similarity (region, phrase) pairs, treating localization as an alignment problem rather than a classification problem.</p>
+<p>The advantage is <strong>vocabulary generalization</strong>: because the text encoder can embed any noun phrase, GLIP detects categories expressible in language, not only those seen during training. The model can be prompted with phrases like &ldquo;a person in a blue jacket carrying a suitcase&rdquo; and localize the matching region without being trained on that description. GLIP-L achieves 60.8 AP zero-shot on COCO without any COCO training data (Li et al., 2022), by training on grounding datasets (COCO Captions, Visual Genome, CC3M) where bounding boxes are matched to noun phrases in captions.</p>
+<p>The reformulation also enables grounding supervision from large-scale image-caption pairs with bounding box annotations, vastly expanding available training data beyond what curated detection datasets provide.</p>
+<hr>
+<h3 id="q15-advanced-explain-grounding-dinos-tight-feature-fusion-strategy">Q15 [Advanced] Explain Grounding DINO&rsquo;s tight feature fusion strategy</h3>
+<p><strong>Q:</strong> How does Grounding DINO integrate language into the detection pipeline more deeply than GLIP, and why does earlier fusion improve performance?</p>
+<p><strong>A:</strong> <strong>Grounding DINO</strong> (Liu et al., 2023c) extends the DINO detection framework with three components that enable tight image-text feature fusion throughout the detection pipeline, rather than only at the final alignment step as in GLIP.</p>
+<p>The first component is a <strong>feature enhancer</strong> that applies cross-modal attention between image backbone features and text encoder features at multiple scales. Image features attend to text features (and vice versa) through interleaved cross-attention and deformable self-attention layers, so that spatial visual features are explicitly conditioned on the text query before any proposal selection occurs. The resulting image features are language-aware from the earliest stages of processing.</p>
+<p>The second component is <strong>language-guided query selection</strong>: DINO&rsquo;s standard top-$K$ region proposal selection is replaced by a selection based on image-text alignment scores. Proposals with high spatial overlap with the described phrase are selected as decoder queries, ensuring that only description-relevant regions enter the decoder.</p>
+<p>The third component is a <strong>cross-modality decoder</strong> where object queries cross-attend to both visual features and text features at each decoder layer, jointly refining box predictions and phrase classification scores.</p>
+<p>The advantage of early fusion over late fusion (GLIP&rsquo;s post-hoc alignment) is that image features are conditioned on language before box coordinates are regressed, allowing the detector to focus spatially on described regions rather than extracting generic region features that are later compared to text. Grounding DINO achieves 63.0 AP zero-shot on COCO (no COCO training) and outperforms GLIP on both zero-shot and few-shot grounding benchmarks (Liu et al., 2023c).</p>
+<hr>
+<h3 id="q16-advanced-contrast-referring-expression-comprehension-with-visual-question-answering">Q16 [Advanced] Contrast referring expression comprehension with visual question answering</h3>
+<p><strong>Q:</strong> What makes referring expression comprehension structurally harder than standard VQA, and what architectural requirements does it impose?</p>
+<p><strong>A:</strong> <strong>Referring expression comprehension</strong> (REC) requires localizing the image region corresponding to a natural language description of a specific instance: given &ldquo;the man standing on the left wearing a red shirt,&rdquo; the model must output a bounding box identifying exactly that person. VQA typically requires generating a short textual answer (class label, count, attribute) about the image.</p>
+<p>The structural difference is <strong>output modality and spatial precision requirements</strong>. VQA&rsquo;s output is discrete text, handled with standard cross-entropy over a fixed vocabulary. REC&rsquo;s output is a continuous spatial coordinate, requiring the model to precisely localize instances based on relational descriptions involving multiple properties and inter-object relations simultaneously.</p>
+<p>REC imposes a distinct set of architectural demands. A successful model must: (1) ground the described instance&rsquo;s visual properties (attributes, category) in the image, (2) evaluate relational spatial claims (&ldquo;to the left of the table&rdquo;) that require comparing candidate regions to other scene elements, and (3) resolve referential ambiguity when multiple objects satisfy some but not all description constraints. TransVG (Deng et al., 2021) handles this with a transformer-based grounding head that cross-attends language features to visual region proposals, predicting box coordinates from the attended representation.</p>
+<p>A key failure mode specific to REC is <strong>referential chain failure</strong>: the model correctly identifies each word&rsquo;s visual referent in isolation but fails to chain multiple constraints. &ldquo;The dog sitting on the left side of the red couch, not the one by the window&rdquo; requires composing a color constraint (red couch), a spatial constraint (left side), and a negation constraint (not by the window) — a compositional grounding problem that VLMs trained primarily on VQA-style single-constraint questions handle poorly.</p>
+<hr>
+<h3 id="q17-advanced-describe-how-vlms-extend-to-pixel-level-segmentation-tasks">Q17 [Advanced] Describe how VLMs extend to pixel-level segmentation tasks</h3>
+<p><strong>Q:</strong> What mechanisms connect language understanding to dense spatial prediction in vision-language segmentation systems?</p>
+<p><strong>A:</strong> Standard VLMs output text or bounding boxes; segmentation requires per-pixel predictions. Two main strategies connect language to pixel-level output.</p>
+<p><strong>Modular composition</strong> combines a language-grounded detector with a prompt-based segmentation model. <strong>SAM</strong> (Kirillov et al., 2023) was trained on 1.1 billion masks (SA-1B) with a promptable mask decoder that accepts box, point, or text prompts and generates high-quality instance masks. Combining Grounding DINO (language-grounded detection) with SAM (mask generation) creates a description-to-mask pipeline without additional training: a natural language description is first localized to a bounding box by Grounding DINO, which is then passed to SAM as a spatial prompt for segmentation. This enables open-vocabulary segmentation of arbitrary described objects.</p>
+<p><strong>End-to-end reasoning segmentation</strong> integrates language and pixel-level prediction within a multimodal LLM. <strong>LISA</strong> (Lai et al., 2023) extends an LLM with a special <code>&lt;SEG&gt;</code> token: when generated, the hidden state at the <code>&lt;SEG&gt;</code> position is passed to a lightweight mask decoder (built on SAM&rsquo;s decoder architecture) to produce a segmentation mask. This enables <strong>reasoning segmentation</strong> — given &ldquo;segment the object most useful for cutting the rope,&rdquo; LISA reasons that scissors are the answer, generates a response with <code>&lt;SEG&gt;</code>, and the decoder masks the scissors. The LLM is responsible for multi-step reasoning; the mask decoder handles spatial precision.</p>
+<p>The central challenge in end-to-end approaches is that the LLM must encode sufficient spatial localization information in the <code>&lt;SEG&gt;</code> hidden state for the mask decoder to succeed, while also maintaining coherent high-level semantic reasoning. The two objectives — spatial precision and semantic reasoning — operate at different levels of abstraction and are not naturally aligned in standard LLM training.</p>
+<hr>
+<h2 id="hallucination-benchmarks-and-frontiers">Hallucination, Benchmarks, and Frontiers</h2>
+<h3 id="q18-basic-define-object-hallucination-and-describe-how-it-is-measured">Q18 [Basic] Define object hallucination and describe how it is measured</h3>
+<p><strong>Q:</strong> How do VLMs produce objects not present in an image, and what evaluation protocols have been developed to quantify this?</p>
+<p><strong>A:</strong> <strong>Object hallucination</strong> occurs when a multimodal LLM&rsquo;s output refers to objects, attributes, or relationships absent from the given image. A model describing an image containing a dog bowl may confidently assert &ldquo;a dog eating from the bowl&rdquo; because &ldquo;dog&rdquo; and &ldquo;dog bowl&rdquo; co-occur frequently in training captions. The language model generates tokens that are statistically plausible given the context, rather than strictly grounded in the visual input.</p>
+<p>The root cause is the <strong>language prior dominating the visual signal</strong>: VLMs are trained on image-caption pairs where captions reflect common co-occurrence statistics from the web. The LLM component&rsquo;s strong prior over likely next tokens can override weak or uncertain visual features, producing confident-sounding descriptions of absent objects.</p>
+<p>Two evaluation protocols are widely used. <strong>CHAIR</strong> (Rohrbach et al., 2018) — Caption Hallucination Assessment with Image Relevance — measures what fraction of generated caption nouns refer to objects not in the image, using COCO object labels as ground truth. It quantifies hallucination at the caption level (CHAIRs) and sentence level (CHAIRi).</p>
+<p><strong>POPE</strong> (Li et al., 2023b) — Polling-based Object Probing Evaluation — asks binary yes/no questions: &ldquo;Is there a {object} in the image?&rdquo; Three sampling strategies of increasing difficulty test different failure modes: <strong>random</strong> (any COCO object), <strong>popular</strong> (frequently occurring objects), and <strong>adversarial</strong> (objects that commonly co-occur with the image&rsquo;s actual content but are absent). Models with strong language priors score substantially lower on the adversarial split than the random split, isolating the degree to which responses are driven by statistical association rather than visual grounding.</p>
+<hr>
+<h3 id="q19-advanced-explain-the-gap-between-benchmark-performance-and-real-world-reliability">Q19 [Advanced] Explain the gap between benchmark performance and real-world reliability</h3>
+<p><strong>Q:</strong> What systematic factors cause VLMs that score well on standard benchmarks to fail in deployment, and how have the research community&rsquo;s evaluation practices evolved in response?</p>
+<p><strong>A:</strong> Standard VLM benchmark scores reflect average performance over fixed test sets derived from specific image distributions and question formats, which may not capture the variance and failure modes evident in real deployments. Several systematic factors contribute to the gap.</p>
+<p><strong>Training distribution shift</strong>: Most benchmarks draw from MS COCO, Flickr, or Wikipedia images — professionally taken, well-lit, salient-object-centered photographs. Real deployment involves screenshots, medical images, satellite imagery, low-light captures, and unusual viewpoints. VLM performance degrades substantially on out-of-distribution visual styles not well-represented in pretraining, because the visual encoder&rsquo;s feature distribution shifts in ways that misalign with what the LLM was instruction-tuned on.</p>
+<p><strong>Shortcut exploitation</strong>: Several benchmark analyses found that high VQA accuracy can be achieved by exploiting language biases without visual understanding — answering &ldquo;2&rdquo; to most &ldquo;how many?&rdquo; questions or &ldquo;yes&rdquo; to most binary questions is sufficient for above-chance accuracy on biased datasets. Models optimizing these metrics score well while failing qualitatively on a redistributed question set.</p>
+<p><strong>Compositional generalization failure</strong>: Models tested on held-out combinations of concepts — &ldquo;a purple elephant in a living room&rdquo; — frequently fail even when handling each component in isolation, indicating that the model has memorized common training combinations rather than learning compositional visual semantics.</p>
+<p><strong>Metric-task misalignment for generation tasks</strong>: BLEU and CIDEr for captioning reward lexical overlap with reference captions and do not penalize hallucinated objects that use high-frequency words, nor reward correctly described rare objects. The MMMU benchmark (Yue et al., 2024) was designed to minimize these effects through expert-level, knowledge-intensive questions that require visual and disciplinary reasoning jointly — the gap between GPT-4V and open-source models on MMMU is substantially larger than on COCO-derived benchmarks, suggesting contamination and shortcut effects inflate reported performance on older benchmarks.</p>
+<hr>
+<h3 id="q20-advanced-analyze-the-architectural-challenges-of-video-language-models">Q20 [Advanced] Analyze the architectural challenges of video-language models</h3>
+<p><strong>Q:</strong> What computational and reasoning challenges arise when extending image-based VLMs to video, and how have current approaches addressed them?</p>
+<p><strong>A:</strong> Video understanding introduces two challenges absent from image VLMs: <strong>token scale</strong> and <strong>temporal reasoning</strong>. A video of $T$ frames processed by a ViT backbone produces $T \times N_\text{patch}$ tokens: at 8 frames per second with ViT-L (256 tokens/frame), a 10-second clip yields 20,480 visual tokens — far exceeding the context length of most LLMs and quadratically inflating self-attention cost.</p>
+<p>The primary architectural response is <strong>temporal sampling and compression</strong>. Most video-LLMs select a fixed number of frames (typically 8–16) and process them independently through the image encoder, then aggregate via temporal pooling or concatenation before passing to the LLM. <strong>Video-LLaMA</strong> (Zhang et al., 2023) adds a dedicated Video Q-Former that applies temporal self-attention across frame-level features, compressing the video into a fixed token count before the LLM. <strong>VideoChat</strong> (Li et al., 2023c) adopts a similar Q-Former-based design with video-specific instruction tuning data for conversational video understanding.</p>
+<p>The deeper challenge is <strong>temporal reasoning</strong>: correctly ordering events, inferring causal relationships between actions, and maintaining consistent entity tracking across frames. Sparse frame sampling may miss key moments; models must integrate evidence from a sequence of static visual snapshots rather than a continuous signal. Current video-LLMs handle short-clip event recognition reasonably but struggle with long-form video where critical information is distributed across frames minutes apart — the fixed token budget forces lossy compression rather than selective retrieval.</p>
+<p>An emerging direction is <strong>streaming video understanding</strong>, where the model processes frames as they arrive rather than over pre-segmented clips. This requires memory mechanisms that efficiently summarize previously observed content while remaining sensitive to newly arriving frames — combining recurrent compression with selective attention — a design space that static VLM architectures do not naturally support and that remains an active area of research.</p>
+<hr>
+<h2 id="quick-reference">Quick Reference</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>Difficulty</th>
+          <th>Topic</th>
+          <th>Section</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>Basic</td>
+          <td>CLIP contrastive objective</td>
+          <td>Contrastive Vision-Language Pretraining</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>Basic</td>
+          <td>Zero-shot transfer and prompt engineering</td>
+          <td>Contrastive Vision-Language Pretraining</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>Basic</td>
+          <td>ALIGN and noisy large-scale data</td>
+          <td>Contrastive Vision-Language Pretraining</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>Advanced</td>
+          <td>SigLIP sigmoid loss and batch-size sensitivity</td>
+          <td>Contrastive Vision-Language Pretraining</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>Basic</td>
+          <td>Flamingo frozen-model architecture</td>
+          <td>Architecture Design for Multimodal Models</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>Basic</td>
+          <td>BLIP-2 Q-Former</td>
+          <td>Architecture Design for Multimodal Models</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>Advanced</td>
+          <td>LLaVA minimal architecture</td>
+          <td>Architecture Design for Multimodal Models</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>Advanced</td>
+          <td>Cross-attention vs. projection fusion</td>
+          <td>Architecture Design for Multimodal Models</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>Basic</td>
+          <td>Visual instruction tuning</td>
+          <td>Multimodal Instruction Tuning and Capabilities</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>Advanced</td>
+          <td>InstructBLIP instruction-aware Q-Former</td>
+          <td>Multimodal Instruction Tuning and Capabilities</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>Advanced</td>
+          <td>LLaVA-1.5 MLP connector and data expansion</td>
+          <td>Multimodal Instruction Tuning and Capabilities</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>Advanced</td>
+          <td>Fine-grained visual understanding failures</td>
+          <td>Multimodal Instruction Tuning and Capabilities</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>Advanced</td>
+          <td>Closed-source vs. open-source VLMs</td>
+          <td>Multimodal Instruction Tuning and Capabilities</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>Basic</td>
+          <td>GLIP open-vocabulary detection</td>
+          <td>Visual Grounding and Dense Visual Understanding</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>Advanced</td>
+          <td>Grounding DINO feature fusion</td>
+          <td>Visual Grounding and Dense Visual Understanding</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>Advanced</td>
+          <td>Referring expression comprehension</td>
+          <td>Visual Grounding and Dense Visual Understanding</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>Advanced</td>
+          <td>Language-driven pixel-level segmentation</td>
+          <td>Visual Grounding and Dense Visual Understanding</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>Basic</td>
+          <td>Object hallucination and POPE</td>
+          <td>Hallucination, Benchmarks, and Frontiers</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>Advanced</td>
+          <td>Benchmark vs. real-world reliability</td>
+          <td>Hallucination, Benchmarks, and Frontiers</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>Advanced</td>
+          <td>Video-language model architecture</td>
+          <td>Hallucination, Benchmarks, and Frontiers</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="resources">Resources</h2>
+<ul>
+<li>Radford et al., <a href="https://arxiv.org/abs/2103.00020">Learning Transferable Visual Models From Natural Language Supervision</a> (2021)</li>
+<li>Jia et al., <a href="https://arxiv.org/abs/2102.05918">Scaling Up Visual and Vision-Language Representation Learning With Noisy Text Supervision</a> (2021)</li>
+<li>Zhai et al., <a href="https://arxiv.org/abs/2303.15343">Sigmoid Loss for Language Image Pre-Training</a> (2023)</li>
+<li>Alayrac et al., <a href="https://arxiv.org/abs/2204.14198">Flamingo: a Visual Language Model for Few-Shot Learning</a> (2022)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2301.12597">BLIP-2: Bootstrapping Language-Image Pre-training with Frozen Image Encoders and Large Language Models</a> (2023a)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/2304.08485">Visual Instruction Tuning</a> (2023a)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/2310.03744">Improved Baselines with Visual Instruction Tuning</a> (2023b)</li>
+<li>Dai et al., <a href="https://arxiv.org/abs/2305.06500">InstructBLIP: Towards General-purpose Vision-Language Models with Instruction Tuning</a> (2023)</li>
+<li>Yue et al., <a href="https://arxiv.org/abs/2311.16502">MMMU: A Massive Multi-discipline Multimodal Understanding and Reasoning Benchmark for Expert AGI</a> (2024)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2112.03857">Grounded Language-Image Pre-training</a> (2022)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/2303.05499">Grounding DINO: Marrying DINO with Grounded Pre-Training for Open-Set Object Detection</a> (2023c)</li>
+<li>Deng et al., <a href="https://arxiv.org/abs/2104.08567">TransVG: End-to-End Visual Grounding with Transformers</a> (2021)</li>
+<li>Kirillov et al., <a href="https://arxiv.org/abs/2304.02643">Segment Anything</a> (2023)</li>
+<li>Lai et al., <a href="https://arxiv.org/abs/2308.00692">LISA: Reasoning Segmentation via Large Language Model</a> (2023)</li>
+<li>Rohrbach et al., <a href="https://arxiv.org/abs/1809.02156">Object Hallucination in Image Captioning</a> (2018)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2305.10355">Evaluating Object Hallucination in Large Vision-Language Models</a> (2023b)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/2312.14238">InternVL: Scaling up Vision Foundation Models and Aligning for Generic Visual-Linguistic Tasks</a> (2023)</li>
+<li>Zhang et al., <a href="https://arxiv.org/abs/2306.02858">Video-LLaMA: An Instruction-tuned Audio-Visual Language Model for Video Understanding</a> (2023)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2305.06355">VideoChat: Chat-Centric Video Understanding</a> (2023c)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+
