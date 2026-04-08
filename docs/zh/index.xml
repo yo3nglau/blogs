@@ -9,6 +9,13 @@
     <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>扩散模型：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/diffusion-models-interview-questions-and-answers/</link>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/diffusion-models-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;扩散模型基础&#34;&gt;扩散模型基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-描述ddpm的前向过程与反向过程&#34;&gt;Q1 [基础] 描述DDPM的前向过程与反向过程&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; DDPM的前向过程与反向过程如何定义一个生成模型？什么数学结构使反向过程易于处理？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;DDPM&lt;/strong&gt;（Ho et al., 2020）通过两条马尔可夫链定义生成模型。&lt;strong&gt;前向过程&lt;/strong&gt; $q(x_{1:T}|x_0)$ 在 $T$ 步内逐步向数据样本 $x_0$ 添加少量高斯噪声：&lt;/p&gt;&#xA;$$q(x_t \mid x_{t-1}) = \mathcal{N}\!\left(x_t;\, \sqrt{1-\beta_t}\, x_{t-1},\, \beta_t I\right)$$&lt;p&gt;其中 $\{\beta_t\}_{t=1}^T$ 是固定的方差调度表。一个关键性质是闭式边缘分布：令 $\bar{\alpha}_t = \prod_{s=1}^t (1-\beta_s)$，可得&lt;/p&gt;&#xA;$$q(x_t \mid x_0) = \mathcal{N}\!\left(x_t;\, \sqrt{\bar{\alpha}_t}\, x_0,\, (1-\bar{\alpha}_t) I\right)$$&lt;p&gt;这意味着任意时间步的噪声样本都可以直接采样，无需逐步迭代。在 $T = 1000$、线性调度从 $\beta_1 = 10^{-4}$ 到 $\beta_T = 0.02$ 的设置下，$x_T$ 近似为各向同性高斯分布（Ho et al., 2020）。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;反向过程&lt;/strong&gt; $p_\theta(x_{0:T-1}|x_T)$ 从高斯噪声出发逐步去噪。真实反向后验 $q(x_{t-1}|x_t, x_0)$ 具有解析形式且本身是高斯分布。模型学习 $p_\theta(x_{t-1}|x_t) = \mathcal{N}(x_{t-1}; \mu_\theta(x_t, t), \Sigma_\theta(x_t, t))$ 来近似该后验。生成时先采样 $x_T \sim \mathcal{N}(0, I)$，再反复应用已学习的去噪步骤——这一过程在概念上植根于 Sohl-Dickstein et al.（2015）的非平衡热力学框架。&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>视觉-语言模型：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/vision-language-models-interview-questions-and-answers/</link>
       <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
