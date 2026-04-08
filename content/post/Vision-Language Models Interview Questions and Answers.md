@@ -31,9 +31,9 @@ CLIP was trained on 400M image-text pairs (WebImageText) using either a ResNet o
 
 **Q:** How does CLIP convert a downstream classification task into a similarity matching problem at inference, and what design choices influence zero-shot accuracy?
 
-**A:** CLIP's zero-shot classification works by encoding all class names using the text encoder and selecting the class whose text embedding is most similar to the image embedding. For $C$ classes:
+**A:** CLIP's zero-shot classification works by encoding all class names using the text encoder and selecting the class whose text embedding is most similar to the image embedding. For $C$ classes, where $t_c$ denotes the text prompt for class $c$ (e.g., "a photo of a {class}"):
 
-$$p(y = c \mid x) \propto \exp\!\left(\mathrm{sim}(f_v(x),\, f_t(\text{``a photo of a \{class\}_c''}))/\tau\right)$$
+$$p(y = c \mid x) \propto \exp\!\left(\mathrm{sim}(f_v(x),\, f_t(t_c))/\tau\right)$$
 
 No gradient updates occur at inference — the pre-trained similarity function is applied directly.
 

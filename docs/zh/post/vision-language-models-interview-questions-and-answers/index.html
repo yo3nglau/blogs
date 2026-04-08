@@ -110,8 +110,8 @@ $$\mathcal{L} = -\frac{1}{N}\sum_{i=1}^{N}\!\left[\log\frac{\exp(\mathrm{sim}(v_
 <hr>
 <h3 id="q2-基础-描述-clip-的零样本迁移机制">Q2 [基础] 描述 CLIP 的零样本迁移机制</h3>
 <p><strong>Q:</strong> CLIP 如何在推理时将下游分类任务转化为相似度匹配问题，哪些设计选择影响零样本准确率？</p>
-<p><strong>A:</strong> CLIP 的零样本分类通过对所有类别名称进行文本编码，并选取文本嵌入与图像嵌入最相似的类别来实现。对于 $C$ 个类别：</p>
-$$p(y = c \mid x) \propto \exp\!\left(\mathrm{sim}(f_v(x),\, f_t(\text{``a photo of a \{class\}_c''}))/\tau\right)$$<p>推理时不发生梯度更新——直接应用预训练好的相似度函数。</p>
+<p><strong>A:</strong> CLIP 的零样本分类通过对所有类别名称进行文本编码，并选取文本嵌入与图像嵌入最相似的类别来实现。对于 $C$ 个类别，其中 $t_c$ 表示第 $c$ 个类别的文本提示（例如&quot;a photo of a {class}&quot;）：</p>
+$$p(y = c \mid x) \propto \exp\!\left(\mathrm{sim}(f_v(x),\, f_t(t_c))/\tau\right)$$<p>推理时不发生梯度更新——直接应用预训练好的相似度函数。</p>
 <p><strong>提示工程</strong>（prompt engineering）对零样本准确率影响显著。使用&quot;a photo of a {class}&ldquo;比直接使用类别名称效果更好，因为网络文本中很少出现孤立的类别标签。对 80 个提示模板进行集成（例如&quot;a photo of many {class}&quot;、&ldquo;a photo of the large {class}&quot;），相比单一模板可将 ImageNet 零样本准确率提升最多 3.5 个百分点（Radford et al., 2021）。</p>
 <p><strong>分布偏移鲁棒性</strong>是另一个关键特性：由于未使用下游数据集的标注数据，CLIP 不会过拟合于数据集特有的虚假相关性。在分布偏移的 ImageNet 变体（ImageNet-V2、-Sketch、-A、-R）上，CLIP 维持了显著高于微调 ResNet 的准确率，表明语言监督促使模型学习语义上有意义的特征，而非数据集特有的捷径。</p>
 <hr>

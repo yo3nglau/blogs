@@ -31,9 +31,9 @@ CLIP 在 4 亿图像-文本对（WebImageText）上训练，图像编码器为 R
 
 **Q:** CLIP 如何在推理时将下游分类任务转化为相似度匹配问题，哪些设计选择影响零样本准确率？
 
-**A:** CLIP 的零样本分类通过对所有类别名称进行文本编码，并选取文本嵌入与图像嵌入最相似的类别来实现。对于 $C$ 个类别：
+**A:** CLIP 的零样本分类通过对所有类别名称进行文本编码，并选取文本嵌入与图像嵌入最相似的类别来实现。对于 $C$ 个类别，其中 $t_c$ 表示第 $c$ 个类别的文本提示（例如"a photo of a {class}"）：
 
-$$p(y = c \mid x) \propto \exp\!\left(\mathrm{sim}(f_v(x),\, f_t(\text{``a photo of a \{class\}_c''}))/\tau\right)$$
+$$p(y = c \mid x) \propto \exp\!\left(\mathrm{sim}(f_v(x),\, f_t(t_c))/\tau\right)$$
 
 推理时不发生梯度更新——直接应用预训练好的相似度函数。
 
