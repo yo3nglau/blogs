@@ -9,6 +9,13 @@
     <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/categories/interview/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>RLHF与对齐：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/rlhf-and-alignment-interview-questions-and-answers/</link>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/rlhf-and-alignment-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;rlhf-基础&#34;&gt;RLHF 基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-描述面向指令跟随-llm-的三阶段-rlhf-流程&#34;&gt;Q1 [基础] 描述面向指令跟随 LLM 的三阶段 RLHF 流程&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 标准 RLHF 流程如何将预训练语言模型转变为指令跟随助手？每个阶段各自承担什么角色？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; InstructGPT（Ouyang et al., 2022）所使用的标准 RLHF 流程包含三个顺序阶段，逐步将预训练语言模型与人类偏好对齐。&lt;/p&gt;&#xA;&lt;p&gt;第一阶段是&lt;strong&gt;有监督微调（SFT）&lt;/strong&gt;。预训练基础模型在精心整理的（提示词、示范回答）对数据集上进行微调，其中人工标注员撰写高质量的示例回答。这在引入任何奖励信号之前，先教会模型有用回答的格式与风格。SFT 不可或缺，因为直接对原始预训练模型应用 RLHF 往往会产生不连贯或偏离分布的输出。&lt;/p&gt;&#xA;&lt;p&gt;第二阶段训练&lt;strong&gt;奖励模型（RM）&lt;/strong&gt;。人工标注员被展示同一提示词下的多个模型回答，并按质量排序。这些对比数据训练一个独立的奖励模型——通常以 SFT 模型为初始权重，将语言模型头替换为标量输出头——为任意（提示词、回答）对打出一个标量质量分。奖励模型作为人类判断的代理贯穿下一阶段，因为在每个策略梯度步骤都进行人工评估不可行。&lt;/p&gt;&#xA;&lt;p&gt;第三阶段通过&lt;strong&gt;强化学习优化策略&lt;/strong&gt;。SFT 模型作为初始策略，使用 PPO（Schulman et al., 2017）进行微调，以最大化奖励模型分数，同时通过 KL 惩罚约束策略与 SFT 模型的偏离。Christiano et al.（2017）最初为模拟环境中的 RL 智能体引入了这一三阶段流程；Stiennon et al.（2020）首先将其应用于摘要生成的语言模型微调；Ouyang et al.（2022）将其扩展到跨多种任务的指令跟随。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-解释奖励模型如何从成对人类偏好数据中训练&#34;&gt;Q2 [基础] 解释奖励模型如何从成对人类偏好数据中训练&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 奖励模型训练使用什么数据格式和训练目标？哪些架构选择至关重要？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 奖励模型训练使用从人工标注员处收集的&lt;strong&gt;成对对比数据&lt;/strong&gt;。对于每个提示词 $x$，标注员对两个或多个模型回答进行排序，生成 $(x, y_w, y_l)$ 三元组数据集，其中 $y_w$ 优于 $y_l$。Ziegler et al.（2019）在早期语言模型 RLHF 工作中确立了这一数据格式。奖励模型使用二元交叉熵损失训练，令其对优选回答打出更高分：&lt;/p&gt;&#xA;$$\mathcal{L}_\text{RM} = -\mathbb{E}_{(x,\, y_w,\, y_l) \sim \mathcal{D}}\!\left[\log \sigma\!\left(r_\phi(x, y_w) - r_\phi(x, y_l)\right)\right]$$&lt;p&gt;其中 $r_\phi(x, y)$ 是给定提示词 $x$ 时对回答 $y$ 分配的标量奖励。&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>扩散模型：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/diffusion-models-interview-questions-and-answers/</link>
       <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>

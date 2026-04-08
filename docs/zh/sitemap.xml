@@ -2,6 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/alignment/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/alignment/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/alignment/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/categories/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -78,6 +91,32 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/multimodal-learning/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/reinforcement-learning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/rlhf-and-alignment-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/rlhf-and-alignment-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/rlhf-and-alignment-interview-questions-and-answers/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/</loc>
@@ -286,19 +325,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/large-language-model/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/</loc>
-    <lastmod>2026-04-01T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/reinforcement-learning/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/world-model/</loc>
