@@ -93,6 +93,19 @@
                 href="https://yo3nglau.github.io/blogs/zh/tags/multimodal-learning/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/optimization/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/optimization/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/optimization/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -130,6 +143,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/training/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/training/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/training/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/vision-language-models/</loc>
@@ -182,6 +208,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/post/vision-language-models-interview-questions-and-answers/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/training-techniques--optimization-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/training-techniques--optimization-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/training-techniques--optimization-interview-questions-and-answers/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/knowledge-distillation/</loc>

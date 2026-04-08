@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Optimization on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/optimization/</link>
+    <description>Recent content in Optimization on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>训练技术与优化：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/training-techniques--optimization-interview-questions-and-answers/</link>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/training-techniques--optimization-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;优化算法&#34;&gt;优化算法&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-解释-adam-如何利用一阶与二阶矩估计优化参数&#34;&gt;Q1 [基础] 解释 Adam 如何利用一阶与二阶矩估计优化参数&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Adam 优化器如何利用梯度历史为每个参数自适应调整学习率？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;Adam&lt;/strong&gt;（Adaptive Moment Estimation，自适应矩估计）为每个参数维护两个运行统计量：一阶矩 $m_t$（梯度的指数移动平均）和二阶矩 $v_t$（梯度平方的指数移动平均）(Kingma &amp;amp; Ba, 2015)。在每一步 $t$，这两个统计量的更新方式如下：&lt;/p&gt;&#xA;$$m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t$$$$v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2$$&lt;p&gt;其中 $g_t$ 是梯度，$\beta_1 = 0.9$、$\beta_2 = 0.999$ 为衰减率。由于 $m_t$ 和 $v_t$ 初始化为零，Adam 施加&lt;strong&gt;偏差修正&lt;/strong&gt;以抵消初始化偏差：&lt;/p&gt;&#xA;$$\hat{m}_t = \frac{m_t}{1 - \beta_1^t}, \quad \hat{v}_t = \frac{v_t}{1 - \beta_2^t}$$&lt;p&gt;参数更新为 $\theta_t = \theta_{t-1} - \eta \cdot \hat{m}_t / (\sqrt{\hat{v}_t} + \epsilon)$，其中 $\epsilon$ 是用于数值稳定性的小常数。其效果是：历史梯度较大的参数获得较小的有效学习率，而梯度较小或更新稀疏的参数则得到更大幅度的更新。这种自适应缩放通常比固定学习率的 SGD 收敛更快，尤其适用于稀疏或嘈杂的梯度场景。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
