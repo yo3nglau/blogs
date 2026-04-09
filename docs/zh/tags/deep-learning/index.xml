@@ -6,8 +6,15 @@
     <description>Recent content in Deep Learning on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>自监督与对比学习：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/self-supervised--contrastive-learning-interview-questions-and-answers/</link>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/self-supervised--contrastive-learning-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;对比学习基础&#34;&gt;对比学习基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-解释-infonce-损失及其作为表示学习目标的有效性&#34;&gt;Q1 [基础] 解释 InfoNCE 损失及其作为表示学习目标的有效性&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; InfoNCE 目标优化的是什么？温度参数和负样本数量如何影响所学表示的质量？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;InfoNCE&lt;/strong&gt;（信息噪声对比估计，Information Noise-Contrastive Estimation）损失由对比预测编码（CPC）引入（Oord et al., 2018），训练编码器在 $K$ 个负样本中识别正样本。对于同一图像的两个增强视图 $z_i$ 和 $z_j$，以及 $K$ 个负样本 $\{z_k\}$：&lt;/p&gt;&#xA;$$\mathcal{L}_{\text{InfoNCE}} = -\mathbb{E}\left[\log \frac{\exp(z_i \cdot z_j / \tau)}{\exp(z_i \cdot z_j / \tau) + \sum_{k=1}^{K} \exp(z_i \cdot z_k / \tau)}\right]$$&lt;p&gt;这是一个 $(K{+}1)$ 类分类问题上的交叉熵——编码器学习在归一化嵌入空间中将正对推近、将负对推远。Oord et al. (2018) 表明，最小化 InfoNCE 等价于最大化两个视图间互信息 $I(z_i; z_j)$ 的下界，且随着 $K$ 增大该下界趋于收紧。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;温度&lt;/strong&gt; $\tau$ 控制分布的尖锐程度。过低的 $\tau$ 将梯度集中于困难负样本，可能导致训练不稳定；过高的 $\tau$ 提供更平滑但更弱的梯度信号。SimCLR 发现 $\tau = 0.07$ 对归一化嵌入有效（Chen et al., 2020）。&lt;strong&gt;负样本数量&lt;/strong&gt; $K$ 决定互信息下界对真实值的逼近质量——实验表明，当负样本数少于数千时性能会显著下降，这促使人们采用大批量训练或内存队列方案。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>RLHF与对齐：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/rlhf-and-alignment-interview-questions-and-answers/</link>
