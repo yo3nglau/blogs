@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Self-Supervised Learning on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/self-supervised-learning/</link>
+    <description>Recent content in Self-Supervised Learning on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 09 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/self-supervised-learning/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Self-Supervised &amp; Contrastive Learning: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/self-supervised--contrastive-learning-interview-questions-and-answers/</link>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/self-supervised--contrastive-learning-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;contrastive-learning-foundations&#34;&gt;Contrastive Learning Foundations&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-the-infonce-loss-and-what-makes-it-a-useful-learning-objective-for-representations&#34;&gt;Q1 [Basic] Explain the InfoNCE loss and what makes it a useful learning objective for representations&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What does the InfoNCE objective optimize, and how do the temperature and negative count affect the quality of the learned representations?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; The &lt;strong&gt;InfoNCE&lt;/strong&gt; (Information Noise-Contrastive Estimation) loss, introduced in Contrastive Predictive Coding (Oord et al., 2018), trains an encoder to identify a positive sample among $K$ negatives. For two augmented views $z_i$ and $z_j$ of the same image, with $K$ negatives $\{z_k\}$:&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

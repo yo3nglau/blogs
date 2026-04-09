@@ -6,20 +6,34 @@
     <description>Recent content in Tags on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 09 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Alignment</title>
-      <link>https://yo3nglau.github.io/blogs/tags/alignment/</link>
-      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/tags/alignment/</guid>
+      <title>Contrastive Learning</title>
+      <link>https://yo3nglau.github.io/blogs/tags/contrastive-learning/</link>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/tags/contrastive-learning/</guid>
       <description></description>
     </item>
     <item>
       <title>Deep Learning</title>
       <link>https://yo3nglau.github.io/blogs/tags/deep-learning/</link>
-      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/tags/deep-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Self-Supervised Learning</title>
+      <link>https://yo3nglau.github.io/blogs/tags/self-supervised-learning/</link>
+      <pubDate>Thu, 09 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/tags/self-supervised-learning/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Alignment</title>
+      <link>https://yo3nglau.github.io/blogs/tags/alignment/</link>
+      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/tags/alignment/</guid>
       <description></description>
     </item>
     <item>
