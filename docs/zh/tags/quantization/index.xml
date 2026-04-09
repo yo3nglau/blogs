@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Model Compression on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/zh/tags/model-compression/</link>
-    <description>Recent content in Model Compression on yo3nglau academic website</description>
+    <title>Quantization on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/quantization/</link>
+    <description>Recent content in Quantization on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Wed, 08 Apr 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/model-compression/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/quantization/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>模型效率与量化：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/model-efficiency--quantization-interview-questions-and-answers/</link>
       <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/zh/post/model-efficiency--quantization-interview-questions-and-answers/</guid>
       <description>&lt;h2 id=&#34;量化基础&#34;&gt;量化基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-解释均匀量化的关键设计选择&#34;&gt;Q1 [基础] 解释均匀量化的关键设计选择&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 哪些数值决策决定了浮点权重张量到整数的映射方式？对称方案与非对称方案有何区别？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;均匀量化&lt;/strong&gt;（Uniform quantization）使用两个参数——&lt;strong&gt;缩放因子&lt;/strong&gt;（scale factor）$s$ 和&lt;strong&gt;零点&lt;/strong&gt;（zero-point）$z$——将浮点范围 $[x_{\min}, x_{\max}]$ 映射到 $2^b$ 个均匀分布的整数值。位宽 $b$ 决定可表示的级别数量：INT8 提供 256 级，INT4 仅提供 16 级。缩放因子由张量范围决定，截断操作会对超出选定范围的值引入&lt;strong&gt;裁剪误差&lt;/strong&gt;；校准时如何设置 $x_{\min}$ 和 $x_{\max}$ 是裁剪误差与舍入误差之间的权衡（Nagel et al., 2021）。&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;对称&lt;/strong&gt;量化令 $z = 0$ 并对称裁剪（$x_{\min} = -x_{\max}$），从而简化计算：零恰好映射到整数 0，零点可以从乘加运算路径中省略。&lt;strong&gt;非对称&lt;/strong&gt;量化允许 $z \neq 0$，通过平移量化网格以更高效地覆盖实际数据范围——例如，ReLU 后的激活值始终非负，非对称网格可将所有级别集中于 $[0, x_{\max}]$。代价是每次矩阵乘法都需要额外的零点修正项。&lt;/p&gt;&#xA;&lt;p&gt;粒度是第三个维度：&lt;strong&gt;逐张量&lt;/strong&gt;（per-tensor）量化对整个权重矩阵使用单一的 $s$ 和 $z$，而&lt;strong&gt;逐通道&lt;/strong&gt;（per-channel）量化对每个输出通道使用独立值。不同输出通道的动态范围可能差异很大，因此逐通道校准能够以可忽略不计的推理开销显著降低量化误差。Nagel et al. (2021) 对这些选择在 CNN 和 Transformer 架构中的相互作用进行了全面分析。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-区分训练后量化与量化感知训练&#34;&gt;Q2 [基础] 区分训练后量化与量化感知训练&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; PTQ 和 QAT 在量化相对于训练的时机上有何不同？如何判断哪种方案更合适？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;训练后量化&lt;/strong&gt;（Post-training quantization，PTQ）在不进行任何基于梯度的优化的情况下，对已经完全训练好的浮点模型应用量化。通过将少量校准数据集（通常数百至数千个样本）送入模型，收集激活统计信息以逐层设定缩放因子和零点。PTQ 无需访问原始训练流程，可在数分钟内完成量化。其局限在于量化误差无法通过权重更新来补偿，因此精度下降幅度大于 QAT——尤其在低于 8 位时——敏感层可能需要更精细的校准（Nagel et al., 2021）。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>知识蒸馏：面试问题与推荐回答</title>
-      <link>https://yo3nglau.github.io/blogs/zh/post/knowledge-distillation-interview-questions-and-answers/</link>
-      <pubDate>Tue, 07 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/zh/post/knowledge-distillation-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;知识蒸馏基础&#34;&gt;知识蒸馏基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-解释软标签的动机&#34;&gt;Q1 [基础] 解释软标签的动机&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 为什么教师网络输出的软标签比独热标签能提供更丰富的训练信号？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 独热标签只编码了哪个类别是正确的，丢弃了所有关于不同类别之间相对相似性的信息。相比之下，教师的输出分布会对相关类别赋予非零概率——例如，一张猫的图像可能在&amp;quot;老虎&amp;quot;上获得一定的概率质量，而在&amp;quot;卡车&amp;quot;上接近为零——这反映了真实标签所缺失的已学习相似性结构。&lt;/p&gt;&#xA;&lt;p&gt;Hinton et al. (2015) 在现代知识蒸馏框架中将这一直觉形式化。当学生模型最小化与教师软化分布之间的交叉熵时，它获得了丰富的梯度信号，将其表征约束在教师的内部几何结构附近，而不仅仅是教师的 top-1 决策。每个软标签紧凑地编码了教师在整个训练集上学到的类间关系。&lt;/p&gt;&#xA;&lt;p&gt;从实验来看，当教师对&amp;quot;暗知识&amp;quot;（dark knowledge）类别——即正确类别以外的预测——分配显著概率质量时，软标签的信息量最为丰富。在 MNIST 上，Hinton et al. (2015) 证明了即使教师从未在数字&amp;quot;3&amp;quot;上训练过，经过蒸馏的模型仍能泛化到&amp;quot;3&amp;quot;，因为其他数字的软标签隐式地传递了与&amp;quot;3&amp;quot;相关的视觉结构。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-描述知识蒸馏中的温度缩放&#34;&gt;Q2 [基础] 描述知识蒸馏中的温度缩放&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 温度超参数如何控制教师分布的尖锐程度，为何需要对蒸馏损失施加缩放因子？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 标准 softmax 将 logit $z_i$ 转化为概率 $p_i = \exp(z_i) / \sum_j \exp(z_j)$。温度缩放的 softmax 在 softmax 之前将每个 logit 除以 $T$：$p_i^{(T)} = \exp(z_i / T) / \sum_j \exp(z_j / T)$。当 $T = 1$ 时还原为标准分布；当 $T &gt; 1$ 时分布变得更均匀，非最大类别的概率升高。&lt;/p&gt;&#xA;&lt;p&gt;完整的蒸馏损失将硬标签交叉熵项与软标签 KL 散度结合：&lt;/p&gt;&#xA;$$\mathcal{L}_\text{KD} = (1 - \alpha)\,\mathcal{L}_\text{CE}(y,\, p_S) + \alpha\, T^2\,\mathrm{KL}\!\left(p_T^{(T)} \,\Big\|\, p_S^{(T)}\right)$$&lt;p&gt;因子 $T^2$ 补偿了两个分布被软化时发生的梯度衰减：KL 项关于 logit 的梯度以 $1/T^2$ 为尺度缩小，因此乘以 $T^2$ 可以将其恢复到与交叉熵梯度相同的数量级（Hinton et al., 2015）。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -80,6 +80,19 @@
                 href="https://yo3nglau.github.io/blogs/zh/categories/interview/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/model-compression/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/model-compression/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/model-compression/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/multimodal-learning/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -104,6 +117,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/optimization/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/quantization/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/quantization/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/quantization/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/</loc>
@@ -197,6 +223,19 @@
                 href="https://yo3nglau.github.io/blogs/zh/post/diffusion-models-interview-questions-and-answers/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/model-efficiency--quantization-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/model-efficiency--quantization-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/model-efficiency--quantization-interview-questions-and-answers/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/post/vision-language-models-interview-questions-and-answers/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -234,19 +273,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/knowledge-distillation/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/model-compression/</loc>
-    <lastmod>2026-04-07T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/model-compression/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/model-compression/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/post/knowledge-distillation-interview-questions-and-answers/</loc>

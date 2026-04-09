@@ -121,6 +121,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/model-efficiency--quantization-interview-questions-and-answers/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/model-efficiency--quantization-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/model-efficiency--quantization-interview-questions-and-answers/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/multimodal-learning/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
@@ -153,6 +163,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/quantization/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/quantization/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/quantization/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/reinforcement-learning/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>
