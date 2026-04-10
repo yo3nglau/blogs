@@ -6,8 +6,15 @@
     <description>Recent content on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 09 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LLM推理与服务：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/llm-inference--serving-interview-questions-and-answers/</link>
+      <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/llm-inference--serving-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;kv-cache-与内存管理&#34;&gt;KV Cache 与内存管理&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-解释自回归解码为何需要-kv-cache&#34;&gt;Q1 [基础] 解释自回归解码为何需要 KV Cache&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 自回归生成为何需要缓存机制？KV Cache 中究竟存储了什么？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 在自回归解码中，模型每次生成一个 token，且每个 token 都以所有先前 token 为条件。若不使用缓存，生成第 $t$ 个 token 需要重新计算前 $t-1$ 个 token 的键和值——对整个序列而言代价为 $O(t^2)$。KV Cache 存储每个注意力层对所有已生成 token 产出的键（key）和值（value）张量，使得在第 $t$ 步只需计算新 token 的 query、key 和 value；缓存的键值在注意力计算前直接检索并拼接。每个 token 每层的内存占用为 float16 下的 $2 \cdot d_{head} \cdot n_{heads}$，对于拥有 32 层、32 个注意力头、$d_{head} = 128$ 的 7B 模型，每个 token 约占 $0.5$ MB——足以在长序列或大批量场景下耗尽 GPU 内存。&lt;/p&gt;&#xA;&lt;p&gt;KV Cache 将自回归解码的每步复杂度降至 $O(t)$，把总体二次代价转化为与生成长度线性相关。代价是内存：随着批大小 $B$ 和序列长度 $T$ 的增大，缓存消耗 $O(B \cdot T \cdot L \cdot d_{model})$ 字节，往往与模型权重本身相当甚至超过之。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>视频理解：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/video-understanding-interview-questions-and-answers/</link>
