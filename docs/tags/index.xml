@@ -9,6 +9,13 @@
     <lastBuildDate>Fri, 10 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Computer Vision</title>
+      <link>https://yo3nglau.github.io/blogs/tags/computer-vision/</link>
+      <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/tags/computer-vision/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Deep Learning</title>
       <link>https://yo3nglau.github.io/blogs/tags/deep-learning/</link>
       <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
@@ -23,17 +30,17 @@
       <description></description>
     </item>
     <item>
+      <title>Object Detection</title>
+      <link>https://yo3nglau.github.io/blogs/tags/object-detection/</link>
+      <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/tags/object-detection/</guid>
+      <description></description>
+    </item>
+    <item>
       <title>Systems</title>
       <link>https://yo3nglau.github.io/blogs/tags/systems/</link>
       <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/tags/systems/</guid>
-      <description></description>
-    </item>
-    <item>
-      <title>Computer Vision</title>
-      <link>https://yo3nglau.github.io/blogs/tags/computer-vision/</link>
-      <pubDate>Thu, 09 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/tags/computer-vision/</guid>
       <description></description>
     </item>
     <item>

@@ -15,6 +15,19 @@
                 href="https://yo3nglau.github.io/blogs/categories/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/computer-vision/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/computer-vision/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/computer-vision/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/deep-learning/</loc>
     <lastmod>2026-04-10T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -80,6 +93,12 @@
                 href="https://yo3nglau.github.io/blogs/post/llm-inference--serving-interview-questions-and-answers/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/object-detection/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/object-detection--segmentation-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/</loc>
     <lastmod>2026-04-10T00:00:00+00:00</lastmod>
   </url><url>
@@ -107,19 +126,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/tags/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/tags/computer-vision/</loc>
-    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/computer-vision/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/computer-vision/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/contrastive-learning/</loc>

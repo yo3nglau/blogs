@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Object Detection &amp; Segmentation: Interview Questions and Answers | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">Object Detection &amp; Segmentation: Interview Questions and Answers</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/10</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/computer-vision">Computer Vision</a> <a href="/blogs/tags/object-detection">Object Detection</a> 
+  
+  
+</p>
+</div>
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#detection-foundations">Detection Foundations</a>
+      <ul>
+        <li><a href="#q1-basic-explain-anchor-based-detection-iou-matching-regression-targets-and-nms">Q1 [Basic] Explain anchor-based detection: IoU matching, regression targets, and NMS</a></li>
+        <li><a href="#q2-basic-describe-feature-pyramid-networks-and-their-role-in-multi-scale-detection">Q2 [Basic] Describe Feature Pyramid Networks and their role in multi-scale detection</a></li>
+        <li><a href="#q3-advanced-compare-giou-diou-and-ciou-as-bounding-box-regression-losses">Q3 [Advanced] Compare GIoU, DIoU, and CIoU as bounding box regression losses</a></li>
+        <li><a href="#q4-advanced-explain-focal-loss-and-how-it-solves-class-imbalance-in-one-stage-detectors">Q4 [Advanced] Explain Focal Loss and how it solves class imbalance in one-stage detectors</a></li>
+      </ul>
+    </li>
+    <li><a href="#two-stage-detection">Two-Stage Detection</a>
+      <ul>
+        <li><a href="#q5-basic-trace-the-r-cnn-to-faster-r-cnn-evolution">Q5 [Basic] Trace the R-CNN to Faster R-CNN evolution</a></li>
+        <li><a href="#q6-advanced-analyze-the-design-of-the-region-proposal-network">Q6 [Advanced] Analyze the design of the Region Proposal Network</a></li>
+        <li><a href="#q7-advanced-explain-why-roi-align-outperforms-roi-pooling-for-instance-segmentation">Q7 [Advanced] Explain why RoI Align outperforms RoI Pooling for instance segmentation</a></li>
+        <li><a href="#q8-advanced-describe-cascade-r-cnn-and-the-distribution-mismatch-problem">Q8 [Advanced] Describe Cascade R-CNN and the distribution mismatch problem</a></li>
+      </ul>
+    </li>
+    <li><a href="#one-stage-and-transformer-based-detection">One-Stage and Transformer-Based Detection</a>
+      <ul>
+        <li><a href="#q9-basic-describe-fcos-and-the-role-of-centerness-in-anchor-free-detection">Q9 [Basic] Describe FCOS and the role of centerness in anchor-free detection</a></li>
+        <li><a href="#q10-basic-summarize-the-yolo-design-philosophy-and-its-architectural-evolution">Q10 [Basic] Summarize the YOLO design philosophy and its architectural evolution</a></li>
+        <li><a href="#q11-advanced-analyze-detrs-bipartite-matching-loss-and-its-slow-convergence">Q11 [Advanced] Analyze DETR&rsquo;s bipartite matching loss and its slow convergence</a></li>
+        <li><a href="#q12-advanced-explain-how-dino-detr-achieves-fast-convergence">Q12 [Advanced] Explain how DINO-DETR achieves fast convergence</a></li>
+      </ul>
+    </li>
+    <li><a href="#instance-segmentation">Instance Segmentation</a>
+      <ul>
+        <li><a href="#q13-basic-describe-the-mask-r-cnn-architecture-and-its-mask-branch-design">Q13 [Basic] Describe the Mask R-CNN architecture and its mask branch design</a></li>
+        <li><a href="#q14-advanced-explain-solov2s-kernel-prediction-framework-for-instance-segmentation">Q14 [Advanced] Explain SOLOv2&rsquo;s kernel prediction framework for instance segmentation</a></li>
+        <li><a href="#q15-advanced-describe-condinsts-conditional-convolution-approach-to-instance-segmentation">Q15 [Advanced] Describe CondInst&rsquo;s conditional convolution approach to instance segmentation</a></li>
+        <li><a href="#q16-advanced-compare-the-paradigms-of-instance-segmentation-and-their-design-trade-offs">Q16 [Advanced] Compare the paradigms of instance segmentation and their design trade-offs</a></li>
+      </ul>
+    </li>
+    <li><a href="#semantic-panoptic-segmentation-and-foundation-models">Semantic, Panoptic Segmentation, and Foundation Models</a>
+      <ul>
+        <li><a href="#q17-basic-describe-fcn-and-deeplabs-contributions-to-semantic-segmentation">Q17 [Basic] Describe FCN and DeepLab&rsquo;s contributions to semantic segmentation</a></li>
+        <li><a href="#q18-advanced-explain-mask2former-as-a-universal-segmentation-architecture">Q18 [Advanced] Explain Mask2Former as a universal segmentation architecture</a></li>
+        <li><a href="#q19-basic-describe-the-segment-anything-model-sam-and-its-promptable-design">Q19 [Basic] Describe the Segment Anything Model (SAM) and its promptable design</a></li>
+        <li><a href="#q20-advanced-analyze-sams-capabilities-failure-modes-and-evolution-toward-open-vocabulary-segmentation">Q20 [Advanced] Analyze SAM&rsquo;s capabilities, failure modes, and evolution toward open-vocabulary segmentation</a></li>
+      </ul>
+    </li>
+    <li><a href="#quick-reference">Quick Reference</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="detection-foundations">Detection Foundations</h2>
+<h3 id="q1-basic-explain-anchor-based-detection-iou-matching-regression-targets-and-nms">Q1 [Basic] Explain anchor-based detection: IoU matching, regression targets, and NMS</h3>
+<p><strong>Q:</strong> How does an anchor-based detector assign training labels to anchor boxes, and why is non-maximum suppression necessary at inference?</p>
+<p><strong>A:</strong> An anchor-based detector tiles a fixed set of anchor boxes at every spatial location on the feature map, varying across predefined scales and aspect ratios. In Faster R-CNN (Ren et al., 2015), each location uses 3 scales × 3 aspect ratios = 9 anchors. An anchor is labeled <strong>positive</strong> if its maximum IoU with any ground-truth box exceeds 0.7 (or if it is the highest-IoU anchor for a particular GT box to ensure coverage of rare objects), and <strong>negative</strong> if its maximum IoU with all GT boxes falls below 0.3. Anchors with IoU in $[0.3, 0.7)$ are ignored during training to avoid ambiguous gradients.</p>
+<p>Regression targets are encoded as offsets relative to the anchor: $t_x = (x - x_a)/w_a$, $t_y = (y - y_a)/h_a$, $t_w = \log(w/w_a)$, $t_h = \log(h/h_a)$. The log-space parameterization ensures scale invariance and keeps regression targets in a compact numerical range.</p>
+<p>At inference the detector produces hundreds of thousands of candidate boxes, most heavily overlapping. <strong>Non-Maximum Suppression (NMS)</strong> greedily selects the highest-scoring box, suppresses all boxes with IoU above a threshold (typically 0.5), and repeats. This reduces redundant predictions to a small final set. The limitation of greedy NMS is that closely spaced objects of the same class may be mutually suppressed; <strong>Soft-NMS</strong> addresses this by decaying rather than eliminating overlapping box scores, improving recall for dense scenes.</p>
+<hr>
+<h3 id="q2-basic-describe-feature-pyramid-networks-and-their-role-in-multi-scale-detection">Q2 [Basic] Describe Feature Pyramid Networks and their role in multi-scale detection</h3>
+<p><strong>Q:</strong> What problem does FPN solve in object detection, and how does its architecture achieve multi-scale feature representations?</p>
+<p><strong>A:</strong> Convolutional backbone features exhibit a fundamental trade-off: deep feature maps (e.g., the final stride-32 layer) have strong semantic content but coarse spatial resolution, making small-object detection unreliable; shallow feature maps have high spatial fidelity but weak semantics. Running an independent detector at each backbone scale is computationally wasteful and does not share information across scales.</p>
+<p>FPN (Lin et al., 2017a) constructs a feature pyramid by combining the semantic richness of deep layers with the spatial precision of shallow layers through a <strong>top-down pathway with lateral connections</strong>. Starting from the deepest backbone stage $C_5$, FPN upsamples (nearest-neighbor 2$\times$) and adds a lateral $1 \times 1$ convolution of the corresponding bottom-up feature map at each resolution, producing $\{P_2, P_3, P_4, P_5\}$ with uniform channel depth (256). A separate RPN and detection head is applied at each pyramid level, with objects assigned to levels by size: larger objects use coarser levels and smaller objects use finer levels.</p>
+<p>This design adds negligible compute over the backbone and improves COCO AP by approximately 8 points over a single-scale C4-feature baseline (Lin et al., 2017a). Extensions such as PANet add a bottom-up path augmentation to strengthen low-level features, and BiFPN introduces learnable weighted fusion, both adopted in subsequent YOLO and EfficientDet families.</p>
+<hr>
+<h3 id="q3-advanced-compare-giou-diou-and-ciou-as-bounding-box-regression-losses">Q3 [Advanced] Compare GIoU, DIoU, and CIoU as bounding box regression losses</h3>
+<p><strong>Q:</strong> Why do L1 and L2 losses on box coordinates fall short for bounding box regression, and how do the IoU-family losses address these failures?</p>
+<p><strong>A:</strong> L1 and L2 losses on the four coordinate or $(c_x, c_y, w, h)$ parameterization suffer from two problems: (1) they are not scale-invariant—a 10-pixel error on a 20-pixel box is far worse than on a 200-pixel box, yet receives the same gradient; (2) they do not directly optimize the evaluation metric (IoU), so optimizing them does not necessarily improve detection AP. The plain IoU loss $\mathcal{L}_{\text{IoU}} = 1 - \text{IoU}$ corrects scale invariance but produces zero gradient when predicted and ground-truth boxes do not overlap, a common situation early in training.</p>
+<p><strong>GIoU</strong> (Rezatofighi et al., 2019) adds a penalty based on the smallest enclosing box $C$ containing both boxes:</p>
+$$\mathcal{L}_{\text{GIoU}} = 1 - \text{IoU} + \frac{|C \setminus (A \cup B)|}{|C|}$$<p>The extra term is non-zero even for non-overlapping boxes, providing a learning signal by penalizing the wasted area in the enclosing box.</p>
+<p><strong>DIoU</strong> (Zheng et al., 2020) directly penalizes the normalized center distance, converging faster than GIoU when the predicted box is far from the target:</p>
+$$\mathcal{L}_{\text{DIoU}} = 1 - \text{IoU} + \frac{\rho^2(b, b_{gt})}{c^2}$$<p>where $\rho$ is the Euclidean center distance and $c$ is the diagonal of $C$.</p>
+<p><strong>CIoU</strong> (Zheng et al., 2020) adds an aspect-ratio consistency term $\alpha v$ to DIoU, where $v = \frac{4}{\pi^2}\left(\arctan\frac{w_{gt}}{h_{gt}} - \arctan\frac{w}{h}\right)^2$ and $\alpha = v / (1 - \text{IoU} + v)$ weights its contribution by IoU. CIoU is the default regression loss in modern YOLO variants and FCOS, consistently outperforming GIoU and DIoU by 0.5–1.5 AP on COCO.</p>
+<hr>
+<h3 id="q4-advanced-explain-focal-loss-and-how-it-solves-class-imbalance-in-one-stage-detectors">Q4 [Advanced] Explain Focal Loss and how it solves class imbalance in one-stage detectors</h3>
+<p><strong>Q:</strong> Why does extreme foreground-background imbalance degrade one-stage detector training, and how does Focal Loss address it?</p>
+<p><strong>A:</strong> A one-stage detector applied to an image evaluates on the order of $10^4$–$10^5$ candidate locations, of which fewer than 0.01% correspond to objects. During training, background (easy negative) examples dominate the cross-entropy loss in both count and magnitude: even though each individual easy-negative contribution is small (e.g., $-\log(0.999) \approx 0.001$), their aggregate swamps the gradients from the rare foreground examples. Prior systems used <strong>hard negative mining</strong> (e.g., SSD keeps negatives at 3:1 with positives by score), which discards many informative gradients and requires careful sampling.</p>
+<p><strong>Focal Loss</strong> (Lin et al., 2017b) reshapes the cross-entropy loss to down-weight easy examples continuously, without discrete sampling:</p>
+$$\text{FL}(p_t) = -\alpha_t (1 - p_t)^\gamma \log(p_t)$$<p>The modulating factor $(1-p_t)^\gamma$ reduces the contribution of well-classified examples: at $p_t = 0.95$ (easy background), the factor is $(0.05)^2 = 0.0025$ for $\gamma = 2$, suppressing their gradient to near zero. Hard, misclassified examples (low $p_t$) retain loss close to standard cross-entropy. The class-balancing weight $\alpha_t$ handles dataset-level imbalance separately.</p>
+<p><strong>RetinaNet</strong> (Lin et al., 2017b) demonstrates that combining Focal Loss with a simple ResNet-FPN backbone and shared class/box subnets at each pyramid level achieves 40.8 AP on COCO test-dev with a ResNet-101 backbone—matching or exceeding two-stage detectors of the same era at similar inference speed, showing that one-stage detectors underperformed not due to architecture but due to the training loss.</p>
+<hr>
+<h2 id="two-stage-detection">Two-Stage Detection</h2>
+<h3 id="q5-basic-trace-the-r-cnn-to-faster-r-cnn-evolution">Q5 [Basic] Trace the R-CNN to Faster R-CNN evolution</h3>
+<p><strong>Q:</strong> What computational inefficiencies did each step in the R-CNN → Fast R-CNN → Faster R-CNN progression address?</p>
+<p><strong>A:</strong> <strong>R-CNN</strong> (Girshick et al., 2014) established the region proposal + CNN pipeline: Selective Search generates ~2,000 region proposals per image, each is warped to a fixed size and independently forwarded through an AlexNet-style CNN to extract features, then classified by per-class SVMs with a separate box regressor. This approach achieved strong detection accuracy but was extremely slow (~47 seconds per image at test time) because the CNN ran independently for each of ~2,000 proposals.</p>
+<p><strong>Fast R-CNN</strong> (Girshick, 2015) inverts the ordering: run the CNN once on the full image to produce a shared feature map, then project each region proposal onto that feature map and extract a fixed-size representation via <strong>RoI Pooling</strong> (dividing the projected region into a $7 \times 7$ grid and max-pooling each cell). Classification and regression are performed jointly by a multi-task loss from a shared fully-connected head. End-to-end training is now possible (except for proposal generation). Test speed improves to ~2 seconds per image, with most time spent on Selective Search.</p>
+<p><strong>Faster R-CNN</strong> (Ren et al., 2015) eliminates the external proposal algorithm by introducing the <strong>Region Proposal Network (RPN)</strong>, a small fully-convolutional network that shares the same backbone features with the detection head. RPN predicts objectness scores and box deltas at each spatial location for $k$ anchors, and produces ordered proposal sets via NMS. The result is an end-to-end trainable pipeline running at ~5 fps with a VGG-16 backbone—orders of magnitude faster than R-CNN—while achieving better accuracy due to learned proposals.</p>
+<hr>
+<h3 id="q6-advanced-analyze-the-design-of-the-region-proposal-network">Q6 [Advanced] Analyze the design of the Region Proposal Network</h3>
+<p><strong>Q:</strong> How does the RPN generate proposals, and what are the key design choices that make it effective?</p>
+<p><strong>A:</strong> The RPN in Faster R-CNN (Ren et al., 2015) is a fully-convolutional network applied to the shared backbone feature map (typically stride 16). At each spatial location it uses a $3 \times 3$ sliding window and $k = 9$ anchors (3 scales: 128, 256, 512 px; 3 aspect ratios: 1:1, 1:2, 2:1). Two sibling $1 \times 1$ convolutions produce <strong>objectness scores</strong> ($2k$ outputs) and <strong>box regression deltas</strong> ($4k$ outputs).</p>
+<p><strong>Label assignment</strong>: a positive anchor is any anchor with IoU $> 0.7$ with a GT box, or the highest-IoU anchor for a GT box (to ensure every GT box has at least one positive). A negative anchor has IoU $< 0.3$ with all GT boxes. The mini-batch samples 256 anchors with a 1:1 positive-to-negative ratio when possible.</p>
+<p><strong>Proposal selection</strong>: the RPN sorts all anchors by objectness score, takes the top $N$ (12,000 train / 6,000 test), applies NMS at IoU $= 0.7$, and passes the top $M$ (2,000 train / 300 test) proposals to the detector head. This two-stage filtering efficiently discards low-quality and redundant regions.</p>
+<p>The shared backbone between RPN and detector is critical: feature computation is not repeated, and the two networks can benefit from joint training. Fine-tuning only the task-specific layers while keeping shared layers fixed (alternating four-step training) or joint end-to-end training both work well in practice.</p>
+<hr>
+<h3 id="q7-advanced-explain-why-roi-align-outperforms-roi-pooling-for-instance-segmentation">Q7 [Advanced] Explain why RoI Align outperforms RoI Pooling for instance segmentation</h3>
+<p><strong>Q:</strong> What is the misalignment introduced by RoI Pooling, and how does RoI Align eliminate it?</p>
+<p><strong>A:</strong> <strong>RoI Pooling</strong> projects a floating-point proposal $(x_1, y_1, x_2, y_2)$ onto the feature map and immediately <strong>quantizes</strong> the coordinates to the nearest integer grid position. It then divides the resulting integer region into a $H \times W$ grid (e.g., $7 \times 7$), again quantizing each bin boundary. Each bin is max-pooled. The two rounds of quantization introduce misalignment: the pooled region can be off by up to half a stride (e.g., 8 pixels at feature stride 16), causing a systematic spatial offset between the input proposal and the pooled features.</p>
+<p>For <strong>bounding box classification and regression</strong>, this misalignment is tolerable—detection is inherently translation-tolerant at the scale of detection head predictions. But for <strong>instance segmentation</strong>, where a 28×28 binary mask must align precisely with the ground-truth object boundary, even a few pixels of offset produces blurry or incorrect masks.</p>
+<p><strong>RoI Align</strong> (He et al., 2017) removes all quantization. Given a floating-point RoI, it divides it into $H \times W$ bins with floating-point boundaries and samples $2 \times 2$ points uniformly within each bin, computing feature values at each sample point by <strong>bilinear interpolation</strong> from the four surrounding grid points. The sampled values are then aggregated by average or max pooling. This maintains sub-pixel accuracy throughout. Ablating from RoI Pooling to RoI Align on the Mask R-CNN baseline improves mask AP by 3.1 points (14.0 → 17.1) on COCO while leaving box AP essentially unchanged—confirming that the benefit is specific to pixel-level prediction.</p>
+<hr>
+<h3 id="q8-advanced-describe-cascade-r-cnn-and-the-distribution-mismatch-problem">Q8 [Advanced] Describe Cascade R-CNN and the distribution mismatch problem</h3>
+<p><strong>Q:</strong> What is the distribution mismatch problem in two-stage detection, and how does Cascade R-CNN address it with progressive IoU thresholds?</p>
+<p><strong>A:</strong> A standard two-stage detector trains its detection head at a fixed IoU threshold $u$ (typically 0.5). At this threshold, a predicted box is positive if IoU $\geq 0.5$ with a GT box, accepting proposals with noisy localization. <strong>Raising $u$ to 0.7</strong> forces the head to produce more precise regressions, but introduces a <strong>distribution mismatch</strong>: at training time, few proposals have IoU $\geq 0.7$ (since the RPN is trained at $u = 0.5$), leading to very sparse positive samples, overfitting to those few examples, and degraded performance when applied to the distribution of IoU $\approx 0.5$–$0.7$ proposals actually produced at inference.</p>
+<p><strong>Cascade R-CNN</strong> (Cai &amp; Vasconcelos, 2018) addresses this by training a sequence of detectors with monotonically increasing IoU thresholds:</p>
+<ul>
+<li><strong>Stage 1</strong>: $u_1 = 0.5$. Takes RPN proposals (IoU $\approx 0.5$–$0.7$), applies a detection head, and outputs refined boxes.</li>
+<li><strong>Stage 2</strong>: $u_2 = 0.6$. Takes stage-1 outputs as proposals (now IoU $\approx 0.6$–$0.75$), trains another head matched to this higher-quality proposal distribution.</li>
+<li><strong>Stage 3</strong>: $u_3 = 0.7$. Takes stage-2 outputs and trains a head for high-quality localization.</li>
+</ul>
+<p>At each stage, the input proposals match the training distribution of that head, resolving the mismatch. The key insight is that <strong>quality improves stage by stage</strong>: a detector trained at $u_3 = 0.7$ only performs well when its inputs are already near-correct, which only happens after sequential refinement. Cascade R-CNN achieves 42.8 AP on COCO test-dev with a ResNet-101 backbone, compared to 37.8 AP for the equivalent single-stage Faster R-CNN, a gain of 5.0 AP with only modest additional inference cost (three small heads vs one).</p>
+<hr>
+<h2 id="one-stage-and-transformer-based-detection">One-Stage and Transformer-Based Detection</h2>
+<h3 id="q9-basic-describe-fcos-and-the-role-of-centerness-in-anchor-free-detection">Q9 [Basic] Describe FCOS and the role of centerness in anchor-free detection</h3>
+<p><strong>Q:</strong> How does FCOS reformulate object detection as per-pixel regression, and what problem does the centerness branch solve?</p>
+<p><strong>A:</strong> FCOS (Tian et al., 2019) treats detection as a <strong>fully convolutional, anchor-free, per-pixel prediction problem</strong>. For each spatial location $(x, y)$ on a feature map, FCOS predicts a 4D distance vector $(l, r, t, b)$ representing the distances from the location to the left, right, top, and bottom edges of the enclosing ground-truth box (if the location falls inside any GT box), along with a classification score. No anchor boxes are needed; hyperparameters for scales and aspect ratios disappear.</p>
+<p>Multi-level prediction with FPN resolves ambiguity when multiple objects of different sizes overlap at the same location: each FPN level $P_l$ is responsible for objects whose regression targets satisfy a size constraint ($P_3$: $[0, 64]$ px, $P_4$: $[64, 128]$ px, $P_5$: $[128, 256]$ px, $P_6$: $[256, 512]$ px, $P_7$: $[512, \infty)$).</p>
+<p>The <strong>centerness branch</strong> addresses a quality problem: pixels near object boundaries can predict valid but inaccurate bounding boxes. Centerness is a scalar target:</p>
+$$\text{centerness} = \sqrt{\frac{\min(l, r)}{\max(l, r)} \times \frac{\min(t, b)}{\max(t, b)}} \in [0, 1]$$<p>It is high at the geometric center of a box and falls off toward edges. During NMS, predicted box scores are multiplied by centerness, so low-quality off-center predictions are suppressed without additional post-processing. FCOS reaches 44.7 AP on COCO with a ResNet-101-FPN backbone, competitive with anchor-based methods while being conceptually simpler (Tian et al., 2019).</p>
+<hr>
+<h3 id="q10-basic-summarize-the-yolo-design-philosophy-and-its-architectural-evolution">Q10 [Basic] Summarize the YOLO design philosophy and its architectural evolution</h3>
+<p><strong>Q:</strong> What is the core design principle behind YOLO, and how have key architectural improvements from YOLOv3 onward advanced detection performance?</p>
+<p><strong>A:</strong> YOLO&rsquo;s core principle is <strong>unified, single-pass detection</strong>: the entire image is processed once through a CNN that simultaneously predicts bounding boxes and class probabilities across a spatial grid, enabling real-time inference without the sequential proposal-then-classify pipeline of two-stage methods.</p>
+<p><strong>YOLOv3</strong> (Redmon &amp; Farhadi, 2018) introduced three key advances over earlier versions: (1) a 53-layer residual backbone (Darknet-53) with skip connections for better gradient flow; (2) multi-scale prediction at three resolutions (similar in spirit to FPN), using 3 anchors per scale (9 total, k-means clustered from the training set); (3) independent logistic classifiers per class rather than softmax, enabling multi-label predictions. YOLOv3 achieves 55.3 AP$_{50}$ on COCO in 51ms—an excellent speed-accuracy trade-off for deployment.</p>
+<p>Subsequent versions refined several subsystems. <strong>CSP connections</strong> (YOLOv5/7) split feature maps across a partial residual branch, reducing computation while maintaining accuracy. <strong>Mosaic augmentation</strong> (YOLOv5) tiles four images per sample, forcing the model to detect small objects in varied contexts and effectively quadrupling dataset diversity. <strong>Decoupled heads</strong> (YOLOv6/8) separate classification and regression into independent branches, improving both tasks since their gradient dynamics differ. <strong>Anchor-free reformulations</strong> in YOLOv8 adopt FCOS-style per-pixel regression, eliminating anchor hyperparameter tuning. These incremental improvements have pushed YOLO-family models to 53–55 AP on COCO while maintaining sub-10ms inference on modern GPUs.</p>
+<hr>
+<h3 id="q11-advanced-analyze-detrs-bipartite-matching-loss-and-its-slow-convergence">Q11 [Advanced] Analyze DETR&rsquo;s bipartite matching loss and its slow convergence</h3>
+<p><strong>Q:</strong> How does DETR eliminate anchors and NMS through bipartite matching, and why does it converge so much more slowly than CNN-based detectors?</p>
+<p><strong>A:</strong> DETR (Carion et al., 2020) frames detection as a <strong>set prediction problem</strong>: $N$ learned object queries (typically 100) are processed by a Transformer decoder that cross-attends to encoder features of the image. Each query produces one prediction: a class label and a box $(c_x, c_y, w, h)$ in normalized image coordinates. The model predicts exactly $N$ objects per image; unused slots predict the $\varnothing$ (no-object) class.</p>
+<p>Training uses <strong>Hungarian matching</strong> to find the minimum-cost bipartite assignment between $N$ predictions and $M$ ground-truth objects (padded with $N - M$ $\varnothing$ slots):</p>
+$$\hat{\sigma} = \underset{\sigma \in \mathfrak{S}_N}{\arg\min} \sum_{i=1}^{N} \mathcal{L}_{\text{match}}(y_i, \hat{y}_{\sigma(i)})$$$$\mathcal{L}_{\text{match}} = -\hat{p}_{\sigma(i)}(c_i) + \lambda_{\text{L1}} \|b_i - \hat{b}_{\sigma(i)}\|_1 + \lambda_{\text{GIoU}} \mathcal{L}_{\text{GIoU}}(b_i, \hat{b}_{\sigma(i)})$$<p>The matched assignment is then used for the training loss. One-to-one matching eliminates duplicate predictions, making NMS unnecessary. DETR achieves 42.0 AP on COCO val with ResNet-50 after 500 epochs.</p>
+<p>The <strong>slow convergence</strong> (500 epochs vs ~37 for Faster R-CNN) stems from the cross-attention mechanism: at initialization, each object query attends nearly uniformly across all image positions. The model must gradually learn to specialize each query to a distinct region. For DETR to discover that a particular query should attend to the top-left region, the optimizer must propagate gradient information through the full encoder-decoder stack many times. Additionally, early-training predictions are widely scattered, making Hungarian matching unstable (small prediction perturbations can cause entirely different matching assignments, producing incoherent gradients).</p>
+<hr>
+<h3 id="q12-advanced-explain-how-dino-detr-achieves-fast-convergence">Q12 [Advanced] Explain how DINO-DETR achieves fast convergence</h3>
+<p><strong>Q:</strong> What do DAB-DETR and DN-DETR contribute, and how does DINO-DETR integrate these to dramatically close the convergence gap with CNN detectors?</p>
+<p><strong>A:</strong> Three innovations compound to solve DETR&rsquo;s convergence problem.</p>
+<p><strong>DAB-DETR</strong> (Liu et al., 2022) reformulates object queries as explicit anchor boxes $(c_x, c_y, w, h)$ rather than opaque learned embeddings. The $x, y$ components are updated by each decoder layer via attention offsets, providing direct spatial feedback. The $w, h$ components modulate the positional encoding of keys and queries—wider queries attend to wider regions, providing a strong spatial prior from the start. This alone cuts convergence from 500 to ~50 epochs.</p>
+<p><strong>DN-DETR</strong> (included in the DINO paper) addresses training instability from matching. In addition to $N$ learnable queries, it adds noisy copies of GT boxes as <strong>denoising queries</strong> with known targets. These bypass Hungarian matching (targets are pre-assigned) and directly train the decoder to reconstruct GT boxes from noisy inputs. A denoising attention mask prevents the two query groups from attending to each other. The denoising auxiliary loss stabilizes early training by providing consistent gradient signals regardless of the instability of Hungarian assignments.</p>
+<p><strong>DINO</strong> (Zhang et al., 2022) combines DAB-DETR anchor queries, contrastive denoising (separate positive/negative noise groups for a richer training signal), and mixed query selection (initialize some anchor queries from encoder top-scoring regions rather than purely learned embeddings). DINO with ResNet-50 achieves 49.0 AP on COCO val with 12 training epochs, compared to 42.0 AP for vanilla DETR at 500 epochs. With a Swin-L backbone and multi-scale features, DINO reaches 63.3 AP—the state of the art among detection transformers—while requiring only 24 epochs.</p>
+<hr>
+<h2 id="instance-segmentation">Instance Segmentation</h2>
+<h3 id="q13-basic-describe-the-mask-r-cnn-architecture-and-its-mask-branch-design">Q13 [Basic] Describe the Mask R-CNN architecture and its mask branch design</h3>
+<p><strong>Q:</strong> How does Mask R-CNN extend Faster R-CNN with instance segmentation, and what design choices make the mask branch effective?</p>
+<p><strong>A:</strong> Mask R-CNN (He et al., 2017) adds a third parallel branch to Faster R-CNN alongside the existing classification and regression heads. The mask branch takes a $14 \times 14$ RoI feature (from RoI Align at stride 4 or 8) and applies four $3 \times 3$ convolutions, each followed by ReLU, then a $2 \times 2$ deconvolution to upsample to $28 \times 28$, and finally a $1 \times 1$ convolution producing $K$ binary masks—one per class. The mask loss is <strong>binary cross-entropy applied only to the GT class channel</strong> for each proposal, avoiding competition between classes in mask space: during training, class $c$&rsquo;s mask head does not receive gradient from other classes.</p>
+<p>This decoupled design—predict masks independently for each class, select at inference using the detected class—has two benefits: (1) the mask predictor does not need to distinguish between classes, only to segment &ldquo;this instance&rdquo; vs. background; (2) it avoids the mask-classification coupling that led to quality degradation in earlier FCN-based segmenters.</p>
+<p>Mask R-CNN with ResNet-50-FPN achieves 37.1 mask AP on COCO test-dev at ~5 fps. The use of <strong>RoI Align</strong> (over RoI Pooling) is critical: the pixel-accurate feature alignment enables sharp, well-positioned masks, contributing approximately 3 AP over the same architecture with RoI Pooling (He et al., 2017).</p>
+<hr>
+<h3 id="q14-advanced-explain-solov2s-kernel-prediction-framework-for-instance-segmentation">Q14 [Advanced] Explain SOLOv2&rsquo;s kernel prediction framework for instance segmentation</h3>
+<p><strong>Q:</strong> How does SOLOv2 predict instance masks without detection or RoI operations, and what is the decoupled SOLO strategy?</p>
+<p><strong>A:</strong> SOLOv2 (Wang et al., 2020) frames instance segmentation as <strong>dynamic kernel prediction</strong>: the network predicts a unique convolutional kernel for each instance, then applies it to a shared feature map to produce the binary mask.</p>
+<p>The model has two branches operating on FPN features:</p>
+<ol>
+<li><strong>Mask kernel branch</strong>: divides the feature space into an $S \times S$ grid (e.g., $40 \times 40$ at the finest level). Each grid cell $(i, j)$ is responsible for an instance whose center falls in that cell, and predicts a $D$-dimensional kernel vector $\mathbf{E}_{i,j} \in \mathbb{R}^D$ (typically $D = 256$).</li>
+<li><strong>Mask feature branch</strong>: applies a series of convolutions to produce a dense feature map $\mathbf{F} \in \mathbb{R}^{H \times W \times D}$ enriched with coordinate channels (appended $x, y$ grids) for positional awareness.</li>
+</ol>
+<p>The mask for instance $(i, j)$ is:</p>
+$$\mathbf{M}_{i,j} = \text{Conv}(\mathbf{F},\, \mathbf{E}_{i,j})$$<p>a single $1 \times 1$ convolution of $\mathbf{F}$ using $\mathbf{E}_{i,j}$ as the kernel weights.</p>
+<p><strong>Decoupled SOLO</strong> reduces computational cost by factorizing the kernel prediction: instead of one $S \times S$ grid producing a full $D$-dimensional kernel, separate horizontal and vertical branches predict $D/2$-dimensional vectors, forming the final kernel by concatenation. This replaces $S^2$ predictions with $2S$ predictions, dramatically reducing the number of active kernel slots at large grid sizes.</p>
+<p>SOLOv2 achieves 37.1 mask AP on COCO val with ResNet-50-FPN at 36.1ms—matching Mask R-CNN accuracy at roughly half the latency—by eliminating RoI Align, region proposals, and sequential instance processing (Wang et al., 2020).</p>
+<hr>
+<h3 id="q15-advanced-describe-condinsts-conditional-convolution-approach-to-instance-segmentation">Q15 [Advanced] Describe CondInst&rsquo;s conditional convolution approach to instance segmentation</h3>
+<p><strong>Q:</strong> How does CondInst use instance-specific convolutional controllers, and why does this formulation avoid the limitations of both detect-then-segment and direct prediction methods?</p>
+<p><strong>A:</strong> CondInst (Tian et al., 2020) produces instance masks through a <strong>conditional convolution</strong>: each detected instance generates a small set of dynamic filter weights (a &ldquo;controller&rdquo;) that are applied to a shared feature map to produce its mask. This bridges the efficiency of fully-convolutional methods with the precision of instance-specific representations.</p>
+<p>From the detection head (an FCOS-style head producing per-pixel predictions), a <strong>controller branch</strong> outputs $c$ filter parameters at each positive location, forming three dynamic convolutional layers with weight shapes $8 \times 8 \times 5$, $8 \times 8 \times 8$, and $8 \times 1$ (totalling $c = 169$ parameters). These lightweight dynamic weights are applied sequentially to a shared <strong>mask feature branch</strong>, which outputs a $H/8 \times W/8 \times 8$ feature map.</p>
+<p>The key to position-awareness without bounding boxes is the <strong>relative coordinate map</strong>: two feature channels encoding each pixel&rsquo;s $x$ and $y$ distance (normalized) to the predicted instance center are concatenated to the shared features. This allows the mask head to distinguish which instance it is segmenting at inference without any explicit RoI operation.</p>
+<p>The design avoids RoI Align entirely (eliminating misalignment artifacts) and processes all instances in a single forward pass of the shared mask branch, with only the lightweight dynamic convolutions being instance-specific. CondInst achieves 34.7 mask AP on COCO val with ResNet-50-FPN at 31.8ms, versus Mask R-CNN&rsquo;s 35.0 AP at 69.9ms—similar accuracy at roughly half the latency (Tian et al., 2020).</p>
+<hr>
+<h3 id="q16-advanced-compare-the-paradigms-of-instance-segmentation-and-their-design-trade-offs">Q16 [Advanced] Compare the paradigms of instance segmentation and their design trade-offs</h3>
+<p><strong>Q:</strong> What are the key architectural paradigms for instance segmentation, and when does each approach have an advantage?</p>
+<p><strong>A:</strong> Four major paradigms organize the instance segmentation literature.</p>
+<p><strong>Detect-then-segment</strong> (Mask R-CNN, He et al., 2017) applies ROI Align to each proposal&rsquo;s feature region, then runs a per-instance mask head. The strong coupling between localization and segmentation quality means accurate boxes yield accurate masks. This paradigm is the most deployment-proven and benefits directly from improvements to two-stage detection (e.g., Cascade R-CNN). Its limitation is sequential RoI processing: inference time scales with the number of instances, and RoI Align introduces a fixed spatial resolution bottleneck for large objects.</p>
+<p><strong>Direct kernel prediction</strong> (SOLOv2, Wang et al., 2020; CondInst, Tian et al., 2020) avoids detection and RoI operations by predicting instance-specific convolution kernels applied to a shared feature map. Inference time is largely independent of the instance count (parallel mask generation), and the fully-convolutional design integrates naturally into single-stage pipelines. The trade-off is that associating predictions to instances is implicit (grid cells for SOLO, controllers for CondInst), which can fail when many small instances overlap in the same grid cell.</p>
+<p><strong>Transformer query-based</strong> (Mask2Former, Cheng et al., 2022) uses learned object queries that cross-attend to multi-scale image features, producing per-query mask embeddings matched to ground truth via Hungarian assignment—the same bipartite matching principle as DETR but extended to masks. This paradigm achieves the highest mask quality and unifies instance, semantic, and panoptic segmentation in one architecture, at the cost of higher memory and compute from multi-scale attention.</p>
+<p><strong>Bottom-up</strong> methods predict pixel-level embeddings and group them into instances via clustering or learned affinities. These have no explicit object count limit but struggle to separate touching instances with similar appearance and require non-trivial post-processing.</p>
+<p>For real-time deployment, kernel-based methods (CondInst, SOLOv2) offer the best latency-accuracy trade-off. For highest accuracy in research settings, query-based transformers dominate. For well-supported industrial deployment, the detect-then-segment paradigm remains the most extensively validated.</p>
+<hr>
+<h2 id="semantic-panoptic-segmentation-and-foundation-models">Semantic, Panoptic Segmentation, and Foundation Models</h2>
+<h3 id="q17-basic-describe-fcn-and-deeplabs-contributions-to-semantic-segmentation">Q17 [Basic] Describe FCN and DeepLab&rsquo;s contributions to semantic segmentation</h3>
+<p><strong>Q:</strong> How did FCN enable end-to-end semantic segmentation, and what is ASPP in DeepLabv3+?</p>
+<p><strong>A:</strong> <strong>FCN</strong> (Long et al., 2015) established the dominant paradigm for semantic segmentation by replacing the fully connected layers of classification CNNs (AlexNet, VGG) with $1 \times 1$ convolutional layers, making the network fully convolutional and capable of processing inputs of arbitrary spatial dimension with dense output. The final feature map is bilinearly upsampled to the input resolution. Skip connections from earlier layers (FCN-8s merges stride-8, stride-16, and stride-32 predictions) recover spatial detail lost during downsampling. FCN demonstrated that pixel-wise cross-entropy loss on dense label maps can be optimized end-to-end, replacing hand-crafted pipelines.</p>
+<p>The <strong>DeepLab</strong> series addresses FCN&rsquo;s limited receptive field and loss of resolution. Inserting <strong>dilated (atrous) convolutions</strong> (replacing stride with dilation rate $r$) expands the receptive field by a factor of $r^2$ without reducing resolution and without additional parameters, allowing the backbone to maintain stride-8 or stride-4 output instead of stride-32.</p>
+<p><strong>DeepLabv3+</strong> (Chen et al., 2018) builds on this with two improvements. The <strong>Atrous Spatial Pyramid Pooling (ASPP)</strong> module applies parallel dilated convolutions with rates $\{1, 6, 12, 18\}$ plus global average pooling, concatenates the outputs, and applies a $1 \times 1$ fusion convolution—capturing multi-scale context from fine textures to large regions in a single module. An <strong>encoder-decoder structure</strong> then refines these pooled features: the ASPP output is combined with low-level features (stride-4) via a lightweight decoder ($1 \times 1$ conv + $3 \times 3$ conv + $4\times$ bilinear upsample), recovering sharp boundaries at low cost. DeepLabv3+ with Xception-65 achieves 89.0 mIoU on PASCAL VOC 2012 and 82.1 mIoU on Cityscapes (Chen et al., 2018).</p>
+<hr>
+<h3 id="q18-advanced-explain-mask2former-as-a-universal-segmentation-architecture">Q18 [Advanced] Explain Mask2Former as a universal segmentation architecture</h3>
+<p><strong>Q:</strong> How does Mask2Former unify instance, semantic, and panoptic segmentation, and what is masked cross-attention?</p>
+<p><strong>A:</strong> Mask2Former (Cheng et al., 2022) achieves state-of-the-art performance on all three segmentation tasks—instance, semantic, and panoptic—using a single architecture and loss function, differing only in how prediction-to-target assignment is performed (Hungarian matching for instance/panoptic, global assignment for semantic).</p>
+<p>The architecture has three components. The <strong>pixel decoder</strong> applies multi-scale deformable attention to backbone feature maps, progressively upsampling to produce high-resolution per-pixel features at $1/4$ input resolution—capturing fine spatial detail that a simple FPN misses for segmentation.</p>
+<p>The <strong>Transformer decoder</strong> processes $N$ learned queries through $L$ layers, each containing: (1) self-attention among queries, (2) masked cross-attention from queries to image features, and (3) a feed-forward network. The key innovation is <strong>masked cross-attention</strong>: each query $q$ is only permitted to attend to image positions where its predicted binary mask $\mathbf{M}_q$ is positive (foreground):</p>
+$$\text{Attention}(Q, K, V) \text{ restricted to positions where } \mathbf{M}_q = 1$$<p>This focuses attention on the relevant object region, preventing queries from being distracted by background and dramatically improving efficiency and quality for dense segmentation—especially small objects—compared to the full cross-attention used in DETR.</p>
+<p>Each decoder layer predicts both mask and class label, and auxiliary losses are applied at every layer to provide dense supervision. The final per-query binary mask (from dot product of query embedding with pixel decoder features) and class label are used for prediction.</p>
+<p>Mask2Former with ResNet-50 achieves 57.8 PQ on COCO panoptic, 57.7 AP on COCO instance, and 57.6 mIoU on ADE20K semantic segmentation (Cheng et al., 2022)—the first architecture to reach state of the art on all three tasks simultaneously with a single model.</p>
+<hr>
+<h3 id="q19-basic-describe-the-segment-anything-model-sam-and-its-promptable-design">Q19 [Basic] Describe the Segment Anything Model (SAM) and its promptable design</h3>
+<p><strong>Q:</strong> What are the three components of SAM, and how does prompt-driven segmentation work?</p>
+<p><strong>A:</strong> SAM (Kirillov et al., 2023) is a foundation model for image segmentation trained on SA-1B, a dataset of 1.1 billion masks across 11 million images collected through a data engine combining manual annotation, semi-automatic labeling, and fully automatic mask generation.</p>
+<p>SAM has three components designed for interactive, real-time mask prediction.</p>
+<p>The <strong>image encoder</strong> is a MAE-pretrained ViT-H that processes a $1024 \times 1024$ image into a $64 \times 64 \times 256$ image embedding. It runs once per image; its output is cached to serve multiple prompt queries at negligible additional cost.</p>
+<p>The <strong>prompt encoder</strong> converts diverse prompt types to dense and sparse embedding representations. Points (foreground/background clicks) and box corners are encoded with positional encoding and learned type embeddings. Coarse mask inputs are processed by a lightweight convolutional encoder. Text prompts are embedded using CLIP&rsquo;s text encoder. All prompt types are projected to the same embedding space.</p>
+<p>The <strong>mask decoder</strong> is a lightweight two-layer Transformer that alternates query-to-image attention (prompt embeddings attending to image embedding) and image-to-query attention (image embedding attending to prompt embeddings), followed by an upsampling MLP that projects to $256 \times 256$ resolution. To handle prompt ambiguity (a single point may indicate a part, an object, or a group), SAM predicts three candidate masks with associated confidence scores, letting the user select the appropriate granularity.</p>
+<p>Full mask prediction once the image embedding is cached takes under 50ms, enabling real-time interactive annotation workflows.</p>
+<hr>
+<h3 id="q20-advanced-analyze-sams-capabilities-failure-modes-and-evolution-toward-open-vocabulary-segmentation">Q20 [Advanced] Analyze SAM&rsquo;s capabilities, failure modes, and evolution toward open-vocabulary segmentation</h3>
+<p><strong>Q:</strong> Where does SAM excel and where does it fail, and how does composing SAM with other models extend its capabilities?</p>
+<p><strong>A:</strong> SAM (Kirillov et al., 2023) excels in several respects. Its <strong>zero-shot transfer</strong> to unseen domains is strong for natural images—segmenting objects from a single click or bounding box with no fine-tuning. The interactive workflow dramatically reduces annotation time: SAM-assisted annotation on diverse benchmarks requires a fraction of the clicks needed for pixel-by-pixel labeling. SAM also provides useful masks for <strong>promptable compositing</strong> applications where region boundaries are needed without semantic labels.</p>
+<p><strong>Failure modes</strong> fall into several categories. First, SAM produces class-agnostic masks: it segments object regions but assigns no semantic labels, making it unsuitable for classification-dependent tasks without an external head. Second, the encoding bottleneck ($1024 \times 1024 \rightarrow 64 \times 64$) causes detail loss for very fine structures—thin wires, hair, text characters, fence posts—where the $16\times$ compression loses critical boundary information. Third, performance degrades significantly on <strong>out-of-distribution domains</strong> such as medical imaging (CT/MRI slices with different contrast statistics), remote sensing (small geospatial objects), and industrial inspection (texture-based defect detection), because SA-1B is composed exclusively of consumer photographs.</p>
+<p><strong>Composing SAM with open-vocabulary detectors</strong> extends its semantic reach. Grounding DINO can localize objects specified by free-form text descriptions; SAM then generates precise masks for the detected boxes. This combination achieves open-vocabulary instance segmentation (any object described in natural language) without any task-specific fine-tuning.</p>
+<p>SAM&rsquo;s temporal limitation—no memory of previous frames—was addressed by SAM 2, which introduces a memory bank and conditioned prompt propagation for video object segmentation. Architecturally, SAM 2 extends the mask decoder with a streaming memory encoder/attention module, enabling consistent instance tracking across video without re-prompting every frame. The combination of promptable segmentation, memory, and hierarchical temporal features represents the current frontier for general-purpose segmentation models.</p>
+<hr>
+<h2 id="quick-reference">Quick Reference</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>Difficulty</th>
+          <th>Topic</th>
+          <th>Section</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>Basic</td>
+          <td>Anchor matching, regression targets, NMS</td>
+          <td>Detection Foundations</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>Basic</td>
+          <td>Feature Pyramid Networks</td>
+          <td>Detection Foundations</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>Advanced</td>
+          <td>GIoU, DIoU, CIoU loss family</td>
+          <td>Detection Foundations</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>Advanced</td>
+          <td>Focal Loss and class imbalance</td>
+          <td>Detection Foundations</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>Basic</td>
+          <td>R-CNN → Fast R-CNN → Faster R-CNN</td>
+          <td>Two-Stage Detection</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>Advanced</td>
+          <td>RPN design and proposal generation</td>
+          <td>Two-Stage Detection</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>Advanced</td>
+          <td>RoI Align vs RoI Pooling</td>
+          <td>Two-Stage Detection</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>Advanced</td>
+          <td>Cascade R-CNN progressive IoU</td>
+          <td>Two-Stage Detection</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>Basic</td>
+          <td>FCOS anchor-free detection</td>
+          <td>One-Stage and Transformer-Based Detection</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>Basic</td>
+          <td>YOLO evolution and design principles</td>
+          <td>One-Stage and Transformer-Based Detection</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>Advanced</td>
+          <td>DETR bipartite matching and convergence</td>
+          <td>One-Stage and Transformer-Based Detection</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>Advanced</td>
+          <td>DINO-DETR: anchor queries and denoising</td>
+          <td>One-Stage and Transformer-Based Detection</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>Basic</td>
+          <td>Mask R-CNN mask branch</td>
+          <td>Instance Segmentation</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>Advanced</td>
+          <td>SOLOv2 dynamic kernel prediction</td>
+          <td>Instance Segmentation</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>Advanced</td>
+          <td>CondInst conditional convolutions</td>
+          <td>Instance Segmentation</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>Advanced</td>
+          <td>Instance segmentation paradigm comparison</td>
+          <td>Instance Segmentation</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>Basic</td>
+          <td>FCN and DeepLabv3+ ASPP</td>
+          <td>Semantic, Panoptic Segmentation, and Foundation Models</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>Advanced</td>
+          <td>Mask2Former universal segmentation</td>
+          <td>Semantic, Panoptic Segmentation, and Foundation Models</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>Basic</td>
+          <td>SAM promptable segmentation</td>
+          <td>Semantic, Panoptic Segmentation, and Foundation Models</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>Advanced</td>
+          <td>SAM capabilities, failures, and composition</td>
+          <td>Semantic, Panoptic Segmentation, and Foundation Models</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="resources">Resources</h2>
+<ul>
+<li>Girshick et al., <a href="https://arxiv.org/abs/1311.2524">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a> (2014)</li>
+<li>Girshick, <a href="https://arxiv.org/abs/1504.08083">Fast R-CNN</a> (2015)</li>
+<li>Ren et al., <a href="https://arxiv.org/abs/1506.01497">Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks</a> (2015)</li>
+<li>Lin et al., <a href="https://arxiv.org/abs/1612.03144">Feature Pyramid Networks for Object Detection</a> (2017a)</li>
+<li>Lin et al., <a href="https://arxiv.org/abs/1708.02002">Focal Loss for Dense Object Detection</a> (2017b)</li>
+<li>Rezatofighi et al., <a href="https://arxiv.org/abs/1902.09630">Generalized Intersection over Union: A Metric and A Loss for Bounding Box Regression</a> (2019)</li>
+<li>Zheng et al., <a href="https://arxiv.org/abs/1911.08287">Distance-IoU Loss: Faster and Better Learning for Bounding Box Regression</a> (2020)</li>
+<li>Cai &amp; Vasconcelos, <a href="https://arxiv.org/abs/1712.00726">Cascade R-CNN: Delving into High Quality Object Detection</a> (2018)</li>
+<li>He et al., <a href="https://arxiv.org/abs/1703.06870">Mask R-CNN</a> (2017)</li>
+<li>Tian et al., <a href="https://arxiv.org/abs/1904.01355">FCOS: Fully Convolutional One-Stage Object Detection</a> (2019)</li>
+<li>Redmon &amp; Farhadi, <a href="https://arxiv.org/abs/1804.02767">YOLOv3: An Incremental Improvement</a> (2018)</li>
+<li>Carion et al., <a href="https://arxiv.org/abs/2005.12872">End-to-End Object Detection with Transformers</a> (2020)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/2201.12329">DAB-DETR: Dynamic Anchor Boxes are Better Queries for DETR</a> (2022)</li>
+<li>Zhang et al., <a href="https://arxiv.org/abs/2203.03605">DINO: DETR with Improved DeNoising Anchor Boxes for End-to-End Object Detection</a> (2022)</li>
+<li>Wang et al., <a href="https://arxiv.org/abs/2003.10152">SOLOv2: Dynamic and Fast Instance Segmentation</a> (2020)</li>
+<li>Tian et al., <a href="https://arxiv.org/abs/2003.05664">Conditional Convolutions for Instance Segmentation</a> (2020)</li>
+<li>Long et al., <a href="https://arxiv.org/abs/1411.4038">Fully Convolutional Networks for Semantic Segmentation</a> (2015)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/1802.02611">Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation</a> (2018)</li>
+<li>Cheng et al., <a href="https://arxiv.org/abs/2112.01527">Masked-attention Mask Transformer for Universal Image Segmentation</a> (2022)</li>
+<li>Kirillov et al., <a href="https://arxiv.org/abs/2304.02643">Segment Anything</a> (2023)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+

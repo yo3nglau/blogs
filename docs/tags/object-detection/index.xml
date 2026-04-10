@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Computer Vision on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/tags/computer-vision/</link>
-    <description>Recent content in Computer Vision on yo3nglau academic website</description>
+    <title>Object Detection on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/object-detection/</link>
+    <description>Recent content in Object Detection on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Fri, 10 Apr 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/tags/computer-vision/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/object-detection/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Object Detection &amp; Segmentation: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/object-detection--segmentation-interview-questions-and-answers/</link>
       <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/post/object-detection--segmentation-interview-questions-and-answers/</guid>
       <description>&lt;h2 id=&#34;detection-foundations&#34;&gt;Detection Foundations&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-anchor-based-detection-iou-matching-regression-targets-and-nms&#34;&gt;Q1 [Basic] Explain anchor-based detection: IoU matching, regression targets, and NMS&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How does an anchor-based detector assign training labels to anchor boxes, and why is non-maximum suppression necessary at inference?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; An anchor-based detector tiles a fixed set of anchor boxes at every spatial location on the feature map, varying across predefined scales and aspect ratios. In Faster R-CNN (Ren et al., 2015), each location uses 3 scales × 3 aspect ratios = 9 anchors. An anchor is labeled &lt;strong&gt;positive&lt;/strong&gt; if its maximum IoU with any ground-truth box exceeds 0.7 (or if it is the highest-IoU anchor for a particular GT box to ensure coverage of rare objects), and &lt;strong&gt;negative&lt;/strong&gt; if its maximum IoU with all GT boxes falls below 0.3. Anchors with IoU in $[0.3, 0.7)$ are ignored during training to avoid ambiguous gradients.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Video Understanding: Interview Questions and Answers</title>
-      <link>https://yo3nglau.github.io/blogs/post/video-understanding-interview-questions-and-answers/</link>
-      <pubDate>Thu, 09 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/video-understanding-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;temporal-modeling-foundations&#34;&gt;Temporal Modeling Foundations&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-why-processing-video-frames-independently-fails-to-capture-temporal-structure&#34;&gt;Q1 [Basic] Explain why processing video frames independently fails to capture temporal structure&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What information is lost when a model applies image-level processing to each frame in isolation, and which tasks expose this limitation most clearly?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; A 2D CNN or image-based ViT applied frame-by-frame treats a video as an unordered bag of still images. Since each frame is processed independently, the model has no mechanism to relate activation patterns across time — motion direction, speed, deformation, and causal event sequences are entirely invisible. Two frames that appear at different temporal positions produce representations that never interact, so any information requiring comparison across time is discarded.&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
