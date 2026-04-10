@@ -17,6 +17,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/computer-vision/</loc>
     <lastmod>2026-04-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/computer-vision/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/computer-vision/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/contrastive-learning/</loc>
     <lastmod>2026-04-09T00:00:00+00:00</lastmod>
@@ -127,6 +137,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/video-understanding-interview-questions-and-answers/</loc>
     <lastmod>2026-04-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/video-understanding-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/video-understanding-interview-questions-and-answers/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/alignment/</loc>
     <lastmod>2026-04-08T00:00:00+00:00</lastmod>

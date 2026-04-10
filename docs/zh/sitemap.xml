@@ -15,6 +15,19 @@
                 href="https://yo3nglau.github.io/blogs/zh/categories/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/computer-vision/</loc>
+    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/computer-vision/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/computer-vision/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/contrastive-learning/</loc>
     <lastmod>2026-04-09T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -80,6 +93,19 @@
                 href="https://yo3nglau.github.io/blogs/zh/tags/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/video-understanding/</loc>
+    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/video-understanding/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/video-understanding/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/</loc>
     <lastmod>2026-04-09T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -91,6 +117,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/video-understanding-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/video-understanding-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/video-understanding-interview-questions-and-answers/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/post/self-supervised--contrastive-learning-interview-questions-and-answers/</loc>
@@ -585,19 +624,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/post/transformer-and-vision-transformer-interview-questions-and-answers/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/video-understanding/</loc>
-    <lastmod>2026-03-31T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/video-understanding/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/video-understanding/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/vision-transformer/</loc>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>视频理解：面试问题与推荐回答 | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">视频理解：面试问题与推荐回答</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/09</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/video-understanding">Video Understanding</a> <a href="/blogs/tags/computer-vision">Computer Vision</a> 
+  
+  
+</p>
+</div>
+
+
+<p style="text-align: center;">
+  
+  <a href="/blogs/post/video-understanding-interview-questions-and-answers/">View English Version</a>
+  
+</p>
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#时序建模基础">时序建模基础</a>
+      <ul>
+        <li><a href="#q1-基础-解释为何逐帧独立处理无法捕获视频的时序结构">Q1 [基础] 解释为何逐帧独立处理无法捕获视频的时序结构</a></li>
+        <li><a href="#q2-基础-描述双流two-stream架构及每个流的贡献">Q2 [基础] 描述双流（Two-Stream）架构及每个流的贡献</a></li>
+        <li><a href="#q3-进阶-解释-3d-卷积如何将空间-cnn-扩展到视频以及分解变体如何降低计算代价">Q3 [进阶] 解释 3D 卷积如何将空间 CNN 扩展到视频，以及分解变体如何降低计算代价</a></li>
+        <li><a href="#q4-进阶-描述-slowfast-网络及双时序路径如何建模不同时序粒度">Q4 [进阶] 描述 SlowFast 网络及双时序路径如何建模不同时序粒度</a></li>
+      </ul>
+    </li>
+    <li><a href="#视频-transformer">视频 Transformer</a>
+      <ul>
+        <li><a href="#q5-基础-解释-timesformer-如何利用分解时空注意力将-vit-适配到视频">Q5 [基础] 解释 TimeSformer 如何利用分解时空注意力将 ViT 适配到视频</a></li>
+        <li><a href="#q6-基础-描述-vivit-的分解编码器模型及其架构选择的作用">Q6 [基础] 描述 ViViT 的分解编码器模型及其架构选择的作用</a></li>
+        <li><a href="#q7-进阶-解释-video-swin-transformer-如何将移位窗口注意力扩展到时空体">Q7 [进阶] 解释 Video Swin Transformer 如何将移位窗口注意力扩展到时空体</a></li>
+        <li><a href="#q8-进阶-描述-mvitv2-的多尺度特征层次与池化注意力机制">Q8 [进阶] 描述 MViTv2 的多尺度特征层次与池化注意力机制</a></li>
+      </ul>
+    </li>
+    <li><a href="#视频-语言理解">视频-语言理解</a>
+      <ul>
+        <li><a href="#q9-基础-解释如何将-clip-模型适配用于视频-文本对齐">Q9 [基础] 解释如何将 CLIP 模型适配用于视频-文本对齐</a></li>
+        <li><a href="#q10-基础-描述视频理解的标准基准及不同基准的评估侧重">Q10 [基础] 描述视频理解的标准基准及不同基准的评估侧重</a></li>
+        <li><a href="#q11-进阶-解释-internvideo-通用视频基础模型的统一预训练策略">Q11 [进阶] 解释 InternVideo 通用视频基础模型的统一预训练策略</a></li>
+        <li><a href="#q12-进阶-描述视频大型语言模型的架构及主要挑战">Q12 [进阶] 描述视频大型语言模型的架构及主要挑战</a></li>
+      </ul>
+    </li>
+    <li><a href="#时序动作定位">时序动作定位</a>
+      <ul>
+        <li><a href="#q13-基础-描述时序动作检测任务及其评估与动作识别的区别">Q13 [基础] 描述时序动作检测任务及其评估与动作识别的区别</a></li>
+        <li><a href="#q14-进阶-解释-bmn-如何利用边界匹配机制生成时序候选框">Q14 [进阶] 解释 BMN 如何利用边界匹配机制生成时序候选框</a></li>
+        <li><a href="#q15-进阶-描述-actionformer-基于-transformer-的单阶段时序动作检测方法">Q15 [进阶] 描述 ActionFormer 基于 Transformer 的单阶段时序动作检测方法</a></li>
+        <li><a href="#q16-进阶-解释-vid2seq-如何将密集视频字幕生成构建为带时序词元的序列生成问题">Q16 [进阶] 解释 Vid2Seq 如何将密集视频字幕生成构建为带时序词元的序列生成问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#视频自监督学习">视频自监督学习</a>
+      <ul>
+        <li><a href="#q17-基础-解释光流估计及深度学习方法优于经典方法的原因">Q17 [基础] 解释光流估计及深度学习方法优于经典方法的原因</a></li>
+        <li><a href="#q18-基础-描述掩码视频建模及管状掩码如何防止平凡的时序捷径">Q18 [基础] 描述掩码视频建模及管状掩码如何防止平凡的时序捷径</a></li>
+        <li><a href="#q19-进阶-解释-videomae-的设计选择及其数据效率结果对领域内预训练的启示">Q19 [进阶] 解释 VideoMAE 的设计选择及其数据效率结果对领域内预训练的启示</a></li>
+        <li><a href="#q20-进阶-描述-videomae-v2-的双重掩码如何实现掩码视频预训练扩展到十亿参数模型">Q20 [进阶] 描述 VideoMAE V2 的双重掩码如何实现掩码视频预训练扩展到十亿参数模型</a></li>
+      </ul>
+    </li>
+    <li><a href="#快速参考">快速参考</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="时序建模基础">时序建模基础</h2>
+<h3 id="q1-基础-解释为何逐帧独立处理无法捕获视频的时序结构">Q1 [基础] 解释为何逐帧独立处理无法捕获视频的时序结构</h3>
+<p><strong>Q:</strong> 当模型对每一帧独立应用图像级处理时，哪些信息会丢失？哪些任务最能暴露这一局限？</p>
+<p><strong>A:</strong> 逐帧应用 2D CNN 或图像 ViT 会将视频视为一组无序的静止图像。由于每帧被独立处理，模型没有任何机制将跨时间的激活模式关联起来——运动方向、速度、形变和因果事件序列完全不可见。出现在不同时间位置的两帧所产生的表示永远不会交互，因此所有需要跨时间比较的信息都被丢弃。</p>
+<p>实际后果是<strong>外观偏置</strong>（appearance bias）：模型基于单帧中的物体和场景对视频片段进行分类，而非基于帧间的动态变化。在 Kinetics-400 上，许多类别——&ldquo;弹吉他&rdquo;、&ldquo;骑马&rdquo;、&ldquo;做饭&rdquo;——具有强烈的单帧外观特征，无需时序推理即可实现高精度。这在标准排行榜上掩盖了这一局限。</p>
+<p>Something-Something V2（Goyal et al., 2017）被明确设计用于揭露这种偏置。其 174 个类别描述相对运动——&ldquo;从左向右推某物&rdquo;、&ldquo;将某物从摄像头旁移开&rdquo;、&ldquo;假装将某物倒入某处&rdquo;——若运动方向相反则动作类别改变，但物体和场景保持一致。在 SSv2 上，通过外观特征在 Kinetics-400 取得强结果的模型，其性能相对于其容量会显著下降，揭示其时序建模是表面的。解决这一偏置需要显式运动表示（光流）、跨时间的 3D 卷积，或将词元在帧间关联的注意力机制。</p>
+<hr>
+<h3 id="q2-基础-描述双流two-stream架构及每个流的贡献">Q2 [基础] 描述双流（Two-Stream）架构及每个流的贡献</h3>
+<p><strong>Q:</strong> 双流网络如何实现时序建模？每个流提供另一个流无法提供的什么信号？</p>
+<p><strong>A:</strong> <strong>双流网络</strong>（Two-Stream network，Simonyan &amp; Zisserman, 2014）通过两条并行 CNN 路径处理每个视频片段，两条路径具有独立权重，在预测层融合。<strong>空间流</strong>（spatial stream）接收从片段中采样的单张 RGB 帧，识别物体、场景和上下文外观。<strong>时序流</strong>（temporal stream）接收 $L = 10$ 个连续光流场的堆叠——$L$ 个水平位移图与 $L$ 个垂直位移图拼接，形成 $2L$ 通道输入——捕获运动的模式和幅值。推理时对两个流的类别分数取平均。</p>
+<p>这种分工是有意设计的：空间流擅长识别场景中有什么，时序流识别事物如何运动。外观模糊的动作（如&quot;刷头发&quot;与&quot;刷牙&quot;）受益于运动消歧；运动模糊的动作（如在特定场所发生的多种活动）受益于空间上下文。Simonyan &amp; Zisserman (2014) 报告，双流融合在 UCF-101 上达到 88.0% top-1 精度，在 HMDB-51 上达到 59.4%，且时序流单独表现优于空间流——证明显式运动表示提供了互补且通常更主导的信息。</p>
+<p>主要局限是密集光流的预处理成本——需要为每个视频离线计算并存储为额外数据。这一代价推动了后续对仅从 RGB 输入通过 3D 卷积或时序注意力学习隐式运动表示的架构研究。</p>
+<hr>
+<h3 id="q3-进阶-解释-3d-卷积如何将空间-cnn-扩展到视频以及分解变体如何降低计算代价">Q3 [进阶] 解释 3D 卷积如何将空间 CNN 扩展到视频，以及分解变体如何降低计算代价</h3>
+<p><strong>Q:</strong> 将 2D 卷积扩展到 3D 在视频表示学习中实现了什么？R(2+1)D 等分解架构为何能以更高效率恢复完整 3D 卷积的性能？</p>
+<p><strong>A:</strong> <strong>3D 卷积</strong>对形状为 $k_t \times k_h \times k_w$ 的时空体（spatiotemporal volume）应用滤波器，在局部邻域内联合学习时间和空间特征。与 2D 卷积后跟时序池化不同，3D 滤波器可以检测时空局部模式——图块内的运动方向和速度、形变物体的演变——并跨层分层组合。C3D（Tran et al., 2015）证明，在 16 帧片段的所有层上均匀应用 $3 \times 3 \times 3$ 滤波器可学习通用时空特征；从 Sports-1M 预训练微调后，C3D 在 UCF-101 上达到 85.2% top-1 精度。</p>
+<p>I3D（Carreira &amp; Zisserman, 2017）引入了<strong>膨胀</strong>（inflation）：预训练 Inception 模型中的所有 2D 滤波器和池化核沿时间轴重复 $N$ 次并除以 $N$ 以保持平均激活幅值，从而扩展为 3D。这允许从 ImageNet 预训练权重初始化 3D 模型，大幅提升训练效率。双流 I3D——RGB 流和光流流各自独立膨胀——在 Kinetics 预训练后，UCF-101 精度达 98.0%，HMDB-51 达 80.7%，确立了 3D CNN 作为那个时代主流视频骨干的地位。</p>
+<p>3D 卷积的核心缺点是参数量：$3 \times 3 \times 3$ 滤波器的参数是 $3 \times 3$ 滤波器的 $3\times$，且以可能不够最优的方式混合了空间和时序学习。<strong>分解</strong>方法将 3D 操作分解为 $1 \times k \times k$ 空间卷积后跟 $k \times 1 \times 1$ 时序卷积。R(2+1)D（Tran et al., 2018）表明，这种分解在空间和时序操作之间引入了额外的非线性——在不增加参数的情况下有效提升了表示能力——并在相同参数量下实现了比完整 3D 卷积更高的精度，同时还支持从图像数据单独预训练空间权重。</p>
+<hr>
+<h3 id="q4-进阶-描述-slowfast-网络及双时序路径如何建模不同时序粒度">Q4 [进阶] 描述 SlowFast 网络及双时序路径如何建模不同时序粒度</h3>
+<p><strong>Q:</strong> 同时以两种不同帧率处理视频的动机是什么？两条路径之间的侧向连接如何实现信息交换？</p>
+<p><strong>A:</strong> <strong>SlowFast</strong>（Feichtenhofer et al., 2019）受神经生理学启发：灵长类视觉皮层具有 M（大细胞，magnocellular）神经元，以高时频响应粗运动；以及 P（小细胞，parvocellular）神经元，响应较慢但编码精细空间细节和颜色。该网络以两条在不同时序采样率下运行的路径将这种不对称性实例化。</p>
+<p><strong>慢速路径</strong>（Slow pathway）以低时序分辨率采样 8 帧（$\tau = 16$ 帧间隔），以大通道容量（$C$ 通道）处理，学习丰富的语义和外观特征。<strong>快速路径</strong>（Fast pathway）以高时序分辨率采样 32 帧（$\tau = 2$），通道容量小（$C/8$），专注于时序动态和运动。由于快速路径仅有慢速路径 $1/8$ 的通道，处理 $4\times$ 更多帧仅增加约 $20\%$ 的计算量——这种不对称性在计算上是高效的。</p>
+<p>信息通过多阶段的<strong>侧向连接</strong>（lateral connections）从快速路径流向慢速路径：快速路径的特征图经时序步进以匹配慢速路径的时序分辨率，然后拼接或相加。这种单向传递允许慢速路径的语义特征受益于快速路径的运动特征，而无需慢速路径处理高帧率输入。Feichtenhofer et al. (2019) 报告，SlowFast 8×8 ResNet-101 加非局部块（Wang et al., 2018）在 Kinetics-400 上达到 79.8% top-1，在 AVA v2.2 上达到 45.2% mAP，超越了 I3D 双流方案，将 SlowFast 设计确立为动作识别和检测的强基线。</p>
+<hr>
+<h2 id="视频-transformer">视频 Transformer</h2>
+<h3 id="q5-基础-解释-timesformer-如何利用分解时空注意力将-vit-适配到视频">Q5 [基础] 解释 TimeSformer 如何利用分解时空注意力将 ViT 适配到视频</h3>
+<p><strong>Q:</strong> 将标准 ViT 注意力应用于视频的计算挑战是什么？TimeSformer 的分离时空注意力如何解决这一问题？</p>
+<p><strong>A:</strong> 将标准 ViT 应用于 $T$ 帧视频（每帧 $N$ 个空间图块）会产生 $TN$ 个词元。标准多头自注意力块对所有 $TN$ 个词元进行两两注意力计算，复杂度为 $O(T^2 N^2)$——在帧数和空间分辨率上均为二次方。对于 $T = 8$ 和 $N = 196$（224×224 图像上的 14×14 网格），每层已有约 $2.4\text{M}$ 个注意力对，对于更长片段或更高分辨率则增长到数千万。</p>
+<p><strong>TimeSformer</strong>（Bertasius et al., 2021）引入<strong>分离时空注意力</strong>（divided space-time attention）：在每个 Transformer 块内，注意力分两个顺序步骤计算。首先，每个图块词元仅关注当前帧中同一空间位置的其他 $N-1$ 个词元——<strong>空间注意力</strong>，每帧 $O(N^2)$。然后，每个图块词元仅关注所有其他帧中同一空间位置的 $T-1$ 个对应词元——<strong>时序注意力</strong>，每个空间位置 $O(T^2)$。总复杂度为 $O(T \cdot N^2 + N \cdot T^2)$，渐近地低于 $O(T^2 N^2)$，对于大 $N$ 在实践中代价低得多。</p>
+<p>Bertasius et al. (2021) 对五种注意力设计进行了消融实验——局部、全局、分离时空、稀疏局部+全局以及轴向——发现在相同计算预算下，分离时空注意力始终最优。TimeSformer-L（大模型，96 帧步长为 4）在 Kinetics-400 上达到 80.7% top-1，在 Something-Something V2 上达到 62.5%，后者表明跨多帧的时序注意力改善了细粒度运动理解。</p>
+<hr>
+<h3 id="q6-基础-描述-vivit-的分解编码器模型及其架构选择的作用">Q6 [基础] 描述 ViViT 的分解编码器模型及其架构选择的作用</h3>
+<p><strong>Q:</strong> ViViT 为视频提出了哪些主要架构变体？分解编码器如何在时序覆盖与计算可行性之间取得平衡？</p>
+<p><strong>A:</strong> <strong>ViViT</strong>（Video Vision Transformer，Arnab et al., 2021）通过提出四种采用不同时空注意力方法的模型变体，将 ViT 适配到视频。模型 1（<em>时空词元</em>）将所有帧的所有图块联合词元化并应用标准 ViT 注意力——简单但在 $TN$ 上代价为二次方。模型 3 和 4 在每个块内分解注意力（类似 TimeSformer）。模型 2（<em>分解编码器</em>）实现了最优的精度-效率权衡，是典型的 ViViT。</p>
+<p>在<strong>分解编码器</strong>（模型 2）中，ViT 空间编码器独立处理每一帧，为每帧提取一个表示该帧全局摘要的 [CLS] 词元。这 $T$ 个每帧 [CLS] 词元随后被传递给第二个更小的<strong>时序编码器</strong>（ViT），后者对 $T$ 个词元进行自注意力以聚合时序信息。这种两阶段设计将时序注意力开销从 $O(T^2 N^2)$ 降至 $O(T \cdot N^2) + O(T^2)$——空间编码器每帧处理 $N$ 个词元，时序编码器总共只处理 $T$ 个词元。</p>
+<p>Arnab et al. (2021) 以从 JFT-300M 预训练初始化的 ViT-L/16 训练 ViViT。模型 2 在 Kinetics-400 上达到 81.3% top-1，在 Something-Something V2 上达到 65.9%，在 Kinetics-600 上达到 83.0%——使用纯 Transformer 架构的同时与最先进 3D CNN 相当。分解编码器对空间和时序处理的分离还支持直接从预训练图像 ViT 初始化空间编码器，仅从头训练小型时序编码器。</p>
+<hr>
+<h3 id="q7-进阶-解释-video-swin-transformer-如何将移位窗口注意力扩展到时空体">Q7 [进阶] 解释 Video Swin Transformer 如何将移位窗口注意力扩展到时空体</h3>
+<p><strong>Q:</strong> Video Swin 如何实现视频词元数量的线性计算复杂度？移位窗口如何在非重叠局部窗口间维持全局信息流？</p>
+<p><strong>A:</strong> 图像 <strong>Swin Transformer</strong> 将 2D 特征图划分为非重叠窗口，在每个窗口内局部应用自注意力，实现线性复杂度 $O(HW)$ 而非全注意力的 $O((HW)^2)$。每个词元只关注其窗口内的 $M^2$ 个词元（$M$ 为固定窗口大小），使注意力开销为 $O(M^4 \cdot HW/M^2) = O(M^2 \cdot HW)$——对于固定 $M$，与词元数量呈线性关系。</p>
+<p><strong>Video Swin Transformer</strong>（Liu et al., 2022）通过将时空体划分为大小为 $P \times M \times M$（时间 × 高度 × 宽度）的非重叠 3D 窗口，将其扩展到 3D。自注意力在每个 3D 窗口内应用。对于 $T \times H \times W$ 个词元的视频，窗口大小为 $P \times M \times M$，开销为 $O(P^2 M^4 \cdot THW / (PM^2)) = O(P M^2 \cdot THW)$——对于固定窗口大小，与 $T$、$H$、$W$ 均呈线性关系。这在保持局部注意力结构的同时，在视频长度上实现了全局覆盖。</p>
+<p>挑战在于非重叠窗口无法直接通信，将模型限制于局部上下文。<strong>移位窗口划分</strong>（Shifted window partitioning）通过每隔一层交替两种窗口配置来解决这一问题：常规窗口（位置 $(0, 0, 0)$）与移位窗口（位置 $(P/2, M/2, M/2)$）交替。一层中靠近窗口边界的词元在下一层会落入窗口中心——信息通过这种移位机制跨窗口流动，无需显式跨窗口注意力。Liu et al. (2022) 表明，Video Swin-L 在 Kinetics-400 上达到 84.9% top-1，在 Kinetics-600 上达到 86.1%，以相当或更低的 FLOPs 大幅超越 TimeSformer 和 ViViT，证明了在视频中通过窗口注意力保留局部空间归纳偏置的优势。</p>
+<hr>
+<h3 id="q8-进阶-描述-mvitv2-的多尺度特征层次与池化注意力机制">Q8 [进阶] 描述 MViTv2 的多尺度特征层次与池化注意力机制</h3>
+<p><strong>Q:</strong> MViTv2 引入了标准视频 Transformer 所缺乏的什么架构原理？池化注意力如何在 Transformer 内实现时空分辨率变化？</p>
+<p><strong>A:</strong> 标准基于 ViT 的视频模型在所有层以单一固定分辨率处理所有词元——每层都在相同的 $T \times H \times W$ 词元网格上运行。这是浪费的：捕获局部低级特征的早期层需要高分辨率，而聚合语义信息的后期层可以在更少词元上更高效地运行。CNN 长期以来使用特征金字塔（逐渐粗化的分辨率和更大的通道数）来匹配表示需求与架构深度。</p>
+<p><strong>MViTv2</strong>（多尺度视觉 Transformer v2，Multiscale Vision Transformers v2，Li et al., 2022）通过<strong>池化注意力</strong>（Pooling Attention）将这种多尺度层次引入视频 Transformer。在每个注意力层，查询 $Q$、键 $K$ 和值 $V$ 在计算注意力前分别使用步长为 $s$ 的可学习卷积核独立池化：</p>
+$$\hat{Q} = \text{Pool}(Q, s_q), \quad \hat{K} = \text{Pool}(K, s_k), \quad \hat{V} = \text{Pool}(V, s_v)$$<p>在阶段过渡（分辨率降低点），对 $Q$ 应用步长 $s_q > 1$ 可使每个空间维度的输出词元数减少 $s_q^2$ 倍，空间分辨率减半而通道数加倍。这创造了类比 ResNet 阶段的特征金字塔：早期层中细粒度高分辨率词元，深层中粗粒度低分辨率词元。</p>
+<p>MViTv2 还引入了<strong>分解相对位置嵌入</strong>（decomposed relative position embeddings），将 3D 位置偏置分解为独立的空间和时序分量以减少参数量；以及<strong>残差池化连接</strong>（residual pooling connections），将输入词元（池化前）加到池化输出以改善梯度流。Li et al. (2022) 表明，MViTv2-L 在 40×3 片段上在 Kinetics-400 上达到 86.1% top-1，在 Something-Something V2 上达到 70.5%，在可比模型大小下与 Video Swin 相比具有竞争性效率。强劲的 SSv2 结果反映了多尺度层次在早期高分辨率层捕获细粒度局部运动特征、在后期粗粒度层聚合时序上下文的能力。</p>
+<hr>
+<h2 id="视频-语言理解">视频-语言理解</h2>
+<h3 id="q9-基础-解释如何将-clip-模型适配用于视频-文本对齐">Q9 [基础] 解释如何将 CLIP 模型适配用于视频-文本对齐</h3>
+<p><strong>Q:</strong> 哪些策略使基于图像预训练的 CLIP 能够处理视频序列？不同时序融合方法在检索性能上如何比较？</p>
+<p><strong>A:</strong> CLIP 为每张图像生成单一嵌入。为对视频片段编码，最简单的适配方法是均匀采样 $T$ 帧，用 CLIP 图像编码器独立编码每帧，然后聚合帧嵌入——通常通过沿时间维度的<strong>均值池化</strong>（mean pooling）。所得视频嵌入通过余弦相似度与文本查询嵌入比较。此方法无需任何时序特定参数，且可利用 CLIP 学到的图像-文本对齐进行零样本视频检索。</p>
+<p><strong>CLIP4Clip</strong>（Luo et al., 2022）系统研究了基于 CLIP 的视频检索的时序融合策略。评估了三种设计：（1）对帧嵌入进行均值池化；（2）添加时序位置编码后对帧嵌入应用时序自注意力的顺序 Transformer；（3）使用帧加权求和的紧凑型（tight-type）设计。在 MSR-VTT-1kA 文本到视频检索上，均值池化达到 43.1% R@1，顺序 Transformer 和紧凑型均达到约 44.5% R@1——均值池化尽管完全忽略时序顺序，却竞争力出乎意料地强。</p>
+<p>这一结果揭示了 CLIP 用于视频的优势与局限：其丰富的视觉语义特征能有效迁移到时序顺序提供有限额外信号的数据集（基于片段级语义的检索）上的视频检索。然而，对于需要运动理解的任务——视频问答、时序定位或 SSv2 式任务的细粒度动作识别——CLIP 的时序不敏感性成为问题。解决方法包括在 CLIP 帧特征之上添加时序模块、显式编码时序结构的联合视频-文本对比预训练，或结合掩码视频建模与对比对齐的 InternVideo 等架构。</p>
+<hr>
+<h3 id="q10-基础-描述视频理解的标准基准及不同基准的评估侧重">Q10 [基础] 描述视频理解的标准基准及不同基准的评估侧重</h3>
+<p><strong>Q:</strong> 主要视频理解基准在评估的时序与语义技能上有何不同？</p>
+<p><strong>A:</strong> <strong>Kinetics-400/600/700</strong> 提供大规模动作识别，约 30 万个剪裁好的 10 秒片段。大多数 Kinetics 类别——&ldquo;踢足球&rdquo;、&ldquo;剪头发&rdquo;、&ldquo;做意大利面&rdquo;——外观特征强烈，可从单帧以高精度识别。Kinetics 衡量模型是否学到足够广泛的视觉语义以区分 400–700 种人类活动，但不需要真正的时序推理。</p>
+<p><strong>Something-Something V2</strong>（Goyal et al., 2017）刻意测试时序推理：其 174 个类别描述物体-运动关系——&ldquo;从左向右推某物&rdquo;、&ldquo;用某物覆盖某物&rdquo;、&ldquo;假装从某处取某物&rdquo;——若运动方向相反则动作身份改变。独立处理帧的模型无法区分对称运动。SlowFast 8×8 在 SSv2 上达到 63.1% top-1，而在 Kinetics-400 上为 79.8%——模型 Kinetics 与 SSv2 性能之间的差距是其时序建模是否真实的诊断指标。</p>
+<p><strong>ActivityNet-1.3</strong> 包含约 2 万个未剪裁视频（2–10 分钟），200 个活动类别，主要用于时序动作检测和密集视频字幕生成。它测试时序定位：模型不仅要确定发生了什么，还要精确确定在长段多事件视频中发生的时间。<strong>THUMOS-14</strong> 类似地在 200 个未剪裁视频（20 个类别）上测试时序动作检测，以多个时序 IoU 阈值处的平均精度均值（mAP）评估。</p>
+<p><strong>AVA v2.2</strong> 评估时空动作检测：在 430 个视频片段上以 1 FPS 提供人物边界框，模型必须为每个人分类 80 种原子视觉动作（如&quot;站立&quot;、&ldquo;进食&rdquo;、&ldquo;交谈&rdquo;）。该基准测试模型是否能将细粒度动作精确定位到特定时间位置的特定人物，而非片段级预测。</p>
+<hr>
+<h3 id="q11-进阶-解释-internvideo-通用视频基础模型的统一预训练策略">Q11 [进阶] 解释 InternVideo 通用视频基础模型的统一预训练策略</h3>
+<p><strong>Q:</strong> InternVideo 结合了哪些预训练目标？每个分量各自解决了另一个分量单独无法弥补的什么差距？</p>
+<p><strong>A:</strong> <strong>InternVideo</strong>（Wang et al., 2022）的动机源于一个关键观察：掩码视频建模与多模态对比学习针对互补的弱点。掩码视频建模（VideoMAE 式）通过预测掩码区域学习丰富的时空特征——模型必须理解运动、物体部件结构和时序连续性。然而，它产生的表示与文本或抽象语义类别不对齐；学到的特征被优化用于像素级预测而非任务级分类或检索。相反，CLIP 式对比学习有效地对齐视频和文本表示用于检索和零样本任务，但视觉编码器独立处理帧，无法捕获时序结构——均值池化 CLIP 与有时序排序的 CLIP 在检索基准上几乎等价。</p>
+<p>InternVideo 通过两阶段训练流程解决这两个局限。第一阶段，在大规模视频语料库上以掩码视频建模预训练 ViT-L 骨干，学习时空丰富特征。第二阶段，使用基于 UniFormer 的跨模态注意力模块以视频-文本对比学习微调预训练骨干，该模块支持密集视频-文本交互。对比阶段将第一阶段的时序感知表示与语言语义对齐——这是两种方法单独均无法实现的组合。</p>
+<p>所得模型在涵盖动作识别、视频-文本检索、时序动作检测和视频问答的 39 个视频理解数据集上实现了最先进结果（Wang et al., 2022）。这种广度证明，时序特征学习与语义对齐的结合产生了比任一目标单独更通用的表示。</p>
+<hr>
+<h3 id="q12-进阶-描述视频大型语言模型的架构及主要挑战">Q12 [进阶] 描述视频大型语言模型的架构及主要挑战</h3>
+<p><strong>Q:</strong> 视频 LLM 如何将视觉编码器与语言生成连接起来？视频的时序维度带来了图像 LLM 中不存在的哪些具体挑战？</p>
+<p><strong>A:</strong> <strong>VideoLLaMA</strong>（Zhang et al., 2023）遵循视频的 LLaVA 范式：冻结视觉编码器提取每帧特征，一个模块将其压缩为可管理的词元数量，语言模型（LLaMA）基于视觉词元和文本指令生成响应。具体而言，每帧由 BLIP-2 的 Q-Former 处理，Q-Former 在可学习查询词元与密集帧特征之间进行交叉注意力，为每帧产生固定的 32 个查询词元。<strong>Video Q-Former</strong> 随后对每帧查询词元应用时序注意力以整合时序信息，再传递给 LLM。LLM 将压缩后的视频词元视为上下文中的前缀词元，支持开放式问答、描述生成和视频内容的指令跟随。</p>
+<p>时序维度带来了图像 LLM 中不存在的挑战。<strong>词元数量</strong>随片段长度扩展：8 帧 × 32 个 Q-Former 词元 = 256 个视觉词元；32 帧 × 32 = 1024 个词元。LLM 在上下文上进行二次注意力，因此帧数多的长视频很快变得计算上不可行。解决方案包括积极的时序子采样（将输入限制为 8–16 个关键帧）、空间词元压缩（通过 Q-Former 池化将每片段词元从 256 减少到 32），或使用具有扩展上下文窗口的 LLM。</p>
+<p><strong>时序定位</strong>（Temporal grounding）提出了根本性挑战：当用户询问&quot;时间戳 $t$ 处发生了什么？&ldquo;或&quot;该人在放下物体之前做了什么？&ldquo;时，模型必须将绝对或相对时间戳与视觉内容关联。标准 Q-Former 压缩丢失了时序分辨率信息——32 个输出词元在没有显式时序索引的情况下汇总了整个片段。在视频 LLM 中实现精确的时序定位需要视觉词元上的时序位置编码、专用时序定位头，或将时间戳作为文本词元与事件描述交错预测的构建方式。</p>
+<hr>
+<h2 id="时序动作定位">时序动作定位</h2>
+<h3 id="q13-基础-描述时序动作检测任务及其评估与动作识别的区别">Q13 [基础] 描述时序动作检测任务及其评估与动作识别的区别</h3>
+<p><strong>Q:</strong> 时序动作检测模型需要输出什么？评估指标如何反映定位与分类的联合难度？</p>
+<p><strong>A:</strong> <strong>时序动作检测</strong>（Temporal action detection，TAD）接收一段未剪裁视频——通常数分钟长，包含多个事件、背景片段和过渡——并产生一组预测，每个预测包含起始时间 $t_s$、结束时间 $t_e$、动作类别和置信度分数。与动作识别（对预先分割的片段分类）不同，TAD 需要在没有预先指定边界的情况下同时确定发生了什么以及何时发生。</p>
+<p>评估指标是各类别的<strong>平均精度均值</strong>（mAP），在一个或多个时序交并比（tIoU）阈值处计算。若预测片段 $[\hat{t}_s, \hat{t}_e]$ 满足：</p>
+$$\text{tIoU} = \frac{|\hat{I} \cap I^*|}{|\hat{I} \cup I^*|} \geq \theta$$<p>则与真实标注 $[t_s^*, t_e^*]$ 匹配，其中 ActivityNet-1.3 通常取 $\theta = 0.5$，THUMOS-14 在 $\{0.3, 0.4, 0.5, 0.6, 0.7\}$ 上扫描并报告平均值。联合要求——正确的类别标签和高于阈值的时序重叠——意味着完美分类但时序未对齐的预测召回率为零，定位良好但类别错误的预测精度为零。这迫使模型在时间上精确、在类别上准确两者兼顾。</p>
+<p>存在两种主要范式：<strong>两阶段</strong>方法首先生成类别无关的时序候选框（可能包含任意动作的候选区间），然后对每个候选框分类；<strong>单阶段</strong>方法在每个时序锚点处直接预测（类别、起始、结束），无需单独的候选框生成。两阶段方法通常通过让分类器专注于前景候选框实现更高精度；单阶段方法更快且更端到端。</p>
+<hr>
+<h3 id="q14-进阶-解释-bmn-如何利用边界匹配机制生成时序候选框">Q14 [进阶] 解释 BMN 如何利用边界匹配机制生成时序候选框</h3>
+<p><strong>Q:</strong> 边界匹配置信度图是什么？它如何实现同时评估所有可能的时序候选框？</p>
+<p><strong>A:</strong> <strong>BMN</strong>（边界匹配网络，Boundary-Matching Network，Lin et al., 2019）将时序候选框生成建构为两分量预测问题：（1）动作边界在哪里；（2）每个可能的（起始，持续时长）对作为完整动作候选框的置信度是多少？</p>
+<p><strong>时序评估模块</strong>（TEM）处理视频特征序列 $\{h_t\}$，为每帧 $t$ 预测两个概率：起始概率 $p^s_t$（帧 $t$ 是动作开始的可能性）和结束概率 $p^e_t$（是动作结束的可能性）。这些边界概率通过指明哪些帧位于动作边界的真实标注进行训练。</p>
+<p><strong>边界匹配模块</strong>（BMM）构建形状为 $T \times D_{\max}$ 的 2D 置信度图 $M$，其中条目 $M[s][d]$ 表示从帧 $s$ 开始、持续时长为 $d$ 的候选框是完整动作的置信度。为填充此图，每个候选框 $(s, d)$ 通过在 $s$ 和 $s + d$ 之间均匀采样 $N$ 个点的特征来表征——这种 <strong>BM 采样</strong>将变长候选框折叠为固定长度表示。轻量级网络据此生成 $M[s][d]$。所有 $O(T \cdot D_{\max})$ 个候选框通过共享 BM 采样机制并行评估。</p>
+<p>最终候选框分数结合三个信号：$\text{score}(s, d) = p^s_s \cdot p^e_{s+d} \cdot M[s][d]$。高分候选框同时具有高边界置信度和高内容置信度。Lin et al. (2019) 报告，BMN 在 ActivityNet-1.3 时序候选框生成上达到 67.10% AUC，两阶段流程（BMN 候选框 + 动作分类器）将边界匹配框架确立为时序动作检测的强基线。</p>
+<hr>
+<h3 id="q15-进阶-描述-actionformer-基于-transformer-的单阶段时序动作检测方法">Q15 [进阶] 描述 ActionFormer 基于 Transformer 的单阶段时序动作检测方法</h3>
+<p><strong>Q:</strong> ActionFormer 如何构建多尺度时序特征以进行密集预测？局部窗口注意力在其设计中扮演什么角色？</p>
+<p><strong>A:</strong> <strong>ActionFormer</strong>（Zhang et al., 2022）是一种基于多尺度 Transformer 编码器和密集预测头的单阶段、无锚点时序动作检测器。模型以固定时序步长的预提取视频特征（如来自 I3D、SlowFast 或 C3D）作为输入，无需单独的候选框生成即可产生逐位置预测。</p>
+<p>架构由三个阶段组成。首先，轻量级 1D 时序卷积骨干对输入特征投影并扩展时序深度以产生初始特征序列。其次，通过应用时序步进卷积创建多个时序分辨率的表示，构建<strong>多尺度特征金字塔</strong>——粗粒度层级捕获长程上下文，细粒度层级定位精确边界。在每个尺度上，应用<strong>多头局部时序注意力</strong>（基于窗口，窗口大小为 $w$）：每个特征词元只关注其 $w$ 个时序邻居而非所有位置，每个尺度维持 $O(w \cdot T)$ 的复杂度。</p>
+<p>在每个金字塔层级，三个预测头并行运行：<strong>分类头</strong>在每个时序位置预测动作类别；<strong>回归头</strong>预测以每个位置为中心的动作到起始和结束边界的距离（无锚点公式）；<strong>IoU 头</strong>预测预测片段与真实片段之间的期望时序 IoU，用于候选框排序。所有尺度的预测通过 NMS 合并。</p>
+<p>Zhang et al. (2022) 报告，ActionFormer 在 THUMOS-14 的 tIoU 阈值 $[0.3{:}0.7]$ 处达到 82.1% 平均 mAP，在 ActivityNet-1.3 上达到 36.56% 平均 mAP（使用 I3D 特征）。局部窗口注意力能够建模超出固定感受野的时序上下文——同时避免全局注意力的代价——使 ActionFormer 能够同时捕获细粒度边界线索和长程上下文。</p>
+<hr>
+<h3 id="q16-进阶-解释-vid2seq-如何将密集视频字幕生成构建为带时序词元的序列生成问题">Q16 [进阶] 解释 Vid2Seq 如何将密集视频字幕生成构建为带时序词元的序列生成问题</h3>
+<p><strong>Q:</strong> 密集视频字幕生成比标准字幕生成难在哪里？Vid2Seq 的时序词元方法如何实现事件定位与描述的联合建模？</p>
+<p><strong>A:</strong> <strong>密集视频字幕生成</strong>（Dense video captioning）要求为未剪裁视频中的所有事件生成一组 $\{(t_s^i, t_e^i, \text{caption}_i)\}$ 元组——不同于标准视频字幕生成，后者仅为预先分割的片段生成单一描述。联合难度在于模型必须同时确定存在多少事件、每个事件发生的时间，以及每个事件对应的自然语言描述。先前方法使用独立的候选框和字幕模块；<strong>Vid2Seq</strong>（Yang et al., 2023）将两者统一到单个序列到序列模型中。</p>
+<p>Vid2Seq 的关键见解是将时间戳视为离散词汇词元。时间轴被划分为 $T_B$ 个区间，每个区间被分配一个添加到语言模型词汇表中的特殊词元 $[\text{TIME}_0], [\text{TIME}_1], \ldots, [\text{TIME}_{T_B-1}]$。模型生成时间词元和文本词元交错的序列：</p>
+$$\langle \text{TIME}_{42} \rangle \text{ a person begins cutting vegetables} \langle \text{TIME}_{93} \rangle \, \langle \text{TIME}_{95} \rangle \text{ they add spices to the pan} \langle \text{TIME}_{142} \rangle \ldots$$<p>这种顺序结构自然处理可变数量的事件——模型通过产生时间词元对与文本交错来生成所需数量的事件元组——并支持使用标准语言建模损失进行端到端训练。</p>
+<p>Vid2Seq 在约 100 万个叙述性 YouTube 视频上预训练，其中自动语音识别（ASR）转录提供了免费的时序监督：每个 ASR 句子具有来自字幕时序的时间戳，使模型能够以零标注成本学习将口头描述与视觉内容关联。Yang et al. (2023) 表明，这种大规模噪声预训练在 ActivityNet Captions 和 YouCook2 密集字幕基准上相比从头训练的模型大幅提升了性能，证明叙述性视频提供了可扩展的结构化时序监督来源。</p>
+<hr>
+<h2 id="视频自监督学习">视频自监督学习</h2>
+<h3 id="q17-基础-解释光流估计及深度学习方法优于经典方法的原因">Q17 [基础] 解释光流估计及深度学习方法优于经典方法的原因</h3>
+<p><strong>Q:</strong> 光流表示什么？RAFT 基于迭代相关的方法克服了经典算法的哪些根本局限？</p>
+<p><strong>A:</strong> <strong>光流</strong>估计两个连续帧之间每个像素的表观 2D 位移：给定帧 $I_1$ 和 $I_2$，像素 $(x, y)$ 处的流场 $\mathbf{f} = (u, v)$ 编码该像素的移动位置，使得 $I_1(x, y) \approx I_2(x + u, y + v)$。准确的光流需要处理大位移、遮挡区域、运动边界和细粒度纹理。</p>
+<p>经典方法——Lucas-Kanade（基于图块，小运动假设）和 Horn-Schunck（全局变分正则化）——依赖亮度恒定和空间平滑性假设。两者在以下情况均失败：大位移（违反基于梯度方法所需的线性化）、重复纹理（产生模糊匹配）以及运动边界（平滑性正则化使前景与背景运动之间的急剧过渡过度平滑）。</p>
+<p><strong>RAFT</strong>（递归全对场变换，Recurrent All Pairs Field Transforms，Teed &amp; Deng, 2020）通过显式<strong>全对相关体</strong>（all-pairs correlation volume）克服这些局限：预先计算两帧中所有位置对之间编码器特征的点积——$C(i, j) = \langle f_1(i), f_2(j) \rangle$，对所有源位置 $i$ 和目标位置 $j$。这个 4D 相关体无需线性化即可捕获所有位移处的匹配质量。然后通过基于 GRU 的迭代<strong>更新算子</strong>估计光流：每步在当前流估计及其邻域偏移位置查找相关体，预测流修正量。多次迭代逐步精化估计，通过多尺度相关金字塔实现小细节的精度和大位移的鲁棒性。</p>
+<p>RAFT 在 Sintel Clean 上达到 1.43 EPE（端点误差），在 Sintel Final 上达到 2.71 EPE（Teed &amp; Deng, 2020），大幅超越先前的学习方法。对于视频理解，预计算的 RAFT 光流可替代双流架构中的手工设计光流；然而，计算每帧对密集光流的代价推动了仅从 RGB 输入隐式学习运动表示的架构研究。</p>
+<hr>
+<h3 id="q18-基础-描述掩码视频建模及管状掩码如何防止平凡的时序捷径">Q18 [基础] 描述掩码视频建模及管状掩码如何防止平凡的时序捷径</h3>
+<p><strong>Q:</strong> 为何掩码图像建模的方法需要为视频修改？管状掩码的什么特性迫使模型学习真正的时空推理？</p>
+<p><strong>A:</strong> <strong>掩码图像建模</strong>（MAE 式）随机掩码空间图块并训练模型从可见上下文重建它们。将其朴素应用于视频，以相同的 $75\%$ 比率独立掩码每帧图块，会产生一条捷径：对于位置 $(t, h, w)$ 处的任意掩码图块，相邻帧 $t\pm 1$ 中相同图块位置很可能未被掩码。模型可以通过从邻近帧复制内容来填充掩码区域——这种复制粘贴捷径不需要任何语义理解，仅需时序邻近性。</p>
+<p><strong>管状掩码</strong>（Tube masking）通过在所有帧中掩码相同空间位置来消除这一捷径：若图块 $(h, w)$ 在帧 $t = 0$ 中被掩码，则在帧 $t = 1, 2, \ldots, T-1$ 中也被掩码。掩码内容的管状物在一致位置跨越整个时间维度，使时序复制不可能。模型必须从同一时间戳内的可见空间上下文和相邻可见管状物中推断掩码内容——这项任务需要对物体结构和外观进行真正的空间推理。</p>
+<p>掩码率也从 MAE 的 $75\%$ 提高到视频的 $90\%$。视频帧具有高度时序冗余：相邻帧主要在缓慢运动和微小形变方面不同，共享大部分视觉内容。在随机逐帧掩码的 $75\%$ 掩码率下，许多图块在至少一个相邻帧中保持未掩码，在无需全局理解的情况下提供了足够的低级上下文进行重建。在 $90\%$ 时，只有 $10\%$ 的时空图块可见——模型必须在稀疏可见上下文中推理全局图像结构、物体语义和运动模式，以重建大片连接的掩码区域。</p>
+<hr>
+<h3 id="q19-进阶-解释-videomae-的设计选择及其数据效率结果对领域内预训练的启示">Q19 [进阶] 解释 VideoMAE 的设计选择及其数据效率结果对领域内预训练的启示</h3>
+<p><strong>Q:</strong> 使 VideoMAE 有效的具体设计元素是什么？为何在小型领域内数据集上预训练在该领域微调时优于大型通用数据集预训练？</p>
+<p><strong>A:</strong> <strong>VideoMAE</strong>（Tong et al., 2022）将 $90\%$ 比率的管状掩码与<strong>联合时空编码器</strong>（joint space-time encoder）结合：所有 $T$ 帧的所有可见词元被拼接并由标准 ViT 一起处理，支持任意两个可见图块（无论来自哪帧）之间的直接时空注意力。没有空间和时序注意力的分解——模型可以发现对重建最有用的任何时空依赖关系，不受架构对时间和空间如何交互的约束。</p>
+<p>架构是非对称的：编码器仅处理约 $10\%$ 的可见词元，产生紧凑的潜在表示集。轻量级解码器（更少块的较小 ViT）接收这些编码器输出与掩码词元交错后的序列，重建所有掩码图块的 $16 \times 16$ 像素值。尽管进行联合时空处理，编码器代价因可见词元数量少（约 $10\%$）而较低；解码器代价适中但在推理时被丢弃。</p>
+<p>最令人惊讶的结果关于<strong>数据效率</strong>：Tong et al. (2022) 表明，在 UCF-101（3,537 个视频，13 个动作类别）上预训练的 VideoMAE ViT-S 在 UCF-101 微调精度上优于在 Kinetics-400（约 24 万个视频）上预训练的 VideoMAE ViT-S。这种对&quot;数据越多越好&quot;常规趋势的逆转表明，掩码视频建模预训练任务强烈受益于领域内视觉内容：学习重建人类动作视频的模型会形成针对人体运动、场景上下文和物体交互模式的时空先验，这些先验能以少量标注样本高效迁移到动作识别任务。通用大规模数据引入了可能与目标领域分布不匹配的视觉多样性。VideoMAE ViT-H 在 Kinetics-400 上预训练后微调达到 86.6% top-1，证明了预训练与目标领域匹配时的强劲结果。</p>
+<hr>
+<h3 id="q20-进阶-描述-videomae-v2-的双重掩码如何实现掩码视频预训练扩展到十亿参数模型">Q20 [进阶] 描述 VideoMAE V2 的双重掩码如何实现掩码视频预训练扩展到十亿参数模型</h3>
+<p><strong>Q:</strong> 什么内存瓶颈阻止直接将 VideoMAE 扩展到 ViT-g？双重掩码如何在保持预训练质量的同时解决这一问题？</p>
+<p><strong>A:</strong> <strong>VideoMAE V2</strong>（Wang et al., 2023）将掩码视频预训练扩展到 ViT-g（约 10 亿参数）——此前过大而无法实际进行视频预训练的架构。障碍在于内存：即使在 $90\%$ 编码器掩码的情况下，编码 $T \times H/16 \times W/16$ 可见词元的 ViT-g 产生的中间激活，与解码器重建所有掩码词元的计算结合，在可行的训练批量大小下超过了 GPU 内存限制。解码器单独需要处理 $0.9 \cdot T \cdot (H/16) \cdot (W/16)$ 个掩码词元——对于 16 帧、224² 输入，约 2300 个掩码词元——每个都需要 ViT-g 规模的计算。</p>
+<p><strong>双重掩码</strong>（Dual masking）在解码器处引入第二个掩码阶段：编码器处理小的可见集合后，解码器仅被要求重建约 $50\%$ 的掩码词元的随机子集，而非全部。编码器掩码选择 $10\%$ 的词元保持可见（与 VideoMAE 相同）；解码器掩码进一步将 $90\%$ 的掩码词元子采样到将被重建的 $50\%$。只有这约 $45\%$ 的全部词元需要被解码器处理，将解码器计算约减少 $2\times$。</p>
+<p>Wang et al. (2023) 表明，随机选择重建哪些掩码词元——而非系统性地偏向困难或容易的图块——以可忽略的精度下降代价保持了重建质量。部分重建的梯度信号保持分布均匀，因为任何词元在训练步骤中被重建的可能性相同。</p>
+<p>VideoMAE V2 还引入了<strong>混合预训练</strong>（mixed pretraining）：有监督标注数据（Kinetics）和无标注网络视频数据（WEB-VIDEO，约 1000 万个片段）被混入同一掩码预训练批次。标注视频贡献了更丰富的语义内容，与无标注数据的多样性互补，提升了表示质量和数据利用率。VideoMAE V2 ViT-g 在 Kinetics-400 上达到 90.0% top-1（Wang et al., 2023）——首个在该基准上超过 $90\%$ 的视频模型——并在多个动作识别和视频理解数据集上创造了新的最先进结果。</p>
+<hr>
+<h2 id="快速参考">快速参考</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>难度</th>
+          <th>主题</th>
+          <th>章节</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>基础</td>
+          <td>逐帧独立处理为何无法建模时序结构</td>
+          <td>时序建模基础</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>基础</td>
+          <td>双流的空间流与时序流</td>
+          <td>时序建模基础</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>进阶</td>
+          <td>3D 卷积：C3D、I3D 与分解变体</td>
+          <td>时序建模基础</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>进阶</td>
+          <td>SlowFast 双时序路径设计</td>
+          <td>时序建模基础</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>基础</td>
+          <td>TimeSformer 分离时空注意力</td>
+          <td>视频 Transformer</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>基础</td>
+          <td>ViViT 分解编码器模型</td>
+          <td>视频 Transformer</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>进阶</td>
+          <td>Video Swin 移位 3D 窗口注意力</td>
+          <td>视频 Transformer</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>进阶</td>
+          <td>MViTv2 池化注意力与多尺度层次</td>
+          <td>视频 Transformer</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>基础</td>
+          <td>将 CLIP 适配用于视频-文本对齐</td>
+          <td>视频-语言理解</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>基础</td>
+          <td>时序推理评估的主要基准</td>
+          <td>视频-语言理解</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>进阶</td>
+          <td>InternVideo 统一掩码建模+对比预训练</td>
+          <td>视频-语言理解</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>进阶</td>
+          <td>视频 LLM 架构与时序词元挑战</td>
+          <td>视频-语言理解</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>基础</td>
+          <td>时序动作检测任务与 mAP 评估</td>
+          <td>时序动作定位</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>进阶</td>
+          <td>BMN 边界匹配候选框生成</td>
+          <td>时序动作定位</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>进阶</td>
+          <td>ActionFormer 单阶段 Transformer 检测</td>
+          <td>时序动作定位</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>进阶</td>
+          <td>Vid2Seq 通过时序词元实现密集视频字幕生成</td>
+          <td>时序动作定位</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>基础</td>
+          <td>RAFT 全对相关体光流</td>
+          <td>视频自监督学习</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>基础</td>
+          <td>掩码视频建模的管状掩码</td>
+          <td>视频自监督学习</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>进阶</td>
+          <td>VideoMAE 数据效率与联合时空编码</td>
+          <td>视频自监督学习</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>进阶</td>
+          <td>VideoMAE V2 双重掩码支持十亿参数预训练</td>
+          <td>视频自监督学习</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li>Simonyan &amp; Zisserman, <a href="https://arxiv.org/abs/1406.2199">Two-Stream Convolutional Networks for Action Recognition in Videos</a> (2014)</li>
+<li>Tran et al., <a href="https://arxiv.org/abs/1412.0767">Learning Spatiotemporal Features with 3D Convolutional Networks</a> (2015)</li>
+<li>Carreira &amp; Zisserman, <a href="https://arxiv.org/abs/1705.07750">Quo Vadis, Action Recognition? A New Model and the Kinetics Dataset</a> (2017)</li>
+<li>Goyal et al., <a href="https://arxiv.org/abs/1706.04261">The Something Something Video Database for Learning and Evaluating Visual Common Sense</a> (2017)</li>
+<li>Wang et al., <a href="https://arxiv.org/abs/1711.07971">Non-local Neural Networks</a> (2018)</li>
+<li>Feichtenhofer et al., <a href="https://arxiv.org/abs/1812.03982">SlowFast Networks for Video Recognition</a> (2019)</li>
+<li>Lin et al., <a href="https://arxiv.org/abs/1907.09702">BMN: Boundary-Matching Network for Temporal Action Proposal Generation</a> (2019)</li>
+<li>Teed &amp; Deng, <a href="https://arxiv.org/abs/2003.12039">RAFT: Recurrent All Pairs Field Transforms for Optical Flow</a> (2020)</li>
+<li>Bertasius et al., <a href="https://arxiv.org/abs/2102.05095">Is Space-Time Attention All You Need for Video Understanding?</a> (2021)</li>
+<li>Arnab et al., <a href="https://arxiv.org/abs/2103.15691">ViViT: A Video Vision Transformer</a> (2021)</li>
+<li>Fan et al., <a href="https://arxiv.org/abs/2104.11227">Multiscale Vision Transformers</a> (2021)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2112.01526">MViTv2: Improved Multiscale Vision Transformers for Classification and Detection</a> (2022)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/2106.13230">Video Swin Transformer</a> (2022)</li>
+<li>Luo et al., <a href="https://arxiv.org/abs/2104.08860">CLIP4Clip: An Empirical Study of CLIP for End to End Video Clip Retrieval and Question Answering</a> (2022)</li>
+<li>Tong et al., <a href="https://arxiv.org/abs/2203.12602">VideoMAE: Masked Autoencoders are Data-Efficient Learners for Self-Supervised Video Pre-Training</a> (2022)</li>
+<li>Wang et al., <a href="https://arxiv.org/abs/2212.03191">InternVideo: General Video Foundation Models via Generative and Discriminative Learning</a> (2022)</li>
+<li>Zhang et al., <a href="https://arxiv.org/abs/2202.07925">ActionFormer: Localizing Moments of Actions with Transformers</a> (2022)</li>
+<li>Wang et al., <a href="https://arxiv.org/abs/2303.16727">VideoMAE V2: Scaling Video Masked Autoencoders with Dual Masking</a> (2023)</li>
+<li>Yang et al., <a href="https://arxiv.org/abs/2302.14115">Vid2Seq: Large-Scale Pretraining of a Visual Language Model for Dense Video Captioning</a> (2023)</li>
+<li>Zhang et al., <a href="https://arxiv.org/abs/2306.02858">Video-LLaMA: An Instruction-tuned Audio-Visual Language Model for Video Understanding</a> (2023)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+
