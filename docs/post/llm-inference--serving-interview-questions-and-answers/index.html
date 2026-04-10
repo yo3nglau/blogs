@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>LLM Inference &amp; Serving: Interview Questions and Answers | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">LLM Inference &amp; Serving: Interview Questions and Answers</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/10</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/large-language-models">Large Language Models</a> <a href="/blogs/tags/systems">Systems</a> 
+  
+  
+</p>
+</div>
+
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#kv-cache-and-memory-management">KV Cache and Memory Management</a>
+      <ul>
+        <li><a href="#q1-basic-explain-why-kv-cache-is-necessary-for-autoregressive-decoding">Q1 [Basic] Explain why KV cache is necessary for autoregressive decoding</a></li>
+        <li><a href="#q2-advanced-describe-how-pagedattention-manages-kv-cache-memory">Q2 [Advanced] Describe how PagedAttention manages KV cache memory</a></li>
+        <li><a href="#q3-advanced-explain-prefix-caching-and-the-radix-attention-mechanism">Q3 [Advanced] Explain prefix caching and the radix attention mechanism</a></li>
+        <li><a href="#q4-advanced-compare-kv-cache-eviction-strategies-for-long-context-inference">Q4 [Advanced] Compare KV cache eviction strategies for long-context inference</a></li>
+      </ul>
+    </li>
+    <li><a href="#efficient-attention-mechanisms">Efficient Attention Mechanisms</a>
+      <ul>
+        <li><a href="#q5-basic-describe-how-flashattention-achieves-memory-efficiency">Q5 [Basic] Describe how FlashAttention achieves memory efficiency</a></li>
+        <li><a href="#q6-advanced-what-improvements-do-flashattention-2-and-flashattention-3-introduce">Q6 [Advanced] What improvements do FlashAttention-2 and FlashAttention-3 introduce?</a></li>
+        <li><a href="#q7-basic-compare-multi-head-attention-multi-query-attention-and-grouped-query-attention">Q7 [Basic] Compare Multi-Head Attention, Multi-Query Attention, and Grouped-Query Attention</a></li>
+        <li><a href="#q8-advanced-how-do-sparse-and-linear-attention-methods-scale-beyond-quadratic-cost">Q8 [Advanced] How do sparse and linear attention methods scale beyond quadratic cost?</a></li>
+      </ul>
+    </li>
+    <li><a href="#speculative-decoding">Speculative Decoding</a>
+      <ul>
+        <li><a href="#q9-basic-explain-the-draft-and-verify-framework-in-speculative-decoding">Q9 [Basic] Explain the draft-and-verify framework in speculative decoding</a></li>
+        <li><a href="#q10-advanced-analyze-the-conditions-under-which-speculative-decoding-provides-the-largest-speedup">Q10 [Advanced] Analyze the conditions under which speculative decoding provides the largest speedup</a></li>
+        <li><a href="#q11-advanced-describe-medusas-multi-head-draft-approach">Q11 [Advanced] Describe Medusa&rsquo;s multi-head draft approach</a></li>
+        <li><a href="#q12-advanced-compare-lookahead-decoding-with-retrieval-based-and-self-speculative-approaches">Q12 [Advanced] Compare lookahead decoding with retrieval-based and self-speculative approaches</a></li>
+      </ul>
+    </li>
+    <li><a href="#batching-scheduling-and-serving">Batching, Scheduling, and Serving</a>
+      <ul>
+        <li><a href="#q13-basic-explain-continuous-batching-and-why-it-outperforms-static-batching">Q13 [Basic] Explain continuous batching and why it outperforms static batching</a></li>
+        <li><a href="#q14-advanced-describe-chunked-prefill-and-prefill-decode-disaggregation">Q14 [Advanced] Describe chunked prefill and prefill-decode disaggregation</a></li>
+        <li><a href="#q15-basic-describe-the-architecture-of-vllm-and-its-key-design-decisions">Q15 [Basic] Describe the architecture of vLLM and its key design decisions</a></li>
+        <li><a href="#q16-advanced-analyze-scheduling-policies-for-llm-serving-under-latency-slos">Q16 [Advanced] Analyze scheduling policies for LLM serving under latency SLOs</a></li>
+      </ul>
+    </li>
+    <li><a href="#quantization-and-distributed-inference">Quantization and Distributed Inference</a>
+      <ul>
+        <li><a href="#q17-basic-describe-the-main-post-training-quantization-approaches-for-llm-inference">Q17 [Basic] Describe the main post-training quantization approaches for LLM inference</a></li>
+        <li><a href="#q18-advanced-explain-the-challenges-of-weight-activation-quantization-and-how-smoothquant-addresses-them">Q18 [Advanced] Explain the challenges of weight-activation quantization and how SmoothQuant addresses them</a></li>
+        <li><a href="#q19-basic-describe-tensor-parallelism-and-pipeline-parallelism-for-distributed-llm-inference">Q19 [Basic] Describe tensor parallelism and pipeline parallelism for distributed LLM inference</a></li>
+        <li><a href="#q20-advanced-discuss-disaggregated-inference-and-the-evolving-landscape-of-llm-serving-at-scale">Q20 [Advanced] Discuss disaggregated inference and the evolving landscape of LLM serving at scale</a></li>
+      </ul>
+    </li>
+    <li><a href="#quick-reference">Quick Reference</a></li>
+    <li><a href="#resources">Resources</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="kv-cache-and-memory-management">KV Cache and Memory Management</h2>
+<h3 id="q1-basic-explain-why-kv-cache-is-necessary-for-autoregressive-decoding">Q1 [Basic] Explain why KV cache is necessary for autoregressive decoding</h3>
+<p><strong>Q:</strong> Why does autoregressive generation require caching, and what exactly is stored in a KV cache?</p>
+<p><strong>A:</strong> In autoregressive decoding the model generates one token at a time, each conditioned on all previous tokens. Without caching, generating token $t$ requires recomputing keys and values for all $t-1$ preceding tokens—an $O(t^2)$ cost over the full sequence. The KV cache stores the key and value tensors produced by each attention layer for every previously generated token so that, at step $t$, only the new token&rsquo;s query, key, and value are computed; cached keys and values are retrieved and concatenated before attention is applied. Memory footprint per token per layer is $2 \cdot d_{head} \cdot n_{heads}$ in float16, which for a 7B-parameter model with 32 layers and 32 heads at $d_{head} = 128$ amounts to roughly $0.5$ MB per token—enough that long sequences or large batches can exhaust GPU memory.</p>
+<p>The KV cache enables autoregressive decoding to run in $O(t)$ time per step, turning the quadratic total cost into linear in the generated length. The trade-off is memory: as batch size $B$ and sequence length $T$ grow, the cache consumes $O(B \cdot T \cdot L \cdot d_{model})$ bytes, often rivaling or exceeding the model weights themselves.</p>
+<hr>
+<h3 id="q2-advanced-describe-how-pagedattention-manages-kv-cache-memory">Q2 [Advanced] Describe how PagedAttention manages KV cache memory</h3>
+<p><strong>Q:</strong> What is PagedAttention, and how does it address the memory fragmentation problem in LLM serving?</p>
+<p><strong>A:</strong> Traditional KV cache implementations pre-allocate a contiguous memory block of size $\text{max\_seq\_len}$ for each request at the start of inference. Because actual generation lengths vary and are unknown in advance, this causes two types of waste: internal fragmentation (padding within the reserved block) and external fragmentation (gaps between blocks that cannot be reused). Studies of production systems found that over 60% of KV cache memory was wasted this way (Kwon et al., 2023).</p>
+<p>PagedAttention, introduced in vLLM (Kwon et al., 2023), borrows the virtual memory and paging abstraction from operating systems. KV cache memory is divided into fixed-size physical blocks (pages), each holding the keys and values for a small number of tokens (e.g., 16). A per-request logical-to-physical block table maps contiguous logical positions to arbitrary physical pages, exactly like a page table in virtual memory. Pages are allocated on demand as the sequence grows and reclaimed when the request finishes. The modification to attention computation is minor: within-block attention is contiguous; cross-block attention follows the indirection through the block table.</p>
+<p>This approach reduces memory waste to under 4% in experiments on LLaMA and OPT models (Kwon et al., 2023). A secondary benefit is copy-on-write sharing: parallel sampling (beam search, best-of-$N$) or prefix caching can share physical pages without duplication until a divergence point.</p>
+<hr>
+<h3 id="q3-advanced-explain-prefix-caching-and-the-radix-attention-mechanism">Q3 [Advanced] Explain prefix caching and the radix attention mechanism</h3>
+<p><strong>Q:</strong> How does prefix caching work in LLM serving systems, and what data structure does SGLang use to manage shared prefixes efficiently?</p>
+<p><strong>A:</strong> When multiple requests share a common prompt prefix—system prompts in chatbots, few-shot examples, or repeated document context in RAG—recomputing the KV cache for the shared prefix is wasteful. Prefix caching stores the computed KV blocks for known prefixes so that a new request can skip the prefill phase for the cached portion and start generation from where the cache ends. The challenge is organizing cached entries so that partial matches, branching continuations, and eviction under memory pressure are handled efficiently.</p>
+<p>SGLang (Zheng et al., 2023) introduces <strong>radix attention</strong>, which organizes the KV cache as a radix tree (compressed trie) keyed on token sequences. Each internal node represents a shared prefix; each edge corresponds to a sequence of tokens. When a new request arrives, SGLang traverses the tree to find the longest cached prefix, reuses those KV blocks directly, and extends the tree with newly computed blocks. Eviction under LRU policy removes leaf nodes first, preserving longer shared prefixes as long as possible.</p>
+<p>Radix attention achieves high cache hit rates across diverse workload types: multi-turn chat (each turn appends to the previous), batch inference with shared system prompts, and tree-of-thought sampling with branching continuations. Experiments show 1.7–8$\times$ throughput improvement over systems without prefix caching depending on the workload (Zheng et al., 2023).</p>
+<hr>
+<h3 id="q4-advanced-compare-kv-cache-eviction-strategies-for-long-context-inference">Q4 [Advanced] Compare KV cache eviction strategies for long-context inference</h3>
+<p><strong>Q:</strong> When the KV cache cannot fit the full context into GPU memory, what eviction strategies exist, and how do they decide which tokens to drop?</p>
+<p><strong>A:</strong> Full-context KV caches for sequences exceeding tens of thousands of tokens can exhaust GPU memory. The key question is: which past tokens&rsquo; KV entries can be dropped with least impact on generation quality?</p>
+<p><strong>H2O</strong> (Heavy-Hitter Oracle; Zhang et al., 2023) observes that a small fraction of tokens accumulate disproportionately large cumulative attention scores—&ldquo;heavy hitters&rdquo;—and that these tokens are consistently attended to across layers and generation steps. H2O maintains a fixed budget of KV slots by evicting the entry with the lowest cumulative attention score whenever the cache is full. On tasks such as text summarization and question answering, H2O with 20% cache retention matches full-cache quality while reducing peak memory by $5\times$ (Zhang et al., 2023).</p>
+<p><strong>SnapKV</strong> (Li et al., 2024) takes a different approach based on the observation that attention patterns over long documents stabilize after the initial &ldquo;observation window&rdquo; of tokens immediately preceding the generated answer. SnapKV clusters the key vectors of the observation window, identifies representative key positions via pooled attention, and retains only the KV entries for those positions plus the full observation window. This avoids rerunning the model: the compression decision is made once in one forward pass, making it suitable for prefill-time caching.</p>
+<p>Both strategies accept a quality-memory trade-off. Full eviction of low-importance tokens can degrade performance on tasks requiring needle-in-a-haystack retrieval; combining eviction with compression (quantizing retained entries to INT4) is an emerging direction.</p>
+<hr>
+<h2 id="efficient-attention-mechanisms">Efficient Attention Mechanisms</h2>
+<h3 id="q5-basic-describe-how-flashattention-achieves-memory-efficiency">Q5 [Basic] Describe how FlashAttention achieves memory efficiency</h3>
+<p><strong>Q:</strong> What is the core algorithmic insight behind FlashAttention that allows it to avoid materializing the full attention matrix?</p>
+<p><strong>A:</strong> Standard attention computes the $N \times N$ score matrix $QK^T / \sqrt{d}$, applies softmax, and multiplies by $V$—requiring $O(N^2)$ memory to store the intermediate matrix. For long sequences this quickly exceeds SRAM capacity and forces round-trips between HBM (GPU global memory) and the compute units, making attention memory-bandwidth-bound rather than compute-bound.</p>
+<p>FlashAttention (Dao et al., 2022) applies <strong>tiling</strong>: query, key, and value matrices are split into blocks that fit in SRAM. For each query block, FlashAttention iterates over all key/value blocks, computing partial attention outputs and accumulating a numerically stable running softmax using the online softmax algorithm (tracking the running maximum and normalizer). The final output for each query tile is emitted to HBM once, without ever writing the full $N \times N$ matrix. Memory complexity drops from $O(N^2)$ to $O(N)$, and the number of HBM reads/writes falls by a factor of $N / d$. On A100 GPUs, FlashAttention achieves 2–4$\times$ wall-clock speedup over PyTorch standard attention for sequence lengths of 1K–16K, and enables training with sequences up to 64K tokens (Dao et al., 2022).</p>
+<hr>
+<h3 id="q6-advanced-what-improvements-do-flashattention-2-and-flashattention-3-introduce">Q6 [Advanced] What improvements do FlashAttention-2 and FlashAttention-3 introduce?</h3>
+<p><strong>Q:</strong> How do FlashAttention-2 and FlashAttention-3 improve upon the original FlashAttention, and what hardware features do they exploit?</p>
+<p><strong>A:</strong> <strong>FlashAttention-2</strong> (Dao, 2023) targets two bottlenecks in the original: excessive non-matmul operations and poor parallelism. The original FA1 performed redundant rescaling of partial sums at every key block; FA2 eliminates this by delaying the final scaling to the output write. Parallelism is improved by partitioning work across query blocks (not just KV blocks) so that forward and backward passes on multi-head attention fully utilize GPU thread blocks with no idle warps. FA2 achieves roughly $2\times$ the throughput of FA1 on A100 and is integrated into PyTorch 2.0 as <code>F.scaled_dot_product_attention</code>.</p>
+<p><strong>FlashAttention-3</strong> (Shah et al., 2024) targets the Hopper (H100/H200) GPU architecture specifically. H100 introduces Warp Group Matrix Multiply-Accumulate (WGMMA) instructions and the Tensor Memory Accelerator (TMA) for asynchronous data movement. FA3 overlaps GEMM computation with softmax using a two-stage pipeline: while one warp group computes partial matrix products, another concurrently executes the softmax rescaling for the previous tile. Additionally, FA3 exploits H100&rsquo;s FP8 tensor cores, achieving near-peak hardware throughput. On H100 SXM5, FA3 reaches approximately $75\%$ of theoretical peak FLOPs for FP16 attention, compared to roughly $35\%$ for FA2 (Shah et al., 2024).</p>
+<hr>
+<h3 id="q7-basic-compare-multi-head-attention-multi-query-attention-and-grouped-query-attention">Q7 [Basic] Compare Multi-Head Attention, Multi-Query Attention, and Grouped-Query Attention</h3>
+<p><strong>Q:</strong> What are Multi-Query Attention and Grouped-Query Attention, and why are they preferred in modern LLMs for inference?</p>
+<p><strong>A:</strong> Standard <strong>Multi-Head Attention</strong> (MHA) uses $H$ independent query, key, and value projections. During inference, all $H$ KV heads must be cached, giving KV cache size proportional to $H$. This is memory-bandwidth-intensive: for each decode step, the GPU must load the full KV cache from HBM.</p>
+<p><strong>Multi-Query Attention</strong> (MQA; Shazeer, 2019) reduces this by sharing a single KV head across all $H$ query heads. KV cache memory shrinks by a factor of $H$, and memory bandwidth for decoding decreases proportionally. The trade-off is quality: with only one KV representation, expressiveness is reduced, and models sometimes need retraining to recover accuracy.</p>
+<p><strong>Grouped-Query Attention</strong> (GQA; Ainslie et al., 2023) interpolates between MHA and MQA by grouping query heads into $G$ groups, each sharing one KV head. With $G = 1$ this is MQA; with $G = H$ this is MHA. GQA with $G = 8$ recovers nearly all of MHA&rsquo;s quality while achieving MQA-level memory bandwidth savings. It is the default in LLaMA-2, LLaMA-3, Mistral, Gemma, and most modern LLMs. Notably, Ainslie et al. (2023) show that a pretrained MHA model can be converted to GQA by mean-pooling the original KV heads within each group, followed by brief fine-tuning—avoiding training from scratch.</p>
+<hr>
+<h3 id="q8-advanced-how-do-sparse-and-linear-attention-methods-scale-beyond-quadratic-cost">Q8 [Advanced] How do sparse and linear attention methods scale beyond quadratic cost?</h3>
+<p><strong>Q:</strong> What approaches reduce attention complexity from $O(N^2)$ to sub-quadratic, and what are their practical trade-offs?</p>
+<p><strong>A:</strong> Standard attention is $O(N^2)$ in both time and memory, which becomes prohibitive for contexts of hundreds of thousands of tokens. Two major directions address this.</p>
+<p><strong>Sparse attention</strong> restricts each query to attend only to a subset of keys. Patterns include local sliding windows (each token attends to its $w$ neighbors), global tokens (a small set of special tokens attend everywhere), and strided patterns. Sliding-window attention achieves $O(N \cdot w)$ complexity and is effective for tasks with local structure; global tokens recover long-range dependencies for task-critical positions. In practice, sparse attention is most useful when document structure is locally organized but may miss long-range dependencies that full attention captures.</p>
+<p><strong>Linear attention</strong> approximates softmax attention by decomposing the kernel: $\text{softmax}(QK^T)V \approx \phi(Q)(\phi(K)^T V)$, reordering matrix multiplication to compute $\phi(K)^T V \in \mathbb{R}^{d \times d}$ first, yielding $O(N \cdot d^2)$ cost. Linear attention generalizes naturally to a recurrent formulation, enabling $O(1)$ per-step decoding at inference time. The key limitation is approximation quality: random feature maps used to construct $\phi$ introduce variance, and for tasks requiring precise key matching the gap from exact softmax attention can be significant.</p>
+<p>State space models such as Mamba achieve similar sub-quadratic inference cost through selective recurrence rather than approximating attention, and have shown competitive quality at scale—though they require training from scratch rather than extending existing Transformer checkpoints.</p>
+<hr>
+<h2 id="speculative-decoding">Speculative Decoding</h2>
+<h3 id="q9-basic-explain-the-draft-and-verify-framework-in-speculative-decoding">Q9 [Basic] Explain the draft-and-verify framework in speculative decoding</h3>
+<p><strong>Q:</strong> How does speculative decoding accelerate autoregressive generation without changing the output distribution?</p>
+<p><strong>A:</strong> In standard autoregressive decoding, each new token requires a full forward pass through the large target model, making generation latency proportional to the number of tokens. Speculative decoding (Leviathan et al., 2023; Chen et al., 2023) leverages the observation that much of the autoregressive output is predictable: a smaller, faster <strong>draft model</strong> proposes $k$ candidate tokens in sequence, then the large <strong>target model</strong> evaluates all $k$ tokens in a single parallel forward pass.</p>
+<p>The target model&rsquo;s parallel pass produces logits at each of the $k$ positions. Each draft token is accepted or rejected by comparing the draft model&rsquo;s probability $q_i$ with the target model&rsquo;s probability $p_i$ at that position: token $i$ is accepted with probability $\min(1, p_i / q_i)$. If accepted, the next draft token is evaluated; if rejected, a corrected token is sampled from an adjusted distribution $(p_i - q_i)^+$ and generation continues from that point. This <strong>rejection sampling</strong> procedure guarantees that the marginal distribution over accepted tokens is identical to what the target model would have produced (Leviathan et al., 2023). Efficiency gain arises because target model evaluation is parallelized over $k$ positions while costing approximately the same compute as a single decode step.</p>
+<hr>
+<h3 id="q10-advanced-analyze-the-conditions-under-which-speculative-decoding-provides-the-largest-speedup">Q10 [Advanced] Analyze the conditions under which speculative decoding provides the largest speedup</h3>
+<p><strong>Q:</strong> What factors determine the acceptance rate in speculative decoding, and under what conditions does the method fail to accelerate generation?</p>
+<p><strong>A:</strong> The expected speedup of speculative decoding with $k$ draft tokens scales with $\mathbb{E}[\text{accepted tokens per target forward pass}]$. This expectation depends on the <strong>acceptance rate</strong> $\alpha = \mathbb{E}[\min(1, p_i/q_i)]$ at each position. If $\alpha \approx 1$ (draft and target distributions closely agree), nearly all $k$ tokens are accepted and throughput approaches $k$-fold over single-token decoding. If $\alpha \approx 0$, the draft is rejected almost immediately, and speculative decoding adds overhead without benefit.</p>
+<p>Acceptance rate is high when (1) the output is predictable or repetitive (boilerplate text, structured formats, code with repeated patterns), (2) the draft model is a closely distilled or architecturally similar smaller version of the target, and (3) temperature is low (near-greedy decoding). Acceptance rate is low when (1) the task requires creative or diverse generation (high temperature sampling), (2) the draft model is architecturally dissimilar or poorly matched to the target&rsquo;s distribution, or (3) the context requires long-range reasoning the draft model cannot replicate.</p>
+<p>Another consideration is the batching regime. Speculative decoding helps most in the <strong>latency-optimized, small-batch setting</strong> where the target model is memory-bandwidth-bound. At large batch sizes, the target model is already compute-bound, and the overhead of verifying $k$ tokens per target pass can reduce overall throughput. Systems like vLLM support speculative decoding but recommend it primarily for batch size 1–4 (Kwon et al., 2023).</p>
+<hr>
+<h3 id="q11-advanced-describe-medusas-multi-head-draft-approach">Q11 [Advanced] Describe Medusa&rsquo;s multi-head draft approach</h3>
+<p><strong>Q:</strong> How does Medusa generate draft tokens without a separate draft model, and what is tree attention?</p>
+<p><strong>A:</strong> Medusa (Cai et al., 2024) eliminates the separate draft model by attaching multiple lightweight <strong>decoding heads</strong> directly to the frozen LLM. Each additional head $i$ is a two-layer MLP that predicts the token at offset $+i$ from the current hidden state. Head 1 predicts the next token (the standard LM head), head 2 predicts the token after that, and so on. These extra heads are trained on a small fine-tuning dataset with cross-entropy loss while the base model weights remain fixed.</p>
+<p>Because each Medusa head independently predicts its offset token, there is no sequential dependency between heads: all $k$ predictions are produced in a single forward pass of the base model. The combined predictions form a <strong>candidate tree</strong>: head 1 produces top-$s_1$ candidates, head 2 produces top-$s_2$ candidates for each head-1 candidate, and so on, generating $\prod s_i$ candidate sequences. To evaluate all candidates in parallel, Medusa constructs a <strong>tree attention mask</strong>—a causal mask that allows each leaf node to attend only to its own ancestor path. The same base model (with its standard LM head acting as the verifier) evaluates the entire tree in one forward pass and accepts the longest prefix consistent with its greedy or sampled choices.</p>
+<p>Medusa achieves 2–3$\times$ speedup on Vicuna-7B/13B (Cai et al., 2024) without draft model alignment overhead, at the cost of slightly lower acceptance rates compared to a well-matched external draft model.</p>
+<hr>
+<h3 id="q12-advanced-compare-lookahead-decoding-with-retrieval-based-and-self-speculative-approaches">Q12 [Advanced] Compare lookahead decoding with retrieval-based and self-speculative approaches</h3>
+<p><strong>Q:</strong> What alternatives to draft-model speculative decoding exist, and how do they avoid the need for a separate model?</p>
+<p><strong>A:</strong> Several approaches decouple draft generation from a separate model entirely.</p>
+<p><strong>Lookahead decoding</strong> (Fu et al., 2024) adapts the Jacobi iterative method to autoregressive generation. Instead of generating tokens one at a time, it maintains a $W \times N$ &ldquo;lookahead window&rdquo; of speculative future tokens that are refined in parallel Jacobi iterations. In each step, the model evaluates all positions in the window simultaneously, updating each with the token it would predict given its current neighbors. Newly consistent $n$-gram sequences (&ldquo;Jacobi trajectories&rdquo;) are committed to an $n$-gram pool. When a generated prefix matches an $n$-gram in the pool, that sequence is proposed as a draft and verified in one pass. Lookahead decoding requires no additional parameters or training and is especially effective for long-form generation where $n$-gram reuse is high (Fu et al., 2024).</p>
+<p><strong>Self-speculative decoding</strong> reduces the target model itself for drafting by skipping certain layers during the draft phase. The same model, run with a subset of layers, produces a reasonable approximation of the full model&rsquo;s distribution sufficient to generate draft tokens with non-trivial acceptance rates. This avoids any additional model storage or alignment cost. The trade-off is that layer-skipping perturbs internal representations, limiting acceptance rates to moderate values.</p>
+<p><strong>Retrieval-based speculation</strong> indexes previously decoded sequences and retrieves the most likely continuation from a datastore rather than running any model for the draft, reducing draft latency to near zero. Acceptance depends on exact or near-exact matches in the datastore, making this effective for repetitive workloads (code generation, document completion) but unreliable for open-ended generation.</p>
+<hr>
+<h2 id="batching-scheduling-and-serving">Batching, Scheduling, and Serving</h2>
+<h3 id="q13-basic-explain-continuous-batching-and-why-it-outperforms-static-batching">Q13 [Basic] Explain continuous batching and why it outperforms static batching</h3>
+<p><strong>Q:</strong> What is continuous batching, and how does it improve GPU utilization compared to static batching for LLM serving?</p>
+<p><strong>A:</strong> In <strong>static batching</strong>, the serving system groups a fixed set of requests into a batch, runs the batch until all sequences complete, and only then accepts new requests. Because different sequences generate different numbers of tokens, short requests finish early but their GPU slots remain occupied (filled with padding) until the last sequence in the batch terminates. GPU utilization is therefore bounded by the longest sequence, and newly arriving short requests must queue even when compute is available.</p>
+<p><strong>Continuous batching</strong> (also called iteration-level scheduling; Yu et al., 2022) allows completed sequences to be evicted and new requests inserted at every decode step rather than at batch boundaries. The serving system maintains an active set of sequences; after each token generation step, any sequence that has produced an end-of-sequence token is removed and a waiting request is immediately admitted. Because each decode step is independent (the KV cache carries forward state), the batch composition can change at every iteration with minimal overhead.</p>
+<p>Orca (Yu et al., 2022), the system that popularized this technique, demonstrated up to $23\times$ higher throughput and significantly lower tail latency compared to a static batching baseline on LLaMA-scale models. Modern serving systems including vLLM, TGI (Hugging Face), and TensorRT-LLM all implement continuous batching as a core feature.</p>
+<hr>
+<h3 id="q14-advanced-describe-chunked-prefill-and-prefill-decode-disaggregation">Q14 [Advanced] Describe chunked prefill and prefill-decode disaggregation</h3>
+<p><strong>Q:</strong> What problem do chunked prefill and disaggregated prefill-decode architectures solve, and how do they differ in their approach?</p>
+<p><strong>A:</strong> In standard serving, <strong>prefill</strong> (processing the input prompt in parallel) and <strong>decode</strong> (generating output tokens one at a time) share the same GPU. Prefill for a long prompt is compute-intensive and can take hundreds of milliseconds, during which all ongoing decode requests are blocked—creating &ldquo;prefill stalls&rdquo; that inflate time-to-first-token (TTFT) and increase decode latency for co-located requests.</p>
+<p><strong>Chunked prefill</strong> (Agrawal et al., 2024) splits a long prefill into smaller chunks and interleaves these chunks with decode steps from other requests. Each iteration processes one prefill chunk plus the decode step for all active sequences. This limits the maximum blocking time per step to the chunk duration, smoothing TTFT without sacrificing decode throughput. Chunked prefill is particularly effective when TTFT SLO is tight but all computation remains on the same GPU pool.</p>
+<p><strong>Disaggregated prefill-decode</strong> (Zhong et al., 2024) goes further by physically separating prefill and decode onto different GPU instances. Prefill machines receive requests, compute KV caches, and transfer the resulting cache tensors to dedicated decode machines that run continuous batching. This separation exploits the fact that prefill is arithmetic-intensity-bound (benefits from high-FLOP GPUs) while decode is memory-bandwidth-bound (benefits from large HBM capacity), allowing independent scaling and SLO targeting. DistServe reports $2.4\times$ higher goodput at the same TTFT SLO on LLaMA-65B compared to co-located serving (Zhong et al., 2024), with the trade-off of KV cache transfer latency over the interconnect.</p>
+<hr>
+<h3 id="q15-basic-describe-the-architecture-of-vllm-and-its-key-design-decisions">Q15 [Basic] Describe the architecture of vLLM and its key design decisions</h3>
+<p><strong>Q:</strong> What are the main components of the vLLM serving system, and how do they interact to achieve high throughput?</p>
+<p><strong>A:</strong> vLLM (Kwon et al., 2023) is organized around three interacting components: a <strong>scheduler</strong>, a <strong>KV cache manager</strong>, and a set of <strong>model execution workers</strong>.</p>
+<p>The <strong>scheduler</strong> implements continuous batching with a priority queue. At each iteration it selects from waiting, running, and swapped request queues. If GPU memory is insufficient for a new request, the scheduler can preempt a running request by swapping its KV blocks to CPU memory and resuming it later. The <strong>KV cache manager</strong> implements PagedAttention: it maintains a pool of fixed-size physical KV blocks and a per-request block table. On request arrival, blocks are allocated on demand; on completion, blocks are freed. For parallel sampling (e.g., best-of-$N$), copy-on-write shares prompt KV blocks across outputs.</p>
+<p><strong>Model execution workers</strong> are spawned as separate processes (one per GPU for tensor-parallel inference). The scheduler sends a <code>SchedulerOutput</code> containing the current batch and physical block mappings; each worker runs a forward pass using custom PagedAttention CUDA kernels that dereference the block table during attention computation. Results are gathered and returned to the scheduler for token sampling. This architecture achieves 2–4$\times$ higher throughput than HuggingFace text generation with naïve KV management (Kwon et al., 2023), primarily by eliminating memory fragmentation.</p>
+<hr>
+<h3 id="q16-advanced-analyze-scheduling-policies-for-llm-serving-under-latency-slos">Q16 [Advanced] Analyze scheduling policies for LLM serving under latency SLOs</h3>
+<p><strong>Q:</strong> How should a serving system schedule requests to meet latency SLOs, and what are the trade-offs between FCFS, SJF, and preemptive scheduling?</p>
+<p><strong>A:</strong> LLM serving must balance two objectives: maximizing throughput (requests per second) and meeting per-request latency SLOs, typically expressed as time-to-first-token (TTFT) and time-per-output-token (TPOT).</p>
+<p><strong>First-Come-First-Served (FCFS)</strong> admits requests in arrival order. It is fair but suboptimal under load: a long-prefill request can block many short requests behind it, inflating their TTFT. FCFS is common in practice for its simplicity and predictability.</p>
+<p><strong>Shortest Job First (SJF)</strong> prioritizes requests with shorter estimated prefill length or total output length, reducing average waiting time. The challenge is that output length is unknown at admission time. Some systems use a length predictor trained on request features; others approximate with prefill length. SJF reduces average TTFT but can starve long requests under heavy load.</p>
+<p><strong>Preemptive scheduling</strong> in vLLM allows the system to evict an active sequence (swapping its KV blocks to CPU) when a higher-priority request arrives, enabling low-latency response for short requests. The swap cost—KV transfer to CPU HBM over PCIe—can reach several hundred milliseconds for long contexts, so preemption is only beneficial if the arriving request is substantially shorter than the evicted one.</p>
+<p>The chunked prefill mechanism from Sarathi-Serve (Agrawal et al., 2024) interacts favorably with scheduling: by bounding prefill chunk size, even FCFS achieves predictable TTFT bounds, reducing the need for complex preemptive policies.</p>
+<hr>
+<h2 id="quantization-and-distributed-inference">Quantization and Distributed Inference</h2>
+<h3 id="q17-basic-describe-the-main-post-training-quantization-approaches-for-llm-inference">Q17 [Basic] Describe the main post-training quantization approaches for LLM inference</h3>
+<p><strong>Q:</strong> What are GPTQ and AWQ, and how do they achieve accurate 4-bit weight quantization for large language models?</p>
+<p><strong>A:</strong> Post-training quantization (PTQ) reduces model weights from 16-bit floating point to lower precision (typically INT4) without full retraining, enabling larger models to fit in GPU memory and reducing memory bandwidth during decode.</p>
+<p><strong>GPTQ</strong> (Frantar et al., 2023) applies the Optimal Brain Quantization (OBQ) framework layer by layer. For each linear layer, GPTQ solves a weight quantization problem that minimizes the increase in layer output error using the Hessian of the layer&rsquo;s input distribution. The key approximation is processing weights column by column and propagating quantization error to remaining unquantized columns via a closed-form update, making the procedure efficient enough to apply to 175B-parameter models in a few GPU-hours. GPTQ achieves near-FP16 perplexity at 4 bits and near-INT8 quality at 3 bits.</p>
+<p><strong>AWQ</strong> (Activation-aware Weight Quantization; Lin et al., 2024) observes that channels corresponding to large-magnitude activations are much more sensitive to quantization error. AWQ identifies the top 1% of weight channels by activation scale and applies a per-channel scaling transformation that effectively shifts quantization difficulty from the sensitive weights to less-sensitive ones, without changing the mathematical output. The result is a hardware-friendly INT4 quantization (no mixed precision) that outperforms GPTQ on most benchmarks at equivalent bit-width, particularly for instruction-following and reasoning tasks (Lin et al., 2024).</p>
+<hr>
+<h3 id="q18-advanced-explain-the-challenges-of-weight-activation-quantization-and-how-smoothquant-addresses-them">Q18 [Advanced] Explain the challenges of weight-activation quantization and how SmoothQuant addresses them</h3>
+<p><strong>Q:</strong> Why is quantizing activations harder than quantizing weights in LLMs, and what is the SmoothQuant transformation?</p>
+<p><strong>A:</strong> Weight quantization (W4A16 or W4A8) is relatively tractable because weight distributions are approximately bell-shaped and per-channel scaling is straightforward. <strong>Activation quantization</strong> to INT8 or INT4 is harder because LLM activations exhibit <strong>outliers</strong>: a small fraction of channels have magnitudes $10\text{–}100\times$ larger than typical channels. Naïve per-tensor INT8 quantization clips these outliers severely or wastes bits on a large dynamic range, causing significant accuracy degradation.</p>
+<p><strong>SmoothQuant</strong> (Xiao et al., 2023) addresses this with a mathematically equivalent migration of quantization difficulty. For a linear layer $Y = XW$, activation outliers are concentrated in specific channels. SmoothQuant introduces a per-channel scaling vector $s$ and rewrites the computation as:</p>
+$$Y = (X \cdot \text{diag}(s)^{-1}) \cdot (\text{diag}(s) \cdot W) = \hat{X}\hat{W}$$<p>where $\hat{X} = X / s$ has reduced outlier magnitude and $\hat{W} = sW$ has correspondingly larger values in those channels. The scaling factor $s_j = \max(|X_j|)^\alpha / \max(|W_j|)^{1-\alpha}$ with $\alpha \in [0, 1]$ balances the migration. At $\alpha = 0.5$ activation and weight difficulty are equalized. Because $\hat{W}$ is fixed after calibration, the per-channel scaling is absorbed into the weight matrix with no runtime overhead. SmoothQuant enables W8A8 quantization on LLaMA-65B with less than 1% perplexity degradation and achieves $1.56\times$ speedup and $2\times$ memory reduction compared to FP16 inference (Xiao et al., 2023).</p>
+<hr>
+<h3 id="q19-basic-describe-tensor-parallelism-and-pipeline-parallelism-for-distributed-llm-inference">Q19 [Basic] Describe tensor parallelism and pipeline parallelism for distributed LLM inference</h3>
+<p><strong>Q:</strong> How are tensor parallelism and pipeline parallelism applied to serve large language models across multiple GPUs?</p>
+<p><strong>A:</strong> When a model is too large to fit on a single GPU, or when serving latency requirements demand distributing computation, two primary strategies partition the model across devices.</p>
+<p><strong>Tensor parallelism</strong> (Shoeybi et al., 2019) splits individual weight matrices across GPUs. In a Transformer layer, the column-parallel–row-parallel pattern is standard: the first linear layer (e.g., $W_Q$, $W_K$, $W_V$, or the MLP up-projection) is split column-wise across $P$ GPUs, each computing a partition of the output; the second layer (output projection or MLP down-projection) is split row-wise, and an all-reduce synchronizes partial sums across GPUs before the result is passed to the next layer. This requires two all-reduce operations per Transformer layer and therefore benefits from high-bandwidth interconnects (NVLink). Tensor parallelism reduces per-GPU memory proportionally to $P$ and cuts latency roughly by $P$ plus communication overhead.</p>
+<p><strong>Pipeline parallelism</strong> assigns different layers to different GPUs; activations flow sequentially through stages. Naïve pipeline parallelism creates &ldquo;bubbles&rdquo; (idle time) while earlier stages wait; this is mitigated by micro-batching (sending multiple micro-batches through the pipeline concurrently). For inference at low batch sizes, pipeline parallelism is less efficient because the bubble fraction is $(P-1)/P$ for a single request. In practice, tensor parallelism is preferred for small-batch low-latency serving, while pipeline parallelism is used when the model exceeds NVLink-connected GPU memory—often combined as, e.g., 8-way TP $\times$ 4-way PP for a 70B model on 32 GPUs.</p>
+<hr>
+<h3 id="q20-advanced-discuss-disaggregated-inference-and-the-evolving-landscape-of-llm-serving-at-scale">Q20 [Advanced] Discuss disaggregated inference and the evolving landscape of LLM serving at scale</h3>
+<p><strong>Q:</strong> What are the key system-level trade-offs when scaling LLM inference to production, and how does disaggregated inference change hardware provisioning strategy?</p>
+<p><strong>A:</strong> Production LLM serving must simultaneously optimize for TTFT (latency to first token, dominated by prefill), TPOT (per-token decode latency, dominated by memory bandwidth), and throughput (requests per second, dominated by batching efficiency). These objectives conflict: large batches improve throughput but increase queuing latency; long sequences stress KV cache memory; low-latency requirements limit batch sizes.</p>
+<p>Disaggregated prefill-decode (Zhong et al., 2024) recognizes that prefill and decode have fundamentally different resource profiles. Prefill is arithmetic-intensity-bound (high FLOP/byte ratio, benefits from high-FLOP GPUs with large SRAM), while decode is memory-bandwidth-bound (low FLOP/byte ratio, benefits from large HBM capacity). Colocating both phases forces over-provisioning on one dimension. DistServe provisions separate prefill and decode fleets sized independently to match request arrival rates, transferring KV caches over NVLink or InfiniBand when a request transitions phases. This allows matching hardware to workload—e.g., H100 SXM for prefill (high FLOP throughput) and A100 80GB for decode (large HBM)—while independently scaling each fleet.</p>
+<p>As context lengths extend to 128K–1M tokens, KV cache management becomes the dominant engineering challenge: even a 7B model with 128K-token context at batch size 32 requires over 1 TB of KV cache at FP16, necessitating hierarchical storage (GPU HBM → CPU DRAM → NVMe SSD → remote memory) with prefetching. The interplay of scheduling, memory tiering, disaggregation, and speculative decoding defines the frontier of production LLM serving research.</p>
+<hr>
+<h2 id="quick-reference">Quick Reference</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>Difficulty</th>
+          <th>Topic</th>
+          <th>Section</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>Basic</td>
+          <td>KV cache fundamentals</td>
+          <td>KV Cache and Memory Management</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>Advanced</td>
+          <td>PagedAttention memory paging</td>
+          <td>KV Cache and Memory Management</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>Advanced</td>
+          <td>Prefix caching and radix attention</td>
+          <td>KV Cache and Memory Management</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>Advanced</td>
+          <td>KV cache eviction (H2O, SnapKV)</td>
+          <td>KV Cache and Memory Management</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>Basic</td>
+          <td>FlashAttention IO-aware tiling</td>
+          <td>Efficient Attention Mechanisms</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>Advanced</td>
+          <td>FlashAttention-2 and FlashAttention-3</td>
+          <td>Efficient Attention Mechanisms</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>Basic</td>
+          <td>MQA and GQA</td>
+          <td>Efficient Attention Mechanisms</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>Advanced</td>
+          <td>Sparse and linear attention</td>
+          <td>Efficient Attention Mechanisms</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>Basic</td>
+          <td>Speculative decoding framework</td>
+          <td>Speculative Decoding</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>Advanced</td>
+          <td>Acceptance rate analysis</td>
+          <td>Speculative Decoding</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>Advanced</td>
+          <td>Medusa multi-head drafts</td>
+          <td>Speculative Decoding</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>Advanced</td>
+          <td>Lookahead and self-speculative decoding</td>
+          <td>Speculative Decoding</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>Basic</td>
+          <td>Continuous batching</td>
+          <td>Batching, Scheduling, and Serving</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>Advanced</td>
+          <td>Chunked prefill and disaggregation</td>
+          <td>Batching, Scheduling, and Serving</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>Basic</td>
+          <td>vLLM architecture</td>
+          <td>Batching, Scheduling, and Serving</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>Advanced</td>
+          <td>Scheduling policies under SLOs</td>
+          <td>Batching, Scheduling, and Serving</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>Basic</td>
+          <td>GPTQ and AWQ</td>
+          <td>Quantization and Distributed Inference</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>Advanced</td>
+          <td>SmoothQuant W8A8 quantization</td>
+          <td>Quantization and Distributed Inference</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>Basic</td>
+          <td>Tensor and pipeline parallelism</td>
+          <td>Quantization and Distributed Inference</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>Advanced</td>
+          <td>Disaggregated inference at scale</td>
+          <td>Quantization and Distributed Inference</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="resources">Resources</h2>
+<ul>
+<li>Dao et al., <a href="https://arxiv.org/abs/2205.14135">FlashAttention: Fast and Memory-Efficient Exact Attention with IO-Awareness</a> (2022)</li>
+<li>Dao, <a href="https://arxiv.org/abs/2307.08691">FlashAttention-2: Faster Attention with Better Parallelism and Work Partitioning</a> (2023)</li>
+<li>Shah et al., <a href="https://arxiv.org/abs/2407.08608">FlashAttention-3: Fast and Accurate Attention with Asynchrony and Low-precision</a> (2024)</li>
+<li>Kwon et al., <a href="https://arxiv.org/abs/2309.06180">Efficient Memory Management for Large Language Model Serving with PagedAttention</a> (2023)</li>
+<li>Zheng et al., <a href="https://arxiv.org/abs/2312.07104">SGLang: Efficient Execution of Structured Language Model Programs</a> (2023)</li>
+<li>Leviathan et al., <a href="https://arxiv.org/abs/2211.17192">Fast Inference from Transformers via Speculative Decoding</a> (2023)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/2302.01318">Accelerating Large Language Model Decoding with Speculative Sampling</a> (2023)</li>
+<li>Cai et al., <a href="https://arxiv.org/abs/2401.10774">Medusa: Simple LLM Inference Acceleration Framework with Multiple Decoding Heads</a> (2024)</li>
+<li>Fu et al., <a href="https://arxiv.org/abs/2402.02057">Break the Sequential Dependency of LLM Inference Using Lookahead Decoding</a> (2024)</li>
+<li>Yu et al., <a href="https://www.usenix.org/conference/osdi22/presentation/yu">Orca: A Distributed Serving System for Transformer-Based Generative Models</a> (2022)</li>
+<li>Agrawal et al., <a href="https://arxiv.org/abs/2403.02310">Sarathi-Serve: Efficient LLM Inference by Piggybacking Decodes with Chunked Prefills</a> (2024)</li>
+<li>Shazeer, <a href="https://arxiv.org/abs/1911.02150">Fast Transformer Decoding: One Write-Head is All You Need</a> (2019)</li>
+<li>Ainslie et al., <a href="https://arxiv.org/abs/2305.13245">GQA: Training Generalized Multi-Query Transformer Models from Multi-Head Checkpoints</a> (2023)</li>
+<li>Xiao et al., <a href="https://arxiv.org/abs/2211.10438">SmoothQuant: Accurate and Efficient Post-Training Quantization for Large Language Models</a> (2023)</li>
+<li>Frantar et al., <a href="https://arxiv.org/abs/2210.17323">GPTQ: Accurate Post-Training Quantization for Generative Pre-trained Transformers</a> (2023)</li>
+<li>Lin et al., <a href="https://arxiv.org/abs/2306.00978">AWQ: Activation-aware Weight Quantization for LLM Compression and Acceleration</a> (2024)</li>
+<li>Shoeybi et al., <a href="https://arxiv.org/abs/1909.08053">Megatron-LM: Training Multi-Billion Parameter Language Models Using Model Parallelism</a> (2019)</li>
+<li>Zhong et al., <a href="https://arxiv.org/abs/2401.09670">DistServe: Disaggregating Prefill and Decoding for Goodput-Optimized Large Language Model Serving</a> (2024)</li>
+<li>Zhang et al., <a href="https://arxiv.org/abs/2306.14048">H2O: Heavy-Hitter Oracle for Efficient Generative Inference of Large Language Models</a> (2023)</li>
+<li>Li et al., <a href="https://arxiv.org/abs/2404.14469">SnapKV: LLM Knows What You are Looking for Before Generation</a> (2024)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+

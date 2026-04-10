@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://yo3nglau.github.io/blogs/categories/</loc>
-    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
@@ -13,6 +13,70 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/categories/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/deep-learning/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/deep-learning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/deep-learning/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/categories/interview/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/categories/interview/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/categories/interview/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/large-language-models/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/llm-inference--serving-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/systems/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/computer-vision/</loc>
@@ -41,48 +105,6 @@
                 href="https://yo3nglau.github.io/blogs/tags/contrastive-learning/"
                 />
   </url><url>
-    <loc>https://yo3nglau.github.io/blogs/tags/deep-learning/</loc>
-    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/deep-learning/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/deep-learning/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/</loc>
-    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/categories/interview/</loc>
-    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/categories/interview/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/categories/interview/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/post/</loc>
-    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/self-supervised--contrastive-learning-interview-questions-and-answers/</loc>
     <lastmod>2026-04-09T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -107,19 +129,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/tags/self-supervised-learning/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/tags/</loc>
-    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/video-understanding/</loc>

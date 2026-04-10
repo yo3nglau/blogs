@@ -6,8 +6,15 @@
     <description>Recent content in Interview on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 09 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/categories/interview/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>LLM Inference &amp; Serving: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/llm-inference--serving-interview-questions-and-answers/</link>
+      <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/llm-inference--serving-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;kv-cache-and-memory-management&#34;&gt;KV Cache and Memory Management&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-why-kv-cache-is-necessary-for-autoregressive-decoding&#34;&gt;Q1 [Basic] Explain why KV cache is necessary for autoregressive decoding&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Why does autoregressive generation require caching, and what exactly is stored in a KV cache?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; In autoregressive decoding the model generates one token at a time, each conditioned on all previous tokens. Without caching, generating token $t$ requires recomputing keys and values for all $t-1$ preceding tokens—an $O(t^2)$ cost over the full sequence. The KV cache stores the key and value tensors produced by each attention layer for every previously generated token so that, at step $t$, only the new token&amp;rsquo;s query, key, and value are computed; cached keys and values are retrieved and concatenated before attention is applied. Memory footprint per token per layer is $2 \cdot d_{head} \cdot n_{heads}$ in float16, which for a 7B-parameter model with 32 layers and 32 heads at $d_{head} = 128$ amounts to roughly $0.5$ MB per token—enough that long sequences or large batches can exhaust GPU memory.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Self-Supervised &amp; Contrastive Learning: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/self-supervised--contrastive-learning-interview-questions-and-answers/</link>
