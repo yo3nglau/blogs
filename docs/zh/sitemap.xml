@@ -15,6 +15,19 @@
                 href="https://yo3nglau.github.io/blogs/zh/categories/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/computer-vision/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/computer-vision/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/computer-vision/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/deep-learning/</loc>
     <lastmod>2026-04-10T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -67,6 +80,19 @@
                 href="https://yo3nglau.github.io/blogs/zh/post/llm-inference--serving-interview-questions-and-answers/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/object-detection/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/object-detection/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/object-detection/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/systems/</loc>
     <lastmod>2026-04-10T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -106,17 +132,17 @@
                 href="https://yo3nglau.github.io/blogs/zh/"
                 />
   </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/computer-vision/</loc>
-    <lastmod>2026-04-09T00:00:00+00:00</lastmod>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/object-detection--segmentation-interview-questions-and-answers/</loc>
+    <lastmod>2026-04-10T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/computer-vision/"
+                href="https://yo3nglau.github.io/blogs/post/object-detection--segmentation-interview-questions-and-answers/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/computer-vision/"
+                href="https://yo3nglau.github.io/blogs/zh/post/object-detection--segmentation-interview-questions-and-answers/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/contrastive-learning/</loc>

@@ -6,8 +6,15 @@
     <description>Recent content in Computer Vision on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 09 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 10 Apr 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/computer-vision/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>目标检测与分割：面试问题与推荐回答</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/object-detection--segmentation-interview-questions-and-answers/</link>
+      <pubDate>Fri, 10 Apr 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/object-detection--segmentation-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;检测基础&#34;&gt;检测基础&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-解释基于锚框的检测iou-匹配回归目标与-nms&#34;&gt;Q1 [基础] 解释基于锚框的检测：IoU 匹配、回归目标与 NMS&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; 基于锚框的检测器如何为锚框分配训练标签，为什么在推理时必须使用非极大值抑制？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 基于锚框的检测器在特征图的每个空间位置上铺设一组固定的锚框，涵盖不同的预设尺度和长宽比。Faster R-CNN（Ren et al., 2015）在每个位置使用 3 种尺度 × 3 种长宽比 = 9 个锚框。若某锚框与任一真实框（GT box）的最大 IoU 超过 0.7（或在所有锚框中 IoU 最高，以确保覆盖稀少的目标），则标记为&lt;strong&gt;正样本&lt;/strong&gt;；若与所有真实框的最大 IoU 低于 0.3，则标记为&lt;strong&gt;负样本&lt;/strong&gt;。IoU 在 $[0.3, 0.7)$ 之间的锚框在训练时忽略，以避免引入模糊梯度。&lt;/p&gt;&#xA;&lt;p&gt;回归目标编码为相对于锚框的偏移量：$t_x = (x - x_a)/w_a$，$t_y = (y - y_a)/h_a$，$t_w = \log(w/w_a)$，$t_h = \log(h/h_a)$。对数空间参数化确保尺度不变性，并将回归目标约束在紧凑的数值范围内。&lt;/p&gt;&#xA;&lt;p&gt;推理时，检测器会生成数十万个候选框，大多高度重叠。&lt;strong&gt;非极大值抑制（NMS）&lt;/strong&gt; 贪心地选取得分最高的框，抑制所有与其 IoU 超过阈值（通常为 0.5）的框，然后重复此过程，将冗余预测压缩为最终的小集合。贪心 NMS 的局限在于，同类别中紧密排列的目标可能被相互抑制；&lt;strong&gt;Soft-NMS&lt;/strong&gt; 通过衰减而非直接消除重叠框的得分来解决这一问题，从而提升密集场景下的召回率。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-描述特征金字塔网络及其在多尺度检测中的作用&#34;&gt;Q2 [基础] 描述特征金字塔网络及其在多尺度检测中的作用&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; FPN 解决了目标检测中的什么问题，其架构如何实现多尺度特征表示？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; 卷积骨干网络的特征存在根本性的权衡：深层特征图（如最终 stride-32 层）语义内容丰富，但空间分辨率粗糙，导致小目标检测不可靠；浅层特征图空间精度高，但语义能力弱。在每个骨干尺度上独立运行检测器既计算浪费，又无法跨尺度共享信息。&lt;/p&gt;&#xA;&lt;p&gt;FPN（Lin et al., 2017a）通过&lt;strong&gt;自顶向下路径与横向连接&lt;/strong&gt;，将深层的语义丰富性与浅层的空间精准性结合，构建出特征金字塔。从最深的骨干阶段 $C_5$ 开始，FPN 在每个分辨率处上采样（最近邻 2$\times$）并与相应自底向上特征图的 $1 \times 1$ 卷积结果相加，生成具有统一通道深度（256）的 $\{P_2, P_3, P_4, P_5\}$。在每个金字塔层级分别应用独立的 RPN 和检测头，按目标大小分配层级：大目标使用较粗的层级，小目标使用较细的层级。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>视频理解：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/video-understanding-interview-questions-and-answers/</link>

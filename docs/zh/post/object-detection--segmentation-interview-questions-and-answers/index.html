@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>目标检测与分割：面试问题与推荐回答 | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">目标检测与分割：面试问题与推荐回答</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/04/10</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/computer-vision">Computer Vision</a> <a href="/blogs/tags/object-detection">Object Detection</a> 
+  
+  
+</p>
+</div>
+
+
+<p style="text-align: center;">
+  
+  <a href="/blogs/post/object-detection--segmentation-interview-questions-and-answers/">View English Version</a>
+  
+</p>
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#检测基础">检测基础</a>
+      <ul>
+        <li><a href="#q1-基础-解释基于锚框的检测iou-匹配回归目标与-nms">Q1 [基础] 解释基于锚框的检测：IoU 匹配、回归目标与 NMS</a></li>
+        <li><a href="#q2-基础-描述特征金字塔网络及其在多尺度检测中的作用">Q2 [基础] 描述特征金字塔网络及其在多尺度检测中的作用</a></li>
+        <li><a href="#q3-进阶-比较-gioudiou-与-ciou-作为边界框回归损失">Q3 [进阶] 比较 GIoU、DIoU 与 CIoU 作为边界框回归损失</a></li>
+        <li><a href="#q4-进阶-解释-focal-loss-及其如何解决单阶段检测器中的类别不平衡">Q4 [进阶] 解释 Focal Loss 及其如何解决单阶段检测器中的类别不平衡</a></li>
+      </ul>
+    </li>
+    <li><a href="#两阶段检测">两阶段检测</a>
+      <ul>
+        <li><a href="#q5-基础-梳理从-r-cnn-到-faster-r-cnn-的演进历程">Q5 [基础] 梳理从 R-CNN 到 Faster R-CNN 的演进历程</a></li>
+        <li><a href="#q6-进阶-分析区域提议网络的设计">Q6 [进阶] 分析区域提议网络的设计</a></li>
+        <li><a href="#q7-进阶-解释为何-roi-align-优于-roi-pooling-用于实例分割">Q7 [进阶] 解释为何 RoI Align 优于 RoI Pooling 用于实例分割</a></li>
+        <li><a href="#q8-进阶-描述-cascade-r-cnn-与分布不匹配问题">Q8 [进阶] 描述 Cascade R-CNN 与分布不匹配问题</a></li>
+      </ul>
+    </li>
+    <li><a href="#单阶段与基于-transformer-的检测">单阶段与基于 Transformer 的检测</a>
+      <ul>
+        <li><a href="#q9-基础-描述-fcos-及中心度在无锚框检测中的作用">Q9 [基础] 描述 FCOS 及中心度在无锚框检测中的作用</a></li>
+        <li><a href="#q10-基础-总结-yolo-设计哲学及其架构演进">Q10 [基础] 总结 YOLO 设计哲学及其架构演进</a></li>
+        <li><a href="#q11-进阶-分析-detr-的二分匹配损失及其收敛缓慢问题">Q11 [进阶] 分析 DETR 的二分匹配损失及其收敛缓慢问题</a></li>
+        <li><a href="#q12-进阶-解释-dino-detr-如何实现快速收敛">Q12 [进阶] 解释 DINO-DETR 如何实现快速收敛</a></li>
+      </ul>
+    </li>
+    <li><a href="#实例分割">实例分割</a>
+      <ul>
+        <li><a href="#q13-基础-描述-mask-r-cnn-的架构及其掩码分支设计">Q13 [基础] 描述 Mask R-CNN 的架构及其掩码分支设计</a></li>
+        <li><a href="#q14-进阶-解释-solov2-基于核预测框架的实例分割">Q14 [进阶] 解释 SOLOv2 基于核预测框架的实例分割</a></li>
+        <li><a href="#q15-进阶-描述-condinst-基于条件卷积的实例分割方法">Q15 [进阶] 描述 CondInst 基于条件卷积的实例分割方法</a></li>
+        <li><a href="#q16-进阶-比较实例分割的各种范式及其设计权衡">Q16 [进阶] 比较实例分割的各种范式及其设计权衡</a></li>
+      </ul>
+    </li>
+    <li><a href="#语义全景分割与基础模型">语义、全景分割与基础模型</a>
+      <ul>
+        <li><a href="#q17-基础-描述-fcn-和-deeplab-对语义分割的贡献">Q17 [基础] 描述 FCN 和 DeepLab 对语义分割的贡献</a></li>
+        <li><a href="#q18-进阶-解释-mask2former-作为通用分割架构">Q18 [进阶] 解释 Mask2Former 作为通用分割架构</a></li>
+        <li><a href="#q19-基础-描述-segment-anything-modelsam及其可提示设计">Q19 [基础] 描述 Segment Anything Model（SAM）及其可提示设计</a></li>
+        <li><a href="#q20-进阶-分析-sam-的能力失败模式及向开放词汇分割的演进">Q20 [进阶] 分析 SAM 的能力、失败模式及向开放词汇分割的演进</a></li>
+      </ul>
+    </li>
+    <li><a href="#快速参考">快速参考</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="检测基础">检测基础</h2>
+<h3 id="q1-基础-解释基于锚框的检测iou-匹配回归目标与-nms">Q1 [基础] 解释基于锚框的检测：IoU 匹配、回归目标与 NMS</h3>
+<p><strong>Q:</strong> 基于锚框的检测器如何为锚框分配训练标签，为什么在推理时必须使用非极大值抑制？</p>
+<p><strong>A:</strong> 基于锚框的检测器在特征图的每个空间位置上铺设一组固定的锚框，涵盖不同的预设尺度和长宽比。Faster R-CNN（Ren et al., 2015）在每个位置使用 3 种尺度 × 3 种长宽比 = 9 个锚框。若某锚框与任一真实框（GT box）的最大 IoU 超过 0.7（或在所有锚框中 IoU 最高，以确保覆盖稀少的目标），则标记为<strong>正样本</strong>；若与所有真实框的最大 IoU 低于 0.3，则标记为<strong>负样本</strong>。IoU 在 $[0.3, 0.7)$ 之间的锚框在训练时忽略，以避免引入模糊梯度。</p>
+<p>回归目标编码为相对于锚框的偏移量：$t_x = (x - x_a)/w_a$，$t_y = (y - y_a)/h_a$，$t_w = \log(w/w_a)$，$t_h = \log(h/h_a)$。对数空间参数化确保尺度不变性，并将回归目标约束在紧凑的数值范围内。</p>
+<p>推理时，检测器会生成数十万个候选框，大多高度重叠。<strong>非极大值抑制（NMS）</strong> 贪心地选取得分最高的框，抑制所有与其 IoU 超过阈值（通常为 0.5）的框，然后重复此过程，将冗余预测压缩为最终的小集合。贪心 NMS 的局限在于，同类别中紧密排列的目标可能被相互抑制；<strong>Soft-NMS</strong> 通过衰减而非直接消除重叠框的得分来解决这一问题，从而提升密集场景下的召回率。</p>
+<hr>
+<h3 id="q2-基础-描述特征金字塔网络及其在多尺度检测中的作用">Q2 [基础] 描述特征金字塔网络及其在多尺度检测中的作用</h3>
+<p><strong>Q:</strong> FPN 解决了目标检测中的什么问题，其架构如何实现多尺度特征表示？</p>
+<p><strong>A:</strong> 卷积骨干网络的特征存在根本性的权衡：深层特征图（如最终 stride-32 层）语义内容丰富，但空间分辨率粗糙，导致小目标检测不可靠；浅层特征图空间精度高，但语义能力弱。在每个骨干尺度上独立运行检测器既计算浪费，又无法跨尺度共享信息。</p>
+<p>FPN（Lin et al., 2017a）通过<strong>自顶向下路径与横向连接</strong>，将深层的语义丰富性与浅层的空间精准性结合，构建出特征金字塔。从最深的骨干阶段 $C_5$ 开始，FPN 在每个分辨率处上采样（最近邻 2$\times$）并与相应自底向上特征图的 $1 \times 1$ 卷积结果相加，生成具有统一通道深度（256）的 $\{P_2, P_3, P_4, P_5\}$。在每个金字塔层级分别应用独立的 RPN 和检测头，按目标大小分配层级：大目标使用较粗的层级，小目标使用较细的层级。</p>
+<p>该设计在骨干网络之上几乎不增加计算量，相比单尺度 C4 特征基线，COCO AP 提升约 8 个点（Lin et al., 2017a）。PANet 等扩展方案增加了自底向上路径增强以强化低层特征，BiFPN 引入可学习的加权融合，二者均被后续 YOLO 和 EfficientDet 系列采用。</p>
+<hr>
+<h3 id="q3-进阶-比较-gioudiou-与-ciou-作为边界框回归损失">Q3 [进阶] 比较 GIoU、DIoU 与 CIoU 作为边界框回归损失</h3>
+<p><strong>Q:</strong> 坐标上的 L1 和 L2 损失在边界框回归中有哪些不足，IoU 系列损失如何解决这些问题？</p>
+<p><strong>A:</strong> 对四个坐标或 $(c_x, c_y, w, h)$ 参数化的 L1 和 L2 损失存在两个问题：（1）缺乏尺度不变性——20 像素框上的 10 像素误差远比 200 像素框上的严重，但梯度相同；（2）不直接优化评估指标（IoU），因此优化它们不一定能提升检测 AP。简单的 IoU 损失 $\mathcal{L}_{\text{IoU}} = 1 - \text{IoU}$ 纠正了尺度不变性，但当预测框与真实框不重叠时（训练初期常见），梯度为零。</p>
+<p><strong>GIoU</strong>（Rezatofighi et al., 2019）基于包含两个框的最小外接框 $C$ 引入惩罚项：</p>
+$$\mathcal{L}_{\text{GIoU}} = 1 - \text{IoU} + \frac{|C \setminus (A \cup B)|}{|C|}$$<p>即使两框不重叠，额外项也不为零，通过惩罚外接框中的浪费面积提供学习信号。</p>
+<p><strong>DIoU</strong>（Zheng et al., 2020）直接惩罚归一化中心距，当预测框离目标较远时收敛速度快于 GIoU：</p>
+$$\mathcal{L}_{\text{DIoU}} = 1 - \text{IoU} + \frac{\rho^2(b, b_{gt})}{c^2}$$<p>其中 $\rho$ 为欧式中心距，$c$ 为外接框对角线长度。</p>
+<p><strong>CIoU</strong>（Zheng et al., 2020）在 DIoU 基础上增加长宽比一致性项 $\alpha v$，其中 $v = \frac{4}{\pi^2}\left(\arctan\frac{w_{gt}}{h_{gt}} - \arctan\frac{w}{h}\right)^2$，$\alpha = v / (1 - \text{IoU} + v)$ 以 IoU 加权其贡献。CIoU 是现代 YOLO 变体和 FCOS 的默认回归损失，在 COCO 上比 GIoU 和 DIoU 稳定高出 0.5–1.5 AP。</p>
+<hr>
+<h3 id="q4-进阶-解释-focal-loss-及其如何解决单阶段检测器中的类别不平衡">Q4 [进阶] 解释 Focal Loss 及其如何解决单阶段检测器中的类别不平衡</h3>
+<p><strong>Q:</strong> 为什么极端的前景-背景不平衡会损害单阶段检测器的训练，Focal Loss 如何解决这一问题？</p>
+<p><strong>A:</strong> 单阶段检测器对图像中约 $10^4$–$10^5$ 个候选位置进行评估，其中不到 0.01% 对应实际目标。训练时，背景（易负样本）在数量和量级上都主导了交叉熵损失：尽管每个易负样本的贡献很小（如 $-\log(0.999) \approx 0.001$），其累计效应却淹没了稀少前景样本的梯度。早期方案使用<strong>难负样本挖掘</strong>（如 SSD 按得分保持 3:1 的负正比），这会丢弃许多有价值的梯度，且需要仔细的采样调整。</p>
+<p><strong>Focal Loss</strong>（Lin et al., 2017b）在无需离散采样的情况下，持续降低易样本的权重：</p>
+$$\text{FL}(p_t) = -\alpha_t (1 - p_t)^\gamma \log(p_t)$$<p>调制因子 $(1-p_t)^\gamma$ 降低了分类正确的样本的贡献：以 $\gamma = 2$ 为例，当 $p_t = 0.95$（易背景）时，因子为 $(0.05)^2 = 0.0025$，其梯度几乎被抑制为零。难以分类的误分样本（低 $p_t$）保留接近标准交叉熵的损失。类别平衡权重 $\alpha_t$ 则单独处理数据集层面的不平衡。</p>
+<p><strong>RetinaNet</strong>（Lin et al., 2017b）证明，将 Focal Loss 与简单的 ResNet-FPN 骨干网络及每个金字塔层级的共享分类/回归子网相结合，使用 ResNet-101 骨干网络在 COCO test-dev 上达到 40.8 AP——与同期同等推理速度的两阶段检测器持平甚至超越，表明单阶段检测器的性能不足源于训练损失，而非架构本身。</p>
+<hr>
+<h2 id="两阶段检测">两阶段检测</h2>
+<h3 id="q5-基础-梳理从-r-cnn-到-faster-r-cnn-的演进历程">Q5 [基础] 梳理从 R-CNN 到 Faster R-CNN 的演进历程</h3>
+<p><strong>Q:</strong> R-CNN → Fast R-CNN → Faster R-CNN 的每一步分别解决了哪些计算效率问题？</p>
+<p><strong>A:</strong> <strong>R-CNN</strong>（Girshick et al., 2014）建立了区域提议 + CNN 的流程：Selective Search 为每张图像生成约 2,000 个区域提议，每个提议被缩放至固定尺寸后独立通过 AlexNet 式的 CNN 提取特征，再由每类 SVM 分类并配合独立的框回归器。该方法检测精度高，但极慢（测试时每张图像约 47 秒），原因在于 CNN 对约 2,000 个提议各自独立运行。</p>
+<p><strong>Fast R-CNN</strong>（Girshick, 2015）颠倒了顺序：对整图运行一次 CNN 得到共享特征图，再将每个区域提议投影至特征图上，通过 <strong>RoI Pooling</strong>（将投影区域划分为 $7 \times 7$ 网格并对每格最大池化）提取固定尺寸特征，最后用多任务损失联合训练分类和回归。现在可以端到端训练（提议生成除外），测试速度提升至约每张图像 2 秒，瓶颈转移到 Selective Search。</p>
+<p><strong>Faster R-CNN</strong>（Ren et al., 2015）通过引入**区域提议网络（RPN）**消除外部提议算法——RPN 是一个小型全卷积网络，与检测头共享同一骨干特征。RPN 对每个空间位置的 $k$ 个锚框预测目标性得分和框偏移量，并通过 NMS 生成有序的提议集合。最终形成端到端可训练的流程，使用 VGG-16 骨干网络以约 5 fps 运行——比 R-CNN 快数个数量级，并因采用了学习得到的提议而精度更高。</p>
+<hr>
+<h3 id="q6-进阶-分析区域提议网络的设计">Q6 [进阶] 分析区域提议网络的设计</h3>
+<p><strong>Q:</strong> RPN 如何生成提议，有哪些关键设计选择使其有效？</p>
+<p><strong>A:</strong> Faster R-CNN 中的 RPN（Ren et al., 2015）是一个作用于共享骨干特征图（通常 stride 16）的全卷积网络。在每个空间位置，它使用 $3 \times 3$ 滑动窗口和 $k = 9$ 个锚框（3 种尺度：128、256、512 像素；3 种长宽比：1:1、1:2、2:1）。两个并行的 $1 \times 1$ 卷积分别输出<strong>目标性得分</strong>（$2k$ 个输出）和<strong>框回归增量</strong>（$4k$ 个输出）。</p>
+<p><strong>标签分配</strong>：与某 GT 框 IoU $> 0.7$ 的锚框，或与某 GT 框 IoU 最高的锚框（确保每个 GT 框至少有一个正样本），均标记为正样本；与所有 GT 框 IoU $< 0.3$ 的锚框标记为负样本。mini-batch 尽量以 1:1 的正负比例抽取 256 个锚框。</p>
+<p><strong>提议筛选</strong>：RPN 按目标性得分排序所有锚框，取前 $N$（训练 12,000 / 测试 6,000）个，在 IoU $= 0.7$ 处应用 NMS，再将前 $M$（训练 2,000 / 测试 300）个提议送入检测头。这种两阶段过滤高效地剔除了低质量和冗余区域。</p>
+<p>RPN 与检测器共享骨干是关键：特征计算不重复，两个网络可从联合训练中相互受益。交替固定共享层分别微调两个网络的四步训练，或联合端到端训练，在实践中均表现良好。</p>
+<hr>
+<h3 id="q7-进阶-解释为何-roi-align-优于-roi-pooling-用于实例分割">Q7 [进阶] 解释为何 RoI Align 优于 RoI Pooling 用于实例分割</h3>
+<p><strong>Q:</strong> RoI Pooling 引入了哪种错位，RoI Align 如何消除它？</p>
+<p><strong>A:</strong> <strong>RoI Pooling</strong> 将浮点形式的提议 $(x_1, y_1, x_2, y_2)$ 投影到特征图上后，立即将坐标<strong>量化</strong>至最近整数网格位置，再将整数区域划分为 $H \times W$ 网格（如 $7 \times 7$），对每格边界再次量化，然后对每格进行最大池化。两次量化引入了错位：池化区域可能偏移最多半个步幅（如在特征步幅 16 时偏移 8 像素），造成输入提议与池化特征之间的系统性空间偏差。</p>
+<p>对于<strong>边界框分类与回归</strong>，这种错位尚可接受——检测对检测头预测尺度上的平移有一定容忍度。但对于<strong>实例分割</strong>，28×28 的二值掩码必须与真实目标边界精确对齐，即使几像素的偏移也会产生模糊或错误的掩码。</p>
+<p><strong>RoI Align</strong>（He et al., 2017）消除了所有量化。给定浮点 RoI，将其划分为具有浮点边界的 $H \times W$ 格子，在每格内均匀采样 $2 \times 2$ 个点，通过<strong>双线性插值</strong>计算每个采样点处的特征值，再对采样值做平均或最大池化。这在全程保持了亚像素精度。在 Mask R-CNN 基线上将 RoI Pooling 替换为 RoI Align，COCO 上的掩码 AP 提升 3.1 个点（14.0 → 17.1），而框 AP 基本不变——证实了该收益专属于像素级预测（He et al., 2017）。</p>
+<hr>
+<h3 id="q8-进阶-描述-cascade-r-cnn-与分布不匹配问题">Q8 [进阶] 描述 Cascade R-CNN 与分布不匹配问题</h3>
+<p><strong>Q:</strong> 两阶段检测中的分布不匹配问题是什么，Cascade R-CNN 如何通过渐进式 IoU 阈值解决这一问题？</p>
+<p><strong>A:</strong> 标准两阶段检测器在固定 IoU 阈值 $u$（通常 0.5）下训练检测头。在该阈值下，预测框被标记为正样本的条件是 IoU $\geq 0.5$，这接受了定位不精确的提议。<strong>将 $u$ 提高至 0.7</strong> 迫使检测头产生更精确的回归，但引入了<strong>分布不匹配</strong>：训练时几乎没有 IoU $\geq 0.7$ 的提议（因为 RPN 以 $u = 0.5$ 训练），导致正样本极度稀少，模型过拟合于这少数样本，并在推理时面对实际产生的 IoU $\approx 0.5$–$0.7$ 提议时性能下降。</p>
+<p><strong>Cascade R-CNN</strong>（Cai &amp; Vasconcelos, 2018）通过单调递增 IoU 阈值的级联检测器来解决这一问题：</p>
+<ul>
+<li><strong>阶段 1</strong>：$u_1 = 0.5$。接收 RPN 提议（IoU $\approx 0.5$–$0.7$），经检测头输出精化框。</li>
+<li><strong>阶段 2</strong>：$u_2 = 0.6$。以阶段 1 输出为提议（此时 IoU $\approx 0.6$–$0.75$），训练另一检测头匹配此更高质量的提议分布。</li>
+<li><strong>阶段 3</strong>：$u_3 = 0.7$。以阶段 2 输出为提议，训练高质量定位的检测头。</li>
+</ul>
+<p>每个阶段的输入提议均与该检测头的训练分布匹配，从而解决了不匹配问题。关键洞见是<strong>质量逐阶段提升</strong>：以 $u_3 = 0.7$ 训练的检测器只在输入已接近正确时才表现良好，而这只有经过序列精化后才会发生。Cascade R-CNN 使用 ResNet-101 骨干网络在 COCO test-dev 上达到 42.8 AP，相比等效单阶段 Faster R-CNN 的 37.8 AP 提升 5.0 AP，而推理成本增加有限（三个小型检测头 vs 一个）。</p>
+<hr>
+<h2 id="单阶段与基于-transformer-的检测">单阶段与基于 Transformer 的检测</h2>
+<h3 id="q9-基础-描述-fcos-及中心度在无锚框检测中的作用">Q9 [基础] 描述 FCOS 及中心度在无锚框检测中的作用</h3>
+<p><strong>Q:</strong> FCOS 如何将目标检测重新表述为逐像素回归，中心度分支解决了什么问题？</p>
+<p><strong>A:</strong> FCOS（Tian et al., 2019）将检测视为<strong>全卷积、无锚框、逐像素预测问题</strong>。对于特征图上的每个空间位置 $(x, y)$，FCOS 预测一个 4 维距离向量 $(l, r, t, b)$，表示该位置到其所在真实框的左、右、上、下边界的距离（若该位置落在任意 GT 框内），以及分类得分。无需锚框，尺度和长宽比的超参数随之消失。</p>
+<p>多层 FPN 预测解决了不同大小目标在同一位置重叠时的歧义：每个 FPN 层级 $P_l$ 负责回归目标大小满足约束的目标（$P_3$：$[0, 64]$ 像素，$P_4$：$[64, 128]$ 像素，$P_5$：$[128, 256]$ 像素，$P_6$：$[256, 512]$ 像素，$P_7$：$[512, \infty)$）。</p>
+<p><strong>中心度分支</strong>解决了一个质量问题：靠近目标边界的像素可以预测出有效但不准确的边界框。中心度是一个标量目标：</p>
+$$\text{centerness} = \sqrt{\frac{\min(l, r)}{\max(l, r)} \times \frac{\min(t, b)}{\max(t, b)}} \in [0, 1]$$<p>其值在框的几何中心处最高，向边缘衰减。NMS 期间，预测框得分乘以中心度，从而在无需额外后处理的情况下抑制偏离中心的低质量预测。FCOS 使用 ResNet-101-FPN 骨干网络在 COCO 上达到 44.7 AP，与基于锚框的方法竞争力相当，同时概念上更简洁（Tian et al., 2019）。</p>
+<hr>
+<h3 id="q10-基础-总结-yolo-设计哲学及其架构演进">Q10 [基础] 总结 YOLO 设计哲学及其架构演进</h3>
+<p><strong>Q:</strong> YOLO 的核心设计原则是什么，YOLOv3 之后的主要架构改进如何推动了检测性能的提升？</p>
+<p><strong>A:</strong> YOLO 的核心原则是<strong>统一单次检测</strong>：整张图像一次性通过 CNN，在空间网格上同时预测边界框和类别概率，无需两阶段方法的序列式提议-分类流程，从而实现实时推理。</p>
+<p><strong>YOLOv3</strong>（Redmon &amp; Farhadi, 2018）在前几个版本基础上引入了三项关键改进：（1）具有残差连接的 53 层骨干（Darknet-53），梯度流动更佳；（2）在三个分辨率下进行多尺度预测（精神上类似 FPN），每个尺度使用 3 个锚框（共 9 个，通过 k-means 从训练集聚类）；（3）每类独立使用 logistic 分类器而非 softmax，支持多标签预测。YOLOv3 在 51ms 内达到 COCO 上 55.3 AP$_{50}$——部署时的速度-精度权衡极为出色。</p>
+<p>后续版本进一步改进了各子系统。<strong>CSP 连接</strong>（YOLOv5/7）将特征图在部分残差分支间分割，在维持精度的同时减少计算量。<strong>马赛克增强</strong>（YOLOv5）将四张图像拼贴为一个样本，迫使模型在多变场景中检测小目标，有效将数据集多样性提高四倍。<strong>解耦头</strong>（YOLOv6/8）将分类和回归分为独立分支，由于二者梯度动态不同，两个任务均获益。<strong>无锚框重构</strong>（YOLOv8）采用 FCOS 式逐像素回归，消除了锚框超参数调优。这些增量改进使 YOLO 系列模型在 COCO 上达到 53–55 AP，同时在现代 GPU 上保持低于 10ms 的推理延迟。</p>
+<hr>
+<h3 id="q11-进阶-分析-detr-的二分匹配损失及其收敛缓慢问题">Q11 [进阶] 分析 DETR 的二分匹配损失及其收敛缓慢问题</h3>
+<p><strong>Q:</strong> DETR 如何通过二分匹配消除锚框和 NMS，为什么它比基于 CNN 的检测器收敛慢得多？</p>
+<p><strong>A:</strong> DETR（Carion et al., 2020）将检测视为<strong>集合预测问题</strong>：$N$ 个学习得到的目标查询（通常 100 个）经 Transformer 解码器处理，对图像编码器特征进行交叉注意力，每个查询产生一个预测：类别标签和归一化图像坐标下的边界框 $(c_x, c_y, w, h)$。模型每张图像恰好预测 $N$ 个目标，未使用的槽位预测 $\varnothing$（无目标）类。</p>
+<p>训练时使用<strong>匈牙利匹配</strong>，在 $N$ 个预测与 $M$ 个真实目标（用 $N - M$ 个 $\varnothing$ 槽填充）之间求最小代价的二分配：</p>
+$$\hat{\sigma} = \underset{\sigma \in \mathfrak{S}_N}{\arg\min} \sum_{i=1}^{N} \mathcal{L}_{\text{match}}(y_i, \hat{y}_{\sigma(i)})$$$$\mathcal{L}_{\text{match}} = -\hat{p}_{\sigma(i)}(c_i) + \lambda_{\text{L1}} \|b_i - \hat{b}_{\sigma(i)}\|_1 + \lambda_{\text{GIoU}} \mathcal{L}_{\text{GIoU}}(b_i, \hat{b}_{\sigma(i)})$$<p>匹配结果随后用于训练损失。一对一匹配消除了重复预测，使 NMS 变得不必要。DETR 使用 ResNet-50 经 500 个 epoch 训练，在 COCO val 上达到 42.0 AP。</p>
+<p><strong>收敛缓慢</strong>（500 个 epoch vs Faster R-CNN 的约 37 个）根源在于交叉注意力机制：初始化时，每个目标查询几乎均匀地关注所有图像位置。模型必须逐渐学会将每个查询专注于某个特定区域。为了发现某个查询应关注左上区域，优化器必须多次将梯度信息通过完整的编码器-解码器栈反向传播。此外，训练初期预测分散，匈牙利匹配不稳定——预测的微小扰动可能导致完全不同的匹配分配，产生不连贯的梯度。</p>
+<hr>
+<h3 id="q12-进阶-解释-dino-detr-如何实现快速收敛">Q12 [进阶] 解释 DINO-DETR 如何实现快速收敛</h3>
+<p><strong>Q:</strong> DAB-DETR 和 DN-DETR 各有何贡献，DINO-DETR 如何整合二者以大幅缩小与 CNN 检测器的收敛差距？</p>
+<p><strong>A:</strong> 三项创新的叠加解决了 DETR 的收敛问题。</p>
+<p><strong>DAB-DETR</strong>（Liu et al., 2022）将目标查询重新表述为显式锚框 $(c_x, c_y, w, h)$，而非不透明的学习嵌入。$x, y$ 分量通过每个解码器层的注意力偏移更新，提供直接的空间反馈。$w, h$ 分量调制键和查询的位置编码——较宽的查询关注较宽的区域，从一开始便提供强空间先验。仅此一项便将收敛从 500 个 epoch 缩短至约 50 个。</p>
+<p><strong>DN-DETR</strong>（包含在 DINO 论文中）解决了匹配导致的训练不稳定。除 $N$ 个可学习查询外，还添加了带噪声的 GT 框副本作为<strong>去噪查询</strong>，具有预先分配的目标，绕过匈牙利匹配，直接训练解码器从带噪声输入重建 GT 框。去噪注意力掩码防止两组查询相互关注。去噪辅助损失通过提供一致的梯度信号稳定早期训练，不受匈牙利分配不稳定性的影响。</p>
+<p><strong>DINO</strong>（Zhang et al., 2022）综合了 DAB-DETR 的锚框查询、对比去噪（正负噪声组分离以提供更丰富的训练信号）和混合查询选择（部分锚框查询从编码器高分区域初始化，而非纯学习嵌入）。DINO 使用 ResNet-50 仅经 12 个训练 epoch 在 COCO val 上达到 49.0 AP，而原始 DETR 在 500 个 epoch 时仅为 42.0 AP。使用 Swin-L 骨干网络和多尺度特征，DINO 达到 63.3 AP——目标检测 Transformer 中的最先进水平，且仅需 24 个 epoch。</p>
+<hr>
+<h2 id="实例分割">实例分割</h2>
+<h3 id="q13-基础-描述-mask-r-cnn-的架构及其掩码分支设计">Q13 [基础] 描述 Mask R-CNN 的架构及其掩码分支设计</h3>
+<p><strong>Q:</strong> Mask R-CNN 如何在 Faster R-CNN 基础上扩展实例分割，哪些设计选择使掩码分支有效？</p>
+<p><strong>A:</strong> Mask R-CNN（He et al., 2017）在 Faster R-CNN 的分类和回归头之外，并行新增了第三个掩码分支。掩码分支接收 $14 \times 14$ 的 RoI 特征（来自 stride 4 或 8 的 RoI Align），经过四层 $3 \times 3$ 卷积（每层后接 ReLU），再通过 $2 \times 2$ 反卷积上采样至 $28 \times 28$，最后用 $1 \times 1$ 卷积输出 $K$ 个二值掩码——每类一个。掩码损失为<strong>仅对每个提议的真实类别通道应用的二元交叉熵</strong>，避免了掩码空间中不同类别之间的竞争：训练时，$c$ 类掩码头不接收其他类别的梯度。</p>
+<p>这种解耦设计——为每类独立预测掩码，推理时根据检测类别选择——有两个优点：（1）掩码预测器无需区分类别，只需分割&quot;该实例&quot;与背景；（2）避免了早期基于 FCN 的分割器中掩码-分类耦合导致的质量下降。</p>
+<p>Mask R-CNN 使用 ResNet-50-FPN 在 COCO test-dev 上以约 5 fps 达到 37.1 掩码 AP。<strong>RoI Align</strong>（相比 RoI Pooling）的使用至关重要：像素精度的特征对齐使掩码清晰且位置准确，在相同架构下比使用 RoI Pooling 高出约 3 AP（He et al., 2017）。</p>
+<hr>
+<h3 id="q14-进阶-解释-solov2-基于核预测框架的实例分割">Q14 [进阶] 解释 SOLOv2 基于核预测框架的实例分割</h3>
+<p><strong>Q:</strong> SOLOv2 如何在不进行检测或 RoI 操作的情况下预测实例掩码，解耦 SOLO 策略是什么？</p>
+<p><strong>A:</strong> SOLOv2（Wang et al., 2020）将实例分割构建为<strong>动态核预测</strong>：网络为每个实例预测唯一的卷积核，然后将其应用于共享特征图以生成二值掩码。</p>
+<p>该模型在 FPN 特征上有两个分支：</p>
+<ol>
+<li><strong>掩码核分支</strong>：将特征空间划分为 $S \times S$ 网格（最细层级如 $40 \times 40$）。网格单元 $(i, j)$ 负责中心落在该单元的实例，预测一个 $D$ 维核向量 $\mathbf{E}_{i,j} \in \mathbb{R}^D$（通常 $D = 256$）。</li>
+<li><strong>掩码特征分支</strong>：通过一系列卷积生成密集特征图 $\mathbf{F} \in \mathbb{R}^{H \times W \times D}$，并附加坐标通道（$x, y$ 网格）以增强位置感知。</li>
+</ol>
+<p>实例 $(i, j)$ 的掩码为：</p>
+$$\mathbf{M}_{i,j} = \text{Conv}(\mathbf{F},\, \mathbf{E}_{i,j})$$<p>即以 $\mathbf{E}_{i,j}$ 为核权重对 $\mathbf{F}$ 进行 $1 \times 1$ 卷积。</p>
+<p><strong>解耦 SOLO</strong> 通过因式分解核预测降低计算开销：不再由一个 $S \times S$ 网格预测完整的 $D$ 维核，而是用独立的水平和垂直分支分别预测 $D/2$ 维向量，再拼接成最终核。这将 $S^2$ 次预测替换为 $2S$ 次，大幅减少了大网格尺寸时活跃核槽的数量。</p>
+<p>SOLOv2 使用 ResNet-50-FPN 在 COCO val 上以 36.1ms 达到 37.1 掩码 AP——与 Mask R-CNN 精度持平，延迟约减半——通过消除 RoI Align、区域提议和序列实例处理实现（Wang et al., 2020）。</p>
+<hr>
+<h3 id="q15-进阶-描述-condinst-基于条件卷积的实例分割方法">Q15 [进阶] 描述 CondInst 基于条件卷积的实例分割方法</h3>
+<p><strong>Q:</strong> CondInst 如何利用实例专属的卷积控制器，为什么这种表述能避免先检测再分割方法和直接预测方法的局限？</p>
+<p><strong>A:</strong> CondInst（Tian et al., 2020）通过<strong>条件卷积</strong>生成实例掩码：每个检测到的实例生成一小组动态滤波器权重（&ldquo;控制器&rdquo;），将其应用于共享特征图以生成对应掩码。这在全卷积方法的效率与实例专属表示的精度之间架起了桥梁。</p>
+<p>来自检测头（FCOS 式逐像素预测头）的<strong>控制器分支</strong>在每个正样本位置输出 $c$ 个滤波器参数，构成三个动态卷积层，权重形状分别为 $8 \times 8 \times 5$、$8 \times 8 \times 8$ 和 $8 \times 1$（共 $c = 169$ 个参数）。这些轻量动态权重依次应用于共享的<strong>掩码特征分支</strong>，该分支输出 $H/8 \times W/8 \times 8$ 的特征图。</p>
+<p>无需边界框实现位置感知的关键是<strong>相对坐标图</strong>：将编码每个像素到预测实例中心的 $x$ 和 $y$ 距离（归一化）的两个特征通道拼接到共享特征上，使掩码头在推理时无需任何 RoI 操作即可区分当前实例。</p>
+<p>该设计完全避免了 RoI Align（消除错位伪影），并在共享掩码分支的单次前向传播中处理所有实例，只有轻量的动态卷积是实例专属的。CondInst 使用 ResNet-50-FPN 在 COCO val 上以 31.8ms 达到 34.7 掩码 AP，而 Mask R-CNN 以 69.9ms 达到 35.0 AP——精度相近，延迟约减半（Tian et al., 2020）。</p>
+<hr>
+<h3 id="q16-进阶-比较实例分割的各种范式及其设计权衡">Q16 [进阶] 比较实例分割的各种范式及其设计权衡</h3>
+<p><strong>Q:</strong> 实例分割的主要架构范式有哪些，每种方法在什么情况下具有优势？</p>
+<p><strong>A:</strong> 四种主要范式组织了实例分割的文献。</p>
+<p><strong>先检测再分割</strong>（Mask R-CNN，He et al., 2017）对每个提议的特征区域应用 RoI Align，再运行逐实例掩码头。定位与分割质量的强耦合意味着精确的框能产生精确的掩码。该范式经过最充分的部署验证，可直接受益于两阶段检测的改进（如 Cascade R-CNN）。其局限在于序列式 RoI 处理：推理时间随实例数量增加而线性增长，且 RoI Align 对大目标引入了固定空间分辨率瓶颈。</p>
+<p><strong>直接核预测</strong>（SOLOv2，Wang et al., 2020；CondInst，Tian et al., 2020）通过预测作用于共享特征图的实例专属卷积核，避免了检测和 RoI 操作。推理时间基本与实例数无关（并行掩码生成），全卷积设计自然融入单阶段流程。权衡在于实例关联是隐式的（SOLO 的网格单元，CondInst 的控制器），当大量小实例在同一网格单元重叠时可能失效。</p>
+<p><strong>基于 Transformer 查询</strong>（Mask2Former，Cheng et al., 2022）使用学习目标查询，通过多尺度图像特征的交叉注意力生成逐查询掩码嵌入，经匈牙利分配与真实目标匹配——与 DETR 相同的二分匹配原则，但扩展至掩码。该范式掩码质量最高，在单一架构中统一了实例、语义和全景分割，代价是多尺度注意力带来的更高内存和计算需求。</p>
+<p><strong>自底向上</strong>方法预测像素级嵌入，通过聚类或学习得到的亲和力将其分组为实例。这类方法没有显式的目标数量限制，但难以分离外观相似的相邻实例，且需要非平凡的后处理。</p>
+<p>对于实时部署，核式方法（CondInst、SOLOv2）提供最佳的延迟-精度权衡。在研究场景追求最高精度时，基于查询的 Transformer 占据主导。对于有充分支撑的工业部署，先检测再分割范式仍是验证最为全面的选择。</p>
+<hr>
+<h2 id="语义全景分割与基础模型">语义、全景分割与基础模型</h2>
+<h3 id="q17-基础-描述-fcn-和-deeplab-对语义分割的贡献">Q17 [基础] 描述 FCN 和 DeepLab 对语义分割的贡献</h3>
+<p><strong>Q:</strong> FCN 如何实现端到端语义分割，DeepLabv3+ 中的 ASPP 是什么？</p>
+<p><strong>A:</strong> <strong>FCN</strong>（Long et al., 2015）通过将分类 CNN（AlexNet、VGG）的全连接层替换为 $1 \times 1$ 卷积层，建立了语义分割的主流范式，使网络完全卷积化，能够处理任意空间尺寸的输入并输出密集预测。最终特征图通过双线性上采样恢复至输入分辨率。早期层的跳跃连接（FCN-8s 融合 stride-8、stride-16 和 stride-32 的预测）恢复了下采样过程中丢失的空间细节。FCN 证明可以端到端优化密集标签图上的逐像素交叉熵损失，取代手工设计的流程。</p>
+<p><strong>DeepLab</strong> 系列解决了 FCN 感受野有限和分辨率损失的问题。插入<strong>空洞（atrous）卷积</strong>（将步幅替换为膨胀率 $r$）在不降低分辨率、不增加参数的情况下将感受野扩大 $r^2$ 倍，使骨干网络能维持 stride-8 或 stride-4 输出，而非 stride-32。</p>
+<p><strong>DeepLabv3+</strong>（Chen et al., 2018）在此基础上做了两项改进。**空洞空间金字塔池化（ASPP）**模块并行应用膨胀率为 $\{1, 6, 12, 18\}$ 的空洞卷积以及全局平均池化，拼接输出后经 $1 \times 1$ 融合卷积，在单一模块中捕获从精细纹理到大区域的多尺度上下文。<strong>编码器-解码器结构</strong>随后精化这些池化特征：ASPP 输出与低层特征（stride-4）通过轻量解码器（$1 \times 1$ 卷积 + $3 \times 3$ 卷积 + 4倍双线性上采样）融合，以低成本恢复清晰边界。DeepLabv3+ 使用 Xception-65 在 PASCAL VOC 2012 上达到 89.0 mIoU，在 Cityscapes 上达到 82.1 mIoU（Chen et al., 2018）。</p>
+<hr>
+<h3 id="q18-进阶-解释-mask2former-作为通用分割架构">Q18 [进阶] 解释 Mask2Former 作为通用分割架构</h3>
+<p><strong>Q:</strong> Mask2Former 如何统一实例、语义和全景分割，什么是掩码交叉注意力？</p>
+<p><strong>A:</strong> Mask2Former（Cheng et al., 2022）使用单一架构和损失函数，在实例、语义和全景三个分割任务上均达到最先进水平，区别仅在于预测到目标的分配方式（实例/全景用匈牙利匹配，语义用全局分配）。</p>
+<p>该架构由三个组件组成。<strong>像素解码器</strong>对骨干特征图应用多尺度可变形注意力，逐步上采样至 $1/4$ 输入分辨率的高分辨率逐像素特征——捕获简单 FPN 在分割任务中遗漏的精细空间细节。</p>
+<p><strong>Transformer 解码器</strong>通过 $L$ 层处理 $N$ 个学习查询，每层包含：（1）查询间自注意力；（2）查询到图像特征的掩码交叉注意力；（3）前馈网络。核心创新是<strong>掩码交叉注意力</strong>：每个查询 $q$ 仅允许关注其预测二值掩码 $\mathbf{M}_q$ 为正（前景）的图像位置：</p>
+$$\text{Attention}(Q, K, V) \text{ 限定于 } \mathbf{M}_q = 1 \text{ 的位置}$$<p>这使注意力聚焦于相关目标区域，防止查询被背景分散，与 DETR 使用的全注意力相比，在密集分割（尤其是小目标）上效率和质量均大幅提升。</p>
+<p>每个解码器层均预测掩码和类别标签，在每层都施加辅助损失以提供密集监督。最终以逐查询二值掩码（查询嵌入与像素解码器特征的点积）和类别标签作为预测输出。</p>
+<p>Mask2Former 使用 ResNet-50 在 COCO 全景分割上达到 57.8 PQ，在 COCO 实例分割上达到 57.7 AP，在 ADE20K 语义分割上达到 57.6 mIoU（Cheng et al., 2022）——首个单一模型同时在三个任务上达到最先进水平的架构。</p>
+<hr>
+<h3 id="q19-基础-描述-segment-anything-modelsam及其可提示设计">Q19 [基础] 描述 Segment Anything Model（SAM）及其可提示设计</h3>
+<p><strong>Q:</strong> SAM 由哪三个组件构成，基于提示的分割如何工作？</p>
+<p><strong>A:</strong> SAM（Kirillov et al., 2023）是一个图像分割基础模型，训练于 SA-1B 数据集——该数据集包含 1,100 万张图像上的 11 亿个掩码，通过结合人工标注、半自动标注和全自动掩码生成的数据引擎收集。</p>
+<p>SAM 由三个组件构成，专为交互式实时掩码预测而设计。</p>
+<p><strong>图像编码器</strong>是经 MAE 预训练的 ViT-H，将 $1024 \times 1024$ 图像处理为 $64 \times 64 \times 256$ 的图像嵌入。每张图像只运行一次；其输出被缓存，以几乎零额外开销响应多个提示查询。</p>
+<p><strong>提示编码器</strong>将多种提示类型转换为稠密和稀疏嵌入表示。点（前景/背景点击）和框角点使用位置编码和学习类型嵌入进行编码；粗糙掩码输入由轻量卷积编码器处理；文本提示使用 CLIP 的文本编码器嵌入。所有提示类型均投影到相同的嵌入空间。</p>
+<p><strong>掩码解码器</strong>是一个轻量级两层 Transformer，交替执行查询到图像的注意力（提示嵌入关注图像嵌入）和图像到查询的注意力（图像嵌入关注提示嵌入），随后由上采样 MLP 投影至 $256 \times 256$ 分辨率。为处理提示歧义（单个点可能指代部件、目标或群组），SAM 预测三个候选掩码及相关置信度得分，由用户选择合适的粒度。</p>
+<p>图像嵌入缓存后，完整掩码预测耗时低于 50ms，实现了实时交互式标注工作流。</p>
+<hr>
+<h3 id="q20-进阶-分析-sam-的能力失败模式及向开放词汇分割的演进">Q20 [进阶] 分析 SAM 的能力、失败模式及向开放词汇分割的演进</h3>
+<p><strong>Q:</strong> SAM 在哪些方面表现出色，哪些方面会失败，将 SAM 与其他模型组合如何扩展其能力？</p>
+<p><strong>A:</strong> SAM（Kirillov et al., 2023）在以下几个方面表现突出。其对未见域的<strong>零样本迁移</strong>对自然图像而言很强——无需微调即可通过单次点击或边界框分割目标。交互式工作流显著减少了标注时间：在多样化基准上，SAM 辅助标注所需的点击次数远少于逐像素标注。SAM 还为需要区域边界但无需语义标签的<strong>可提示合成</strong>应用提供了有用的掩码。</p>
+<p><strong>失败模式</strong>分为以下几类。首先，SAM 生成类别无关掩码：它分割目标区域但不分配语义标签，在无外部分类头的情况下不适用于依赖分类的任务。其次，编码瓶颈（$1024 \times 1024 \rightarrow 64 \times 64$）对极细结构造成细节损失——细线、头发、文字字符、栅栏柱——$16\times$ 压缩丢失了关键边界信息。第三，在<strong>分布外域</strong>上性能显著下降，如医学影像（CT/MRI 切片，对比度统计不同）、遥感图像（小型地理空间目标）和工业检测（基于纹理的缺陷检测），因为 SA-1B 完全由消费类照片构成。</p>
+<p><strong>将 SAM 与开放词汇检测器组合</strong>扩展了其语义能力。Grounding DINO 可以定位自由文本描述的目标，SAM 随后为检测到的框生成精确掩码。这种组合在无需任何任务专属微调的情况下实现了开放词汇实例分割（任何用自然语言描述的目标）。</p>
+<p>SAM 的时序局限——无先前帧的记忆——由 SAM 2 解决，它引入了记忆库和条件提示传播，用于视频目标分割。从架构上看，SAM 2 通过流式记忆编码器/注意力模块扩展了掩码解码器，实现了跨视频帧的一致实例追踪，无需对每帧重新提示。可提示分割、记忆与分层时序特征的结合，代表了通用分割模型的当前前沿。</p>
+<hr>
+<h2 id="快速参考">快速参考</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>难度</th>
+          <th>主题</th>
+          <th>章节</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>基础</td>
+          <td>锚框匹配、回归目标、NMS</td>
+          <td>检测基础</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>基础</td>
+          <td>特征金字塔网络</td>
+          <td>检测基础</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>进阶</td>
+          <td>GIoU、DIoU、CIoU 损失家族</td>
+          <td>检测基础</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>进阶</td>
+          <td>Focal Loss 与类别不平衡</td>
+          <td>检测基础</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>基础</td>
+          <td>R-CNN → Fast R-CNN → Faster R-CNN</td>
+          <td>两阶段检测</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>进阶</td>
+          <td>RPN 设计与提议生成</td>
+          <td>两阶段检测</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>进阶</td>
+          <td>RoI Align vs RoI Pooling</td>
+          <td>两阶段检测</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>进阶</td>
+          <td>Cascade R-CNN 渐进式 IoU</td>
+          <td>两阶段检测</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>基础</td>
+          <td>FCOS 无锚框检测</td>
+          <td>单阶段与基于 Transformer 的检测</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>基础</td>
+          <td>YOLO 演进与设计原则</td>
+          <td>单阶段与基于 Transformer 的检测</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>进阶</td>
+          <td>DETR 二分匹配与收敛</td>
+          <td>单阶段与基于 Transformer 的检测</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>进阶</td>
+          <td>DINO-DETR：锚框查询与去噪</td>
+          <td>单阶段与基于 Transformer 的检测</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>基础</td>
+          <td>Mask R-CNN 掩码分支</td>
+          <td>实例分割</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>进阶</td>
+          <td>SOLOv2 动态核预测</td>
+          <td>实例分割</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>进阶</td>
+          <td>CondInst 条件卷积</td>
+          <td>实例分割</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>进阶</td>
+          <td>实例分割范式比较</td>
+          <td>实例分割</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>基础</td>
+          <td>FCN 与 DeepLabv3+ ASPP</td>
+          <td>语义、全景分割与基础模型</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>进阶</td>
+          <td>Mask2Former 通用分割</td>
+          <td>语义、全景分割与基础模型</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>基础</td>
+          <td>SAM 可提示分割</td>
+          <td>语义、全景分割与基础模型</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>进阶</td>
+          <td>SAM 能力、失败模式与组合</td>
+          <td>语义、全景分割与基础模型</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li>Girshick et al., <a href="https://arxiv.org/abs/1311.2524">Rich Feature Hierarchies for Accurate Object Detection and Semantic Segmentation</a> (2014)</li>
+<li>Girshick, <a href="https://arxiv.org/abs/1504.08083">Fast R-CNN</a> (2015)</li>
+<li>Ren et al., <a href="https://arxiv.org/abs/1506.01497">Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks</a> (2015)</li>
+<li>Lin et al., <a href="https://arxiv.org/abs/1612.03144">Feature Pyramid Networks for Object Detection</a> (2017a)</li>
+<li>Lin et al., <a href="https://arxiv.org/abs/1708.02002">Focal Loss for Dense Object Detection</a> (2017b)</li>
+<li>Rezatofighi et al., <a href="https://arxiv.org/abs/1902.09630">Generalized Intersection over Union: A Metric and A Loss for Bounding Box Regression</a> (2019)</li>
+<li>Zheng et al., <a href="https://arxiv.org/abs/1911.08287">Distance-IoU Loss: Faster and Better Learning for Bounding Box Regression</a> (2020)</li>
+<li>Cai &amp; Vasconcelos, <a href="https://arxiv.org/abs/1712.00726">Cascade R-CNN: Delving into High Quality Object Detection</a> (2018)</li>
+<li>He et al., <a href="https://arxiv.org/abs/1703.06870">Mask R-CNN</a> (2017)</li>
+<li>Tian et al., <a href="https://arxiv.org/abs/1904.01355">FCOS: Fully Convolutional One-Stage Object Detection</a> (2019)</li>
+<li>Redmon &amp; Farhadi, <a href="https://arxiv.org/abs/1804.02767">YOLOv3: An Incremental Improvement</a> (2018)</li>
+<li>Carion et al., <a href="https://arxiv.org/abs/2005.12872">End-to-End Object Detection with Transformers</a> (2020)</li>
+<li>Liu et al., <a href="https://arxiv.org/abs/2201.12329">DAB-DETR: Dynamic Anchor Boxes are Better Queries for DETR</a> (2022)</li>
+<li>Zhang et al., <a href="https://arxiv.org/abs/2203.03605">DINO: DETR with Improved DeNoising Anchor Boxes for End-to-End Object Detection</a> (2022)</li>
+<li>Wang et al., <a href="https://arxiv.org/abs/2003.10152">SOLOv2: Dynamic and Fast Instance Segmentation</a> (2020)</li>
+<li>Tian et al., <a href="https://arxiv.org/abs/2003.05664">Conditional Convolutions for Instance Segmentation</a> (2020)</li>
+<li>Long et al., <a href="https://arxiv.org/abs/1411.4038">Fully Convolutional Networks for Semantic Segmentation</a> (2015)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/1802.02611">Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation</a> (2018)</li>
+<li>Cheng et al., <a href="https://arxiv.org/abs/2112.01527">Masked-attention Mask Transformer for Universal Image Segmentation</a> (2022)</li>
+<li>Kirillov et al., <a href="https://arxiv.org/abs/2304.02643">Segment Anything</a> (2023)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+
