@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>变分自编码器：面试问题与推荐回答 | yo3nglau academic website</title>
+    <link rel="stylesheet" href='/blogs/css/style.css' />
+    <link rel="stylesheet" href='/blogs/css/fonts.css' />
+    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  </head>
+
+  <body>
+    <nav>
+    <ul class="menu">
+      
+      <li><a href="/blogs/">Home</a></li>
+      
+      <li><a href="/blogs/about/">About</a></li>
+      
+      <li><a href="/blogs/categories/">Categories</a></li>
+      
+      <li><a href="/blogs/tags/">Tags</a></li>
+      
+    </ul>
+    <hr/>
+    </nav>
+
+<div class="article-meta">
+<h1><span class="title">变分自编码器：面试问题与推荐回答</span></h1>
+<h2 class="author">yo3nglau</h2>
+<h2 class="date">2026/05/14</h2>
+<p class="terms">
+  
+  
+  Categories: <a href="/blogs/categories/interview">Interview</a> 
+  
+  
+  
+  Tags: <a href="/blogs/tags/deep-learning">Deep Learning</a> <a href="/blogs/tags/generative-models">Generative Models</a> <a href="/blogs/tags/representation-learning">Representation Learning</a> 
+  
+  
+</p>
+</div>
+
+
+<p style="text-align: center;">
+  
+  <a href="/blogs/post/variational-autoencoder-interview-questions-and-answers/">View English Version</a>
+  
+</p>
+
+
+
+<nav id="TableOfContents">
+  <ul>
+    <li><a href="#vae-基础">VAE 基础</a>
+      <ul>
+        <li><a href="#q1-基础-描述-vae-中的潜变量生成模型">Q1 [基础] 描述 VAE 中的潜变量生成模型</a></li>
+        <li><a href="#q2-基础-推导-elbo-并识别其重建项与正则化项">Q2 [基础] 推导 ELBO 并识别其重建项与正则化项</a></li>
+        <li><a href="#q3-基础-解释重参数化技巧及梯度流动的必要性">Q3 [基础] 解释重参数化技巧及梯度流动的必要性</a></li>
+        <li><a href="#q4-进阶-分析后验崩塌成因与缓解策略">Q4 [进阶] 分析后验崩塌：成因与缓解策略</a></li>
+        <li><a href="#q5-进阶-解释-iwae-及收紧变分下界引入的权衡">Q5 [进阶] 解释 IWAE 及收紧变分下界引入的权衡</a></li>
+      </ul>
+    </li>
+    <li><a href="#训练与架构">训练与架构</a>
+      <ul>
+        <li><a href="#q6-基础-描述-vae-编码器-解码器架构及各组件的学习内容">Q6 [基础] 描述 VAE 编码器-解码器架构及各组件的学习内容</a></li>
+        <li><a href="#q7-进阶-比较-kl-退火与自由比特在训练稳定性上的作用">Q7 [进阶] 比较 KL 退火与自由比特在训练稳定性上的作用</a></li>
+        <li><a href="#q8-进阶-分析解码器分布选择对重建质量与样本清晰度的影响">Q8 [进阶] 分析解码器分布选择对重建质量与样本清晰度的影响</a></li>
+        <li><a href="#q9-进阶-解释归一化流后验如何扩展推断网络的表达能力">Q9 [进阶] 解释归一化流后验如何扩展推断网络的表达能力</a></li>
+      </ul>
+    </li>
+    <li><a href="#变体与扩展">变体与扩展</a>
+      <ul>
+        <li><a href="#q10-基础-解释-β-vae-及其解耦目标">Q10 [基础] 解释 β-VAE 及其解耦目标</a></li>
+        <li><a href="#q11-进阶-描述-vq-vae-及离散潜码如何改变学习问题">Q11 [进阶] 描述 VQ-VAE 及离散潜码如何改变学习问题</a></li>
+        <li><a href="#q12-进阶-解释层级-vae-及潜变量层级深度如何提升生成质量">Q12 [进阶] 解释层级 VAE 及潜变量层级深度如何提升生成质量</a></li>
+        <li><a href="#q13-进阶-描述条件-vae-及辅助条件信息如何修改-elbo">Q13 [进阶] 描述条件 VAE 及辅助条件信息如何修改 ELBO</a></li>
+        <li><a href="#q14-进阶-比较-vae-与归一化流作为潜变量模型的差异">Q14 [进阶] 比较 VAE 与归一化流作为潜变量模型的差异</a></li>
+      </ul>
+    </li>
+    <li><a href="#与其他生成模型的比较">与其他生成模型的比较</a>
+      <ul>
+        <li><a href="#q15-基础-比较-vae-与-gan-作为生成模型">Q15 [基础] 比较 VAE 与 GAN 作为生成模型</a></li>
+        <li><a href="#q16-进阶-分析-vae-生成图像模糊的原因及-vae-gan-混合模型的解决方案">Q16 [进阶] 分析 VAE 生成图像模糊的原因及 VAE-GAN 混合模型的解决方案</a></li>
+        <li><a href="#q17-进阶-解释潜在扩散模型如何将-vae-用于感知压缩阶段">Q17 [进阶] 解释潜在扩散模型如何将 VAE 用于感知压缩阶段</a></li>
+      </ul>
+    </li>
+    <li><a href="#应用与评估">应用与评估</a>
+      <ul>
+        <li><a href="#q18-基础-描述-vae-潜空间如何支持插值与属性操控">Q18 [基础] 描述 VAE 潜空间如何支持插值与属性操控</a></li>
+        <li><a href="#q19-进阶-解释-vae-在异常检测中的应用">Q19 [进阶] 解释 VAE 在异常检测中的应用</a></li>
+        <li><a href="#q20-进阶-讨论评估-vae-潜空间质量与生成保真度的指标">Q20 [进阶] 讨论评估 VAE 潜空间质量与生成保真度的指标</a></li>
+      </ul>
+    </li>
+    <li><a href="#快速参考">快速参考</a></li>
+    <li><a href="#参考文献">参考文献</a></li>
+  </ul>
+</nav>
+
+
+<main>
+<h2 id="vae-基础">VAE 基础</h2>
+<h3 id="q1-基础-描述-vae-中的潜变量生成模型">Q1 [基础] 描述 VAE 中的潜变量生成模型</h3>
+<p><strong>Q：</strong> VAE 如何定义概率生成模型？为什么计算精确后验是不可处理的？</p>
+<p><strong>A：</strong> <strong>VAE</strong>（Kingma &amp; Welling, 2014）定义了一个有向潜变量模型，对连续潜变量 $z \in \mathbb{R}^d$ 采用先验 $p(z) = \mathcal{N}(0, I)$，并通过神经网络参数化学习一个解码器 $p_\theta(x|z)$。生成过程先从 $z \sim \mathcal{N}(0, I)$ 采样，再从 $x \sim p_\theta(x|z)$ 采样。对于图像，解码器通常建模为高斯分布 $\mathcal{N}(\mu_\theta(z), \sigma^2 I)$ 或像素级的伯努利分布。</p>
+<p>学习过程需要最大化边缘对数似然 $\log p_\theta(x) = \log \int p_\theta(x|z)\,p(z)\,dz$。对于神经网络解码器，该积分没有解析解，因为它需要对所有指数级多的潜变量配置求和。后验推断同样不可处理：精确后验 $p_\theta(z|x) = p_\theta(x|z)\,p(z) / p_\theta(x)$ 的分母需要同样不可处理的边缘量。VAE 通过引入可学习的近似后验 $q_\phi(z|x)$——即<strong>编码器</strong>——并优化边缘对数似然的下界而非精确目标，来绕过这两个问题（Kingma &amp; Welling, 2014）。</p>
+<hr>
+<h3 id="q2-基础-推导-elbo-并识别其重建项与正则化项">Q2 [基础] 推导 ELBO 并识别其重建项与正则化项</h3>
+<p><strong>Q：</strong> 证据下界如何从对数似然推导而来？分解中的每一项惩罚什么？</p>
+<p><strong>A：</strong> 从对数似然出发，通过重要性加权引入近似后验 $q_\phi(z|x)$，再对凹函数 $\log$ 应用 Jensen 不等式：</p>
+$$\log p_\theta(x) = \log \int \frac{p_\theta(x,z)}{q_\phi(z|x)}\,q_\phi(z|x)\,dz \;\geq\; \mathbb{E}_{q_\phi(z|x)}\!\left[\log \frac{p_\theta(x,z)}{q_\phi(z|x)}\right] = \mathcal{L}_\text{ELBO}$$<p>ELBO 可分解为两个具有明确含义的项：</p>
+$$\mathcal{L}_\text{ELBO} = \underbrace{\mathbb{E}_{q_\phi(z|x)}\!\left[\log p_\theta(x|z)\right]}_{\text{重建项}} - \underbrace{\mathrm{KL}\!\left(q_\phi(z|x)\;\|\;p(z)\right)}_{\text{正则化项}}$$<p><strong>重建项</strong>衡量解码器从编码器采样的潜码中恢复 $x$ 的能力。对于方差固定的高斯解码器，该项退化为负均方误差。<strong>KL 正则化项</strong>惩罚偏离先验 $\mathcal{N}(0, I)$ 的编码器后验，鼓励潜空间具有规整、连续的结构。下界的紧度由近似误差决定：$\log p_\theta(x) - \mathcal{L}_\text{ELBO} = \mathrm{KL}(q_\phi(z|x) \| p_\theta(z|x)) \geq 0$，当编码器完全匹配真实后验时下界达到最紧（Kingma &amp; Welling, 2014）。</p>
+<hr>
+<h3 id="q3-基础-解释重参数化技巧及梯度流动的必要性">Q3 [基础] 解释重参数化技巧及梯度流动的必要性</h3>
+<p><strong>Q：</strong> 重参数化技巧解决了什么问题？它如何使反向传播能够穿过采样步骤？</p>
+<p><strong>A：</strong> ELBO 需要计算关于编码器参数 $\phi$ 的期望 $\mathbb{E}_{q_\phi(z|x)}[\cdot]$。计算梯度 $\nabla_\phi \mathcal{L}$ 需要对采样操作 $z \sim q_\phi(z|x)$ 求导，而该操作是随机节点——从 $\phi$ 到 $z$ 没有确定性路径可供梯度流通。</p>
+<p><strong>重参数化技巧</strong>（Kingma &amp; Welling, 2014；Rezende et al., 2014）通过如下写法将随机性与参数解耦：</p>
+$$z = \mu_\phi(x) + \sigma_\phi(x) \odot \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, I)$$<p>现在 $\varepsilon$ 的采样与 $\phi$ 无关，梯度可以确定性地流经 $\mu_\phi$ 和 $\sigma_\phi$：</p>
+$$\nabla_\phi\,\mathbb{E}_{q_\phi}[f(z)] = \mathbb{E}_{\varepsilon \sim \mathcal{N}(0,I)}\!\left[\nabla_\phi f\!\left(\mu_\phi(x) + \sigma_\phi(x)\odot\varepsilon\right)\right]$$<p>这种<strong>路径梯度估计量</strong>（pathwise gradient estimator）的方差远低于替代方案——得分函数估计量（REINFORCE），是 VAE 稳定训练的实践基础。该技巧适用于任何可表达为固定噪声源的确定性可微变换的分布，包括拉普拉斯分布和逻辑分布，因此超越高斯后验也具有广泛适用性（Rezende et al., 2014）。</p>
+<hr>
+<h3 id="q4-进阶-分析后验崩塌成因与缓解策略">Q4 [进阶] 分析后验崩塌：成因与缓解策略</h3>
+<p><strong>Q：</strong> VAE 中的后验崩塌在什么条件下发生？哪些训练策略能有效预防？</p>
+<p><strong>A：</strong> <strong>后验崩塌</strong>（posterior collapse）是指部分或全部潜变量维度 $i$ 满足 $q_\phi(z_i|x) \approx p(z_i) = \mathcal{N}(0,1)$——编码器忽略这些维度，解码器也学会在不使用它们的情况下生成。由于非活跃维度的 KL 贡献恰好为零，优化器会在潜码不携带任何信息的情况下找到局部最优，而 ELBO 保持不变。这一问题在使用<strong>强自回归解码器</strong>（如 PixelCNN）时尤为严重：由于解码器可以直接从相邻像素对复杂像素依赖关系建模，它并不需要潜码，优化器也会发现将 KL 项归零比编码有意义信息代价更低。</p>
+<p>该失效模式折射出一个根本矛盾：重建项倾向于信息丰富的潜变量，而 KL 项倾向于无信息的潜变量。当解码器足够强大时，重建损失可以在完全不使用 $z$ 的情况下被最小化。</p>
+<p>三种有效缓解策略分别针对问题的不同方面。<strong>KL 退火</strong>（KL annealing；Bowman et al., 2016）在训练过程中将 KL 项乘以一个从 $0$ 逐渐升至 $1$ 的标量 $\beta_t$。在 $\beta_t = 0$ 时，模型作为纯自编码器训练，在施加正则化压力之前建立有用的表示；随着 $\beta_t$ 增大，先验约束逐渐激活。<strong>自由比特</strong>（free bits；Kingma et al., 2016）将求和 KL 替换为逐维度约束 $\sum_i \max(\lambda,\, \mathrm{KL}(q_i \| p_i))$，为每个潜变量通道设置最低信息率 $\lambda$，使任何单个维度都无法崩塌到阈值以下，与解码器强度无关。<strong>解码器弱化</strong>——有意限制解码器的自回归感受野或使用更简单的解码器架构——阻止解码器绕过潜码，代价是重建保真度有所下降。</p>
+<hr>
+<h3 id="q5-进阶-解释-iwae-及收紧变分下界引入的权衡">Q5 [进阶] 解释 IWAE 及收紧变分下界引入的权衡</h3>
+<p><strong>Q：</strong> IWAE 如何构造更紧的对数似然下界？为什么更紧的下界不一定能产生更好的推断网络？</p>
+<p><strong>A：</strong> <strong>IWAE</strong>（Burda et al., 2016）从编码器中抽取 $k > 1$ 个潜变量样本，构造重要性加权估计量：</p>
+$$\mathcal{L}_k = \mathbb{E}_{z_{1:k} \sim q_\phi(\cdot|x)}\!\left[\log \frac{1}{k} \sum_{i=1}^k \frac{p_\theta(x, z_i)}{q_\phi(z_i|x)}\right]$$<p>当 $k = 1$ 时，$\mathcal{L}_1$ 退化为标准 ELBO。根据大数定律作用于重要性权重，$\mathcal{L}_k \leq \mathcal{L}_{k+1} \leq \log p_\theta(x)$，且 $k \to \infty$ 时 $\mathcal{L}_k \to \log p_\theta(x)$。更紧的下界有助于训练出更好的生成模型 $p_\theta$，因为目标函数能更准确地追踪真实对数似然。</p>
+<p>然而，Rainforth et al.（2018）证明了一个根本性的权衡：随着 $k$ 的增大，$\mathcal{L}_k$ 关于编码器参数 $\phi$ 的梯度被自归一化重要性权重所主导。在 $k \to \infty$ 的极限下，编码器梯度完全消失——推断网络从下界中接收不到任何训练信号。实践中，使用较大 $k$ 训练会提升解码器质量，同时降低摊销编码器的性能，导致推断网络与生成网络之间出现错配。一种实用的修复方案是：用标准 ELBO（$k = 1$）梯度训练编码器，同时用 IWAE 目标训练解码器，从而同时保持紧的似然下界和良好训练的推断网络（Rainforth et al., 2018）。</p>
+<hr>
+<h2 id="训练与架构">训练与架构</h2>
+<h3 id="q6-基础-描述-vae-编码器-解码器架构及各组件的学习内容">Q6 [基础] 描述 VAE 编码器-解码器架构及各组件的学习内容</h3>
+<p><strong>Q：</strong> 编码器输出什么？解码器产生什么？它们在训练阶段和推断阶段的职责有何不同？</p>
+<p><strong>A：</strong> <strong>编码器</strong> $q_\phi(z|x)$ 通常是一个卷积网络或全连接网络，将输入 $x$ 映射到潜变量上的对角高斯分布参数：输出均值向量 $\mu_\phi(x) \in \mathbb{R}^d$ 和对数方差向量 $\log \sigma^2_\phi(x) \in \mathbb{R}^d$。训练时，通过重参数化采样潜码：$z = \mu_\phi(x) + \sigma_\phi(x) \odot \varepsilon$。推断时，均值 $\mu_\phi(x)$ 通常被用作下游任务的确定性嵌入，或通过多次采样量化不确定性。</p>
+<p><strong>解码器</strong> $p_\theta(x|z)$ 将潜码映射到数据的分布上。对于连续图像，解码器通常在高斯似然下输出均值 $\mu_\theta(z)$，使重建损失等价于逐像素均方误差。对于离散数据，逐像素的伯努利似然将重建简化为二元交叉熵。推断时，解码器充当生成模型：从 $z \sim \mathcal{N}(0, I)$ 采样并计算 $\mu_\theta(z)$，即可生成训练时未见过的新图像。</p>
+<p>编码器的目标是<strong>后验近似</strong>——将输入嵌入到既信息丰富又与先验相容的潜空间中。解码器的目标是<strong>生成保真度</strong>——将潜码映射回合理的数据。二者可能相互冲突：正则化强度过高的编码器会限制传递给解码器的信息，降低重建质量（Kingma &amp; Welling, 2014）。ELBO 通过其重建-KL 分解在这两种压力之间取得平衡。</p>
+<hr>
+<h3 id="q7-进阶-比较-kl-退火与自由比特在训练稳定性上的作用">Q7 [进阶] 比较 KL 退火与自由比特在训练稳定性上的作用</h3>
+<p><strong>Q：</strong> KL 退火与自由比特启发式方法在对抗后验崩塌上有何不同？各自存在哪些未能解决的失效模式？</p>
+<p><strong>A：</strong> 两种策略都通过修改 ELBO 的 KL 项来防止编码器过于激进地收敛到先验，但作用机制不同。</p>
+<p><strong>KL 退火</strong>（Bowman et al., 2016）将 KL 项乘以一个全局递增标量 $\beta_t \in [0, 1]$。在 $\beta_t = 0$ 时，训练完全由重建驱动，编码器可以在任何正则化压力出现之前建立有用的表示；随着 $\beta_t$ 逐步上升，先验约束被逐渐引入。其失效模式是对调度超参数高度敏感：$\beta_t$ 上升过快则编码器尚未稳定就崩塌；上升过慢则训练时间延长，且在完整 KL 惩罚激活时仍可能晚期崩塌。该调度须针对每个任务和架构重新调整。</p>
+<p><strong>自由比特</strong>（Kingma et al., 2016）将聚合 KL 替换为逐维度约束 $\sum_i \max(\lambda, \mathrm{KL}(q_i \| p_i))$，为每个潜变量通道设置最低信息率 $\lambda$（以奈特为单位）。由于该约束对每个维度独立生效，优化器无法将任何单个潜变量崩塌到阈值以下。其失效模式是阈值敏感性：$\lambda$ 过高会迫使无信息维度维持人为的 KL，浪费模型容量；$\lambda$ 过低则在拥有大量潜变量组的模型中仍可能出现局部崩塌。</p>
+<p>实践中，两种技术常结合使用。对于拥有数千个潜变量组的大规模层级 VAE，自由比特防止逐组崩塌，退火则控制训练早期的动态（Vahdat &amp; Kautz, 2020）。两种策略互为补充而非重复：退火是时间性的（依赖于调度），自由比特是结构性的（依赖于架构）。</p>
+<hr>
+<h3 id="q8-进阶-分析解码器分布选择对重建质量与样本清晰度的影响">Q8 [进阶] 分析解码器分布选择对重建质量与样本清晰度的影响</h3>
+<p><strong>Q：</strong> 建模解码器似然有哪些可选方案？各方案如何影响重建保真度和样本清晰度？</p>
+<p><strong>A：</strong> 解码器分布决定了重建损失函数，并隐式地编码了对数据噪声结构的假设。</p>
+<p><strong>高斯解码器</strong> $p_\theta(x|z) = \mathcal{N}(\mu_\theta(z), \sigma^2 I)$ 在方差固定时产生均方误差重建损失。这种方式简单且易于优化，但它不考虑感知相关性，对所有像素偏差一视同仁。均方误差固有的平均化行为——解码器通过预测后验下所有合理补全的期望值来最小化损失——在后验弥散时产生<strong>模糊样本</strong>（Larsen et al., 2016）。跨后验样本空间中不一致出现的高频细节会被平均掉。</p>
+<p><strong>可学习方差</strong> $\sigma^2_\theta(z)$ 允许模型表达像素级的不确定性，但引入一个失效模式：解码器可以通过膨胀 $\sigma^2$ 而非改善 $\mu_\theta(z)$ 来最小化均方误差损失，因此需要仔细设置截断或正则化来防止这种情况。</p>
+<p><strong>离散逻辑混合解码器</strong>（Salimans et al., 2017）将像素强度建模为逻辑分布的混合，相比高斯分布在离散 8 位图像上产生更清晰、更校准的似然，但需要对每个像素强度区间计算累积分布函数之差，实现复杂度有所增加。</p>
+<p>在解码器中添加对抗项——训练一个判别器来区分真实图像和重建图像——用学习到的感知度量替代均方误差目标，从而显式惩罚模糊性（Larsen et al., 2016）。这能显著锐化输出，但破坏了 ELBO 作为似然下界的解释，使生成质量与概率可处理性之间的权衡变得明确。</p>
+<hr>
+<h3 id="q9-进阶-解释归一化流后验如何扩展推断网络的表达能力">Q9 [进阶] 解释归一化流后验如何扩展推断网络的表达能力</h3>
+<p><strong>Q：</strong> 对角高斯后验施加了什么约束？应用于编码器的归一化流如何克服这一限制？</p>
+<p><strong>A：</strong> 标准 VAE 后验 $q_\phi(z|x) = \mathcal{N}(\mu_\phi(x), \mathrm{diag}(\sigma^2_\phi(x)))$ 做出了<strong>均场近似</strong>（mean-field approximation）：给定输入后，所有潜变量维度被视为条件独立。这种对角高斯形式计算高效，但无法表示潜变量维度之间的相关性，当真实后验具有显著的非对角结构时，可能留下较大的近似误差 $\mathrm{KL}(q_\phi(z|x) \| p_\theta(z|x))$。</p>
+<p><strong>归一化流</strong>（normalizing flows；Rezende &amp; Mohamed, 2015）通过对初始对角高斯样本 $z_0$ 施加一系列 $K$ 个可逆变换 $f_1, \ldots, f_K$ 来解决这一问题：</p>
+$$z_K = f_K \circ \cdots \circ f_1(z_0), \quad \log q_K(z_K) = \log q_0(z_0) - \sum_{k=1}^K \log\left|\det \frac{\partial f_k}{\partial z_{k-1}}\right|$$<p>最终样本 $z_K$ 的对数密度可通过雅可比链式法则计算，因此 ELBO 中的 KL 项保持可处理。给定足够的容量，流可以将对角高斯变换为任意丰富的分布，从而减小近似误差。</p>
+<p><strong>逆自回归流</strong>（IAF；Kingma et al., 2016）使用在采样时高效的自回归变换：给定初始噪声 $z_0$，$z_K$ 的所有维度可以并行计算，因为逆变换（采样时使用）是自回归的，而前向变换（训练时使用）则不是。Kingma et al.（2016）证明，IAF 后验在 MNIST 和 CIFAR-10 上比对角高斯后验实现了严格更优的测试集 ELBO，证实了均场近似对于表达性模型而言是一个有约束力的限制。</p>
+<hr>
+<h2 id="变体与扩展">变体与扩展</h2>
+<h3 id="q10-基础-解释-β-vae-及其解耦目标">Q10 [基础] 解释 β-VAE 及其解耦目标</h3>
+<p><strong>Q：</strong> β-VAE 如何修改 ELBO？增大 KL 惩罚为何能促进解耦表示？</p>
+<p><strong>A：</strong> <strong>β-VAE</strong>（Higgins et al., 2017）引入标量 $\beta > 1$ 对 KL 正则化项进行上加权：</p>
+$$\mathcal{L}_{\beta\text{-VAE}} = \mathbb{E}_{q_\phi(z|x)}\!\left[\log p_\theta(x|z)\right] - \beta\,\mathrm{KL}\!\left(q_\phi(z|x)\;\|\;p(z)\right)$$<p>增大的 KL 惩罚迫使聚合后验 $\bar{q}(z) = \mathbb{E}_{p_\text{data}(x)}[q_\phi(z|x)]$ 保持接近分解先验 $p(z) = \prod_i \mathcal{N}(0,1)$。由于先验在各维度上分解，编码器被迫产生独立的潜变量维度——信息容量有限的模型必须将每个潜变量通道分配给一个独立的、非冗余的变化因素。</p>
+<p>预期结果是<strong>解耦</strong>（disentanglement）：单个潜变量维度与数据中独立的生成因素对齐。在固定其他所有维度的同时遍历 $z_1$ 会改变物体颜色；遍历 $z_2$ 则改变形状，以此类推。Higgins et al.（2017）提出了一种基于分类器的解耦度量，该分类器训练于从潜变量差值中识别被改变的生成因素，并在 dSprites 数据集上证明更高的 $\beta$ 能改善该度量。根本权衡在于重建质量：更大的 $\beta$ 限制了编码器能传递给解码器的信息，导致粗糙的重建。β-VAE 因此以牺牲保真度换取可解释性。</p>
+<hr>
+<h3 id="q11-进阶-描述-vq-vae-及离散潜码如何改变学习问题">Q11 [进阶] 描述 VQ-VAE 及离散潜码如何改变学习问题</h3>
+<p><strong>Q：</strong> VQ-VAE 如何用离散码本替代连续高斯后验？量化引入了哪些训练挑战？</p>
+<p><strong>A：</strong> <strong>VQ-VAE</strong>（van den Oord et al., 2017）完全去除高斯后验和连续潜变量，代之以学习的离散<strong>码本</strong>（codebook）$\{e_1, \ldots, e_K\} \subset \mathbb{R}^d$。编码器将输入 $x$ 映射到连续嵌入 $z_e = E(x)$，再量化到最近的码本条目：</p>
+$$z_q = e_k, \quad k = \arg\min_j \|z_e - e_j\|_2$$<p>解码器接收 $z_q$ 并重建 $x$。KL 项被完全消除——没有随机后验，只有确定性查找——因此训练目标退化为重建损失加码本对齐损失。一个独立的<strong>先验</strong>（通常是自回归 PixelCNN）在第二阶段对离散码进行训练，以支持高质量的祖先采样。</p>
+<p>由于量化操作不可微，训练时使用<strong>直通估计量</strong>（straight-through estimator）：反向传播时，来自解码器的梯度直接复制到编码器，绕过 $\arg\min$ 操作。码本通过已分配编码器输出的指数移动平均进行更新。<strong>承诺损失</strong>（commitment loss）$\beta \|\mathrm{sg}(z_e) - z_q\|^2$ 防止编码器嵌入无限偏离码本条目（van den Oord et al., 2017）。</p>
+<p><strong>VQ-VAE-2</strong>（Razavi et al., 2019）将设计扩展为两级层级结构：粗粒度全局码本捕获场景结构，细粒度局部码本捕获纹理细节。配合每个层级上的强大自回归先验，VQ-VAE-2 在 $1024 \times 1024$ 分辨率下实现接近逼真的图像生成，证明经过层级训练的离散潜空间可以媲美甚至超越连续潜变量生成模型的感知质量。</p>
+<hr>
+<h3 id="q12-进阶-解释层级-vae-及潜变量层级深度如何提升生成质量">Q12 [进阶] 解释层级 VAE 及潜变量层级深度如何提升生成质量</h3>
+<p><strong>Q：</strong> 层级 VAE 的结构是什么？有哪些证据表明堆叠潜变量层有益于生成建模？</p>
+<p><strong>A：</strong> 层级 VAE 将潜空间分解为 $L$ 组 $z_1, \ldots, z_L$，并使用<strong>自顶向下生成模型</strong>从粗到细进行解码：</p>
+$$p_\theta(x, z_{1:L}) = p_\theta(x | z_{1:L})\;\prod_{\ell=1}^{L-1} p_\theta(z_\ell | z_{\ell+1:L})\;p(z_L)$$<p>推断网络自底向上运行，并在每一层对自顶向下的先验进行修正，将后验近似为 $q_\phi(z_{1:L}|x) = \prod_\ell q_\phi(z_\ell | z_{\ell+1:L}, x)$。较高层编码全局结构（场景布局、物体身份）；较低层编码细粒度局部纹理。</p>
+<p><strong>NVAE</strong>（Vahdat &amp; Kautz, 2020）展示了一个极深的层级 VAE，它拥有数十个在多个空间分辨率上组织的潜变量组，并使用残差单元和谱归一化来保证训练稳定性。NVAE 在 CIFAR-10 上实现了每维度 2.91 比特，与当时最先进的自回归模型相当。<strong>VDVAE</strong>（Child, 2021）表明架构复杂性并非必要：一个简单结构的极深随机层级可以在 CIFAR-10 上实现 2.87 bpd，超越许多自回归基线。Child（2021）的核心发现是：仅靠深度——无需 NVAE 的残差专门化——即已足够；模型自动学习在各层之间分层分配信息，捕获不同的空间尺度。</p>
+<p>层级 VAE 将单层 VAE 的结构化潜空间与深层生成模型的表达能力相结合，在保持竞争性密度估计的同时支持快速并行采样（不同于自回归模型）。</p>
+<hr>
+<h3 id="q13-进阶-描述条件-vae-及辅助条件信息如何修改-elbo">Q13 [进阶] 描述条件 VAE 及辅助条件信息如何修改 ELBO</h3>
+<p><strong>Q：</strong> 对辅助信息进行条件化如何改变 VAE 的生成模型和训练目标？这种方式适合解决什么类型的问题？</p>
+<p><strong>A：</strong> <strong>条件 VAE</strong> 将辅助信息 $y$——类别标签、图像或文本描述——同时引入生成模型和推断网络。生成模型变为 $p_\theta(x|z, y)$，先验变为 $p(z|y)$（当 $y$ 不在结构上约束 $z$ 时，通常仍取 $\mathcal{N}(0,I)$）。编码器变为 $q_\phi(z|x, y)$。对应的 ELBO 为：</p>
+$$\mathcal{L}_\text{CVAE} = \mathbb{E}_{q_\phi(z|x,y)}\!\left[\log p_\theta(x|z, y)\right] - \mathrm{KL}\!\left(q_\phi(z|x, y)\;\|\;p(z|y)\right)$$<p>关键的修改是：$z$ 现在只编码 $x$ 中无法被 $y$ 解释的<strong>残差变化量</strong>。对于类条件图像生成，$y$ 提供全局语义（物体身份），$z$ 编码类内变化——姿态、光照、纹理——这些因素在同一类别的不同实例之间变化。推断时，在固定 $y$ 的情况下采样不同的 $z$ 值，可生成同一 $y$ 的多样化结果。</p>
+<p>条件 VAE 尤其适合<strong>结构化预测</strong>任务：对 $p(x|y)$ 建模，其中 $x$ 是复杂的结构化输出，例如从过去帧预测未来视频帧、从二维视图推断三维形状、或从对话上下文生成回复。VAE 的潜变量捕获给定输入时输出的不可约不确定性——确定性模型无法表示的一对多映射结构。与条件 GAN 不同，条件 VAE 提供了关于 $\log p_\theta(x|y)$ 的可处理下界，以及一个可将输出反投影到潜码的显式编码器。</p>
+<hr>
+<h3 id="q14-进阶-比较-vae-与归一化流作为潜变量模型的差异">Q14 [进阶] 比较 VAE 与归一化流作为潜变量模型的差异</h3>
+<p><strong>Q：</strong> VAE 与归一化流在基本架构设计上有何不同？各方法在什么条件下具有实际优势？</p>
+<p><strong>A：</strong> VAE 使用<strong>摊销近似推断</strong>（amortized approximate inference）：编码器 $q_\phi(z|x)$ 近似不可处理的后验，目标函数是对数似然的下界。解码器 $p_\theta(x|z)$ 可以是任意可微函数——不需要可逆，允许使用卷积网络、注意力层和任意架构选择。代价是 ELBO 并不精确：误差 $\mathrm{KL}(q_\phi \| p_\theta(z|x))$ 意味着模型优化的是代理目标。</p>
+<p><strong>归一化流</strong>（Rezende &amp; Mohamed, 2015）定义了一个双射映射 $f_\theta: z \mapsto x$，其中 $z \sim \mathcal{N}(0,I)$。精确对数似然通过变量替换公式计算：</p>
+$$\log p_\theta(x) = \log p(z) - \log\left|\det J_{f_\theta}(z)\right|, \quad z = f_\theta^{-1}(x)$$<p>不存在近似推断，也不存在 ELBO 误差。然而，双射约束要求雅可比行列式可处理，将架构限制在耦合层、自回归结构或低秩更新——所有这些都限制了每参数的表达能力，相对于无约束网络而言。</p>
+<p>实践中，VAE 在以<strong>结构化、语义上有意义的潜空间</strong>为主要目标时表现出色：表示学习、解耦、条件生成和异常检测均受益于具有已知先验几何的显式正则化潜变量 $z$。归一化流在<strong>精确密度评估</strong>至关重要时表现更好，如无损压缩或基于精确似然的模型比较。潜在扩散模型（Rombach et al., 2022）融合了两种视角：VAE 将图像压缩到紧凑的潜空间，在该潜空间上运行的扩散过程提供强大的生成能力——这一架构受益于 VAE 的潜空间结构，同时无需流的架构约束。</p>
+<hr>
+<h2 id="与其他生成模型的比较">与其他生成模型的比较</h2>
+<h3 id="q15-基础-比较-vae-与-gan-作为生成模型">Q15 [基础] 比较 VAE 与 GAN 作为生成模型</h3>
+<p><strong>Q：</strong> VAE 与 GAN 在结构和实践上的主要区别是什么？各方法在哪些方面具有根本性优势？</p>
+<p><strong>A：</strong> <strong>VAE</strong> 定义了一个具有可处理（下界）似然目标的显式概率模型。训练通过 ELBO 上的随机梯度下降保持稳定，编码器提供可检视和遍历的结构化潜空间。KL 先验所强制的潜空间规整性支持直接在 $z$ 空间进行插值、最近邻检索和属性操控。</p>
+<p><strong>GAN</strong>（Goodfellow et al., 2014）以极大极小博弈训练生成器 $G(z)$ 和判别器 $D(x)$：$\min_G \max_D\,\mathbb{E}[\log D(x)] + \mathbb{E}[\log(1 - D(G(z)))]$。默认情况下没有编码器，也没有显式似然。对抗训练目标驱使生成器产生清晰的、感知质量高的图像，因为判别器可以直接检测分布差异——包括模糊性——而这是逐像素均方误差损失做不到的。</p>
+<p>根本性优势泾渭分明。VAE 在<strong>表示学习</strong>方面具有天然优势：编码器无需额外训练即可提供适用于分类、聚类、检索和异常检测的有意义潜变量嵌入。GAN 在<strong>感知清晰度</strong>方面具有天然优势：对抗训练产生均方误差训练的解码器无法匹配的高频纹理。VAE-GAN 混合模型（Larsen et al., 2016）尝试将结构化潜空间与对抗锐化相结合，但训练需要在 ELBO 与对抗目标之间取得平衡——这是一个更复杂的优化景观，可能导致训练不稳定。</p>
+<hr>
+<h3 id="q16-进阶-分析-vae-生成图像模糊的原因及-vae-gan-混合模型的解决方案">Q16 [进阶] 分析 VAE 生成图像模糊的原因及 VAE-GAN 混合模型的解决方案</h3>
+<p><strong>Q：</strong> ELBO 目标的哪个性质导致了样本模糊？添加对抗训练如何恢复感知清晰度？</p>
+<p><strong>A：</strong> VAE 模糊性有两个相互补充的成因。第一，<strong>高斯解码器均方误差损失</strong>在近似后验下优化期望重建。当后验 $q_\phi(z|x)$ 具有残差方差——由于 KL 正则化阻止后验退化为狄拉克 delta 函数，这是必然的——解码器通过预测每个后验样本下所有合理重建的均值来最小化损失。跨后验样本在空间上不一致的高频纹理细节被平均掉，产生平滑的低频输出。</p>
+<p>第二，ELBO 中内嵌的<strong>率失真权衡</strong>意味着增加 KL 正则化（改善下游任务的潜空间结构）会减少解码器可用的信息。从率失真理论的角度来看，ELBO 在失真（重建误差）和率（KL 散度，即潜码的信息量）之间进行权衡。任何有限率下的均方误差最小化结果并不具备感知保真度——自然图像统计需要编码高频结构，而均方误差对所有感知重要性的高频信息惩罚相同。</p>
+<p><strong>VAE-GAN</strong>（Larsen et al., 2016）将逐像素均方误差重建损失替换为判别器隐藏层中的<strong>特征匹配损失</strong>（feature-matching loss），并添加 GAN 对抗目标：</p>
+$$\mathcal{L}_\text{VAE-GAN} = \mathcal{L}_\text{KL} + \mathcal{L}_\text{feature} - \mathbb{E}_{z \sim q(z|x)}[\log D(G(z))]$$<p>判别器提供学习到的感知度量，惩罚纹理和结构上的分布差异，而非逐像素差异。编码器仍为推断提供结构化潜空间。代价是对抗项削弱了 ELBO 作为似然下界的解释，GAN 组件引入了影响独立 GAN 的相同训练不稳定性（模式崩塌、判别器压制生成器）（Larsen et al., 2016）。</p>
+<hr>
+<h3 id="q17-进阶-解释潜在扩散模型如何将-vae-用于感知压缩阶段">Q17 [进阶] 解释潜在扩散模型如何将 VAE 用于感知压缩阶段</h3>
+<p><strong>Q：</strong> VAE 在 LDM 中扮演什么角色？它如何训练？压缩因子的选择如何影响生成质量？</p>
+<p><strong>A：</strong> <strong>潜在扩散模型</strong>（LDM；Rombach et al., 2022）将图像合成分为两个阶段。第一阶段，带 KL 正则化的 VAE 将图像 $x \in \mathbb{R}^{H \times W \times 3}$ 编码为紧凑潜变量 $z = \mathcal{E}(x) \in \mathbb{R}^{h \times w \times c}$，空间下采样因子为 $f = H/h \in \{4, 8, 16\}$。第二阶段，扩散 U-Net 或 Transformer 完全在 $z$ 空间中训练。推断时，生成的潜变量 $\hat{z}$ 通过 $\hat{x} = \mathcal{D}(\hat{z})$ 解码回图像。</p>
+<p>LDM 的 VAE 使用三种损失进行训练。<strong>重建损失</strong>结合逐像素均方误差和 VGG 感知损失，确保潜码具有足够丰富的信息以实现（近）无损重建。<strong>基于块的对抗损失</strong>来自 PatchGAN 判别器，防止解码图像出现模糊，类似于 VAE-GAN 训练。小幅度的 <strong>KL 惩罚</strong>防止潜空间无限扩张，使潜变量分布保持接近 $\mathcal{N}(0, I)$，以便扩散模型能够有效学习其得分估计。</p>
+<p>下采样因子 $f$ 决定了压缩-质量的权衡：$f = 4$ 保留了细腻的图像细节，但扩散模型需要在 $64 \times 64$ 的潜变量上运行（对于 $256 \times 256$ 图像），使扩散步骤相对昂贵；$f = 8$ 使用 $32 \times 32$ 的潜变量，以一定质量损失为代价将扩散成本降低 $4\times$。Rombach et al.（2022）发现 $f = 4$ 至 $f = 8$ 提供了最佳平衡——既有足够的压缩使扩散可处理，又有足够的保真度让解码器重建出高分辨率输出。这一设计使扩散模型专注于语义内容和全局结构，而将像素级细节委托给 VAE 解码器。</p>
+<hr>
+<h2 id="应用与评估">应用与评估</h2>
+<h3 id="q18-基础-描述-vae-潜空间如何支持插值与属性操控">Q18 [基础] 描述 VAE 潜空间如何支持插值与属性操控</h3>
+<p><strong>Q：</strong> VAE 潜空间的哪些性质使其适合平滑插值和语义编辑？这些性质如何通过训练得以保证？</p>
+<p><strong>A：</strong> VAE 先验 $p(z) = \mathcal{N}(0, I)$ 是连续的，可平滑覆盖 $\mathbb{R}^d$。KL 正则化项在潜空间上强制了两个结构性质：<strong>连续性</strong>（相邻潜码映射到视觉相似的输出，因为编码器后验被鼓励平滑重叠而非塌缩）和<strong>完整性</strong>（从先验中随机采样均可解码出合理图像，不存在会产生无意义输出的&quot;空洞&quot;）。这些性质是正则化的直接结果——若无正则化，编码器可能学到碎片化的编码，插值点落在无人区域。</p>
+<p><strong>潜空间插值</strong>利用连续性：给定两个输入 $x_1$ 和 $x_2$，将其编码为 $z_1 = \mu_\phi(x_1)$ 和 $z_2 = \mu_\phi(x_2)$，然后沿 $z(\alpha) = (1-\alpha)z_1 + \alpha z_2$ 解码，可产生平滑的视觉过渡。球面插值（slerp）更受青睐，因为它沿潜流形表面行进，而非穿越高维高斯内部的低密度区域。</p>
+<p><strong>属性操控</strong>利用方向性结构：某属性对应的潜变量方向可通过正负样本均值编码之差来估计，将其添加到任意编码图像即可切换该属性。使用 β-VAE（Higgins et al., 2017）时，单个潜变量维度与独立生成因素的对齐更为紧密，使单轴遍历更具可解释性——在固定其他所有维度的同时改变 $z_i$，可产生针对特定属性的变化，纠缠极小。</p>
+<hr>
+<h3 id="q19-进阶-解释-vae-在异常检测中的应用">Q19 [进阶] 解释 VAE 在异常检测中的应用</h3>
+<p><strong>Q：</strong> 训练好的 VAE 通过哪些信号指示测试样本异常？这种检测策略有哪些系统性失效模式？</p>
+<p><strong>A：</strong> 在正常数据上训练的 VAE 通过其潜变量先验和解码器隐式地编码了训练分布。对于正常测试样本 $x^*$，两个信号表明其正常性：编码器产生接近先验的后验（$\mathrm{KL}$ 小），因为输入与训练分布相似；解码器准确重建 $x^*$（重建误差低），因为解码器已学会将与先验相容的潜码映射回真实输出。对于异常样本，两个信号中的一个或两个可能失效：编码器无法找到与先验相容的潜码；或解码器即使使用最优潜码也无法准确重建非典型输入。</p>
+<p>标准<strong>异常分数</strong>（anomaly score）对 ELBO 取负：</p>
+$$\text{score}(x^*) = -\mathcal{L}_\text{ELBO}(x^*) = \mathbb{E}_{q(z|x^*)}\!\left[-\log p_\theta(x^*|z)\right] + \mathrm{KL}\!\left(q_\phi(z|x^*)\;\|\;p(z)\right)$$<p>该分数有直观的解释：它衡量在已学习模型下对 $x^*$ 进行编码和解码的总代价，异常样本预计具有更高的总代价。</p>
+<p>两种系统性失效模式限制了这一方法。第一，<strong>模糊重建</strong>问题：由于基于均方误差的解码器对合理重建取平均，正常样本本就具有不可忽视的重建误差——仅基于重建误差的异常检测信噪比较低，尤其对涉及高频或纹理级变化的细微异常而言更为明显。第二，<strong>先验相容的异常</strong>：对抗构造的输入（或恰好落在先验高密度区域附近的自然异常）可以在语义上异常的同时实现低 KL，从而欺骗分数的 KL 分量。将 VAE 分数与判别性信号（如联合训练分类器的置信度）结合，或使用感知重建度量（LPIPS 代替均方误差），可缓解这两种失效模式。</p>
+<hr>
+<h3 id="q20-进阶-讨论评估-vae-潜空间质量与生成保真度的指标">Q20 [进阶] 讨论评估 VAE 潜空间质量与生成保真度的指标</h3>
+<p><strong>Q：</strong> 有哪些指标评估 VAE 潜表示的质量和生成输出，每种指标各自捕获了其他指标无法衡量的什么内容？</p>
+<p><strong>A：</strong> <strong>生成质量</strong>由分布级指标衡量。<strong>FID</strong>（Heusel et al., 2017）计算真实与生成样本的 Inception-v3 特征分布之间的 Fréchet 距离——越低越好，同时捕获样本保真度和多样性。FID 不评估潜变量结构，对重建质量也不敏感。<strong>ELBO</strong>（以每维度比特数表示）提供对数似然的下界，直接反映模型的生成质量；而<strong>IWAE 下界</strong>（Burda et al., 2016）使用大 $k$ 提供更紧的估计，在需要精确模型比较时更受青睐。</p>
+<p><strong>重建质量</strong>由 <strong>SSIM</strong> 和 <strong>LPIPS</strong>（Zhang et al., 2018）衡量。LPIPS 使用预训练网络的深度特征距离，与人类感知判断的相关性优于逐像素均方误差；它对于比较以模糊性为主要差异的 VAE 变体尤为有用。</p>
+<p><strong>解耦程度</strong>是潜空间特有的关注点，由三种互补指标来评估。<strong>β-VAE 度量</strong>（Higgins et al., 2017）衡量线性分类器能否从遍历单一因素产生的潜变量差值中识别出被改变的生成因素。<strong>DCI</strong>（Eastwood &amp; Williams, 2018）分别评估解耦度（每个因素在多大程度上只映射到一个潜变量）、完整性（每个潜变量在多大程度上只映射到一个因素）以及信息量（潜变量预测生成因素的能力）。<strong>MIG</strong>（Chen et al., 2018）衡量每个因素最具信息量的两个潜变量之间的互信息差距，惩罚多个维度冗余编码同一因素的模型。</p>
+<p>没有任何单一指标是全面的。对潜变量遍历的人工评估仍是重要补充：自动化指标可能被退化模型欺骗，而视觉遍历质量捕获了定量分数所无法体现的可解释性方面。</p>
+<hr>
+<h2 id="快速参考">快速参考</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>难度</th>
+          <th>主题</th>
+          <th>章节</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Q1</td>
+          <td>基础</td>
+          <td>VAE 生成模型与后验不可处理性</td>
+          <td>VAE 基础</td>
+      </tr>
+      <tr>
+          <td>Q2</td>
+          <td>基础</td>
+          <td>ELBO 推导及重建项与 KL 项</td>
+          <td>VAE 基础</td>
+      </tr>
+      <tr>
+          <td>Q3</td>
+          <td>基础</td>
+          <td>重参数化技巧与路径梯度</td>
+          <td>VAE 基础</td>
+      </tr>
+      <tr>
+          <td>Q4</td>
+          <td>进阶</td>
+          <td>后验崩塌：成因与缓解</td>
+          <td>VAE 基础</td>
+      </tr>
+      <tr>
+          <td>Q5</td>
+          <td>进阶</td>
+          <td>IWAE 与收紧下界的权衡</td>
+          <td>VAE 基础</td>
+      </tr>
+      <tr>
+          <td>Q6</td>
+          <td>基础</td>
+          <td>编码器-解码器架构与各组件职责</td>
+          <td>训练与架构</td>
+      </tr>
+      <tr>
+          <td>Q7</td>
+          <td>进阶</td>
+          <td>KL 退火与自由比特的比较</td>
+          <td>训练与架构</td>
+      </tr>
+      <tr>
+          <td>Q8</td>
+          <td>进阶</td>
+          <td>解码器分布选择与样本清晰度</td>
+          <td>训练与架构</td>
+      </tr>
+      <tr>
+          <td>Q9</td>
+          <td>进阶</td>
+          <td>归一化流后验（IAF）</td>
+          <td>训练与架构</td>
+      </tr>
+      <tr>
+          <td>Q10</td>
+          <td>基础</td>
+          <td>β-VAE 与解耦表示</td>
+          <td>变体与扩展</td>
+      </tr>
+      <tr>
+          <td>Q11</td>
+          <td>进阶</td>
+          <td>VQ-VAE 与离散潜码</td>
+          <td>变体与扩展</td>
+      </tr>
+      <tr>
+          <td>Q12</td>
+          <td>进阶</td>
+          <td>层级 VAE：NVAE 与 VDVAE</td>
+          <td>变体与扩展</td>
+      </tr>
+      <tr>
+          <td>Q13</td>
+          <td>进阶</td>
+          <td>条件 VAE 与残差变化量</td>
+          <td>变体与扩展</td>
+      </tr>
+      <tr>
+          <td>Q14</td>
+          <td>进阶</td>
+          <td>VAE 与归一化流的比较</td>
+          <td>变体与扩展</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
+          <td>基础</td>
+          <td>VAE 与 GAN 的比较</td>
+          <td>与其他生成模型的比较</td>
+      </tr>
+      <tr>
+          <td>Q16</td>
+          <td>进阶</td>
+          <td>VAE 模糊问题与 VAE-GAN 混合模型</td>
+          <td>与其他生成模型的比较</td>
+      </tr>
+      <tr>
+          <td>Q17</td>
+          <td>进阶</td>
+          <td>VAE 在潜在扩散模型中的应用</td>
+          <td>与其他生成模型的比较</td>
+      </tr>
+      <tr>
+          <td>Q18</td>
+          <td>基础</td>
+          <td>潜空间插值与属性操控</td>
+          <td>应用与评估</td>
+      </tr>
+      <tr>
+          <td>Q19</td>
+          <td>进阶</td>
+          <td>VAE 用于异常检测</td>
+          <td>应用与评估</td>
+      </tr>
+      <tr>
+          <td>Q20</td>
+          <td>进阶</td>
+          <td>VAE 评估指标</td>
+          <td>应用与评估</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="参考文献">参考文献</h2>
+<ul>
+<li>Kingma &amp; Welling, <a href="https://arxiv.org/abs/1312.6114">Auto-Encoding Variational Bayes</a> (2014)</li>
+<li>Rezende et al., <a href="https://arxiv.org/abs/1401.4082">Stochastic Backpropagation and Approximate Inference in Deep Generative Models</a> (2014)</li>
+<li>Burda et al., <a href="https://arxiv.org/abs/1509.00519">Importance Weighted Autoencoders</a> (2016)</li>
+<li>Bowman et al., <a href="https://arxiv.org/abs/1511.06349">Generating Sentences from a Continuous Space</a> (2016)</li>
+<li>Kingma et al., <a href="https://arxiv.org/abs/1606.04934">Improving Variational Inference with Inverse Autoregressive Flow</a> (2016)</li>
+<li>Higgins et al., <a href="https://openreview.net/pdf?id=Sy2fchgBb">beta-VAE: Learning Basic Visual Concepts with a Constrained Variational Framework</a> (2017)</li>
+<li>Salimans et al., <a href="https://arxiv.org/abs/1701.05517">PixelCNN++: Improving the PixelCNN with Discretized Logistic Mixture Likelihood and Other Modifications</a> (2017)</li>
+<li>van den Oord et al., <a href="https://arxiv.org/abs/1711.00937">Neural Discrete Representation Learning</a> (2017)</li>
+<li>Rezende &amp; Mohamed, <a href="https://arxiv.org/abs/1505.05770">Variational Inference with Normalizing Flows</a> (2015)</li>
+<li>Rainforth et al., <a href="https://arxiv.org/abs/1802.04537">Tighter Variational Bounds are Not Necessarily Better</a> (2018)</li>
+<li>Chen et al., <a href="https://arxiv.org/abs/1802.04942">Isolating Sources of Disentanglement in Variational Autoencoders</a> (2018)</li>
+<li>Zhang et al., <a href="https://arxiv.org/abs/1801.03924">The Unreasonable Effectiveness of Deep Features as a Perceptual Metric</a> (2018)</li>
+<li>Eastwood &amp; Williams, <a href="https://openreview.net/pdf?id=By-7dz-AZ">A Framework for the Quantitative Evaluation of Disentangled Representations</a> (2018)</li>
+<li>Razavi et al., <a href="https://arxiv.org/abs/1906.00446">Generating Diverse High-Fidelity Images with VQ-VAE-2</a> (2019)</li>
+<li>Vahdat &amp; Kautz, <a href="https://arxiv.org/abs/2007.03898">NVAE: A Deep Hierarchical Variational Autoencoder</a> (2020)</li>
+<li>Child, <a href="https://arxiv.org/abs/2011.10650">Very Deep VAEs Generalize Autoregressive Models and Can Outperform Them on Images</a> (2021)</li>
+<li>Larsen et al., <a href="https://arxiv.org/abs/1512.09300">Autoencoding beyond pixels using a learned similarity metric</a> (2016)</li>
+<li>Goodfellow et al., <a href="https://arxiv.org/abs/1406.2661">Generative Adversarial Networks</a> (2014)</li>
+<li>Heusel et al., <a href="https://arxiv.org/abs/1706.08500">GANs Trained by a Two Time-Scale Update Rule Converge to a Local Nash Equilibrium</a> (2017)</li>
+<li>Rombach et al., <a href="https://arxiv.org/abs/2112.10752">High-Resolution Image Synthesis with Latent Diffusion Models</a> (2022)</li>
+</ul>
+
+</main>
+
+  <footer>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/languages/r.min.js"></script>
+
+<script>
+hljs.configure({languages: []});
+hljs.initHighlightingOnLoad();
+</script>
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+  onload="renderMathInElement(document.body, {
+    delimiters: [
+      {left: '$$', right: '$$', display: true},
+      {left: '$', right: '$', display: false}
+    ],
+    throwOnError: false
+  });"></script>
+  
+  <hr/>
+  © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>
+  
+  </footer>
+  </body>
+</html>
+

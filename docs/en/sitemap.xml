@@ -72,6 +72,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/representation-learning/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/representation-learning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/representation-learning/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
@@ -88,6 +98,16 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/variational-autoencoder-interview-questions-and-answers/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/variational-autoencoder-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/variational-autoencoder-interview-questions-and-answers/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/classical-chinese/</loc>
     <lastmod>2026-04-17T00:00:00+00:00</lastmod>
