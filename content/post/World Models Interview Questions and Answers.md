@@ -17,7 +17,7 @@ toc: true
 
 **Q:** How is a world model defined, and what distinguishes a model-based agent that uses one from a model-free agent?
 
-**A:** A world model is an internal representation that an agent uses to simulate the dynamics of its environment: given a current state and an action, it predicts the next state and the associated reward. The term originates from cognitive science (Craik, 1943) but was formalized in the reinforcement learning context by Ha & Schmidhuber (2018). The key distinction from model-free agents is that a world model enables counterfactual reasoning — the agent can imagine the consequences of actions without executing them in the real environment, allowing planning in "imagination" rather than requiring every policy update to come from costly real interaction.
+**A:** A world model is an internal representation that an agent uses to simulate the dynamics of its environment: given a current state and an action, it predicts the next state and the associated reward. The term originates from cognitive science (Craik, 1943) but was formalized in the reinforcement learning context by Ha & Schmidhuber (2018). The key distinction from [model-free agents]({{< relref "Model-Free Reinforcement Learning Interview Questions and Answers.md" >}}) is that a world model enables counterfactual reasoning — the agent can imagine the consequences of actions without executing them in the real environment, allowing planning in "imagination" rather than requiring every policy update to come from costly real interaction.
 
 The architecture of a world model typically decomposes into three components: a **representation model** (encoder) that maps high-dimensional observations to compact latent states, a **transition model** that predicts the next latent state given an action, and an optional **decoder** that reconstructs observations from latent states. The policy and value function then operate on latent states rather than raw observations, drastically reducing the dimensionality of the input to the decision-making component.
 
@@ -57,7 +57,7 @@ Two main planning paradigms exist. **Explicit planning** (model predictive contr
 
 The critical design parameter is the ratio of real to simulated transitions — the "planning ratio" $k$. With a perfect model, increasing $k$ monotonically improves policy quality; with an imperfect model, high $k$ amplifies model errors and degrades performance. This bias-variance trade-off in Dyna motivated the development of uncertainty-aware planning (MBPO, MOPO, MOREL), which limits imagination rollout length or pessimistically penalizes high-uncertainty model regions to prevent model exploitation.
 
-Modern neural world models (Dreamer, MuZero, TD-MPC) are best understood as high-capacity differentiable extensions of Dyna: the tabular model is replaced by a neural network with a continuous latent state space, the tabular policy update is replaced by gradient-based actor-critic optimization, and planning occurs in learned latent space rather than in symbolic or tabular state space. The Dyna framework also anticipates the offline model-based RL literature: if the replay buffer is a static fixed dataset (no new real interaction), Dyna becomes offline MBRL, with model accuracy on the data distribution being the limiting factor for policy quality. TD-MPC2 (Hansen et al., 2024) extends this lineage with a value-equivalent latent model and joint model-policy training, achieving strong performance across locomotion, manipulation, and game tasks simultaneously.
+Modern neural world models (Dreamer, MuZero, TD-MPC) are best understood as high-capacity differentiable extensions of Dyna: the tabular model is replaced by a neural network with a continuous latent state space, the tabular policy update is replaced by gradient-based [actor-critic]({{< relref "Model-Free Reinforcement Learning Interview Questions and Answers.md#actor-critic-methods" >}}) optimization, and planning occurs in learned latent space rather than in symbolic or tabular state space. The Dyna framework also anticipates the offline model-based RL literature: if the replay buffer is a static fixed dataset (no new real interaction), Dyna becomes offline MBRL, with model accuracy on the data distribution being the limiting factor for policy quality. TD-MPC2 (Hansen et al., 2024) extends this lineage with a value-equivalent latent model and joint model-policy training, achieving strong performance across locomotion, manipulation, and game tasks simultaneously.
 
 ---
 
@@ -79,7 +79,7 @@ These properties can be enforced by different learning objectives. VAE-based rec
 
 **Q:** Describe the RSSM's architectural decomposition, explain the purpose of each component, and detail how the model is trained and used for imagination.
 
-**A:** The Recurrent State Space Model (RSSM, Hafner et al., 2019) is the core architectural innovation of DreamerV1. It decomposes the latent state into two components with complementary roles. The **deterministic recurrent state** $h_t$ is computed by a GRU from $h_{t-1}$ and action $a_{t-1}$: $h_t = f_\phi(h_{t-1}, z_{t-1}, a_{t-1})$. This component carries long-range temporal information across many time steps without stochastic bottlenecks — the GRU's hidden state accumulates a compressed history of past observations and actions, enabling the model to infer hidden state variables (e.g., velocity from successive positions, game mode from recent events). The **stochastic state** $z_t$ is sampled from a distribution conditioned on $h_t$: during training, the posterior $q_\phi(z_t | h_t, o_t)$ incorporates the current observation; during imagination (no observation access), the prior $p_\phi(z_t | h_t)$ generates the stochastic state from the recurrent history alone.
+**A:** The Recurrent State Space Model (RSSM), introduced in PlaNet (Hafner et al., 2019), is the core latent dynamics component shared by PlaNet and the entire Dreamer series. It decomposes the latent state into two components with complementary roles. The **deterministic recurrent state** $h_t$ is computed by a GRU from $h_{t-1}$ and action $a_{t-1}$: $h_t = f_\phi(h_{t-1}, z_{t-1}, a_{t-1})$. This component carries long-range temporal information across many time steps without stochastic bottlenecks — the GRU's hidden state accumulates a compressed history of past observations and actions, enabling the model to infer hidden state variables (e.g., velocity from successive positions, game mode from recent events). The **stochastic state** $z_t$ is sampled from a distribution conditioned on $h_t$: during training, the posterior $q_\phi(z_t | h_t, o_t)$ incorporates the current observation; during imagination (no observation access), the prior $p_\phi(z_t | h_t)$ generates the stochastic state from the recurrent history alone.
 
 The stochastic component models irreducible uncertainty: even with perfect knowledge of history and action, the next state may not be fully determined (physical noise, multi-modal outcomes, partial observability). By explicitly representing this uncertainty as a learned distribution, the RSSM can generate diverse imagined trajectories that reflect the range of possible futures rather than a single deterministic prediction.
 
@@ -113,13 +113,27 @@ The RSSM implements approximate belief state tracking via the recurrent determin
 
 ---
 
-## Dreamer Series
+## PlaNet and Dreamer Series
 
-### Q9 [Basic] What is DreamerV1 and how does it train a policy entirely in imagination?
+### Q9 [Basic] What is PlaNet and how does it plan in latent space?
+
+**Q:** Describe PlaNet's RSSM-based world model, its Cross-Entropy Method planning approach, and how it differs from DreamerV1's amortized actor-critic.
+
+**A:** PlaNet (Hafner et al., 2019, "Learning Latent Dynamics for Planning from Pixels") introduced the RSSM and demonstrated for the first time that an agent can solve continuous control tasks from raw pixel observations by planning entirely within a learned latent state space — without ever planning in pixel space or training an explicit policy network.
+
+PlaNet's planning uses **Model-Predictive Control (MPC) with the Cross-Entropy Method (CEM)**: at every environment step, CEM samples $J$ candidate action sequences of length $H$, evaluates each by imagining the corresponding RSSM rollout and summing predicted rewards, selects the top-$K$ sequences by predicted return, refits a Gaussian distribution over action sequences to these elite samples, and repeats for several iterations. The first action of the converged best sequence is executed; the entire planning procedure runs again at the next step. This approach requires no explicit policy network: decision-making emerges from test-time optimization guided by the world model.
+
+The RSSM is trained purely from pixel observations via the ELBO: the encoder maps observations to posterior latent states, the transition model predicts the prior, and an image decoder and reward predictor are jointly trained with the KL divergence regularization term. At planning time, only the transition model and reward predictor are used — the decoder is not queried.
+
+On six continuous control tasks from the DeepMind Control Suite, PlaNet achieves competitive performance with only 2,000 environment episodes, matching or exceeding model-free baselines that require 50× more data. The key limitation is that CEM planning is expensive at test time: evaluating $J$ candidate sequences per step scales poorly to longer horizons and complex tasks. DreamerV1 directly addresses this by replacing CEM with a parametric actor network trained via backpropagation through imagined trajectories — moving the planning compute from test time to training time.
+
+---
+
+### Q10 [Basic] What is DreamerV1 and how does it train a policy entirely in imagination?
 
 **Q:** Describe DreamerV1's training procedure and the evidence that planning in imagination can match or exceed model-free performance on continuous control tasks.
 
-**A:** DreamerV1 (Hafner et al., 2019, "Learning Latent Dynamics for Planning from Pixels") introduced the first world model capable of learning from raw pixel observations and training a competitive policy solely through imagined trajectories. The training alternates between three phases. First, the RSSM, image decoder, reward predictor, and discount predictor are jointly trained on real environment transitions stored in a replay buffer, minimizing the ELBO loss. Second, imagined rollouts of length $H = 15$ are generated by unrolling the RSSM prior from latent states stored in the replay buffer — no new real environment interaction is used during this phase. Third, the actor (policy) and critic (value function) are trained purely on these imagined trajectories using straight-through gradients for the actor and $\lambda$-returns for the critic.
+**A:** DreamerV1 (Hafner et al., 2020, "Dream to Control: Learning Behaviors by Latent Imagination") introduced the first world model capable of learning from raw pixel observations and training a competitive policy solely through imagined trajectories. The training alternates between three phases. First, the RSSM, image decoder, reward predictor, and discount predictor are jointly trained on real environment transitions stored in a replay buffer, minimizing the ELBO loss. Second, imagined rollouts of length $H = 15$ are generated by unrolling the RSSM prior from latent states stored in the replay buffer — no new real environment interaction is used during this phase. Third, the actor (policy) and critic (value function) are trained purely on these imagined trajectories using straight-through gradients for the actor and $\lambda$-returns for the critic.
 
 The actor is trained to maximize the $\lambda$-return of imagined trajectories via reparameterized gradients through the differentiable transition model: $\nabla_\phi \mathbb{E}_{p_\phi}[V_\lambda(z_{1:H})]$, where the expectation is over imagined trajectories generated by the policy acting in the learned model. This provides dense gradient signal at every imagined step, in contrast to model-free policy gradient which obtains sparse gradients from sparse real rewards. The critic is updated via temporal difference learning on imagined rollouts, bootstrapping value estimates at the end of each horizon.
 
@@ -127,7 +141,7 @@ On the DeepMind Control Suite (DMControl) across 20 continuous control tasks, Dr
 
 ---
 
-### Q10 [Advanced] What improvements did DreamerV2 introduce over DreamerV1?
+### Q11 [Advanced] What improvements did DreamerV2 introduce over DreamerV1?
 
 **Q:** Describe DreamerV2's categorical latent representations and KL balancing, explain the motivation for each, and summarize its performance on Atari.
 
@@ -139,7 +153,7 @@ On the DeepMind Control Suite (DMControl) across 20 continuous control tasks, Dr
 
 ---
 
-### Q11 [Advanced] How does DreamerV3 achieve general-purpose world modeling across diverse domains?
+### Q12 [Advanced] How does DreamerV3 achieve general-purpose world modeling across diverse domains?
 
 **Q:** Describe the three technical contributions of DreamerV3 that enable domain-agnostic hyperparameters, and summarize its cross-domain performance.
 
@@ -153,7 +167,7 @@ On the DeepMind Control Suite (DMControl) across 20 continuous control tasks, Dr
 
 ---
 
-### Q12 [Advanced] How is the actor-critic trained in Dreamer's latent space?
+### Q13 [Advanced] How is the actor-critic trained in Dreamer's latent space?
 
 **Q:** Describe the mechanics of Dreamer's imagination-based actor-critic, including gradient flow, return estimation, and the advantage of this approach over model-free policy gradient.
 
@@ -167,7 +181,7 @@ The advantage over model-free policy gradient (REINFORCE, PPO) is the gradient q
 
 ---
 
-### Q13 [Advanced] When does world-model planning outperform model-free baselines?
+### Q14 [Advanced] When does world-model planning outperform model-free baselines?
 
 **Q:** Under what task conditions do world models provide the largest performance advantage over model-free agents, and what conditions lead to world models underperforming?
 
@@ -181,7 +195,7 @@ World models also underperform when **reward is extremely sparse** (e.g., binary
 
 ## Predictive & Self-Supervised Approaches
 
-### Q14 [Basic] What is predictive coding and how does it relate to the world model framework?
+### Q15 [Basic] What is predictive coding and how does it relate to the world model framework?
 
 **Q:** Describe the predictive coding hypothesis, its computational formulation, and how it maps onto modern world model architectures.
 
@@ -193,7 +207,7 @@ The connection to modern world models is formal: the RSSM's KL divergence term $
 
 ---
 
-### Q15 [Advanced] How does MuZero build a value-equivalent world model without reconstructing observations?
+### Q16 [Advanced] How does MuZero build a value-equivalent world model without reconstructing observations?
 
 **Q:** Describe MuZero's three learned functions, the value-equivalence principle, and how MCTS planning integrates with the learned model at inference time.
 
@@ -205,7 +219,7 @@ At inference time, MuZero uses MCTS to plan: given the current observation, $h_\
 
 ---
 
-### Q16 [Advanced] How does JEPA differ from generative world models?
+### Q17 [Advanced] How does JEPA differ from generative world models?
 
 **Q:** Describe the Joint Embedding Predictive Architecture proposed by LeCun (2022), explain why it avoids pixel-level prediction, and summarize the empirical evidence for JEPA-style representations.
 
@@ -217,7 +231,7 @@ V-JEPA (Bardes et al., 2024) demonstrated this principle on video: a model train
 
 ---
 
-### Q17 [Advanced] How does IRIS use transformer-based discrete tokenization for world modeling?
+### Q18 [Advanced] How does IRIS use transformer-based discrete tokenization for world modeling?
 
 **Q:** Describe IRIS's discrete autoencoder and transformer-based transition model, explain how imagination proceeds in token space, and compare its performance to RSSM-based models.
 
@@ -233,7 +247,7 @@ Compared to RSSM-based models, IRIS operates in a more interpretable, compositio
 
 ## Evaluation & Frontiers
 
-### Q18 [Basic] How is world model quality evaluated?
+### Q19 [Basic] How is world model quality evaluated?
 
 **Q:** What metrics are used to measure world model prediction accuracy, and how does model quality relate to downstream policy performance?
 
@@ -245,7 +259,7 @@ Downstream performance is evaluated by training a policy using the world model a
 
 ---
 
-### Q19 [Advanced] What are the principal failure modes of learned world models?
+### Q20 [Advanced] What are the principal failure modes of learned world models?
 
 **Q:** Categorize the main failure modes of learned world models, explain the mechanism of each, and describe the mitigation strategies in the literature.
 
@@ -261,7 +275,7 @@ Downstream performance is evaluated by training a policy using the world model a
 
 ---
 
-### Q20 [Advanced] What are the open problems and research frontiers in world model research?
+### Q21 [Advanced] What are the open problems and research frontiers in world model research?
 
 **Q:** What are the most significant unsolved challenges in building general, accurate, and scalable world models, and what are the active research directions addressing each?
 
@@ -291,23 +305,25 @@ Downstream performance is evaluated by training a policy using the world model a
 | Q6 | Advanced | RSSM: deterministic + stochastic decomposition, training via ELBO | Latent Dynamics Modeling |
 | Q7 | Advanced | Partial observability: belief states and recurrent approximate filtering | Latent Dynamics Modeling |
 | Q8 | Advanced | Pixel-space vs latent-space vs value-equivalent prediction | Latent Dynamics Modeling |
-| Q9 | Basic | DreamerV1: RSSM, imagination rollouts, actor-critic in latent space | Dreamer Series |
-| Q10 | Advanced | DreamerV2: categorical latents and KL balancing for Atari | Dreamer Series |
-| Q11 | Advanced | DreamerV3: symlog, free bits, percentile normalization — domain-agnostic | Dreamer Series |
-| Q12 | Advanced | Dreamer actor-critic: straight-through gradients and λ-returns | Dreamer Series |
-| Q13 | Advanced | When world models outperform model-free: conditions and failure regimes | Dreamer Series |
-| Q14 | Basic | Predictive coding: hierarchical prediction error and world models | Predictive & Self-Supervised Approaches |
-| Q15 | Advanced | MuZero: value-equivalent model, MCTS planning, no reconstruction | Predictive & Self-Supervised Approaches |
-| Q16 | Advanced | JEPA: latent-space prediction without pixel generation | Predictive & Self-Supervised Approaches |
-| Q17 | Advanced | IRIS: VQVAE tokenization + GPT transformer world model | Predictive & Self-Supervised Approaches |
-| Q18 | Basic | Evaluation: multi-step prediction error, FVD, downstream performance | Evaluation & Frontiers |
-| Q19 | Advanced | Failure modes: compounding error, model exploitation, distribution shift | Evaluation & Frontiers |
-| Q20 | Advanced | Open problems: compositional generalization, long-horizon, causal models | Evaluation & Frontiers |
+| Q9 | Basic | PlaNet: RSSM introduction, CEM latent-space MPC planning from pixels | PlaNet and Dreamer Series |
+| Q10 | Basic | DreamerV1: imagination rollouts, amortized actor-critic in latent space | PlaNet and Dreamer Series |
+| Q11 | Advanced | DreamerV2: categorical latents and KL balancing for Atari | PlaNet and Dreamer Series |
+| Q12 | Advanced | DreamerV3: symlog, free bits, percentile normalization — domain-agnostic | PlaNet and Dreamer Series |
+| Q13 | Advanced | Dreamer actor-critic: straight-through gradients and λ-returns | PlaNet and Dreamer Series |
+| Q14 | Advanced | When world models outperform model-free: conditions and failure regimes | PlaNet and Dreamer Series |
+| Q15 | Basic | Predictive coding: hierarchical prediction error and world models | Predictive & Self-Supervised Approaches |
+| Q16 | Advanced | MuZero: value-equivalent model, MCTS planning, no reconstruction | Predictive & Self-Supervised Approaches |
+| Q17 | Advanced | JEPA: latent-space prediction without pixel generation | Predictive & Self-Supervised Approaches |
+| Q18 | Advanced | IRIS: VQVAE tokenization + GPT transformer world model | Predictive & Self-Supervised Approaches |
+| Q19 | Basic | Evaluation: multi-step prediction error, FVD, downstream performance | Evaluation & Frontiers |
+| Q20 | Advanced | Failure modes: compounding error, model exploitation, distribution shift | Evaluation & Frontiers |
+| Q21 | Advanced | Open problems: compositional generalization, long-horizon, causal models | Evaluation & Frontiers |
 
 ## Resources
 
 - Ha and Schmidhuber, [World Models](https://arxiv.org/abs/1803.10122) (2018)
-- Hafner et al., [Learning Latent Dynamics for Planning from Pixels](https://arxiv.org/abs/1811.04551) (DreamerV1, 2019)
+- Hafner et al., [Learning Latent Dynamics for Planning from Pixels](https://arxiv.org/abs/1811.04551) (PlaNet, 2019)
+- Hafner et al., [Dream to Control: Learning Behaviors by Latent Imagination](https://arxiv.org/abs/1912.01603) (DreamerV1, 2020)
 - Hafner et al., [Mastering Atari with Discrete World Models](https://arxiv.org/abs/2010.02193) (DreamerV2, 2020)
 - Hafner et al., [Mastering Diverse Domains with World Models](https://arxiv.org/abs/2301.04104) (DreamerV3, 2023)
 - Schrittwieser et al., [Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model](https://arxiv.org/abs/1911.08265) (MuZero, 2020)
@@ -319,3 +335,7 @@ Downstream performance is evaluated by training a policy using the world model a
 - Lotter et al., [Deep Predictive Coding Networks for Video Prediction and Unsupervised Learning](https://arxiv.org/abs/1605.08104) (PredNet, 2017)
 - Hansen et al., [TD-MPC2: Scalable, Robust World Models for Continuous Control](https://arxiv.org/abs/2310.16828) (2024)
 - Schölkopf et al., [Toward Causal Representation Learning](https://arxiv.org/abs/2102.11107) (2021)
+
+## See Also
+
+- [Model-Free Reinforcement Learning: Interview Questions and Answers]({{< relref "Model-Free Reinforcement Learning Interview Questions and Answers.md" >}})

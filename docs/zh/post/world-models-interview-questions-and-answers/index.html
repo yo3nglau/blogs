@@ -111,6 +111,7 @@
     </li>
     <li><a href="#快速参考">快速参考</a></li>
     <li><a href="#参考文献">参考文献</a></li>
+    <li><a href="#另见">另见</a></li>
   </ul>
 </nav>
 
@@ -119,7 +120,7 @@
 <h2 id="世界模型基础">世界模型基础</h2>
 <h3 id="q1-基础-什么是世界模型它与无模型智能体有何不同">Q1 [基础] 什么是世界模型，它与无模型智能体有何不同？</h3>
 <p><strong>Q:</strong> 世界模型如何定义，使用世界模型的基于模型的智能体与无模型智能体有何区别？</p>
-<p><strong>A:</strong> 世界模型（World Model）是智能体用于模拟其环境动态的内部表示：给定当前状态和动作，它预测下一状态及相关奖励。该术语源自认知科学（Craik, 1943），并由 Ha &amp; Schmidhuber（2018）在强化学习语境中将其形式化。与无模型智能体的关键区别在于，世界模型支持反事实推理——智能体可以在不在真实环境中执行动作的情况下想象动作的后果，从而在&quot;想象&quot;中进行规划，而无需每次策略更新都来自昂贵的真实交互。</p>
+<p><strong>A:</strong> 世界模型（World Model）是智能体用于模拟其环境动态的内部表示：给定当前状态和动作，它预测下一状态及相关奖励。该术语源自认知科学（Craik, 1943），并由 Ha &amp; Schmidhuber（2018）在强化学习语境中将其形式化。与<a href="/blogs/zh/post/model-free-reinforcement-learning-interview-questions-and-answers/">无模型智能体</a>的关键区别在于，世界模型支持反事实推理——智能体可以在不在真实环境中执行动作的情况下想象动作的后果，从而在&quot;想象&quot;中进行规划，而无需每次策略更新都来自昂贵的真实交互。</p>
 <p>世界模型的架构通常分解为三个组件：将高维观测映射到紧凑潜在状态的<strong>表示模型</strong>（编码器）、给定动作预测下一潜在状态的<strong>转移模型</strong>，以及从潜在状态重建观测的可选<strong>解码器</strong>。策略和价值函数随后在潜在状态而非原始观测上运作，大幅降低了决策组件输入的维度。</p>
 <p>基于模型的智能体比无模型智能体样本效率高得多，因为每次真实转移发挥双重作用：世界模型从中提取动态信息，并随后可生成大量合成转移用于额外的策略训练。根本的权衡在于，世界模型误差在多步规划时会累积——每步 1% 不准确的模型在 15 步后会产生 14% 的误差——而在极少访问的状态空间区域中，不准确的模型可能误导规划器去利用模型误差，而非实现真正的任务性能。</p>
 <hr>
@@ -139,7 +140,7 @@
 <p><strong>Q:</strong> 描述 Dyna 框架、其核心设计选择，并追溯从 Dyna 到现代神经世界模型方法的概念传承。</p>
 <p><strong>A:</strong> Dyna（Sutton, 1991）是基础性的基于模型的 RL 框架，引入了利用已学习的环境模型生成合成经验以改进策略的原则。Dyna 智能体在两个阶段之间交替：真实交互（收集转移、存储到回放缓冲区并更新模型），以及模拟经验生成（从模型中采样并更新策略/价值函数，就好像这些样本是真实转移一样）。这通过将每次真实经验放大为多个模型生成的转移来摊销真实交互的成本，在不改变策略更新机制的情况下提高样本效率。</p>
 <p>关键设计参数是真实与模拟转移的比率——&ldquo;规划比率&rdquo; $k$。使用完美模型时，增大 $k$ 单调地改善策略质量；使用不完美模型时，高 $k$ 放大模型误差并降低性能。Dyna 中这种偏差-方差权衡推动了不确定性感知规划（MBPO、MOPO、MOREL）的发展，这些方法限制了想象滚动长度，或悲观地惩罚高不确定性模型区域以防止模型利用。</p>
-<p>现代神经世界模型（Dreamer、MuZero、TD-MPC）最好理解为 Dyna 的高容量可微扩展：表格模型被具有连续潜在状态空间的神经网络替代，表格策略更新被基于梯度的 actor-critic 优化替代，规划在已学习的潜在空间而非符号或表格状态空间中进行。Dyna 框架也预示了离线基于模型的 RL 文献：如果回放缓冲区是一个静态固定数据集（无新真实交互），Dyna 变成离线 MBRL，模型在数据分布上的准确性成为策略质量的限制因素。TD-MPC2（Hansen et al., 2024）通过价值等价潜在模型和联合模型-策略训练扩展了这一传承，在运动、操控和游戏任务上同时取得了强劲性能。</p>
+<p>现代神经世界模型（Dreamer、MuZero、TD-MPC）最好理解为 Dyna 的高容量可微扩展：表格模型被具有连续潜在状态空间的神经网络替代，表格策略更新被基于梯度的 <a href="/blogs/zh/post/model-free-reinforcement-learning-interview-questions-and-answers/">actor-critic</a> 优化替代，规划在已学习的潜在空间而非符号或表格状态空间中进行。Dyna 框架也预示了离线基于模型的 RL 文献：如果回放缓冲区是一个静态固定数据集（无新真实交互），Dyna 变成离线 MBRL，模型在数据分布上的准确性成为策略质量的限制因素。TD-MPC2（Hansen et al., 2024）通过价值等价潜在模型和联合模型-策略训练扩展了这一传承，在运动、操控和游戏任务上同时取得了强劲性能。</p>
 <hr>
 <h2 id="潜在动态建模">潜在动态建模</h2>
 <h3 id="q5-基础-潜在空间在世界模型中扮演什么角色">Q5 [基础] 潜在空间在世界模型中扮演什么角色？</h3>
@@ -412,6 +413,10 @@
 <li>Lotter et al., <a href="https://arxiv.org/abs/1605.08104">Deep Predictive Coding Networks for Video Prediction and Unsupervised Learning</a> (PredNet, 2017)</li>
 <li>Hansen et al., <a href="https://arxiv.org/abs/2310.16828">TD-MPC2: Scalable, Robust World Models for Continuous Control</a> (2024)</li>
 <li>Schölkopf et al., <a href="https://arxiv.org/abs/2102.11107">Toward Causal Representation Learning</a> (2021)</li>
+</ul>
+<h2 id="另见">另见</h2>
+<ul>
+<li><a href="/blogs/zh/post/model-free-reinforcement-learning-interview-questions-and-answers/">无模型强化学习：面试问题与推荐回答</a></li>
 </ul>
 
 </main>
