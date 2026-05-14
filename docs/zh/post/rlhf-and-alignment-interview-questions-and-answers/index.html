@@ -6,8 +6,21 @@
     <title>RLHF与对齐：面试问题与推荐回答 | yo3nglau academic website</title>
     <link rel="stylesheet" href='/blogs/css/style.css' />
     <link rel="stylesheet" href='/blogs/css/fonts.css' />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+    <link id="hljs-light" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link id="hljs-dark"  href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-dark.min.css" rel="stylesheet" disabled>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem('theme');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+}());
+</script>
+
   </head>
 
   <body>
@@ -22,6 +35,7 @@
       
       <li><a href="/blogs/tags/">Tags</a></li>
       
+      <li><button id="theme-toggle" title="Toggle day/night mode">☽</button></li>
     </ul>
     <hr/>
     </nav>
@@ -420,6 +434,37 @@ hljs.initHighlightingOnLoad();
     ],
     throwOnError: false
   });"></script>
+
+<script>
+(function () {
+  function applyTheme(dark) {
+    if (dark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    var light = document.getElementById('hljs-light');
+    var dark_ = document.getElementById('hljs-dark');
+    if (light) light.disabled = dark;
+    if (dark_) dark_.disabled = !dark;
+    var btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = dark ? '☀' : '☽';
+  }
+
+  function toggleTheme() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    applyTheme(!isDark);
+    try { localStorage.setItem('theme', !isDark ? 'dark' : 'light'); } catch (e) {}
+  }
+
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.addEventListener('click', toggleTheme);
+
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  applyTheme(isDark);
+}());
+</script>
+
   
   <hr/>
   © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>

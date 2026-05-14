@@ -6,8 +6,21 @@
     <title>世界模型：面试问题与推荐回答 | yo3nglau academic website</title>
     <link rel="stylesheet" href='/blogs/css/style.css' />
     <link rel="stylesheet" href='/blogs/css/fonts.css' />
-    <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+    <link id="hljs-light" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github.min.css" rel="stylesheet">
+<link id="hljs-dark"  href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/github-dark.min.css" rel="stylesheet" disabled>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem('theme');
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (saved === 'dark' || (!saved && prefersDark)) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    }
+  } catch (e) {}
+}());
+</script>
+
   </head>
 
   <body>
@@ -22,6 +35,7 @@
       
       <li><a href="/blogs/tags/">Tags</a></li>
       
+      <li><button id="theme-toggle" title="Toggle day/night mode">☽</button></li>
     </ul>
     <hr/>
     </nav>
@@ -70,28 +84,29 @@
         <li><a href="#q8-进阶-世界模型中像素空间预测与潜在空间预测的权衡是什么">Q8 [进阶] 世界模型中像素空间预测与潜在空间预测的权衡是什么？</a></li>
       </ul>
     </li>
-    <li><a href="#dreamer-系列">Dreamer 系列</a>
+    <li><a href="#planet-与-dreamer-系列">PlaNet 与 Dreamer 系列</a>
       <ul>
-        <li><a href="#q9-基础-dreamerv1-是什么它如何完全在想象中训练策略">Q9 [基础] DreamerV1 是什么，它如何完全在想象中训练策略？</a></li>
-        <li><a href="#q10-进阶-dreamerv2-在-dreamerv1-基础上引入了哪些改进">Q10 [进阶] DreamerV2 在 DreamerV1 基础上引入了哪些改进？</a></li>
-        <li><a href="#q11-进阶-dreamerv3-如何实现跨多样领域的通用世界建模">Q11 [进阶] DreamerV3 如何实现跨多样领域的通用世界建模？</a></li>
-        <li><a href="#q12-进阶-dreamer-中的-actor-critic-如何在潜在空间中训练">Q12 [进阶] Dreamer 中的 actor-critic 如何在潜在空间中训练？</a></li>
-        <li><a href="#q13-进阶-世界模型规划何时优于无模型基线">Q13 [进阶] 世界模型规划何时优于无模型基线？</a></li>
+        <li><a href="#q9-基础-planet-是什么它如何在潜在空间中进行规划">Q9 [基础] PlaNet 是什么，它如何在潜在空间中进行规划？</a></li>
+        <li><a href="#q10-基础-dreamerv1-是什么它如何完全在想象中训练策略">Q10 [基础] DreamerV1 是什么，它如何完全在想象中训练策略？</a></li>
+        <li><a href="#q11-进阶-dreamerv2-在-dreamerv1-基础上引入了哪些改进">Q11 [进阶] DreamerV2 在 DreamerV1 基础上引入了哪些改进？</a></li>
+        <li><a href="#q12-进阶-dreamerv3-如何实现跨多样领域的通用世界建模">Q12 [进阶] DreamerV3 如何实现跨多样领域的通用世界建模？</a></li>
+        <li><a href="#q13-进阶-dreamer-中的-actor-critic-如何在潜在空间中训练">Q13 [进阶] Dreamer 中的 actor-critic 如何在潜在空间中训练？</a></li>
+        <li><a href="#q14-进阶-世界模型规划何时优于无模型基线">Q14 [进阶] 世界模型规划何时优于无模型基线？</a></li>
       </ul>
     </li>
     <li><a href="#预测与自监督方法">预测与自监督方法</a>
       <ul>
-        <li><a href="#q14-基础-预测编码是什么它与世界模型框架有何关联">Q14 [基础] 预测编码是什么，它与世界模型框架有何关联？</a></li>
-        <li><a href="#q15-进阶-muzero-如何在不重建观测的情况下构建价值等价世界模型">Q15 [进阶] MuZero 如何在不重建观测的情况下构建价值等价世界模型？</a></li>
-        <li><a href="#q16-进阶-jepa-与生成式世界模型有何不同">Q16 [进阶] JEPA 与生成式世界模型有何不同？</a></li>
-        <li><a href="#q17-进阶-iris-如何使用基于-transformer-的离散-token-化进行世界建模">Q17 [进阶] IRIS 如何使用基于 Transformer 的离散 token 化进行世界建模？</a></li>
+        <li><a href="#q15-基础-预测编码是什么它与世界模型框架有何关联">Q15 [基础] 预测编码是什么，它与世界模型框架有何关联？</a></li>
+        <li><a href="#q16-进阶-muzero-如何在不重建观测的情况下构建价值等价世界模型">Q16 [进阶] MuZero 如何在不重建观测的情况下构建价值等价世界模型？</a></li>
+        <li><a href="#q17-进阶-jepa-与生成式世界模型有何不同">Q17 [进阶] JEPA 与生成式世界模型有何不同？</a></li>
+        <li><a href="#q18-进阶-iris-如何使用基于-transformer-的离散-token-化进行世界建模">Q18 [进阶] IRIS 如何使用基于 Transformer 的离散 token 化进行世界建模？</a></li>
       </ul>
     </li>
     <li><a href="#评估与前沿">评估与前沿</a>
       <ul>
-        <li><a href="#q18-基础-世界模型质量如何评估">Q18 [基础] 世界模型质量如何评估？</a></li>
-        <li><a href="#q19-进阶-已学习的世界模型有哪些主要失败模式">Q19 [进阶] 已学习的世界模型有哪些主要失败模式？</a></li>
-        <li><a href="#q20-进阶-世界模型研究中有哪些开放问题和前沿研究方向">Q20 [进阶] 世界模型研究中有哪些开放问题和前沿研究方向？</a></li>
+        <li><a href="#q19-基础-世界模型质量如何评估">Q19 [基础] 世界模型质量如何评估？</a></li>
+        <li><a href="#q20-进阶-已学习的世界模型有哪些主要失败模式">Q20 [进阶] 已学习的世界模型有哪些主要失败模式？</a></li>
+        <li><a href="#q21-进阶-世界模型研究中有哪些开放问题和前沿研究方向">Q21 [进阶] 世界模型研究中有哪些开放问题和前沿研究方向？</a></li>
       </ul>
     </li>
     <li><a href="#快速参考">快速参考</a></li>
@@ -135,7 +150,7 @@
 <hr>
 <h3 id="q6-进阶-循环状态空间模型如何工作为何它同时结合确定性和随机性组件">Q6 [进阶] 循环状态空间模型如何工作，为何它同时结合确定性和随机性组件？</h3>
 <p><strong>Q:</strong> 描述 RSSM 的架构分解，解释每个组件的目的，并详述模型如何训练和用于想象。</p>
-<p><strong>A:</strong> 循环状态空间模型（RSSM，Hafner et al., 2019）是 DreamerV1 的核心架构创新。它将潜在状态分解为两个具有互补角色的组件。<strong>确定性循环状态</strong> $h_t$ 由 GRU 从 $h_{t-1}$ 和动作 $a_{t-1}$ 计算得出：$h_t = f_\phi(h_{t-1}, z_{t-1}, a_{t-1})$。此组件跨多个时间步携带长程时序信息，无随机性瓶颈——GRU 的隐状态累积了过去观测和动作的压缩历史，使模型能够推断隐藏状态变量（如从连续位置推断速度、从最近事件推断游戏模式）。<strong>随机状态</strong> $z_t$ 从以 $h_t$ 为条件的分布中采样：训练时，后验 $q_\phi(z_t | h_t, o_t)$ 整合当前观测；想象时（无观测访问），先验 $p_\phi(z_t | h_t)$ 仅从循环历史生成随机状态。</p>
+<p><strong>A:</strong> 循环状态空间模型（RSSM）由 PlaNet（Hafner et al., 2019）引入，是 PlaNet 及整个 Dreamer 系列共享的核心潜在动态组件。它将潜在状态分解为两个具有互补角色的组件。<strong>确定性循环状态</strong> $h_t$ 由 GRU 从 $h_{t-1}$ 和动作 $a_{t-1}$ 计算得出：$h_t = f_\phi(h_{t-1}, z_{t-1}, a_{t-1})$。此组件跨多个时间步携带长程时序信息，无随机性瓶颈——GRU 的隐状态累积了过去观测和动作的压缩历史，使模型能够推断隐藏状态变量（如从连续位置推断速度、从最近事件推断游戏模式）。<strong>随机状态</strong> $z_t$ 从以 $h_t$ 为条件的分布中采样：训练时，后验 $q_\phi(z_t | h_t, o_t)$ 整合当前观测；想象时（无观测访问），先验 $p_\phi(z_t | h_t)$ 仅从循环历史生成随机状态。</p>
 <p>随机组件建模不可约不确定性：即使具备完整的历史和动作知识，下一状态也可能无法完全确定（物理噪声、多模态结果、部分可观测性）。通过将这种不确定性显式表示为已学习分布，RSSM 可以生成多样的想象轨迹，反映可能未来的范围，而非单一的确定性预测。</p>
 <p>模型通过 ELBO 进行端到端训练：$\mathcal{L} = \mathbb{E}_{q}[\log p(o_t | h_t, z_t)] - \beta \cdot D_{\text{KL}}(q_\phi(z_t | h_t, o_t) \| p_\phi(z_t | h_t))$。重建项训练解码器，KL 项训练先验预测后验——这是想象训练信号。推理时，仅使用先验从 $h_t$ 生成 $z_t$，支持无需访问真实观测的多步想象滚动。$h_t$（确定性，通过 GRU 的 BPTT 训练）和 $z_t$（随机性，通过变分推断训练）之间的分离至关重要：它防止 KL 训练干扰通过循环状态的时序信用分配。</p>
 <hr>
@@ -152,59 +167,66 @@
 <p><strong>连续潜在空间预测</strong>（Dreamer 中的 RSSM、SLAC）在紧凑表示中运作（DreamerV2 中每状态 $\leq 1024$ 个值），支持快速想象滚动和可微规划。表示更为抽象——模型在一个动态被学习为平滑且可预测的空间中预测——但依赖于编码器的高质量。如果编码器丢弃了与任务相关的信息（经典的&quot;VAE 学习编码风格而非结构&quot;失败模式），转移模型就会在无信息的潜在空间上学习动态。潜在空间模型更适合提升样本效率：DreamerV3 在各种基准上取得竞争性性能，而每步想象所需的模型参数远少于像素级对应方法。</p>
 <p><strong>价值等价预测</strong>（MuZero）既不预测像素也不预测通用潜在状态，而是专门预测奖励、价值和策略 logit——MCTS 规划所需的最少量。这将表示最大程度地压缩为与决策相关的信息，并完全消除重建，但使潜在空间不透明，并要求有明确定义的奖励信号用于训练。当规划质量是唯一目标且观测重建不必要时，MuZero 严格优于其他方法；它不适用于需要世界模型可解释性或向新奖励函数迁移的任务。</p>
 <hr>
-<h2 id="dreamer-系列">Dreamer 系列</h2>
-<h3 id="q9-基础-dreamerv1-是什么它如何完全在想象中训练策略">Q9 [基础] DreamerV1 是什么，它如何完全在想象中训练策略？</h3>
+<h2 id="planet-与-dreamer-系列">PlaNet 与 Dreamer 系列</h2>
+<h3 id="q9-基础-planet-是什么它如何在潜在空间中进行规划">Q9 [基础] PlaNet 是什么，它如何在潜在空间中进行规划？</h3>
+<p><strong>Q:</strong> 描述 PlaNet 基于 RSSM 的世界模型、其交叉熵方法规划方式，以及它与 DreamerV1 的摊销 actor-critic 有何不同。</p>
+<p><strong>A:</strong> PlaNet（Hafner et al., 2019，《Learning Latent Dynamics for Planning from Pixels》）引入了 RSSM，并首次证明智能体可以通过在已学习的潜在状态空间内完全进行规划——无需在像素空间规划或训练显式策略网络——来从原始像素观测中解决连续控制任务。</p>
+<p>PlaNet 的规划使用<strong>基于交叉熵方法（CEM）的模型预测控制（MPC）</strong>：在每个环境步骤，CEM 采样 $J$ 个长度为 $H$ 的候选动作序列，通过对相应 RSSM 滚动进行想象并求和预测奖励来评估每个序列，按预测回报选择前 $K$ 个序列，将高斯分布重新拟合到这些精英样本上，并重复若干次迭代。执行收敛后最优序列的第一个动作；整个规划过程在下一步重新运行。这种方法不需要显式策略网络：决策通过由世界模型引导的测试时优化产生。</p>
+<p>RSSM 纯粹从像素观测通过 ELBO 训练：编码器将观测映射到后验潜在状态，转移模型预测先验，图像解码器和奖励预测器与 KL 散度正则化项联合训练。在规划时，仅使用转移模型和奖励预测器——不查询解码器。</p>
+<p>在 DeepMind Control Suite 的六个连续控制任务上，PlaNet 仅用 2,000 个环境回合就实现了有竞争力的性能，匹配或超过需要 50 倍以上数据的无模型基线。关键限制在于 CEM 规划在测试时成本较高：每步评估 $J$ 个候选序列在更长时间跨度和复杂任务中扩展性较差。DreamerV1 通过将 CEM 替换为经由想象轨迹反向传播训练的参数化 actor 网络直接解决了这一问题——将规划计算从测试时转移到训练时。</p>
+<hr>
+<h3 id="q10-基础-dreamerv1-是什么它如何完全在想象中训练策略">Q10 [基础] DreamerV1 是什么，它如何完全在想象中训练策略？</h3>
 <p><strong>Q:</strong> 描述 DreamerV1 的训练过程，以及想象规划能够匹配或超越无模型方法在连续控制任务上性能的证据。</p>
-<p><strong>A:</strong> DreamerV1（Hafner et al., 2019，《Learning Latent Dynamics for Planning from Pixels》）引入了第一个能够从原始像素观测学习并仅通过想象轨迹训练竞争性策略的世界模型。训练在三个阶段之间交替。首先，RSSM、图像解码器、奖励预测器和折扣预测器在存储于回放缓冲区的真实环境转移上联合训练，最小化 ELBO 损失。其次，通过从回放缓冲区存储的潜在状态展开 RSSM 先验，生成长度为 $H = 15$ 的想象滚动——此阶段不使用新的真实环境交互。第三，actor（策略）和 critic（价值函数）纯粹在这些想象轨迹上训练，actor 使用直通梯度，critic 使用 $\lambda$-回报。</p>
+<p><strong>A:</strong> DreamerV1（Hafner et al., 2020，《Dream to Control: Learning Behaviors by Latent Imagination》）引入了第一个能够从原始像素观测学习并仅通过想象轨迹训练竞争性策略的世界模型。训练在三个阶段之间交替。首先，RSSM、图像解码器、奖励预测器和折扣预测器在存储于回放缓冲区的真实环境转移上联合训练，最小化 ELBO 损失。其次，通过从回放缓冲区存储的潜在状态展开 RSSM 先验，生成长度为 $H = 15$ 的想象滚动——此阶段不使用新的真实环境交互。第三，actor（策略）和 critic（价值函数）纯粹在这些想象轨迹上训练，actor 使用直通梯度，critic 使用 $\lambda$-回报。</p>
 <p>actor 通过可微转移模型的重参数化梯度进行训练，以最大化想象轨迹的 $\lambda$-回报：$\nabla_\phi \mathbb{E}_{p_\phi}[V_\lambda(z_{1:H})]$，其中期望值取遍由策略在已学习模型中行动生成的想象轨迹。这在每个想象步骤提供密集梯度信号，与从稀疏真实奖励获取稀疏梯度的无模型策略梯度形成对比。critic 通过在想象滚动上的时序差分学习进行更新，在每个时间跨度末尾引导价值估计。</p>
 <p>在 DeepMind Control Suite（DMControl）的 20 个连续控制任务上，DreamerV1 在渐近性能方面匹配或超过最先进的无模型智能体（SAC、D4PG），同时使用少 5 倍的真实环境步数。这确立了想象滚动作为可行且高效训练范式的地位，并开启了 Dreamer 系列研究。</p>
 <hr>
-<h3 id="q10-进阶-dreamerv2-在-dreamerv1-基础上引入了哪些改进">Q10 [进阶] DreamerV2 在 DreamerV1 基础上引入了哪些改进？</h3>
+<h3 id="q11-进阶-dreamerv2-在-dreamerv1-基础上引入了哪些改进">Q11 [进阶] DreamerV2 在 DreamerV1 基础上引入了哪些改进？</h3>
 <p><strong>Q:</strong> 描述 DreamerV2 的类别潜在表示和 KL 平衡，解释各自的动机，并总结其在 Atari 上的性能。</p>
 <p><strong>A:</strong> DreamerV2（Hafner et al., 2020，《Mastering Atari with Discrete World Models》）将 Dreamer 扩展到 Atari 基准套件——具有离散动作、基于图像的游戏，以及复杂、非平滑的动态。两项主要创新解决了 DreamerV1 连续高斯潜在表示的已知弱点。</p>
 <p><strong>类别潜在表示</strong>将高斯随机状态 $z_t \sim \mathcal{N}(\mu, \sigma^2)$ 替换为 $K$ 个类别分布的乘积，每个分布有 $L$ 个类别：$z_t = \text{concat}[\text{cat}(\pi_1), \ldots, \text{cat}(\pi_K)]$，其中 $K = 32$，$L = 32$，得到 $32 \times 32 = 1024$ 维二值向量。直通梯度支持通过离散 argmax 采样的反向传播。类别潜在更适合建模环境中的离散结构：当世界具有有限数量的语义上不同状态（游戏模式、离散碰撞事件、物体的二值存在）时，类别分布将它们表示为点质量，而非重叠的高斯团。作者发现，在 Atari 上，类别潜在比高斯更快地减少重建损失，并产生更好校准的不确定性估计。</p>
 <p><strong>KL 平衡</strong>解决了 ELBO 中 KL 散度项引起的训练不稳定性。使用高容量编码器时，后验 $q(z_t | h_t, o_t)$ 可能比先验 $p(z_t | h_t)$ 学习快得多，导致先验永久落后，无法训练模型的想象能力。KL 平衡应用不对称梯度系数：先验获得梯度权重 $\alpha = 0.8$，后验获得 $1 - \alpha = 0.2$，确保先验更新速度快于后验，并学习准确预测后验的分布。在 55 个 Atari 游戏上使用 200M 环境步，DreamerV2 在 45 个游戏上达到人类水平性能，并与无模型方法 Rainbow 的数据效率相匹配，首次证明基于模型的智能体可以在 Atari 上与顶级无模型方法竞争。</p>
 <hr>
-<h3 id="q11-进阶-dreamerv3-如何实现跨多样领域的通用世界建模">Q11 [进阶] DreamerV3 如何实现跨多样领域的通用世界建模？</h3>
+<h3 id="q12-进阶-dreamerv3-如何实现跨多样领域的通用世界建模">Q12 [进阶] DreamerV3 如何实现跨多样领域的通用世界建模？</h3>
 <p><strong>Q:</strong> 描述 DreamerV3 实现领域无关超参数的三项技术贡献，并总结其跨领域性能。</p>
 <p><strong>A:</strong> DreamerV3（Hafner et al., 2023，《Mastering Diverse Domains with World Models》）解决了先前 Dreamer 变体的核心局限：每个基准领域都需要单独调整超参数，限制了框架的通用性主张。目标是一个固定的超参数配置，能够适用于跨七个数量级奖励范围的任务——从本体感受机器人控制（奖励范围 $[-1, 1]$）到 Minecraft 钻石收集（奖励范围 $[0, 1024]$）。</p>
 <p><strong>Symlog 预测</strong>对所有预测量（奖励、价值、回报目标）应用对称对数变换：$\text{symlog}(x) = \text{sign}(x) \cdot \ln(|x| + 1)$。这均匀地压缩大奖励范围并扩展小奖励范围，使奖励空间中的预测误差无论领域如何都具有可比性。逆变换 $\text{symexp}$ 恢复原始比例用于动作选择。Symlog 完全消除了对奖励归一化超参数的需求。</p>
 <p><strong>自由比特</strong>（Free bits）对每维 KL 散度施加最小阈值 $B$：$\mathcal{L}_{\text{KL}} = \max(B, D_{\text{KL}}(q \| p))$。没有这个，在早期训练阶段当先验无信息且后验编码的信息很少时，KL 项被平凡地满足（两者几乎均匀），模型没有接收到改善先验想象能力的梯度。设置 $B = 1$ nat 确保模型始终被推动改善其先验，防止后验崩溃并在不同任务难度中稳定早期训练。</p>
 <p><strong>基于百分位数的回报归一化</strong>通过当前想象批次中观测到的回报的第 5–95 百分位数范围来缩放 actor 梯度：$\hat{g} = g / \max(1, S_{95} - S_5)$。这使梯度幅度与领域无关：具有大回报方差（Minecraft）和小回报方差（连续控制）的任务产生可比规模的 actor 更新。在涵盖 DMControl、Atari、Crafter、BSuite、Minecraft 和记忆任务的基准上，使用固定超参数的 DreamerV3 在所有领域同时取得最先进或具有竞争力的性能——包括第一个无需人类演示即可从头在 Minecraft 中收集钻石的强化学习智能体。</p>
 <hr>
-<h3 id="q12-进阶-dreamer-中的-actor-critic-如何在潜在空间中训练">Q12 [进阶] Dreamer 中的 actor-critic 如何在潜在空间中训练？</h3>
+<h3 id="q13-进阶-dreamer-中的-actor-critic-如何在潜在空间中训练">Q13 [进阶] Dreamer 中的 actor-critic 如何在潜在空间中训练？</h3>
 <p><strong>Q:</strong> 描述 Dreamer 基于想象的 actor-critic 的机制，包括梯度流、回报估计，以及这种方法相对于无模型策略梯度的优势。</p>
 <p><strong>A:</strong> Dreamer 的 actor-critic 框架完全在世界模型的潜在空间内运作，在策略优化期间从不访问真实观测。actor $\pi_\phi(a_t | z_t)$ 将潜在状态映射到动作分布；critic $V_\psi(z_t)$ 从潜在状态估计折扣未来回报。两者都使用来自想象 $H$ 步轨迹的合成经验进行更新。</p>
 <p>想象滚动从回放缓冲区采样的潜在状态 $z_t$ 开始（而非从随机初始化），确保轨迹从具有真实数据支撑的状态空间区域出发。在每个想象步骤，actor 采样一个动作，RSSM 确定性更新计算 $h_{t+1} = f_\phi(h_t, z_t, a_t)$，先验采样 $z_{t+1} \sim p_\phi(z_{t+1} | h_{t+1})$。奖励预测器 $\hat{r}_{t+1} = r_\psi(h_{t+1}, z_{t+1})$ 提供奖励估计，折扣预测器 $\hat{\gamma}_{t+1} = \gamma_\psi(h_{t+1}, z_{t+1})$ 预测剧集终止概率。</p>
 <p>actor 通过 $\lambda$-回报的<strong>直通重参数化梯度</strong>进行训练：$\mathcal{L}_\phi = -\mathbb{E}_{p_\phi, \pi_\phi}[V_\lambda(z_{1:H})]$，其中 $V_\lambda(z_t) = \hat{r}_t + \hat{\gamma}_t [(1 - \lambda) V_\psi(z_{t+1}) + \lambda V_\lambda(z_{t+1})]$ 递归地结合引导价值估计与想象奖励。对于离散潜在状态（DreamerV2/V3），直通梯度通过将梯度传递通过 argmax（视其为恒等函数）来近似 $\nabla_\phi \mathbb{E}[\cdot]$。critic 通过以相同 $\lambda$-回报为目标的时序差分进行更新：$\mathcal{L}_\psi = \mathbb{E}[(V_\psi(z_t) - \text{sg}(V_\lambda(z_t)))^2]$，其中 $\text{sg}$ 是停止梯度。</p>
 <p>相对于无模型策略梯度（REINFORCE、PPO）的优势在于梯度质量：每个想象动作通过可微转移和奖励模型获得解析梯度，在整个 $H$ 步想象轨迹中产生密集的信用分配。无模型方法从随机奖励样本估计这一梯度，产生高方差估计，需要大批量和大量环境交互才能克服。</p>
 <hr>
-<h3 id="q13-进阶-世界模型规划何时优于无模型基线">Q13 [进阶] 世界模型规划何时优于无模型基线？</h3>
+<h3 id="q14-进阶-世界模型规划何时优于无模型基线">Q14 [进阶] 世界模型规划何时优于无模型基线？</h3>
 <p><strong>Q:</strong> 在哪些任务条件下，世界模型相对于无模型智能体提供最大的性能优势，哪些条件会导致世界模型表现不佳？</p>
 <p><strong>A:</strong> 当两个条件同时满足时，世界模型相对于无模型基线提供最大优势：<strong>真实环境交互成本高昂</strong>（相对于模型查询成本，收集数据的成本很高）以及<strong>转移动态可学习</strong>（环境遵循神经网络可以从有限数据中准确近似的规律）。在 DMControl Suite 上，物理是平滑、确定性和连续的，DreamerV3 在使用 5–20 倍更少环境步的情况下，实现了与无模型 SAC 等价的渐近性能。在机器人操控和运动任务中，真实机器人交互缓慢、昂贵且存在物理风险，基于世界模型方法的样本效率优势具有实际意义。</p>
 <p>在具有<strong>随机、多模态或快速变化动态</strong>且难以准确建模的任务上，世界模型的优势递减。在 Atari 上，优势相比 DMControl 有所收窄：游戏机制涉及突变的离散转换（分数乘数、无敌阶段、游戏结束条件），RSSM 的平滑高斯或类别动态模型对其捕捉不完美，增大了想象轨迹与真实轨迹的分歧。类似地，具有对抗性对手的多人游戏呈现出依赖对手策略的动态，而对手策略会随智能体的改进而变化——这种非平稳分布使已学习的世界模型永久过时。</p>
 <p>当<strong>奖励极度稀疏</strong>时（如二值成功/失败，剧集时间跨度 &gt; 100 步），世界模型也会表现不佳：长度为 15–50 步的想象轨迹可能从未到达奖励，即使动态建模准确，也无法为 actor 和 critic 提供训练信号。旨在解决此问题的分层世界模型（option 框架、潜在目标条件模型）在时间抽象子目标上进行规划，但仍是活跃的研究问题。最后，<strong>模型利用</strong>——规划器发现在想象中获得高奖励但在真实中获得低奖励的动作，通过利用模型不准确性实现——是一种系统性失败模式，需要不确定性量化和悲观规划（MOPO、MOREL）来缓解。</p>
 <hr>
 <h2 id="预测与自监督方法">预测与自监督方法</h2>
-<h3 id="q14-基础-预测编码是什么它与世界模型框架有何关联">Q14 [基础] 预测编码是什么，它与世界模型框架有何关联？</h3>
+<h3 id="q15-基础-预测编码是什么它与世界模型框架有何关联">Q15 [基础] 预测编码是什么，它与世界模型框架有何关联？</h3>
 <p><strong>Q:</strong> 描述预测编码假说、其计算形式化，以及它如何映射到现代世界模型架构。</p>
 <p><strong>A:</strong> 预测编码（Rao &amp; Ballard, 1999）是一个关于感知的计算神经科学理论，提出大脑是一台分层预测机器：较高的皮层区域维护持续预测低层区域活动的生成模型，只有预测误差——自顶向下预测与自底向上感觉输入之间的残差——才向上传播。核心洞见是大多数神经处理都用于生成和精修预测，而非被动编码感觉输入；感知是在皮层层级中最小化预测误差的过程。</p>
 <p>这直接映射到世界模型框架：大脑的分层生成模型对应于世界模型，预测误差传播对应于模型更新信号，感知对应于更新模型以最小化给定当前观测的预测误差的过程。PredNet（Lotter et al., 2017）等架构通过构建具有皮层层级结构的神经网络明确了这种对应：每层预测其下层的表示，只有预测误差而非原始激活向上传播。这种具有生物学动机的归纳偏置鼓励每层学习越来越抽象、时序稳定的表示。</p>
 <p>与现代世界模型的联系是形式性的：RSSM 的 KL 散度项 $D_{\text{KL}}(q(z_t | h_t, o_t) \| p(z_t | h_t))$ 衡量想象预测（先验 $p$）与观测揭示（后验 $q$）之间的差异——恰好是预测编码中的预测误差信号。DreamerV3 的自由比特修改（维持最小非零 KL）对应于通过要求每层非零残差误差来防止退化解的预测编码模型。预测编码视角为世界模型训练提供了统一的规范性解释：智能体学习预测自己的感觉未来，预测误差既是学习信号，也是智能体更新其信念所需的信息。</p>
 <hr>
-<h3 id="q15-进阶-muzero-如何在不重建观测的情况下构建价值等价世界模型">Q15 [进阶] MuZero 如何在不重建观测的情况下构建价值等价世界模型？</h3>
+<h3 id="q16-进阶-muzero-如何在不重建观测的情况下构建价值等价世界模型">Q16 [进阶] MuZero 如何在不重建观测的情况下构建价值等价世界模型？</h3>
 <p><strong>Q:</strong> 描述 MuZero 的三个已学习函数、价值等价原则，以及 MCTS 规划如何在推理时与已学习模型集成。</p>
 <p><strong>A:</strong> MuZero（Schrittwieser et al., 2020）学习一个明确优化规划质量而非观测保真度的世界模型，使用三个已学习函数。<strong>表示函数</strong> $h_\theta$ 将观测历史映射到初始潜在状态：$s^0 = h_\theta(o_{1:t})$。<strong>动态函数</strong> $g_\theta$ 给定潜在状态和动作预测下一潜在状态及即时奖励：$(s^{k+1}, r^k) = g_\theta(s^k, a^k)$。<strong>预测函数</strong> $f_\theta$ 将潜在状态映射到策略分布和价值估计：$(\mathbf{p}^k, v^k) = f_\theta(s^k)$。没有解码器——潜在空间从不需要重建观测，$s^k$ 与任何观测没有强制对应关系。</p>
 <p><strong>价值等价原则</strong>定义了两个潜在状态等价的含义：如果它们在所有可能动作序列下产生相同的累积奖励和价值预测，则它们等价。这意味着 MuZero 的潜在空间丢弃与规划无关的信息（视觉纹理、背景颜色、与目标无关的物体），只保留影响未来奖励的信息——这比基于重建的模型（必须表示环境的所有可观测方面）更有针对性的压缩。</p>
 <p>推理时，MuZero 使用 MCTS 进行规划：给定当前观测，$h_\theta$ 编码初始潜在状态 $s^0$，MCTS 算法通过调用 $g_\theta$ 进行状态转移、$f_\theta$ 在每个节点进行策略和价值估计，以及 UCB 选择标准（PUCT）在探索和利用之间取得平衡，来扩展搜索树。经过固定次数的模拟后，选择访问次数最多的动作。三个函数通过引导价值目标（以 MCTS 价值为目标的 $n$ 步回报）和来自 MCTS 访问次数统计的策略蒸馏，从真实游戏转移中端到端训练。MuZero 同时在围棋、象棋、将棋和全部 57 个 Atari 游戏上取得超人性能——这是第一个无需任何特定领域特征工程即做到这一点的算法。</p>
 <hr>
-<h3 id="q16-进阶-jepa-与生成式世界模型有何不同">Q16 [进阶] JEPA 与生成式世界模型有何不同？</h3>
+<h3 id="q17-进阶-jepa-与生成式世界模型有何不同">Q17 [进阶] JEPA 与生成式世界模型有何不同？</h3>
 <p><strong>Q:</strong> 描述 LeCun（2022）提出的联合嵌入预测架构（JEPA），解释为何它避免像素级预测，并总结 JEPA 风格表示的实验证据。</p>
 <p><strong>A:</strong> 联合嵌入预测架构（JEPA，LeCun, 2022）提出了一个与预测未来观测（像素、token）的生成式世界模型有原则性区别的方向。JEPA 转而在潜在表示空间中预测未来或目标观测的表示，而无需解码回观测空间。形式上，给定上下文 $x$（如过去的视频帧）和目标 $y$（未来帧），JEPA 训练编码器 $s_x = E_x(x)$、$s_y = E_y(y)$，以及将上下文表示映射到目标表示的预测器 $P$：$\hat{s}_y = P(s_x, z)$，其中 $z$ 是捕捉预测不确定性的可选潜在变量。训练目标在表示空间中最小化 $\| \hat{s}_y - \text{sg}(s_y) \|^2$，无任何像素空间重建惩罚。</p>
 <p>关键动机是像素级预测迫使模型将容量分配给建模无关的随机细节——精确的光照变化、纹理随机性、运动模糊——这些对高层理解或动作选择没有影响。LeCun 认为，在抽象的、可能不可逆的表示空间中进行预测训练的模型，可以发展出丢弃不可预测的低层细节、聚焦于对下游任务更有用的高层语义内容的表示。与掩蔽自编码器（MAE）不同——MAE 通过重建被遮蔽的图像块进行训练——JEPA 的目标是潜在表示而非像素，允许编码器发展任何使预测容易的表示。</p>
 <p>V-JEPA（Bardes et al., 2024）在视频上证明了这一原则：一个在表示空间中预测视频被掩蔽的时空区域——无任何像素重建——的模型，在动作识别（Kinetics）和场景分类上取得了最先进的线性探针性能，显著优于使用像素级重建目标训练的掩蔽视频自编码器。这为 JEPA 目标比基于重建的替代方案诱导出更具语义意义的表示提供了实验验证。</p>
 <hr>
-<h3 id="q17-进阶-iris-如何使用基于-transformer-的离散-token-化进行世界建模">Q17 [进阶] IRIS 如何使用基于 Transformer 的离散 token 化进行世界建模？</h3>
+<h3 id="q18-进阶-iris-如何使用基于-transformer-的离散-token-化进行世界建模">Q18 [进阶] IRIS 如何使用基于 Transformer 的离散 token 化进行世界建模？</h3>
 <p><strong>Q:</strong> 描述 IRIS 的离散自编码器和基于 Transformer 的转移模型，解释想象如何在 token 空间中进行，并比较其与基于 RSSM 模型的性能。</p>
 <p><strong>A:</strong> IRIS（Micheli et al., 2023，《Transformers are Sample-Efficient World Models》）将离散视觉 token 化与自回归 Transformer 转移模型相结合，构建一个在压缩离散观测空间而非抽象连续潜在空间中推理的世界模型。架构由两个顺序训练的组件组成。</p>
 <p><strong>离散自编码器</strong>（基于 VQVAE）将每帧 $64 \times 64$ 的观测映射到 $K$ 个离散 token 的网格，每个 token 从大小为 $V$ 的码书中选取。对于 IRIS，每帧 $K = 16$ 个 token（来自 $4 \times 4$ 的空间网格），$V = 512$ 个码书条目。编码器学习图像块级别的视觉抽象；解码器从 $K$ 个 token 重建帧。关键在于，token 化是空间性和组合性的：帧的不同图像块被独立编码，使模型能够表示局部视觉结构。</p>
@@ -212,13 +234,13 @@
 <p>与基于 RSSM 的模型相比，IRIS 在更可解释、组合性的潜在空间中运作（解码后的 token 是视觉图像块），代价是自回归生成开销（每帧想象需要 $K$ 次前向传播，而 RSSM 只需一次）。在 Atari 100K 基准（100,000 环境步）上，IRIS 显著优于 DreamerV2，并取得接近 EfficientZero 的性能，证明基于 Transformer 的离散世界模型是样本高效 RL 中循环连续状态模型的有竞争力的替代方案。</p>
 <hr>
 <h2 id="评估与前沿">评估与前沿</h2>
-<h3 id="q18-基础-世界模型质量如何评估">Q18 [基础] 世界模型质量如何评估？</h3>
+<h3 id="q19-基础-世界模型质量如何评估">Q19 [基础] 世界模型质量如何评估？</h3>
 <p><strong>Q:</strong> 用于衡量世界模型预测精度的指标是什么，模型质量与下游策略性能有何关联？</p>
 <p><strong>A:</strong> 世界模型评估沿两个相关但不等价的轴进行：<strong>模型质量</strong>（模型预测未来状态和奖励的准确程度？）和<strong>下游性能</strong>（模型是否使策略学习优于无模型替代方案？）。</p>
 <p>模型质量指标评估在保留环境转移上的开环预测精度。<strong>多步预测误差</strong>（在时间跨度 $t = 1, 5, 15, 50$ 步处预测与真实未来帧之间的 MSE 或 LPIPS 感知相似度）量化想象轨迹与真实环境的分歧速度。<strong>奖励预测精度</strong>（预测与真实奖励之间的皮尔逊相关或 MSE）衡量模型评估想象动作后果的能力。**FVD（Fréchet 视频距离）**和 <strong>FID</strong> 衡量生成与真实观测序列之间的分布相似性，捕捉每帧保真度和时序连贯性。这些指标在模型编码器固定不动、从固定潜在状态想象的情况下计算，将转移模型质量与策略行为隔离开来。</p>
 <p>下游性能通过使用世界模型训练策略并在真实环境任务上衡量所得智能体来评估。<strong>样本效率曲线</strong>（累积剧集回报与真实环境步数的关系）和<strong>渐近性能</strong>（固定交互预算后的最终回报）是标准基准上的主要指标：DMControl Suite、Atari 100K（100K 真实步）、Crafter（开放世界生存）、NetHack 和 Minecraft。模型质量与下游性能的分离很重要：Hafner et al.（2019）表明，像素重建质量较差的模型如果其潜在动态更准确，可以取得更好的下游性能，推动了 MuZero 和 TD-MPC 中向价值等价目标的转变。这种解耦意味着，仅凭模型质量指标不足以评估用于控制的世界模型。</p>
 <hr>
-<h3 id="q19-进阶-已学习的世界模型有哪些主要失败模式">Q19 [进阶] 已学习的世界模型有哪些主要失败模式？</h3>
+<h3 id="q20-进阶-已学习的世界模型有哪些主要失败模式">Q20 [进阶] 已学习的世界模型有哪些主要失败模式？</h3>
 <p><strong>Q:</strong> 对已学习世界模型的主要失败模式进行分类，解释每种机制，并描述文献中的缓解策略。</p>
 <p><strong>A:</strong> 已学习的世界模型以四种具有不同机制和缓解措施的主要方式失败。</p>
 <p><strong>累积预测误差</strong>是最根本的失败模式：转移模型中的误差在想象滚动步骤间累积，因为每步的预测以前一步（可能错误的）输出为条件。具有每步误差 $\epsilon$ 的转移模型在 $H$ 步滚动中累积误差 $O(\epsilon H)$——想象轨迹逐渐偏离真实环境。缓解：短想象时间跨度（DreamerV1 使用 $H = 15$；扩展到 50 步以上很少改善性能），对近未来想象状态赋予比远未来更高权重的 $\lambda$-回报折扣，以及将不一致性作为累积误差代理的集成模型。</p>
@@ -226,7 +248,7 @@
 <p><strong>非平稳性和分布偏移</strong>发生在模型训练分布与改进策略访问的状态之间：随着策略改进，它访问世界模型训练数据很少的状态空间区域，导致精度恰好在策略现在运作的地方下降。缓解：带持续回放缓冲区更新的在线模型学习、与想象交错的积极数据收集，以及低数据模型区域的悲观价值估计。</p>
 <p><strong>部分可观测性假象</strong>：如果观测不能完全表征底层状态，模型可能学习视觉特征与转移之间的虚假相关性而非真正的因果结构，在新颖观测配置中产生系统性预测误差。缓解：整合观测历史以形成近似置信状态的循环状态表示（RSSM）、多步一致性正则化，以及将潜在表示与与任务相关的状态特征绑定的辅助损失（如基于图像的世界模型中的本体感受状态重建辅助任务）。</p>
 <hr>
-<h3 id="q20-进阶-世界模型研究中有哪些开放问题和前沿研究方向">Q20 [进阶] 世界模型研究中有哪些开放问题和前沿研究方向？</h3>
+<h3 id="q21-进阶-世界模型研究中有哪些开放问题和前沿研究方向">Q21 [进阶] 世界模型研究中有哪些开放问题和前沿研究方向？</h3>
 <p><strong>Q:</strong> 构建通用、准确和可扩展的世界模型面临哪些最重要的未解挑战，以及有哪些活跃的研究方向在应对每个挑战？</p>
 <p><strong>A:</strong> 几个根本性的开放问题定义了世界模型的研究前沿。</p>
 <p><strong>组合泛化</strong>可能是最深层的挑战：当前世界模型学习训练期间看到的特定状态-动作组合的动态，但无法在新颖配置中组合已知的子动态——在有椅子和桌子的房间中训练的模型无法外推到椅子放在桌子上的房间。以对象为中心和图结构的世界模型（Slot-Attention、C-SWM、带对象中心编码器的 DreamerV3）试图通过学习单个对象的独立动态来解决这一问题，支持对象组合的组合泛化。这些方法仍然局限于只有少量对象的简单合成环境；扩展到复杂的真实世界场景是一个活跃的研究方向。</p>
@@ -297,71 +319,77 @@
       <tr>
           <td>Q9</td>
           <td>基础</td>
-          <td>DreamerV1：RSSM、想象滚动、潜在空间中的 actor-critic</td>
-          <td>Dreamer 系列</td>
+          <td>PlaNet：RSSM 引入、CEM 潜在空间 MPC 规划、从像素到动作</td>
+          <td>PlaNet 与 Dreamer 系列</td>
       </tr>
       <tr>
           <td>Q10</td>
-          <td>进阶</td>
-          <td>DreamerV2：用于 Atari 的类别潜在和 KL 平衡</td>
-          <td>Dreamer 系列</td>
+          <td>基础</td>
+          <td>DreamerV1：想象滚动、潜在空间中的摊销 actor-critic</td>
+          <td>PlaNet 与 Dreamer 系列</td>
       </tr>
       <tr>
           <td>Q11</td>
           <td>进阶</td>
-          <td>DreamerV3：symlog、自由比特、百分位数归一化——领域无关</td>
-          <td>Dreamer 系列</td>
+          <td>DreamerV2：用于 Atari 的类别潜在和 KL 平衡</td>
+          <td>PlaNet 与 Dreamer 系列</td>
       </tr>
       <tr>
           <td>Q12</td>
           <td>进阶</td>
-          <td>Dreamer actor-critic：直通梯度和 λ-回报</td>
-          <td>Dreamer 系列</td>
+          <td>DreamerV3：symlog、自由比特、百分位数归一化——领域无关</td>
+          <td>PlaNet 与 Dreamer 系列</td>
       </tr>
       <tr>
           <td>Q13</td>
           <td>进阶</td>
-          <td>世界模型何时优于无模型：条件与失败场景</td>
-          <td>Dreamer 系列</td>
+          <td>Dreamer actor-critic：直通梯度和 λ-回报</td>
+          <td>PlaNet 与 Dreamer 系列</td>
       </tr>
       <tr>
           <td>Q14</td>
+          <td>进阶</td>
+          <td>世界模型何时优于无模型：条件与失败场景</td>
+          <td>PlaNet 与 Dreamer 系列</td>
+      </tr>
+      <tr>
+          <td>Q15</td>
           <td>基础</td>
           <td>预测编码：分层预测误差与世界模型</td>
           <td>预测与自监督方法</td>
       </tr>
       <tr>
-          <td>Q15</td>
+          <td>Q16</td>
           <td>进阶</td>
           <td>MuZero：价值等价模型、MCTS 规划、无重建</td>
           <td>预测与自监督方法</td>
       </tr>
       <tr>
-          <td>Q16</td>
+          <td>Q17</td>
           <td>进阶</td>
           <td>JEPA：无像素生成的潜在空间预测</td>
           <td>预测与自监督方法</td>
       </tr>
       <tr>
-          <td>Q17</td>
+          <td>Q18</td>
           <td>进阶</td>
           <td>IRIS：VQVAE token 化 + GPT Transformer 世界模型</td>
           <td>预测与自监督方法</td>
       </tr>
       <tr>
-          <td>Q18</td>
+          <td>Q19</td>
           <td>基础</td>
           <td>评估：多步预测误差、FVD、下游性能</td>
           <td>评估与前沿</td>
       </tr>
       <tr>
-          <td>Q19</td>
+          <td>Q20</td>
           <td>进阶</td>
           <td>失败模式：累积误差、模型利用、分布偏移</td>
           <td>评估与前沿</td>
       </tr>
       <tr>
-          <td>Q20</td>
+          <td>Q21</td>
           <td>进阶</td>
           <td>开放问题：组合泛化、长期规划、因果模型</td>
           <td>评估与前沿</td>
@@ -371,7 +399,8 @@
 <h2 id="参考文献">参考文献</h2>
 <ul>
 <li>Ha and Schmidhuber, <a href="https://arxiv.org/abs/1803.10122">World Models</a> (2018)</li>
-<li>Hafner et al., <a href="https://arxiv.org/abs/1811.04551">Learning Latent Dynamics for Planning from Pixels</a> (DreamerV1, 2019)</li>
+<li>Hafner et al., <a href="https://arxiv.org/abs/1811.04551">Learning Latent Dynamics for Planning from Pixels</a> (PlaNet, 2019)</li>
+<li>Hafner et al., <a href="https://arxiv.org/abs/1912.01603">Dream to Control: Learning Behaviors by Latent Imagination</a> (DreamerV1, 2020)</li>
 <li>Hafner et al., <a href="https://arxiv.org/abs/2010.02193">Mastering Atari with Discrete World Models</a> (DreamerV2, 2020)</li>
 <li>Hafner et al., <a href="https://arxiv.org/abs/2301.04104">Mastering Diverse Domains with World Models</a> (DreamerV3, 2023)</li>
 <li>Schrittwieser et al., <a href="https://arxiv.org/abs/1911.08265">Mastering Atari, Go, Chess and Shogi by Planning with a Learned Model</a> (MuZero, 2020)</li>
@@ -405,6 +434,37 @@ hljs.initHighlightingOnLoad();
     ],
     throwOnError: false
   });"></script>
+
+<script>
+(function () {
+  function applyTheme(dark) {
+    if (dark) {
+      document.documentElement.setAttribute('data-theme', 'dark');
+    } else {
+      document.documentElement.removeAttribute('data-theme');
+    }
+    var light = document.getElementById('hljs-light');
+    var dark_ = document.getElementById('hljs-dark');
+    if (light) light.disabled = dark;
+    if (dark_) dark_.disabled = !dark;
+    var btn = document.getElementById('theme-toggle');
+    if (btn) btn.textContent = dark ? '☀' : '☽';
+  }
+
+  function toggleTheme() {
+    var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    applyTheme(!isDark);
+    try { localStorage.setItem('theme', !isDark ? 'dark' : 'light'); } catch (e) {}
+  }
+
+  var btn = document.getElementById('theme-toggle');
+  if (btn) btn.addEventListener('click', toggleTheme);
+
+  var isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  applyTheme(isDark);
+}());
+</script>
+
   
   <hr/>
   © <a href="https://github.com/yo3nglau">yo3nglau</a> 2026 | <a href="https://gohugo.io/">Hugo</a> | <a href="https://github.com/yihui/hugo-xmin">XMin</a>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Model-Free RL on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/model-free-rl/</link>
+    <description>Recent content in Model-Free RL on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/model-free-rl/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Model-Free Reinforcement Learning: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/model-free-reinforcement-learning-interview-questions-and-answers/</link>
+      <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/model-free-reinforcement-learning-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;foundations&#34;&gt;Foundations&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-what-is-model-free-reinforcement-learning-and-how-does-it-differ-from-model-based-rl&#34;&gt;Q1 [Basic] What is model-free reinforcement learning and how does it differ from model-based RL?&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How is model-free reinforcement learning defined, and what does the absence of an environment model imply for learning and sample efficiency?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;Model-free reinforcement learning&lt;/strong&gt; is the family of RL methods that learn a policy or value function directly from environment interaction, without constructing or querying an explicit model of the environment&amp;rsquo;s transition dynamics $p(s&#39; | s, a)$ or reward function $r(s, a)$. The agent learns purely from the raw sequence of $(s_t, a_t, r_t, s_{t+1})$ tuples it experiences, using this stream to update either a value function, a policy, or both.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
