@@ -95,9 +95,29 @@
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/model-free-reinforcement-learning-interview-questions-and-answers/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/model-free-reinforcement-learning-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/model-free-reinforcement-learning-interview-questions-and-answers/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/model-free-rl/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/model-free-rl/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/model-free-rl/"
+                />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/optimization/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>

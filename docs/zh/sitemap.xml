@@ -67,6 +67,19 @@
                 href="https://yo3nglau.github.io/blogs/zh/tags/mathematics/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/model-free-rl/</loc>
+    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/model-free-rl/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/model-free-rl/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/optimization/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -78,6 +91,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/optimization/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/</loc>
+    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/reinforcement-learning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/representation-learning/</loc>
@@ -143,6 +169,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/model-free-reinforcement-learning-interview-questions-and-answers/</loc>
+    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/model-free-reinforcement-learning-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/model-free-reinforcement-learning-interview-questions-and-answers/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/computer-vision/</loc>
@@ -351,19 +390,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/quantization/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/</loc>
-    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/reinforcement-learning/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/post/rlhf-and-alignment-interview-questions-and-answers/</loc>

@@ -1,0 +1,358 @@
+---
+title: "无模型强化学习：面试问题与推荐回答"
+author: yo3nglau
+date: '2026-05-14'
+categories:
+  - Interview
+tags:
+  - Deep Learning
+  - Reinforcement Learning
+  - Model-Free RL
+toc: true
+---
+
+## 基础知识
+
+### Q1 [基础] 无模型强化学习是什么，它与基于模型的 RL 有何不同？
+
+**Q:** 无模型强化学习如何定义，缺少环境模型对学习和样本效率意味着什么？
+
+**A:** **无模型强化学习**（model-free reinforcement learning）是一类直接从环境交互中学习策略或价值函数的 RL 方法，无需构建或查询关于环境转移动态 $p(s' | s, a)$ 或奖励函数 $r(s, a)$ 的显式模型。智能体纯粹从所经历的 $(s_t, a_t, r_t, s_{t+1})$ 元组序列中学习，利用该数据流更新价值函数、策略或二者兼有。
+
+缺少转移模型有两个直接后果。第一，智能体无法提前规划：在执行动作之前，它无法想象该动作会带来什么结果，因此每次策略改进都必须基于真实——或此前收集的——交互数据。第二，数据效率受到限制：与可从已学习模型生成合成滚动来增强训练的基于模型方法不同，无模型方法只能依赖真实交互。例如，DreamerV3（Hafner et al., 2023）在 DeepMind Control Suite 上仅用 5–20 倍更少的真实环境步数便达到了与无模型 SAC 相当的性能。
+
+补偿优势在于简洁性和鲁棒性：无模型方法不引入模型近似误差，其价值或策略估计虽然可能存在噪声，但不会被不准确的转移动态系统性误导。这使得无模型方法成为环境交互成本低廉（仿真、游戏）或转移动态过于复杂、随机而难以精确建模任务的默认选择。
+
+---
+
+### Q2 [基础] Bellman 方程是什么，它如何构成时序差分学习的基础？
+
+**Q:** 给出状态价值函数的 Bellman 期望方程，并解释时序差分学习如何由此推导而来。
+
+**A:** **Bellman 期望方程**（Bellman expectation equation）递归地表达价值函数：策略 $\pi$ 下某状态的价值等于期望即时奖励加上下一状态的折扣价值，
+
+$$V^\pi(s) = \mathbb{E}_{a \sim \pi,\; s' \sim p}\!\left[r(s,a) + \gamma V^\pi(s')\right]$$
+
+其中 $\gamma \in [0, 1)$ 是折扣因子。对应的 Bellman 最优方程将策略期望替换为对动作的最大化：$V^*(s) = \max_a \mathbb{E}_{s'}[r(s,a) + \gamma V^*(s')]$。
+
+**时序差分（TD）学习**（temporal difference learning）将这一递归恒等式转化为在线更新规则。与等待完整回合回报（蒙特卡洛方法）不同，TD 方法使用单步自举目标：当前奖励加上下一状态的折扣估计价值，$\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)$，称为 **TD 误差**（TD error）。价值函数更新为 $V(s_t) \leftarrow V(s_t) + \alpha \delta_t$。由于目标 $r_t + \gamma V(s_{t+1})$ 在单次转移后即可获得，TD 方法可在线更新，无需等待回合结束。
+
+自举引入的关键权衡是偏差：TD 目标依赖于当前（不完善的）估计 $V(s_{t+1})$，因此训练早期目标是不准确的。然而，与蒙特卡洛相比，自举大幅降低了方差——蒙特卡洛回报估计对所有未来时间步的随机性求平均。这一偏差-方差权衡是无模型 RL 的核心组织原则。
+
+---
+
+### Q3 [基础] 蒙特卡洛与 TD 估计的选择如何影响偏差和方差？
+
+**Q:** 比较蒙特卡洛回报和 TD 自举作为价值估计策略，并解释 $n$ 步回报和 $\lambda$-回报如何在二者之间插值。
+
+**A:** **蒙特卡洛（MC）估计**（Monte Carlo estimation）将某状态的价值计算为从该状态出发的实际折扣回报 $G_t = \sum_{k=0}^{T-t-1} \gamma^k r_{t+k+1}$。由于 $G_t$ 是当前策略下的真实回报，MC 估计是无偏的：$\mathbb{E}[G_t] = V^\pi(s_t)$。然而，$G_t$ 对所有未来随机奖励求和，其方差随时间跨度增长——在长时程或稀疏奖励任务中，MC 估计的方差可能大到使收敛极为缓慢。
+
+**TD(0) 自举**用单步目标 $r_t + \gamma V(s_{t+1})$ 替代完整回报。这引入了偏差（目标依赖于可能错误的当前价值估计），但通过在一步后截断求和大幅降低了方差。对大多数实际任务而言，训练早期方差的降低远超偏差带来的代价。
+
+**$n$ 步回报**通过在自举前求和 $n$ 个实际奖励来插值：$G_t^{(n)} = \sum_{k=0}^{n-1} \gamma^k r_{t+k} + \gamma^n V(s_{t+n})$。随着 $n$ 增大，偏差减小而方差增大。**$\lambda$-回报**（TD($\lambda$)）对所有 $n$ 步回报取几何加权平均：$G_t^\lambda = (1-\lambda) \sum_{n=1}^{\infty} \lambda^{n-1} G_t^{(n)}$，其中 $\lambda = 0$ 退化为 TD(0)，$\lambda = 1$ 退化为 MC。广义优势估计（Schulman et al., 2016）将相同的 $\lambda$-回报结构应用于策略梯度方法中的优势估计，为 actor-critic 训练提供可调节的偏差-方差权衡。
+
+---
+
+### Q4 [进阶] 策略梯度定理是什么，为何它能实现直接策略优化？
+
+**Q:** 推导策略梯度定理，并解释它如何在不知道环境动态的情况下，从采样轨迹估计期望回报对策略参数的梯度。
+
+**A:** **策略梯度定理**（policy gradient theorem）给出了 $\nabla_\theta J(\theta) = \nabla_\theta \mathbb{E}_{\tau \sim \pi_\theta}[G(\tau)]$ 的解析可处理表达式，即使回报依赖于未知的环境转移动态。Williams（1992）通过对数导数技巧建立的关键恒等式为：
+
+$$\nabla_\theta J(\theta) = \mathbb{E}_{\pi_\theta}\!\left[\sum_t \nabla_\theta \log \pi_\theta(a_t | s_t) \cdot Q^{\pi_\theta}(s_t, a_t)\right]$$
+
+推导将 $\nabla_\theta p(\tau | \theta)$ 替换为 $p(\tau | \theta) \nabla_\theta \log p(\tau | \theta)$，利用 $\nabla \log f = \nabla f / f$。轨迹的对数概率分解为 $\log p(\tau | \theta) = \sum_t \log \pi_\theta(a_t | s_t) + \sum_t \log p(s_{t+1} | s_t, a_t)$；转移对数概率 $\log p(s_{t+1} | s_t, a_t)$ 从梯度中消失，因为它们不依赖于 $\theta$。关键在于，这一抵消意味着动态 $p$ 从不出现在梯度估计量中——不需要任何模型。
+
+所得估计量是无偏的：$Q$ 值较高的动作获得更强的正梯度信号，增加其概率；低价值动作获得负信号。实践中，$Q^{\pi_\theta}(s_t, a_t)$ 由估计值替代——蒙特卡洛回报 $G_t$（REINFORCE）或已学习的 critic——并减去**基线**（baseline）$b(s_t)$ 以降低方差：$\sum_t \nabla_\theta \log \pi_\theta(a_t | s_t) \cdot (G_t - b(s_t))$。基线不引入偏差，因为 $\mathbb{E}_{a \sim \pi_\theta}[\nabla_\theta \log \pi_\theta(a|s) \cdot b(s)] = b(s) \cdot \nabla_\theta \sum_a \pi_\theta(a|s) = 0$。
+
+---
+
+## 基于价值的方法
+
+### Q5 [基础] Q-learning 如何工作，其收敛保证是什么？
+
+**Q:** 描述 Q-learning 的更新规则，解释为何它是离策略的，并陈述其在表格情形下收敛到 $Q^*$ 的条件。
+
+**A:** **Q-learning** 维护一个表格 $Q(s, a)$ 来估计最优动作价值函数 $Q^*(s,a) = \max_\pi \mathbb{E}[G_t | s_t = s, a_t = a]$。在每一步观测到 $(s_t, a_t, r_t, s_{t+1})$ 后，执行更新：
+
+$$Q(s_t, a_t) \leftarrow Q(s_t, a_t) + \alpha \left[r_t + \gamma \max_{a'} Q(s_{t+1}, a') - Q(s_t, a_t)\right]$$
+
+目标 $r_t + \gamma \max_{a'} Q(s_{t+1}, a')$ 是 Bellman 最优算子作用于当前估计的结果。关键在于，目标中的 $\max$ 取遍所有动作，与行为策略实际执行的动作无关，使 Q-learning 成为**离策略**（off-policy）方法：智能体可遵循任意行为策略（例如用于探索的 $\epsilon$-贪婪），而更新仍以最优策略为目标。这一离策略特性允许 Q-learning 无偏地复用早期较弱策略收集的数据。
+
+Q-learning 在表格情形下满足三个条件时以概率 1 收敛到 $Q^*$：（1）所有状态-动作对被无限次访问；（2）步长满足 Robbins-Monro 条件 $\sum_t \alpha_t = \infty$ 和 $\sum_t \alpha_t^2 < \infty$；（3）奖励有界。这些条件确保 Bellman 算子在 $\ell^\infty$ 范数下是 $\gamma$-压缩的，迭代收敛到其唯一不动点。实践中固定 $\alpha$（违反条件 2）与经验回放结合使用，正式收敛保证不再适用，但经验性能通常良好。
+
+---
+
+### Q6 [进阶] DQN 引入了哪些创新使 Q-learning 适用于深度神经网络？
+
+**Q:** 描述 DQN 的两项核心稳定化技术，解释各自针对的不稳定性，并总结其在 Atari 上的性能。
+
+**A:** **DQN**（Mnih et al., 2015）使用卷积神经网络作为 Q 函数逼近器，将 Q-learning 扩展到原始像素观测。将基于梯度的 Q-learning 与神经网络天真结合会因两种相关失败模式而导致训练不稳定，各由一种专用机制解决。
+
+**经验回放**（experience replay）将转移 $(s_t, a_t, r_t, s_{t+1})$ 存储在固定大小的循环缓冲区中，并对随机小批量采样进行梯度更新，而非使用最近的转移。这打破了数据流中的时序相关性：连续观测共享重叠的视觉特征且几乎相同，产生强自相关梯度，导致网络对近期经验过拟合并灾难性遗忘早期学习。从缓冲区随机采样恢复了随机梯度下降所需的近似独立同分布假设，并多次复用每个转移，提高数据效率。
+
+**目标网络**（target networks）维护 Q 网络的独立副本 $Q_{\theta^-}$，其参数冻结 $C$ 步后从在线网络 $Q_\theta$ 硬拷贝。Bellman 目标 $r + \gamma \max_{a'} Q_{\theta^-}(s', a')$ 使用冻结副本计算。若无此机制，目标和被更新的网络共享相同参数，形成移动回归目标：每次梯度步同时移动预测和目标，类似追赶移动球门，导致振荡或发散。冻结目标为 $C$ 次梯度步提供稳定的回归目标。
+
+在 49 款使用相同超参数从原始像素游玩的 Atari 游戏上，DQN 在 29 款游戏上超过人类水平，在 43/49 款游戏上超过所有先前方法（Mnih et al., 2015），首次证明单个端到端深度 RL 智能体可跨多样任务实现人类水平控制。
+
+---
+
+### Q7 [进阶] Double DQN、Dueling DQN 和优先经验回放各自解决什么问题？
+
+**Q:** 确定每种扩展修正的具体失败模式，并解释各自修复的机制。
+
+**A:** **Double DQN**（van Hasselt et al., 2016）解决 $\max$ 算子固有的**高估偏差**（overestimation bias）。标准 DQN 用同一网络既选择贪婪动作又对其评估：目标为 $r + \gamma Q_{\theta^-}(s', \arg\max_{a'} Q_{\theta^-}(s',a'))$。由于同一噪声估计同时用于选择和评估，目标被系统性地向上偏置——有噪声的估计的最大值在期望上超过真实最大值。Double DQN 解耦两个角色：在线网络 $Q_\theta$ 选择动作，目标网络 $Q_{\theta^-}$ 对其评估：
+
+$$\text{target} = r + \gamma Q_{\theta^-}\!\left(s',\, \arg\max_{a'} Q_\theta(s', a')\right)$$
+
+这一交叉评估消除了向上偏差，因为一个网络选择的动作与另一个网络赋予的价值在统计上独立。
+
+**Dueling DQN**（Wang et al., 2016）解决动作对结果影响较小状态中的**信用分配低效**问题。网络架构显式分解 $Q(s,a) = V(s) + A(s,a)$，其中 $V(s)$ 是状态价值函数，$A(s,a) = Q(s,a) - V(s)$ 是**优势函数**（advantage function）。两个独立网络流分别估计 $V$ 和 $A$，并通过均值中心化确保可识别性合并：$Q(s,a) = V(s) + A(s,a) - \frac{1}{|\mathcal{A}|}\sum_{a'} A(s,a')$。价值流可从任何转移更新 $V(s)$，无论采取了哪个动作，在动作与即时奖励无关时改善泛化。
+
+**优先经验回放（PER）**（Schaul et al., 2016）解决**均匀采样低效**问题：并非所有存储的转移信息量相同。PER 给每个转移分配与其 TD 误差 $|\delta_t|$ 成比例的优先级，更频繁地采样高误差转移。重要性采样权重 $w_i = (N \cdot P(i))^{-\beta}$ 修正由此产生的分布偏移，在训练过程中将 $\beta$ 退火至 1。PER 通过将梯度更新集中在当前模型最不准确的转移上，大幅加速学习。
+
+---
+
+### Q8 [进阶] Rainbow 如何结合多种 DQN 改进，哪些贡献最大？
+
+**Q:** 描述 Rainbow 的六个组件，从消融研究中确定最有影响力的改进，并解释为何结合它们并非易事。
+
+**A:** **Rainbow**（Hessel et al., 2018）将六种 DQN 扩展整合为单一智能体：Double Q-learning、Dueling 网络、优先经验回放、多步回报、**分布式 RL**（C51，Bellemare et al., 2017）和 **Noisy Nets**（Fortunato et al., 2017）。在 57 款 Atari 游戏上使用 200M 环境帧，Rainbow 显著优于所有单独组件及发表时的所有先前方法。
+
+**分布式 RL**（C51）用完整的回报分布 $Z(s,a)$ 替代标量 Q 值估计，表示为跨越固定范围 $N = 51$ 个原子的离散概率分布。学习完整回报分布而非其期望值提供了更丰富的梯度信号，降低了 TD 目标的方差（分布式目标比标量自举更稳定），并捕获标量均值会折叠的多模态回报分布。
+
+**Noisy Nets** 用网络线性层中的学习随机权重替代 $\epsilon$-贪婪探索：$y = (\mu^w + \sigma^w \odot \varepsilon^w)\,x + (\mu^b + \sigma^b \odot \varepsilon^b)$，其中 $\varepsilon$ 是采样噪声，$(\sigma^w, \sigma^b)$ 是可学习参数。探索由网络的内部不确定性驱动，而非外部调度，实现随训练进展而自适应的状态相关探索。
+
+Rainbow 消融研究（Hessel et al., 2018）表明，对中位人类归一化得分影响最大的两个组件是**优先经验回放**和**多步回报**，其次是分布式 RL。结合这些组件并非易事，因为它们存在结构性交互：分布式 RL 改变了 Bellman 目标的形式，影响 PER 优先级的计算；多步回报需要调整分布式投影；Noisy Nets 改变了 PER 原本设计配合的探索机制。
+
+---
+
+## 策略梯度方法
+
+### Q9 [基础] REINFORCE 是什么，基线如何降低其方差？
+
+**Q:** 描述 REINFORCE 算法，确定其主要弱点，并解释基线如何在不引入偏差的情况下修正它。
+
+**A:** **REINFORCE**（Williams, 1992）是原型策略梯度算法。它在当前策略 $\pi_\theta$ 下收集完整回合，计算每个时间步的蒙特卡洛回报 $G_t = \sum_{k=0}^{T-t-1} \gamma^k r_{t+k+1}$，并更新策略参数：
+
+$$\theta \leftarrow \theta + \alpha \sum_t \nabla_\theta \log \pi_\theta(a_t | s_t) \cdot G_t$$
+
+更新根据观测到的回报成比例增加所采取动作的对数概率。REINFORCE 是无偏的，不需要任何环境模型。
+
+其主要弱点是**高方差**（high variance）。回报 $G_t$ 依赖于轨迹中所有未来奖励，累积了每个后续时间步的随机性。在长时程或稀疏奖励任务中，轨迹间回报差异巨大，导致梯度大幅波动和缓慢、不稳定的学习。
+
+**基线**（baseline）$b(s_t)$ 通过从回报中减去一个依赖于状态的常数来降低方差：更新变为 $\sum_t \nabla_\theta \log \pi_\theta(a_t | s_t) \cdot (G_t - b(s_t))$。基线不偏置梯度，因为 $\mathbb{E}_{a \sim \pi_\theta}[\nabla_\theta \log \pi_\theta(a|s) \cdot b(s)] = b(s) \cdot \nabla_\theta \sum_a \pi_\theta(a|s) = b(s) \cdot 0 = 0$。方差降低意义上的最优基线近似为 $V^\pi(s_t)$；减去它后留下**优势**（advantage）$A(s_t, a_t) = G_t - V^\pi(s_t)$，对平均动作以零为中心，仅对优于或劣于平均的动作为正或负。学习此基线需要 critic，将 REINFORCE 过渡到 actor-critic 框架。
+
+---
+
+### Q10 [进阶] TRPO 和 PPO 如何约束策略更新以防止破坏性梯度步？
+
+**Q:** 解释 TRPO 求解的优化问题，确定其实际限制，并描述 PPO 如何用一阶方法逼近相同约束。
+
+**A:** 对 $J(\theta)$ 的无约束梯度上升可能采取使策略崩溃的步骤：梯度在旧策略分布下估计，但应用到引导截然不同分布的新参数上，导致灾难性差性能。**置信域策略优化（TRPO）**（Schulman et al., 2015）将其形式化为约束优化：最大化代理目标
+
+$$\mathcal{L}^{CPI}(\theta) = \mathbb{E}_t\!\left[\frac{\pi_\theta(a_t|s_t)}{\pi_{\theta_{old}}(a_t|s_t)}\hat{A}_t\right]$$
+
+约束条件为 $\mathbb{E}_t[D_{KL}(\pi_{\theta_{old}}(\cdot|s_t) \| \pi_\theta(\cdot|s_t))] \leq \delta$。代理目标是真实目标在旧策略分布下的一阶近似，KL 约束确保新策略不会偏离到使该近似失效的程度。
+
+TRPO 通过共轭梯度计算自然梯度方向，随后进行执行 KL 约束的线搜索来求解此约束问题。这需要计算**Fisher 信息矩阵**（Fisher information matrix）向量积，每次更新需要多次反向传播，使 TRPO 对于具有数百万参数的大型模型不切实际。
+
+**近端策略优化（PPO）**（Schulman et al., 2017）用**截断代理目标**（clipped surrogate objective）替代硬 KL 约束，以一阶优化器实现相当的策略稳定性：
+
+$$\mathcal{L}^{CLIP}(\theta) = \mathbb{E}_t\!\left[\min\!\left(r_t(\theta)\hat{A}_t,\;\operatorname{clip}(r_t(\theta),\,1-\epsilon,\,1+\epsilon)\,\hat{A}_t\right)\right]$$
+
+其中 $r_t(\theta) = \pi_\theta(a_t|s_t) / \pi_{\theta_{old}}(a_t|s_t)$。截断消除了将 $r_t$ 推出 $[1-\epsilon, 1+\epsilon]$ 的梯度激励，无需二阶计算即可防止大幅策略更新。PPO 在每次数据收集阶段对 $\mathcal{L}^{CLIP}$ 进行多个 epoch 的小批量梯度上升，将样本收集分摊到多次梯度步。取 $\epsilon = 0.2$，PPO 在大多数连续控制和 Atari 基准上优于 TRPO，同时实现难度大幅降低（Schulman et al., 2017）。
+
+---
+
+### Q11 [基础] A3C 和 A2C 如何通过并行 worker 改善策略梯度训练？
+
+**Q:** 描述 A3C 的异步训练机制，解释并行性如何去相关经验，并与同步 A2C 变体对比。
+
+**A:** **A3C**（异步优势 actor-critic，Mnih et al., 2016）通过并行运行多个独立的 actor-learner 线程，在不使用经验回放的情况下解决在策略梯度方法中的数据相关问题。每个线程维护策略和价值网络的本地副本，与自己的环境实例交互 $t_{max}$ 步，本地计算优势加权的策略梯度更新，并异步将这些梯度应用到共享全局网络。由于每个 worker 从不同的环境状态出发并独立遵循相同策略，其梯度同时反映环境的不同部分，提供与回放缓冲区采样类似的去相关梯度信号，但无需存储过去转移。
+
+每个 worker 更新中使用的**优势估计**（advantage estimate）为 $k$ 步优势 $\hat{A}_t = \sum_{i=0}^{k-1} \gamma^i r_{t+i} + \gamma^k V(s_{t+k}) - V(s_t)$，在 TD 和 MC 之间插值。actor（策略）和 critic（价值函数）均被训练：actor 最大化 $\sum_t \log \pi(a_t|s_t) \hat{A}_t$，critic 最小化 $\sum_t (G_t^{(k)} - V(s_t))^2$。A3C 仅使用 16 线程 CPU 便在 Atari 和 MuJoCo 任务上取得了与 DQN 相当的竞争性性能（Mnih et al., 2016），替代了 DQN 所需的 GPU 和经验回放。
+
+**A2C** 是同步变体：所有 worker 同时收集经验，单次更新在应用到共享网络之前汇总各 worker 的梯度。这消除了异步更新的梯度陈旧性（worker 可能使用已被其他 worker 更新的参数计算梯度），代价是同步开销——每次更新等待最慢的 worker。在 GPU 硬件上，A2C 的同步批处理通常能匹配或超过 A3C 的性能，因为批量矩阵运算更能从 GPU 并行中受益。
+
+---
+
+### Q12 [进阶] 最大熵强化学习是什么，熵正则化为何有帮助？
+
+**Q:** 定义最大熵 RL 目标，解释熵奖励的实际好处，并描述温度参数如何被自动调节。
+
+**A:** **最大熵强化学习**（maximum entropy reinforcement learning）在每个时间步的标准 RL 目标中增加策略熵奖励：
+
+$$J_{MaxEnt}(\pi) = \mathbb{E}_{\pi}\!\left[\sum_{t=0}^{\infty} \gamma^t \left(r(s_t, a_t) + \alpha\,\mathcal{H}(\pi(\cdot|s_t))\right)\right]$$
+
+其中 $\mathcal{H}(\pi(\cdot|s)) = -\sum_a \pi(a|s) \log \pi(a|s)$ 是**策略熵**（policy entropy），$\alpha > 0$ 是**温度**（temperature）超参数。该目标下的最优策略是随机的，对所有能实现近最优回报的动作赋予概率，而非坍缩为确定性 argmax。
+
+熵正则化提供三项实际好处。第一，它防止**策略过早坍缩**（premature policy collapse）：训练早期表现良好的确定性策略可能会局部最优过拟合；熵奖励迫使策略在动作上保持最小分散度，使其可通过梯度更新恢复。第二，它通过鼓励策略访问更广泛的状态-动作对来改善**探索**，为策略和价值学习提供更丰富的数据。第三，它提供**对奖励误规范的鲁棒性**：最大熵策略保留了所有近最优行为的信息，使其成为修改奖励的相关任务微调的更好初始化。
+
+温度 $\alpha$ 控制探索-利用平衡：高 $\alpha$ 迫使近均匀动作分布，而 $\alpha \to 0$ 恢复标准 RL 目标。Haarnoja et al.（2018b）表明，通过将 $\alpha$ 视为执行最小目标熵 $\mathcal{H}^*$ 约束的 Lagrange 乘子可自动调节：$\min_\alpha \mathbb{E}[-\alpha \log \pi(a|s) - \alpha \mathcal{H}^*]$。对 $\alpha$ 的梯度下降在熵低于 $\mathcal{H}^*$ 时提高温度，超过目标时降低温度，实践中消除了最敏感的超参数。
+
+---
+
+## Actor-Critic 方法
+
+### Q13 [基础] actor-critic 框架是什么，它解决了 REINFORCE 的哪些问题？
+
+**Q:** 描述 actor 和 critic 的角色，解释 critic 如何替代蒙特卡洛回报，并确定由此引入的偏差-方差权衡。
+
+**A:** **actor-critic 框架**（actor-critic framework）同时维护两个函数逼近器：**actor** $\pi_\theta(a|s)$（策略）和 **critic** $V_\psi(s)$ 或 $Q_\psi(s,a)$（价值函数）。actor 通过策略梯度更新，使用 critic 的估计作为降低方差的基线；critic 通过时序差分更新来追踪当前策略的价值。
+
+核心动机是相对于 REINFORCE 的方差降低。在 REINFORCE 中，策略梯度使用蒙特卡洛回报 $G_t$——$Q^\pi(s_t, a_t)$ 的高方差、无偏估计。Actor-critic 替换为 TD 优势 $\hat{A}_t = r_t + \gamma V_\psi(s_{t+1}) - V_\psi(s_t)$，仅使用一步实际奖励，其余从 critic 自举。这用单步残差替代了高方差的累积和，大幅降低梯度方差，代价是使用不完善 critic 自举引入的偏差。
+
+actor 和 critic 参数的分离使每个组件能独立专门化：critic 可使用任何价值学习算法（TD、$\lambda$-回报、离策略数据），不受 actor 更新规则约束，而 actor 专注于利用 critic 的梯度信号改善策略。这一分离正是使 SAC 和 TD3 等离策略 actor-critic 方法成为可能——critic 在任意行为策略的经验上训练，而 actor 通过对 critic 微分而非策略梯度样本来更新。
+
+---
+
+### Q14 [进阶] 广义优势估计是什么，它如何在 TD 和 MC 之间插值？
+
+**Q:** 推导 GAE 公式，解释 $\lambda$ 如何控制偏差-方差权衡，并陈述 PPO 中使用的默认值。
+
+**A:** **广义优势估计（GAE）**（Schulman et al., 2016）提供了一族由 $\lambda \in [0, 1]$ 参数化、连续权衡偏差和方差的优势估计量。出发点是 $k$ 步 TD 误差之和：定义 $\delta_t = r_t + \gamma V(s_{t+1}) - V(s_t)$，$k$ 步优势可以写成
+
+$$\hat{A}_t^{(k)} = \sum_{l=0}^{k-1} \gamma^l r_{t+l} + \gamma^k V(s_{t+k}) - V(s_t) = \sum_{l=0}^{k-1} \gamma^l \delta_{t+l}$$
+
+GAE 对所有 $k$ 步估计量取几何加权平均：
+
+$$\hat{A}_t^{GAE(\gamma,\lambda)} = (1-\lambda)\sum_{k=1}^{\infty} \lambda^{k-1} \hat{A}_t^{(k)} = \sum_{l=0}^{\infty} (\gamma\lambda)^l \delta_{t+l}$$
+
+简化形式——以有效折扣 $\gamma\lambda$ 对 TD 误差加权求和——可在 $O(T)$ 内递归计算。取 $\lambda = 0$，只有 $\delta_t$ 贡献：GAE 退化为单步 TD 优势（低方差，高偏差）。取 $\lambda = 1$ 且 $\gamma < 1$，所有未来 TD 误差以折扣 $\gamma$ 求和：GAE 退化为蒙特卡洛优势（高方差，若 $V$ 精确则零偏差）。$\lambda \in (0, 1)$ 的值在这两个极端之间平滑插值，允许将估计量作为超参数调节，而无需固定在某一端点。
+
+实践中，$\lambda = 0.95$、$\gamma = 0.99$ 的 GAE 是 PPO 实现中广泛使用的默认值（Schulman et al., 2017），在不进行任务特定调优的情况下，为大范围连续控制任务提供了有利的偏差-方差平衡。
+
+---
+
+### Q15 [进阶] Soft Actor-Critic 如何将最大熵 RL 融入离策略连续控制？
+
+**Q:** 描述 SAC 的软 Bellman 方程、双 critic 的作用，以及它如何实现最先进的样本效率。
+
+**A:** **Soft Actor-Critic（SAC）**（Haarnoja et al., 2018a）将最大熵 RL 目标应用于连续动作空间的离策略 actor-critic 训练。**软 Q 函数**（soft Q-function）满足软 Bellman 方程：
+
+$$Q(s_t, a_t) = \mathbb{E}\!\left[r_t + \gamma\!\left(Q(s_{t+1}, a_{t+1}) - \alpha \log \pi(a_{t+1}|s_{t+1})\right)\right]$$
+
+其中熵项 $-\alpha \log \pi(a_{t+1}|s_{t+1})$ 作为每步随机性的内在奖励。actor 被训练以最大化软 Q 值减去 KL 惩罚：$\mathcal{L}_\pi = \mathbb{E}_s[\mathbb{E}_a[\alpha \log \pi(a|s) - Q(s,a)]]$。由于策略是**压缩高斯**（squashed Gaussian）$a = \tanh(\mu + \sigma \varepsilon)$，其中 $\varepsilon \sim \mathcal{N}(0, I)$，actor 损失通过重参数化技巧对采样动作微分，提供低方差梯度估计。
+
+SAC 使用**双 critic**（twin critics）$Q_{\psi_1}$ 和 $Q_{\psi_2}$，对相同的回放数据独立训练，在 actor 损失和 Bellman 目标中均取二者最小值。这一截断双 Q 估计解决了 Q 值高估问题——在连续 actor-critic 设置中高估尤为有害，因为 actor 被直接训练来最大化 critic 的输出，critic 中的任何向上偏差都会被 actor 更新放大。
+
+自动温度调节（Haarnoja et al., 2018b）将 $\alpha$ 视为最小熵约束 $\mathbb{E}[\mathcal{H}(\pi(\cdot|s))] \geq \mathcal{H}^*$ 的 Lagrange 乘子，与 actor 和 critic 并行进行梯度下降更新。在 MuJoCo 连续控制基准上，带自动温度的 SAC 在离策略方法中实现了最先进的样本效率，在多个任务上匹配或优于 TD3，同时需要更少的超参数决策（Haarnoja et al., 2018b）。
+
+---
+
+### Q16 [进阶] TD3 如何解决 DDPG 的高估偏差和不稳定性？
+
+**Q:** 确定 TD3 针对 DDPG 中三种具体失败模式，并描述各自的解决方案。
+
+**A:** **TD3**（双延迟深度确定性策略梯度，Fujimoto et al., 2018）识别了 DDPG（深度确定性策略梯度）中三种相关不稳定性，并为每种引入了针对性修复。
+
+**截断双 Q 学习**（clipped double-Q learning）解决了确定性策略在连续动作空间中最大化导致的高估偏差。DDPG 使用单一 critic；actor 被训练以最大化 $Q_\psi(s, \pi_\theta(s))$，放大了 $Q_\psi$ 中的任何高估，因为 actor 梯度直接指向 critic 的最大值。TD3 维护两个 critic $Q_{\psi_1}$ 和 $Q_{\psi_2}$，在 Bellman 目标中取二者最小值：$y = r + \gamma \min_{i=1,2} Q_{\psi_i}(s', \tilde{a}')$。取最小值提供保守的、偏差较低的估计，不易被 actor 利用。
+
+**延迟策略更新**（delayed policy updates）解决了将 actor 更新与不准确 critic 耦合导致的不稳定性。在 DDPG 中，actor 和 critic 每步均更新，但 critic 收敛较慢，因为它在 actor 定义的移动目标上回归。TD3 每 $d = 2$ 次 critic 更新后更新一次 actor 和目标网络，允许 critic 在 actor 基于其估计行动之前稳定。这一解耦大幅降低了 actor 梯度的方差。
+
+**目标策略平滑**（target policy smoothing）解决了 Q 函数对窄峰的过拟合：最大化尖锐 Q 函数峰值的确定性策略会利用恰好集中在特定动作值附近的不准确高价值区域。TD3 向目标动作添加截断高斯噪声 $\tilde{a}' = \pi_{\theta^-}(s') + \varepsilon$，$\varepsilon \sim \operatorname{clip}(\mathcal{N}(0, \sigma), -c, c)$，正则化 critic 为相邻动作赋予相似价值，消除虚假 Q 峰值。在六个 MuJoCo 运动和操控基准上，TD3 在五个任务上优于 DDPG 和同期方法（Fujimoto et al., 2018）。
+
+---
+
+## 探索与实践考量
+
+### Q17 [基础] 无模型 RL 中的主要探索策略有哪些？
+
+**Q:** 比较 $\epsilon$-贪婪、置信上界和基于熵的探索，并解释各自最适合的场景。
+
+**A:** **$\epsilon$-贪婪探索**（$\epsilon$-greedy exploration）以概率 $\epsilon$ 选择均匀随机动作，否则选择贪婪动作。通常将 $\epsilon$ 从 1 退火至较小的最终值（如 0.01）。$\epsilon$-贪婪通用且易于实现，在 DQN 等基于价值的方法中效果良好，但它是无向的——随机探索不适应智能体的不确定性，在信息丰富的状态稀疏的大状态空间中效率低下。
+
+**置信上界（UCB）**（Upper Confidence Bound）方法量化每个动作价值的不确定性并添加探索奖励：$a^* = \arg\max_a \left[Q(s,a) + c\sqrt{\ln t / N(s,a)}\right]$，其中 $N(s,a)$ 是访问计数，$c$ 控制探索强度。UCB 实现了**面对不确定性保持乐观**（optimism in the face of uncertainty）原则——偏好了解较少的动作。在表格 MDP 中，UCB 实现了最优至对数因子的遗憾界（Auer et al., 2002）。在具有连续状态空间的深度 RL 中，精确访问计数不可处理；近似 UCB 方法通过集成或贝叶斯近似估计不确定性。
+
+**基于熵的探索**（entropy-based exploration，用于最大熵 RL 和 SAC）在每个状态显式最大化策略熵，激励智能体在多个动作上分散概率质量。与 $\epsilon$-贪婪不同，熵奖励是状态相关的——智能体在不确定的状态探索更多，在已收敛的状态探索更少——并与价值函数联合学习。基于熵的探索在 $\epsilon$-贪婪随机扰动不足以进行结构化探索的连续动作空间中最为有效，且策略可以精确地学习在信息丰富的状态中保持随机性。
+
+---
+
+### Q18 [进阶] 内在激励方法如何驱动困难探索环境中的探索？
+
+**Q:** 描述好奇心驱动和基于计数的内在奖励框架，并总结它们在困难探索 Atari 游戏上的结果。
+
+**A:** **内在激励**（intrinsic motivation）用自生成的**内在奖励**（intrinsic reward）$r^i_t$ 增强智能体的奖励信号，量化状态转移的新颖性或令人惊讶的程度，独立于外部任务奖励。这使智能体能在稀疏奖励环境中取得进展——在精确动作的长序列后才偶然到达目标之前，外在信号不提供任何梯度。
+
+**基于计数的内在奖励**（Bellemare et al., 2016）使用 Context Tree Switching（CTS）密度模型将表格访问计数 $N(s)$ 泛化到连续状态空间，估计**伪计数**（pseudo-counts）$\hat{N}(s)$：内在奖励为 $r^i_t = (\hat{N}(s_t) + 0.01)^{-1/2}$，随状态被重复访问而衰减。这激励智能体寻找真正新颖的状态。在 Montezuma's Revenge——一款在获得任何外部奖励之前需要一长串精确动作的 Atari 游戏——基于计数的探索比 DQN 基线高出数个数量级。
+
+**内在好奇心模块（ICM）**（Pathak et al., 2017）使用**预测误差**（prediction error）作为内在奖励：前向模型从当前潜在状态和动作预测下一潜在状态 $\hat{\phi}(s_{t+1})$，内在奖励为 $r^i_t = \frac{\eta}{2}\|\hat{\phi}(s_{t+1}) - \phi(s_{t+1})\|^2$。逆向模型联合训练 $\phi$ 只编码环境中可被智能体动作控制的方面，过滤掉无关的环境随机性（如摆动的背景）。ICM 使智能体无需任何外部奖励即可在 VizDoom 和 Super Mario Bros. 中取得进展（Pathak et al., 2017）。
+
+**随机网络蒸馏（RND）**（Burda et al., 2019）通过将新颖性衡量为训练来匹配固定随机目标网络输出的网络的预测误差，避免了预测误差方法的"嘈杂电视"问题（不可控的随机刺激提供无限好奇心）：$r^i_t = \|f(s_t) - \hat{f}(s_t)\|^2$。由于随机目标是确定性的，预测误差仅反映访问频率，而非环境随机性。RND 在 Montezuma's Revenge 上实现了超过 10,000 的平均得分（Burda et al., 2019），远超先前探索方法。
+
+---
+
+### Q19 [进阶] 具有函数逼近的无模型 RL 的收敛保证和理论极限是什么？
+
+**Q:** 陈述表格 Q-learning 的收敛结果，解释致命三角，并描述哪些近似、自举和离策略数据的组合会导致发散。
+
+**A:** **表格 Q-learning**（tabular Q-learning）在 Robbins-Monro 条件下以概率 1 收敛到 $Q^*$：所有状态-动作对被无限次访问，步长满足 $\sum_t \alpha_t = \infty$ 和 $\sum_t \alpha_t^2 < \infty$，奖励有界。证明依赖于 Bellman 最优算子在 $\ell^\infty$ 范数下是 $\gamma$-压缩的，确保迭代收敛到唯一不动点。该保证也在特征表示满足温和条件下扩展到在策略 TD 与线性函数逼近的情形。
+
+**致命三角**（the deadly triad）是三个元素的组合——离策略训练数据、函数逼近和自举（TD 目标）——它们合在一起即使对线性函数逼近器也可能导致价值估计发散至无穷。典型示例是一个简单六状态 MDP，其中线性特征和离策略数据分布下的 TD(0) 不是压缩映射：半梯度更新规则沿不对应任何损失函数的方向进行梯度步，迭代可以无界增长。这不是病理性边界情形；它代表了三个元素在没有特殊结构的情况下组合的普遍行为。
+
+现代深度 RL 算法通过实践启发式方法缓解但未消除三角问题。经验回放通过从具有适度时序多样性的缓冲区采样（而非来自完全不同策略的数据）降低了离策略程度。目标网络通过提供缓慢移动的回归目标来稳定自举。梯度裁剪限制了权重更新幅度。尽管有这些启发式方法，深度离策略 Q-learning 在某些环境中使用不良超参数时仍可能发散，且非线性情形不存在一般收敛证明。在策略方法（PPO、A3C）通过仅在当前策略收集的经验上训练来完全避免致命三角，代价是样本效率。
+
+---
+
+### Q20 [进阶] 无模型 RL 在实践中的主要失败模式有哪些？
+
+**Q:** 确定在实际任务中部署无模型 RL 时最常见的失败模式，并描述每种模式的机制和缓解措施。
+
+**A:** **奖励黑客和规范博弈**（reward hacking and specification gaming）在策略找到使指定奖励函数最大化但违背设计者意图的行为时发生。由于无模型智能体优化标量信号，没有任何任务语义的内置表示，它们利用指定奖励和真实目标之间的任何差距——机器人学习利用物理仿真器的缺陷实现高位置而非行走，或智能体暂停以避免积累负奖励而非完成任务。缓解需要仔细的奖励设计、领域特定的奖励塑形，或从人类演示或偏好中学习奖励。
+
+**离策略学习中的分布偏移**（distributional shift in off-policy learning）在回放缓冲区的数据分布与当前策略诱导的分布有实质差异时产生。在过去策略数据上训练的 Q 网络可能对当前更有能力的策略频繁访问但在缓冲区中代表性不足的状态-动作对高估价值——一种外推误差。在缓冲区完全固定的离线 RL 中情况最为严重；CQL 等保守方法通过悲观价值估计来解决它。
+
+**超参数敏感性**（hyperparameter sensitivity）是普遍存在的实际限制：无模型算法，尤其是策略梯度方法，在超参数配置上非常脆弱。PPO 在学习率、熵系数、截断比率和网络架构选择上的性能相差数个数量级（Schulman et al., 2017）。这种脆性使得在没有大量调优或自动化超参数优化的情况下可靠部署变得困难。SAC 等方法通过离策略复用和自动温度调节在一定程度上降低了敏感性，但深度 RL 仍比监督学习对超参数敏感得多。
+
+**样本低效**（sample inefficiency）仍然是相对于基于模型方法的根本限制：无模型方法从像素解决连续运动任务通常需要数千万个环境步，而 Dreamer 类世界模型只需数千步。在实际机器人中，每次试验消耗物理时间和硬件磨损，无模型方法在没有高保真仿真器进行预训练的情况下通常成本高昂。
+
+---
+
+## 快速参考
+
+| # | 难度 | 主题 | 章节 |
+|---|------|------|------|
+| Q1 | 基础 | 无模型 RL 定义：无环境模型，样本效率权衡 | 基础知识 |
+| Q2 | 基础 | Bellman 方程与时序差分学习 | 基础知识 |
+| Q3 | 基础 | MC 与 TD：偏差-方差权衡，$n$ 步和 $\lambda$-回报 | 基础知识 |
+| Q4 | 进阶 | 策略梯度定理：对数导数技巧，无偏梯度估计量 | 基础知识 |
+| Q5 | 基础 | Q-learning：离策略更新规则和表格收敛条件 | 基于价值的方法 |
+| Q6 | 进阶 | DQN：经验回放和目标网络——稳定化机制 | 基于价值的方法 |
+| Q7 | 进阶 | Double DQN、Dueling DQN、PER：具体失败模式与修复 | 基于价值的方法 |
+| Q8 | 进阶 | Rainbow：六个组件，消融结果，非平凡交互 | 基于价值的方法 |
+| Q9 | 基础 | REINFORCE：蒙特卡洛策略梯度，方差，基线 | 策略梯度方法 |
+| Q10 | 进阶 | TRPO 和 PPO：置信域约束和截断代理目标 | 策略梯度方法 |
+| Q11 | 基础 | A3C 和 A2C：异步和同步并行 worker | 策略梯度方法 |
+| Q12 | 进阶 | 最大熵 RL：熵奖励和自动温度调节 | 策略梯度方法 |
+| Q13 | 基础 | Actor-critic 框架：actor 和 critic 角色，与 REINFORCE 的方差对比 | Actor-Critic 方法 |
+| Q14 | 进阶 | GAE：$\lambda$ 加权 TD 误差，TD 与 MC 之间插值 | Actor-Critic 方法 |
+| Q15 | 进阶 | SAC：软 Bellman 方程，双 critic，自动温度 | Actor-Critic 方法 |
+| Q16 | 进阶 | TD3：截断双 Q，延迟更新，目标策略平滑 | Actor-Critic 方法 |
+| Q17 | 基础 | 探索策略：$\epsilon$-贪婪、UCB、基于熵 | 探索与实践考量 |
+| Q18 | 进阶 | 内在激励：CTS、ICM、RND——困难探索基准 | 探索与实践考量 |
+| Q19 | 进阶 | 收敛：致命三角，表格保证，深度 RL 局限 | 探索与实践考量 |
+| Q20 | 进阶 | 失败模式：奖励黑客，分布偏移，超参数敏感性 | 探索与实践考量 |
+
+## 参考文献
+
+- Williams, [Simple Statistical Gradient-Following Algorithms for Connectionist Reinforcement Learning](https://link.springer.com/article/10.1007/BF00992696) (1992)
+- Auer et al., [Finite-time Analysis of the Multiarmed Bandit Problem](https://link.springer.com/article/10.1023/A:1013689704352) (UCB, 2002)
+- Mnih et al., [Human-level control through deep reinforcement learning](https://arxiv.org/abs/1312.5602) (DQN, 2015)
+- Schulman et al., [Trust Region Policy Optimization](https://arxiv.org/abs/1502.05477) (TRPO, 2015)
+- Schulman et al., [High-Dimensional Continuous Control Using Generalized Advantage Estimation](https://arxiv.org/abs/1506.02438) (GAE, 2016)
+- Mnih et al., [Asynchronous Methods for Deep Reinforcement Learning](https://arxiv.org/abs/1602.01783) (A3C, 2016)
+- van Hasselt et al., [Deep Reinforcement Learning with Double Q-learning](https://arxiv.org/abs/1509.06461) (Double DQN, 2016)
+- Wang et al., [Dueling Network Architectures for Deep Reinforcement Learning](https://arxiv.org/abs/1511.06581) (Dueling DQN, 2016)
+- Schaul et al., [Prioritized Experience Replay](https://arxiv.org/abs/1511.05952) (PER, 2016)
+- Bellemare et al., [Unifying Count-Based Exploration and Intrinsic Motivation](https://arxiv.org/abs/1606.01868) (CTS, 2016)
+- Fortunato et al., [Noisy Networks for Exploration](https://arxiv.org/abs/1706.10295) (Noisy Nets, 2017)
+- Bellemare et al., [A Distributional Perspective on Reinforcement Learning](https://arxiv.org/abs/1707.09096) (C51, 2017)
+- Pathak et al., [Curiosity-driven Exploration by Self-Supervised Prediction](https://arxiv.org/abs/1705.05363) (ICM, 2017)
+- Schulman et al., [Proximal Policy Optimization Algorithms](https://arxiv.org/abs/1707.06347) (PPO, 2017)
+- Haarnoja et al., [Soft Actor-Critic: Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor](https://arxiv.org/abs/1801.01290) (SAC, 2018a)
+- Fujimoto et al., [Addressing Function Approximation Error in Actor-Critic Methods](https://arxiv.org/abs/1802.09477) (TD3, 2018)
+- Hessel et al., [Rainbow: Combining Improvements in Deep Reinforcement Learning](https://arxiv.org/abs/1710.02298) (Rainbow, 2018)
+- Haarnoja et al., [Soft Actor-Critic Algorithms and Applications](https://arxiv.org/abs/1812.05905) (SAC, 2018b)
+- Burda et al., [Exploration by Random Network Distillation](https://arxiv.org/abs/1810.12894) (RND, 2019)
+- Hafner et al., [Mastering Diverse Domains with World Models](https://arxiv.org/abs/2301.04104) (DreamerV3, 2023)
