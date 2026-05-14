@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Optimization on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/zh/tags/optimization/</link>
-    <description>Recent content in Optimization on yo3nglau academic website</description>
+    <title>Mathematics on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/mathematics/</link>
+    <description>Recent content in Mathematics on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
     <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/mathematics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>深度学习数学基础：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</link>
       <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/zh/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</guid>
       <description>&lt;h2 id=&#34;线性代数&#34;&gt;线性代数&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-描述特征值与特征向量的几何含义&#34;&gt;Q1 [基础] 描述特征值与特征向量的几何含义&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 特征值与特征向量在几何上代表什么？它们为何有助于理解机器学习中的线性变换？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; 对于方阵 $A$ 和非零向量 $v$，&lt;strong&gt;特征向量&lt;/strong&gt;（eigenvector）方程 $Av = \lambda v$ 表明：将 $A$ 作用于 $v$ 后，所得向量与 $v$ 方向相同，只是被标量&lt;strong&gt;特征值&lt;/strong&gt;（eigenvalue）$\lambda$ 进行了缩放。几何上，$v$ 是变换不会旋转的特殊方向——只会拉伸（若 $|\lambda| &gt; 1$）、压缩（若 $|\lambda| &lt; 1$）或反向（若 $\lambda &lt; 0$）。其他所有向量既会被旋转，也会被缩放。&lt;/p&gt;&#xA;&lt;p&gt;对于对称半正定矩阵——协方差矩阵和 Gram 矩阵天然属于这一类——所有特征值非负，所有特征向量两两正交。这种正交性意味着特征向量构成了一个自然坐标系，与变换的主方向对齐。实际上，数据集的协方差矩阵的特征向量指向方差最大的方向，特征值度量对应方向上的方差大小。注意力得分矩阵 $QK^\top$ 以及线性层中的权重矩阵，均可通过其谱来分析信号传播和条件数特性。&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;h3 id=&#34;q2-基础-解释-svd-及其如何将特征分解推广至非方阵&#34;&gt;Q2 [基础] 解释 SVD 及其如何将特征分解推广至非方阵&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q：&lt;/strong&gt; 什么是奇异值分解？当矩阵不是方阵时，它与特征分解有何关系？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A：&lt;/strong&gt; &lt;strong&gt;奇异值分解&lt;/strong&gt;（SVD）将任意 $m \times n$ 矩阵 $A$ 分解为 $A = U\Sigma V^\top$，其中 $U \in \mathbb{R}^{m \times m}$ 和 $V \in \mathbb{R}^{n \times n}$ 是正交矩阵，$\Sigma \in \mathbb{R}^{m \times n}$ 是对角矩阵，对角元素为非负的&lt;strong&gt;奇异值&lt;/strong&gt;（singular values）$\sigma_1 \geq \sigma_2 \geq \cdots \geq \sigma_{\min(m,n)} \geq 0$。$U$ 的列向量是左奇异向量，$V$ 的列向量是右奇异向量。与特征分解不同，SVD 对任意形状的矩阵均有定义，无需矩阵可对角化。&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>训练技术与优化：面试问题与推荐回答</title>
-      <link>https://yo3nglau.github.io/blogs/zh/post/training-techniques--optimization-interview-questions-and-answers/</link>
-      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/zh/post/training-techniques--optimization-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;优化算法&#34;&gt;优化算法&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-基础-解释-adam-如何利用一阶与二阶矩估计优化参数&#34;&gt;Q1 [基础] 解释 Adam 如何利用一阶与二阶矩估计优化参数&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; Adam 优化器如何利用梯度历史为每个参数自适应调整学习率？&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;Adam&lt;/strong&gt;（Adaptive Moment Estimation，自适应矩估计）为每个参数维护两个运行统计量：一阶矩 $m_t$（梯度的指数移动平均）和二阶矩 $v_t$（梯度平方的指数移动平均）(Kingma &amp;amp; Ba, 2015)。在每一步 $t$，这两个统计量的更新方式如下：&lt;/p&gt;&#xA;$$m_t = \beta_1 m_{t-1} + (1 - \beta_1) g_t$$$$v_t = \beta_2 v_{t-1} + (1 - \beta_2) g_t^2$$&lt;p&gt;其中 $g_t$ 是梯度，$\beta_1 = 0.9$、$\beta_2 = 0.999$ 为衰减率。由于 $m_t$ 和 $v_t$ 初始化为零，Adam 施加&lt;strong&gt;偏差修正&lt;/strong&gt;以抵消初始化偏差：&lt;/p&gt;&#xA;$$\hat{m}_t = \frac{m_t}{1 - \beta_1^t}, \quad \hat{v}_t = \frac{v_t}{1 - \beta_2^t}$$&lt;p&gt;参数更新为 $\theta_t = \theta_{t-1} - \eta \cdot \hat{m}_t / (\sqrt{\hat{v}_t} + \epsilon)$，其中 $\epsilon$ 是用于数值稳定性的小常数。其效果是：历史梯度较大的参数获得较小的有效学习率，而梯度较小或更新稀疏的参数则得到更大幅度的更新。这种自适应缩放通常比固定学习率的 SGD 收敛更快，尤其适用于稀疏或嘈杂的梯度场景。&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -54,6 +54,32 @@
                 href="https://yo3nglau.github.io/blogs/zh/categories/interview/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/mathematics/</loc>
+    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/mathematics/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/mathematics/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/optimization/</loc>
+    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/optimization/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/optimization/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/representation-learning/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -104,6 +130,19 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/post/variational-autoencoder-interview-questions-and-answers/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</loc>
+    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/computer-vision/</loc>
@@ -299,19 +338,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/multimodal-learning/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/optimization/</loc>
-    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/optimization/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/optimization/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/quantization/</loc>
