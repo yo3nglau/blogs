@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Generative Models on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/tags/generative-models/</link>
-    <description>Recent content in Generative Models on yo3nglau academic website</description>
+    <title>Representation Learning on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/representation-learning/</link>
+    <description>Recent content in Representation Learning on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/tags/generative-models/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/representation-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Variational Autoencoder: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/variational-autoencoder-interview-questions-and-answers/</link>
       <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/post/variational-autoencoder-interview-questions-and-answers/</guid>
       <description>&lt;h2 id=&#34;vae-foundations&#34;&gt;VAE Foundations&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-describe-the-latent-variable-generative-model-in-a-vae&#34;&gt;Q1 [Basic] Describe the latent variable generative model in a VAE&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How does a VAE define a probabilistic generative model, and why is computing the exact posterior intractable?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; A &lt;strong&gt;VAE&lt;/strong&gt; (Kingma &amp;amp; Welling, 2014) defines a directed latent variable model with prior $p(z) = \mathcal{N}(0, I)$ over a continuous latent variable $z \in \mathbb{R}^d$ and a learned decoder $p_\theta(x|z)$ parametrized by a neural network. The generative process first samples $z \sim \mathcal{N}(0, I)$, then samples $x \sim p_\theta(x|z)$. For images, the decoder is often modeled as a Gaussian $\mathcal{N}(\mu_\theta(z), \sigma^2 I)$ or a Bernoulli distribution over pixel values.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Diffusion Models: Interview Questions and Answers</title>
-      <link>https://yo3nglau.github.io/blogs/post/diffusion-models-interview-questions-and-answers/</link>
-      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/diffusion-models-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;foundations-of-diffusion-models&#34;&gt;Foundations of Diffusion Models&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-describe-the-forward-and-reverse-processes-in-ddpm&#34;&gt;Q1 [Basic] Describe the forward and reverse processes in DDPM&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How do the forward and reverse processes in DDPM define a generative model, and what mathematical structure makes the reverse process tractable?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;DDPM&lt;/strong&gt; (Ho et al., 2020) defines a generative model through two Markov chains. The &lt;strong&gt;forward process&lt;/strong&gt; $q(x_{1:T}|x_0)$ gradually corrupts a data sample $x_0$ by adding small amounts of Gaussian noise over $T$ steps:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

@@ -6,8 +6,15 @@
     <description>Recent content in Interview on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 10 Apr 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/categories/interview/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Variational Autoencoder: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/variational-autoencoder-interview-questions-and-answers/</link>
+      <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/variational-autoencoder-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;vae-foundations&#34;&gt;VAE Foundations&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-describe-the-latent-variable-generative-model-in-a-vae&#34;&gt;Q1 [Basic] Describe the latent variable generative model in a VAE&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How does a VAE define a probabilistic generative model, and why is computing the exact posterior intractable?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; A &lt;strong&gt;VAE&lt;/strong&gt; (Kingma &amp;amp; Welling, 2014) defines a directed latent variable model with prior $p(z) = \mathcal{N}(0, I)$ over a continuous latent variable $z \in \mathbb{R}^d$ and a learned decoder $p_\theta(x|z)$ parametrized by a neural network. The generative process first samples $z \sim \mathcal{N}(0, I)$, then samples $x \sim p_\theta(x|z)$. For images, the decoder is often modeled as a Gaussian $\mathcal{N}(\mu_\theta(z), \sigma^2 I)$ or a Bernoulli distribution over pixel values.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>LLM Inference &amp; Serving: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/llm-inference--serving-interview-questions-and-answers/</link>
