@@ -67,6 +67,25 @@
                 href="https://yo3nglau.github.io/blogs/categories/interview/"
                 />
   </url><url>
+    <loc>https://yo3nglau.github.io/blogs/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</loc>
+    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/mathematics/</loc>
+    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/tags/optimization/</loc>
+    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/optimization/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/optimization/"
+                />
+  </url><url>
     <loc>https://yo3nglau.github.io/blogs/post/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
   </url><url>
@@ -340,19 +359,6 @@
                 rel="alternate"
                 hreflang="en-us"
                 href="https://yo3nglau.github.io/blogs/tags/multimodal-learning/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/tags/optimization/</loc>
-    <lastmod>2026-04-08T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/optimization/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/optimization/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/tags/quantization/</loc>

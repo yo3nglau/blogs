@@ -9,6 +9,13 @@
     <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/tags/deep-learning/index.xml" rel="self" type="application/rss+xml" />
     <item>
+      <title>Mathematical Foundations for Deep Learning: Interview Questions and Answers</title>
+      <link>https://yo3nglau.github.io/blogs/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</link>
+      <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</guid>
+      <description>&lt;h2 id=&#34;linear-algebra&#34;&gt;Linear Algebra&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-describe-the-geometric-meaning-of-eigenvalues-and-eigenvectors&#34;&gt;Q1 [Basic] Describe the geometric meaning of eigenvalues and eigenvectors&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What do eigenvalues and eigenvectors represent geometrically, and why are they useful for understanding linear transformations in machine learning?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; For a square matrix $A$ and a nonzero vector $v$, the &lt;strong&gt;eigenvector&lt;/strong&gt; equation $Av = \lambda v$ states that applying $A$ to $v$ produces the same vector scaled by the scalar &lt;strong&gt;eigenvalue&lt;/strong&gt; $\lambda$. Geometrically, $v$ is a special direction that the transformation does not rotate — it only stretches (if $|\lambda| &gt; 1$), compresses (if $|\lambda| &lt; 1$), or reflects (if $\lambda &lt; 0$). All other vectors are both rotated and scaled.&lt;/p&gt;</description>
+    </item>
+    <item>
       <title>Variational Autoencoder: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/variational-autoencoder-interview-questions-and-answers/</link>
       <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>

@@ -1,26 +1,19 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Optimization on yo3nglau academic website</title>
-    <link>https://yo3nglau.github.io/blogs/tags/optimization/</link>
-    <description>Recent content in Optimization on yo3nglau academic website</description>
+    <title>Mathematics on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/mathematics/</link>
+    <description>Recent content in Mathematics on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://yo3nglau.github.io/blogs/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/mathematics/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Mathematical Foundations for Deep Learning: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</link>
       <pubDate>Thu, 14 May 2026 00:00:00 +0000</pubDate>
       <guid>https://yo3nglau.github.io/blogs/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</guid>
       <description>&lt;h2 id=&#34;linear-algebra&#34;&gt;Linear Algebra&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-describe-the-geometric-meaning-of-eigenvalues-and-eigenvectors&#34;&gt;Q1 [Basic] Describe the geometric meaning of eigenvalues and eigenvectors&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; What do eigenvalues and eigenvectors represent geometrically, and why are they useful for understanding linear transformations in machine learning?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; For a square matrix $A$ and a nonzero vector $v$, the &lt;strong&gt;eigenvector&lt;/strong&gt; equation $Av = \lambda v$ states that applying $A$ to $v$ produces the same vector scaled by the scalar &lt;strong&gt;eigenvalue&lt;/strong&gt; $\lambda$. Geometrically, $v$ is a special direction that the transformation does not rotate — it only stretches (if $|\lambda| &gt; 1$), compresses (if $|\lambda| &lt; 1$), or reflects (if $\lambda &lt; 0$). All other vectors are both rotated and scaled.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Training Techniques &amp; Optimization: Interview Questions and Answers</title>
-      <link>https://yo3nglau.github.io/blogs/post/training-techniques--optimization-interview-questions-and-answers/</link>
-      <pubDate>Wed, 08 Apr 2026 00:00:00 +0000</pubDate>
-      <guid>https://yo3nglau.github.io/blogs/post/training-techniques--optimization-interview-questions-and-answers/</guid>
-      <description>&lt;h2 id=&#34;optimization-algorithms&#34;&gt;Optimization Algorithms&lt;/h2&gt;&#xA;&lt;h3 id=&#34;q1-basic-explain-how-adam-optimizes-parameters-using-first-and-second-moment-estimates&#34;&gt;Q1 [Basic] Explain how Adam optimizes parameters using first and second moment estimates&lt;/h3&gt;&#xA;&lt;p&gt;&lt;strong&gt;Q:&lt;/strong&gt; How does the Adam optimizer use gradient history to adapt learning rates for each parameter?&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;A:&lt;/strong&gt; &lt;strong&gt;Adam&lt;/strong&gt; (Adaptive Moment Estimation) maintains two running statistics per parameter: a first moment $m_t$ (exponential moving average of gradients) and a second moment $v_t$ (exponential moving average of squared gradients) (Kingma &amp;amp; Ba, 2015). At each step $t$, these are updated as:&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
