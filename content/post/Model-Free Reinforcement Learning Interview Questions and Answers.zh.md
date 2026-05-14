@@ -19,7 +19,7 @@ toc: true
 
 **A:** **无模型强化学习**（model-free reinforcement learning）是一类直接从环境交互中学习策略或价值函数的 RL 方法，无需构建或查询关于环境转移动态 $p(s' | s, a)$ 或奖励函数 $r(s, a)$ 的显式模型。智能体纯粹从所经历的 $(s_t, a_t, r_t, s_{t+1})$ 元组序列中学习，利用该数据流更新价值函数、策略或二者兼有。
 
-缺少转移模型有两个直接后果。第一，智能体无法提前规划：在执行动作之前，它无法想象该动作会带来什么结果，因此每次策略改进都必须基于真实——或此前收集的——交互数据。第二，数据效率受到限制：与可从已学习模型生成合成滚动来增强训练的基于模型方法不同，无模型方法只能依赖真实交互。例如，DreamerV3（Hafner et al., 2023）在 DeepMind Control Suite 上仅用 5–20 倍更少的真实环境步数便达到了与无模型 SAC 相当的性能。
+缺少转移模型有两个直接后果。第一，智能体无法提前规划：在执行动作之前，它无法想象该动作会带来什么结果，因此每次策略改进都必须基于真实——或此前收集的——交互数据。第二，数据效率受到限制：与可从已学习模型生成合成滚动来增强训练的基于模型方法不同，无模型方法只能依赖真实交互。例如，[DreamerV3]({{< relref "World Models Interview Questions and Answers.zh.md" >}})（Hafner et al., 2023）在 DeepMind Control Suite 上仅用 5–20 倍更少的真实环境步数便达到了与无模型 SAC 相当的性能。
 
 补偿优势在于简洁性和鲁棒性：无模型方法不引入模型近似误差，其价值或策略估计虽然可能存在噪声，但不会被不准确的转移动态系统性误导。这使得无模型方法成为环境交互成本低廉（仿真、游戏）或转移动态过于复杂、随机而难以精确建模任务的默认选择。
 
@@ -305,7 +305,7 @@ SAC 使用**双 critic**（twin critics）$Q_{\psi_1}$ 和 $Q_{\psi_2}$，对相
 
 **超参数敏感性**（hyperparameter sensitivity）是普遍存在的实际限制：无模型算法，尤其是策略梯度方法，在超参数配置上非常脆弱。PPO 在学习率、熵系数、截断比率和网络架构选择上的性能相差数个数量级（Schulman et al., 2017）。这种脆性使得在没有大量调优或自动化超参数优化的情况下可靠部署变得困难。SAC 等方法通过离策略复用和自动温度调节在一定程度上降低了敏感性，但深度 RL 仍比监督学习对超参数敏感得多。
 
-**样本低效**（sample inefficiency）仍然是相对于基于模型方法的根本限制：无模型方法从像素解决连续运动任务通常需要数千万个环境步，而 Dreamer 类世界模型只需数千步。在实际机器人中，每次试验消耗物理时间和硬件磨损，无模型方法在没有高保真仿真器进行预训练的情况下通常成本高昂。
+**样本低效**（sample inefficiency）仍然是相对于基于模型方法的根本限制：无模型方法从像素解决连续运动任务通常需要数千万个环境步，而 [Dreamer 类世界模型]({{< relref "World Models Interview Questions and Answers.zh.md" >}})只需数千步。在实际机器人中，每次试验消耗物理时间和硬件磨损，无模型方法在没有高保真仿真器进行预训练的情况下通常成本高昂。
 
 ---
 
@@ -356,3 +356,7 @@ SAC 使用**双 critic**（twin critics）$Q_{\psi_1}$ 和 $Q_{\psi_2}$，对相
 - Haarnoja et al., [Soft Actor-Critic Algorithms and Applications](https://arxiv.org/abs/1812.05905) (SAC, 2018b)
 - Burda et al., [Exploration by Random Network Distillation](https://arxiv.org/abs/1810.12894) (RND, 2019)
 - Hafner et al., [Mastering Diverse Domains with World Models](https://arxiv.org/abs/2301.04104) (DreamerV3, 2023)
+
+## 另见
+
+- [世界模型：面试问题与推荐回答]({{< relref "World Models Interview Questions and Answers.zh.md" >}})

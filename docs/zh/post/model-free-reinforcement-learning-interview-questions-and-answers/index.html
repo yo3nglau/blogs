@@ -110,6 +110,7 @@
     </li>
     <li><a href="#快速参考">快速参考</a></li>
     <li><a href="#参考文献">参考文献</a></li>
+    <li><a href="#另见">另见</a></li>
   </ul>
 </nav>
 
@@ -119,7 +120,7 @@
 <h3 id="q1-基础-无模型强化学习是什么它与基于模型的-rl-有何不同">Q1 [基础] 无模型强化学习是什么，它与基于模型的 RL 有何不同？</h3>
 <p><strong>Q:</strong> 无模型强化学习如何定义，缺少环境模型对学习和样本效率意味着什么？</p>
 <p><strong>A:</strong> <strong>无模型强化学习</strong>（model-free reinforcement learning）是一类直接从环境交互中学习策略或价值函数的 RL 方法，无需构建或查询关于环境转移动态 $p(s' | s, a)$ 或奖励函数 $r(s, a)$ 的显式模型。智能体纯粹从所经历的 $(s_t, a_t, r_t, s_{t+1})$ 元组序列中学习，利用该数据流更新价值函数、策略或二者兼有。</p>
-<p>缺少转移模型有两个直接后果。第一，智能体无法提前规划：在执行动作之前，它无法想象该动作会带来什么结果，因此每次策略改进都必须基于真实——或此前收集的——交互数据。第二，数据效率受到限制：与可从已学习模型生成合成滚动来增强训练的基于模型方法不同，无模型方法只能依赖真实交互。例如，DreamerV3（Hafner et al., 2023）在 DeepMind Control Suite 上仅用 5–20 倍更少的真实环境步数便达到了与无模型 SAC 相当的性能。</p>
+<p>缺少转移模型有两个直接后果。第一，智能体无法提前规划：在执行动作之前，它无法想象该动作会带来什么结果，因此每次策略改进都必须基于真实——或此前收集的——交互数据。第二，数据效率受到限制：与可从已学习模型生成合成滚动来增强训练的基于模型方法不同，无模型方法只能依赖真实交互。例如，<a href="/blogs/zh/post/world-models-interview-questions-and-answers/">DreamerV3</a>（Hafner et al., 2023）在 DeepMind Control Suite 上仅用 5–20 倍更少的真实环境步数便达到了与无模型 SAC 相当的性能。</p>
 <p>补偿优势在于简洁性和鲁棒性：无模型方法不引入模型近似误差，其价值或策略估计虽然可能存在噪声，但不会被不准确的转移动态系统性误导。这使得无模型方法成为环境交互成本低廉（仿真、游戏）或转移动态过于复杂、随机而难以精确建模任务的默认选择。</p>
 <hr>
 <h3 id="q2-基础-bellman-方程是什么它如何构成时序差分学习的基础">Q2 [基础] Bellman 方程是什么，它如何构成时序差分学习的基础？</h3>
@@ -251,7 +252,7 @@ $$Q(s_t, a_t) = \mathbb{E}\!\left[r_t + \gamma\!\left(Q(s_{t+1}, a_{t+1}) - \alp
 <p><strong>A:</strong> <strong>奖励黑客和规范博弈</strong>（reward hacking and specification gaming）在策略找到使指定奖励函数最大化但违背设计者意图的行为时发生。由于无模型智能体优化标量信号，没有任何任务语义的内置表示，它们利用指定奖励和真实目标之间的任何差距——机器人学习利用物理仿真器的缺陷实现高位置而非行走，或智能体暂停以避免积累负奖励而非完成任务。缓解需要仔细的奖励设计、领域特定的奖励塑形，或从人类演示或偏好中学习奖励。</p>
 <p><strong>离策略学习中的分布偏移</strong>（distributional shift in off-policy learning）在回放缓冲区的数据分布与当前策略诱导的分布有实质差异时产生。在过去策略数据上训练的 Q 网络可能对当前更有能力的策略频繁访问但在缓冲区中代表性不足的状态-动作对高估价值——一种外推误差。在缓冲区完全固定的离线 RL 中情况最为严重；CQL 等保守方法通过悲观价值估计来解决它。</p>
 <p><strong>超参数敏感性</strong>（hyperparameter sensitivity）是普遍存在的实际限制：无模型算法，尤其是策略梯度方法，在超参数配置上非常脆弱。PPO 在学习率、熵系数、截断比率和网络架构选择上的性能相差数个数量级（Schulman et al., 2017）。这种脆性使得在没有大量调优或自动化超参数优化的情况下可靠部署变得困难。SAC 等方法通过离策略复用和自动温度调节在一定程度上降低了敏感性，但深度 RL 仍比监督学习对超参数敏感得多。</p>
-<p><strong>样本低效</strong>（sample inefficiency）仍然是相对于基于模型方法的根本限制：无模型方法从像素解决连续运动任务通常需要数千万个环境步，而 Dreamer 类世界模型只需数千步。在实际机器人中，每次试验消耗物理时间和硬件磨损，无模型方法在没有高保真仿真器进行预训练的情况下通常成本高昂。</p>
+<p><strong>样本低效</strong>（sample inefficiency）仍然是相对于基于模型方法的根本限制：无模型方法从像素解决连续运动任务通常需要数千万个环境步，而 <a href="/blogs/zh/post/world-models-interview-questions-and-answers/">Dreamer 类世界模型</a>只需数千步。在实际机器人中，每次试验消耗物理时间和硬件磨损，无模型方法在没有高保真仿真器进行预训练的情况下通常成本高昂。</p>
 <hr>
 <h2 id="快速参考">快速参考</h2>
 <table>
@@ -408,6 +409,10 @@ $$Q(s_t, a_t) = \mathbb{E}\!\left[r_t + \gamma\!\left(Q(s_{t+1}, a_{t+1}) - \alp
 <li>Haarnoja et al., <a href="https://arxiv.org/abs/1812.05905">Soft Actor-Critic Algorithms and Applications</a> (SAC, 2018b)</li>
 <li>Burda et al., <a href="https://arxiv.org/abs/1810.12894">Exploration by Random Network Distillation</a> (RND, 2019)</li>
 <li>Hafner et al., <a href="https://arxiv.org/abs/2301.04104">Mastering Diverse Domains with World Models</a> (DreamerV3, 2023)</li>
+</ul>
+<h2 id="另见">另见</h2>
+<ul>
+<li><a href="/blogs/zh/post/world-models-interview-questions-and-answers/">世界模型：面试问题与推荐回答</a></li>
 </ul>
 
 </main>

@@ -19,7 +19,7 @@ toc: true
 
 **A:** **Model-free reinforcement learning** is the family of RL methods that learn a policy or value function directly from environment interaction, without constructing or querying an explicit model of the environment's transition dynamics $p(s' | s, a)$ or reward function $r(s, a)$. The agent learns purely from the raw sequence of $(s_t, a_t, r_t, s_{t+1})$ tuples it experiences, using this stream to update either a value function, a policy, or both.
 
-The absence of a transition model has two immediate consequences. First, the agent cannot plan ahead: it cannot imagine what would happen if it took an action before executing it, so every policy improvement must be grounded in real — or previously collected — experience. Second, data efficiency is constrained: unlike model-based methods that can generate synthetic rollouts from a learned model to augment training, model-free methods must rely solely on real interactions. DreamerV3 (Hafner et al., 2023), for example, achieves competitive performance with 5–20× fewer real environment steps than model-free SAC on the DeepMind Control Suite.
+The absence of a transition model has two immediate consequences. First, the agent cannot plan ahead: it cannot imagine what would happen if it took an action before executing it, so every policy improvement must be grounded in real — or previously collected — experience. Second, data efficiency is constrained: unlike model-based methods that can generate synthetic rollouts from a learned model to augment training, model-free methods must rely solely on real interactions. [DreamerV3]({{< relref "World Models Interview Questions and Answers.md" >}}) (Hafner et al., 2023), for example, achieves competitive performance with 5–20× fewer real environment steps than model-free SAC on the DeepMind Control Suite.
 
 The compensating advantage is simplicity and robustness: model-free methods introduce no model approximation error, and their value or policy estimates, while potentially noisy, are not systematically misled by inaccurate transition dynamics. This makes model-free methods the default choice for tasks where the environment is cheap to interact with (simulation, games) or where the transition dynamics are too complex or stochastic to model accurately.
 
@@ -305,7 +305,7 @@ Modern deep RL algorithms mitigate but do not eliminate the triad through practi
 
 **Hyperparameter sensitivity** is a pervasive practical limitation: model-free algorithms, especially policy gradient methods, are brittle across hyperparameter configurations. PPO's performance varies by orders of magnitude across choices of learning rate, entropy coefficient, clip ratio, and network architecture (Schulman et al., 2017). This fragility makes reliable deployment difficult without extensive tuning or automated hyperparameter optimization. Methods like SAC reduce sensitivity somewhat through off-policy reuse and automatic temperature tuning, but deep RL remains substantially more hyperparameter-sensitive than supervised learning.
 
-**Sample inefficiency** remains the fundamental constraint relative to model-based methods: solving continuous locomotion from pixels typically requires tens of millions of environment steps for model-free methods versus thousands for Dreamer-class world models. In real-world robotics where each trial consumes physical time and hardware wear, model-free methods are often prohibitively expensive without a high-fidelity simulator for pretraining.
+**Sample inefficiency** remains the fundamental constraint relative to model-based methods: solving continuous locomotion from pixels typically requires tens of millions of environment steps for model-free methods versus thousands for [Dreamer-class world models]({{< relref "World Models Interview Questions and Answers.md" >}}). In real-world robotics where each trial consumes physical time and hardware wear, model-free methods are often prohibitively expensive without a high-fidelity simulator for pretraining.
 
 ---
 
@@ -356,3 +356,7 @@ Modern deep RL algorithms mitigate but do not eliminate the triad through practi
 - Haarnoja et al., [Soft Actor-Critic Algorithms and Applications](https://arxiv.org/abs/1812.05905) (SAC, 2018b)
 - Burda et al., [Exploration by Random Network Distillation](https://arxiv.org/abs/1810.12894) (RND, 2019)
 - Hafner et al., [Mastering Diverse Domains with World Models](https://arxiv.org/abs/2301.04104) (DreamerV3, 2023)
+
+## See Also
+
+- [World Models: Interview Questions and Answers]({{< relref "World Models Interview Questions and Answers.md" >}})

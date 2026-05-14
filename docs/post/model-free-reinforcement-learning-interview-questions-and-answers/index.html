@@ -110,6 +110,7 @@
     </li>
     <li><a href="#quick-reference">Quick Reference</a></li>
     <li><a href="#resources">Resources</a></li>
+    <li><a href="#see-also">See Also</a></li>
   </ul>
 </nav>
 
@@ -119,7 +120,7 @@
 <h3 id="q1-basic-what-is-model-free-reinforcement-learning-and-how-does-it-differ-from-model-based-rl">Q1 [Basic] What is model-free reinforcement learning and how does it differ from model-based RL?</h3>
 <p><strong>Q:</strong> How is model-free reinforcement learning defined, and what does the absence of an environment model imply for learning and sample efficiency?</p>
 <p><strong>A:</strong> <strong>Model-free reinforcement learning</strong> is the family of RL methods that learn a policy or value function directly from environment interaction, without constructing or querying an explicit model of the environment&rsquo;s transition dynamics $p(s' | s, a)$ or reward function $r(s, a)$. The agent learns purely from the raw sequence of $(s_t, a_t, r_t, s_{t+1})$ tuples it experiences, using this stream to update either a value function, a policy, or both.</p>
-<p>The absence of a transition model has two immediate consequences. First, the agent cannot plan ahead: it cannot imagine what would happen if it took an action before executing it, so every policy improvement must be grounded in real — or previously collected — experience. Second, data efficiency is constrained: unlike model-based methods that can generate synthetic rollouts from a learned model to augment training, model-free methods must rely solely on real interactions. DreamerV3 (Hafner et al., 2023), for example, achieves competitive performance with 5–20× fewer real environment steps than model-free SAC on the DeepMind Control Suite.</p>
+<p>The absence of a transition model has two immediate consequences. First, the agent cannot plan ahead: it cannot imagine what would happen if it took an action before executing it, so every policy improvement must be grounded in real — or previously collected — experience. Second, data efficiency is constrained: unlike model-based methods that can generate synthetic rollouts from a learned model to augment training, model-free methods must rely solely on real interactions. <a href="/blogs/post/world-models-interview-questions-and-answers/">DreamerV3</a> (Hafner et al., 2023), for example, achieves competitive performance with 5–20× fewer real environment steps than model-free SAC on the DeepMind Control Suite.</p>
 <p>The compensating advantage is simplicity and robustness: model-free methods introduce no model approximation error, and their value or policy estimates, while potentially noisy, are not systematically misled by inaccurate transition dynamics. This makes model-free methods the default choice for tasks where the environment is cheap to interact with (simulation, games) or where the transition dynamics are too complex or stochastic to model accurately.</p>
 <hr>
 <h3 id="q2-basic-what-is-the-bellman-equation-and-how-does-it-form-the-basis-of-temporal-difference-learning">Q2 [Basic] What is the Bellman equation and how does it form the basis of temporal difference learning?</h3>
@@ -251,7 +252,7 @@ $$Q(s_t, a_t) = \mathbb{E}\!\left[r_t + \gamma\!\left(Q(s_{t+1}, a_{t+1}) - \alp
 <p><strong>A:</strong> <strong>Reward hacking and specification gaming</strong> occurs when the policy finds behaviors that maximize the specified reward function but violate the designer&rsquo;s intent. Because model-free agents optimize a scalar signal without any built-in representation of task semantics, they exploit any gap between the specified reward and the true objective — a robot learning to exploit physics simulator artifacts to achieve a high position rather than walking, or an agent pausing to avoid accumulating negative reward rather than completing a task. Mitigation requires careful reward design, domain-specific reward shaping, or reward learning from human demonstrations or preferences.</p>
 <p><strong>Distributional shift in off-policy learning</strong> arises when the data distribution in the replay buffer differs substantially from the distribution induced by the current policy. The Q-network trained on past-policy data may overestimate values for state-action pairs that the current, more capable policy frequently visits but that were underrepresented in the buffer — a form of extrapolation error. This is most severe in offline RL where the buffer is completely fixed; conservative methods like CQL address it through pessimistic value estimation.</p>
 <p><strong>Hyperparameter sensitivity</strong> is a pervasive practical limitation: model-free algorithms, especially policy gradient methods, are brittle across hyperparameter configurations. PPO&rsquo;s performance varies by orders of magnitude across choices of learning rate, entropy coefficient, clip ratio, and network architecture (Schulman et al., 2017). This fragility makes reliable deployment difficult without extensive tuning or automated hyperparameter optimization. Methods like SAC reduce sensitivity somewhat through off-policy reuse and automatic temperature tuning, but deep RL remains substantially more hyperparameter-sensitive than supervised learning.</p>
-<p><strong>Sample inefficiency</strong> remains the fundamental constraint relative to model-based methods: solving continuous locomotion from pixels typically requires tens of millions of environment steps for model-free methods versus thousands for Dreamer-class world models. In real-world robotics where each trial consumes physical time and hardware wear, model-free methods are often prohibitively expensive without a high-fidelity simulator for pretraining.</p>
+<p><strong>Sample inefficiency</strong> remains the fundamental constraint relative to model-based methods: solving continuous locomotion from pixels typically requires tens of millions of environment steps for model-free methods versus thousands for <a href="/blogs/post/world-models-interview-questions-and-answers/">Dreamer-class world models</a>. In real-world robotics where each trial consumes physical time and hardware wear, model-free methods are often prohibitively expensive without a high-fidelity simulator for pretraining.</p>
 <hr>
 <h2 id="quick-reference">Quick Reference</h2>
 <table>
@@ -408,6 +409,10 @@ $$Q(s_t, a_t) = \mathbb{E}\!\left[r_t + \gamma\!\left(Q(s_{t+1}, a_{t+1}) - \alp
 <li>Haarnoja et al., <a href="https://arxiv.org/abs/1812.05905">Soft Actor-Critic Algorithms and Applications</a> (SAC, 2018b)</li>
 <li>Burda et al., <a href="https://arxiv.org/abs/1810.12894">Exploration by Random Network Distillation</a> (RND, 2019)</li>
 <li>Hafner et al., <a href="https://arxiv.org/abs/2301.04104">Mastering Diverse Domains with World Models</a> (DreamerV3, 2023)</li>
+</ul>
+<h2 id="see-also">See Also</h2>
+<ul>
+<li><a href="/blogs/post/world-models-interview-questions-and-answers/">World Models: Interview Questions and Answers</a></li>
 </ul>
 
 </main>
