@@ -67,7 +67,7 @@
       <ul>
         <li><a href="#q6-基础-解释-mle-及其如何推导常用损失函数">Q6 [基础] 解释 MLE 及其如何推导常用损失函数</a></li>
         <li><a href="#q7-基础-描述高斯分布在深度学习中的作用">Q7 [基础] 描述高斯分布在深度学习中的作用</a></li>
-        <li><a href="#q8-进阶-分析-bias-variance-分解与双下降现象">Q8 [进阶] 分析 bias-variance 分解与双下降现象</a></li>
+        <li><a href="#q8-进阶-分析偏差-方差分解与双下降现象">Q8 [进阶] 分析偏差-方差分解与双下降现象</a></li>
         <li><a href="#q9-进阶-解释集中不等式及其在泛化理论中的作用">Q9 [进阶] 解释集中不等式及其在泛化理论中的作用</a></li>
         <li><a href="#q10-进阶-描述权重先验如何将贝叶斯推断与正则化联系起来">Q10 [进阶] 描述权重先验如何将贝叶斯推断与正则化联系起来</a></li>
       </ul>
@@ -144,12 +144,12 @@
 <p><strong>A：</strong> 密度函数为 $p(x) = (2\pi\sigma^2)^{-1/2}\exp(-(x-\mu)^2 / 2\sigma^2)$ 的<strong>高斯分布</strong>（Gaussian distribution）$\mathcal{N}(\mu, \sigma^2)$ 在深度学习中大量出现，根本原因有两点。第一，它是在固定均值和方差约束下的<strong>最大熵分布</strong>：在所有具有相同前两阶矩的分布中，高斯分布做出最少的额外假设，是与观测统计量相容的最无信息选择。第二，<strong>中心极限定理</strong>保证：无论各随机变量的个体分布如何，大量独立随机变量之和在分布上收敛到高斯，这解释了为何当结果由许多微小加性贡献构成时，高斯噪声模型是合适的。</p>
 <p>实践中，高斯分布出现在权重初始化（小高斯噪声防止对称性破坏失败）、VAE 的潜变量先验（$p(z) = \mathcal{N}(0, I)$）、鲁棒性训练的高斯噪声增强，以及无限宽网络的理论分析（神经正切核；无限宽随机初始化网络的函数空间是一个高斯过程）中。多元高斯分布 $\mathcal{N}(\mu, \Sigma)$ 还具有<strong>对线性变换封闭</strong>的额外性质：若 $x \sim \mathcal{N}(\mu, \Sigma)$，$A$ 是线性映射，则 $Ax \sim \mathcal{N}(A\mu, A\Sigma A^\top)$。这种封闭性使高斯分布在概率机器学习中具有解析可处理性。</p>
 <hr>
-<h3 id="q8-进阶-分析-bias-variance-分解与双下降现象">Q8 [进阶] 分析 bias-variance 分解与双下降现象</h3>
-<p><strong>Q：</strong> 经典的 bias-variance 权衡与现代过参数化模型中观察到的双下降现象有何关联？</p>
-<p><strong>A：</strong> <strong>bias-variance decomposition</strong>（bias-variance 分解）将模型 $\hat{f}$ 在点 $x$ 处的期望测试误差表示为：</p>
-$$\mathbb{E}[(y - \hat{f}(x))^2] = \underbrace{(\mathbb{E}[\hat{f}(x)] - f^*(x))^2}_{\text{bias}^2} + \underbrace{\mathbb{E}[(\hat{f}(x) - \mathbb{E}[\hat{f}(x)])^2]}_{\text{variance}} + \sigma^2_\text{noise}$$<p>bias 度量模型假设带来的系统误差；variance 度量对特定训练集的敏感程度。经典图像预测测试误差呈 U 形曲线：小模型欠拟合（高 bias、低 variance），大模型过拟合（低 bias、高 variance），最优复杂度使二者之和最小。</p>
+<h3 id="q8-进阶-分析偏差-方差分解与双下降现象">Q8 [进阶] 分析偏差-方差分解与双下降现象</h3>
+<p><strong>Q：</strong> 经典的偏差-方差权衡与现代过参数化模型中观察到的双下降现象有何关联？</p>
+<p><strong>A：</strong> <strong>偏差-方差分解</strong>（bias-variance decomposition）将模型 $\hat{f}$ 在点 $x$ 处的期望测试误差表示为：</p>
+$$\mathbb{E}[(y - \hat{f}(x))^2] = \underbrace{(\mathbb{E}[\hat{f}(x)] - f^*(x))^2}_{\text{bias}^2} + \underbrace{\mathbb{E}[(\hat{f}(x) - \mathbb{E}[\hat{f}(x)])^2]}_{\text{variance}} + \sigma^2_\text{noise}$$<p>偏差度量模型假设带来的系统误差；方差度量对特定训练集的敏感程度。经典图像预测测试误差呈 U 形曲线：小模型欠拟合（高偏差、低方差），大模型过拟合（低偏差、高方差），最优复杂度使二者之和最小。</p>
 <p><strong>双下降</strong>（double descent）现象（Belkin et al., 2019）挑战了这一图像。在<strong>插值阈值</strong>——模型容量恰好等于训练样本数的节点——测试误差出现峰值，因为模型被迫记住每个训练点，但这种记忆缺乏结构。当容量继续增长超过该阈值后，测试误差再度下降，甚至可以达到或超越经典最优点。这第二次下降的发生，是因为高度过参数化的模型有大量精确拟合训练数据的解；梯度下降的<strong>隐式偏置</strong>（implicit bias）倾向于选择其中范数最小或最平滑的解，这些解具有良好的泛化性。</p>
-<p>双下降现象已在线性回归、核方法、随机森林和深度神经网络中被观测到（Belkin et al., 2019）。这意味着，在过参数化体制下，经典的 bias-variance 框架是不完整的；当容量充足时，通过早停或显式权重惩罚进行正则化可能是不必要的，甚至有害的。该现象还取决于插值算法的选择：最小范数最小二乘表现出干净的双下降，而其他插值算法则未必。</p>
+<p>双下降现象已在线性回归、核方法、随机森林和深度神经网络中被观测到（Belkin et al., 2019）。这意味着，在过参数化体制下，经典的偏差-方差框架是不完整的；当容量充足时，通过早停或显式权重惩罚进行正则化可能是不必要的，甚至有害的。该现象还取决于插值算法的选择：最小范数最小二乘表现出干净的双下降，而其他插值算法则未必。</p>
 <hr>
 <h3 id="q9-进阶-解释集中不等式及其在泛化理论中的作用">Q9 [进阶] 解释集中不等式及其在泛化理论中的作用</h3>
 <p><strong>Q：</strong> 什么是集中不等式？它们如何用于推导泛化误差界？</p>
@@ -286,7 +286,7 @@ $$\arg\min_\theta\; \mathrm{KL}(p_\text{data} \| p_\theta) = \arg\max_\theta\; \
       <tr>
           <td>Q8</td>
           <td>进阶</td>
-          <td>bias-variance 分解与双下降现象</td>
+          <td>偏差-方差分解与双下降现象</td>
           <td>概率与统计</td>
       </tr>
       <tr>
