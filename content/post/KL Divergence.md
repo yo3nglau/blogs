@@ -21,7 +21,7 @@ This post develops the mathematical foundations of KL divergence, builds intuiti
 
 ## Mathematical Foundations
 
-For discrete distributions $P$ and $Q$ defined over the same support $\mathcal{X}$, the KL divergence from $Q$ to $P$ is defined as
+For discrete distributions $P$ and $Q$ defined over the same support $\mathcal{X}$, where $P(x)$ and $Q(x)$ denote the probability each distribution assigns to outcome $x$, the KL divergence from $Q$ to $P$ is defined as
 
 $$D_{KL}(P \| Q) = \sum_{x \in \mathcal{X}} P(x) \log \frac{P(x)}{Q(x)}$$
 
@@ -35,7 +35,7 @@ which makes the information-theoretic interpretation precise: KL divergence is t
 
 Non-negativity, $D_{KL}(P \| Q) \geq 0$ with equality if and only if $P = Q$ almost everywhere, follows from **Gibbs' inequality**, which is itself a consequence of Jensen's inequality applied to the convex function $-\log$. Since $\log$ is strictly concave, $\mathbb{E}_P[\log(Q/P)] \leq \log(\mathbb{E}_P[Q/P]) = \log(1) = 0$, so $\mathbb{E}_P[\log(P/Q)] \geq 0$. Despite this non-negativity, KL divergence is not a metric: it is asymmetric ($D_{KL}(P \| Q) \neq D_{KL}(Q \| P)$ in general) and does not satisfy the triangle inequality.
 
-For the specific case of two diagonal Gaussian distributions, which arises repeatedly in variational methods, the KL divergence admits a closed form. Let $q = \mathcal{N}(\mu, \mathrm{diag}(\sigma^2))$ and let $p = \mathcal{N}(0, I)$ be the standard normal prior. Then
+For the specific case of two diagonal Gaussian distributions, which arises repeatedly in variational methods, the KL divergence admits a closed form. Let $q = \mathcal{N}(\mu, \mathrm{diag}(\sigma^2))$ be a $d$-dimensional diagonal Gaussian with mean $\mu \in \mathbb{R}^d$ and per-dimension variances $\sigma_j^2$, and let $p = \mathcal{N}(0, I)$ be the standard normal prior. Then
 
 $$D_{KL}(q \| p) = \frac{1}{2} \sum_{j=1}^{d} \left( \sigma_j^2 + \mu_j^2 - 1 - \log \sigma_j^2 \right)$$
 
@@ -67,7 +67,7 @@ In reinforcement learning, policy gradient methods that take large gradient step
 
 $$\max_\theta \; \mathbb{E}_{s \sim \rho^{\pi_\mathrm{old}},\, a \sim \pi_\mathrm{old}}\!\left[\frac{\pi_\theta(a|s)}{\pi_\mathrm{old}(a|s)} A^{\pi_\mathrm{old}}(s, a)\right] \quad \text{s.t.} \quad \mathbb{E}_{s \sim \rho^{\pi_\mathrm{old}}}\!\left[D_{KL}(\pi_\mathrm{old}(\cdot|s) \| \pi_\theta(\cdot|s))\right] \leq \delta$$
 
-where $A^{\pi_\mathrm{old}}$ is the advantage function and $\delta$ is the trust region radius. The KL constraint ensures the new policy remains in a neighborhood of the old one where the importance-weighted objective is a reliable estimate of true performance improvement. Schulman et al. prove a monotonic improvement guarantee under this constraint, making TRPO the first policy gradient method with a provably safe update rule.
+where $\rho^{\pi_\mathrm{old}}$ is the state visitation distribution induced by $\pi_\mathrm{old}$, $s$ and $a$ are state and action, $A^{\pi_\mathrm{old}}$ is the advantage function, and $\delta$ is the trust region radius. The KL constraint ensures the new policy remains in a neighborhood of the old one where the importance-weighted objective is a reliable estimate of true performance improvement. Schulman et al. prove a monotonic improvement guarantee under this constraint, making TRPO the first policy gradient method with a provably safe update rule.
 
 ### Reinforcement Learning from Human Feedback
 
@@ -75,7 +75,7 @@ Training large language models to follow instructions requires optimizing a rewa
 
 $$\max_\pi \; \mathbb{E}_{x \sim \mathcal{D},\, y \sim \pi(\cdot|x)}\!\left[r(x, y)\right] - \beta \, D_{KL}(\pi(\cdot|x) \| \pi_\mathrm{ref}(\cdot|x))$$
 
-The coefficient $\beta$ trades off reward maximization against distributional fidelity. When $\beta = 0$ the policy is unconstrained and degenerates; as $\beta$ increases, the policy stays closer to the reference but may underfit the reward signal. In practice $\beta$ is tuned to find a regime where the model improves on human preference metrics while retaining coherent language generation. The KL term in this objective is formally identical to the one used in TRPO but serves a different function: rather than ensuring safe policy improvement, it acts as a regularizer against distribution shift induced by imperfect reward modeling.
+Here $x$ is an input prompt drawn from the training distribution $\mathcal{D}$, $y$ is the model's generated response, $r(x, y)$ is the reward model's score, and $\beta$ is a coefficient that trades off reward maximization against distributional fidelity. When $\beta = 0$ the policy is unconstrained and degenerates; as $\beta$ increases, the policy stays closer to the reference but may underfit the reward signal. In practice $\beta$ is tuned to find a regime where the model improves on human preference metrics while retaining coherent language generation. The KL term in this objective is formally identical to the one used in TRPO but serves a different function: rather than ensuring safe policy improvement, it acts as a regularizer against distribution shift induced by imperfect reward modeling.
 
 ### Knowledge Distillation
 
