@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Information Theory on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/information-theory/</link>
+    <description>Recent content in Information Theory on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/information-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KL Divergence: A Technical Introduction</title>
+      <link>https://yo3nglau.github.io/blogs/post/kl-divergence/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/kl-divergence/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Kullback-Leibler divergence&lt;/strong&gt;, introduced by Solomon Kullback and Richard Leibler in their 1951 paper on information sufficiency (Kullback &amp;amp; Leibler, 1951), is a measure of how one probability distribution $P$ differs from a reference distribution $Q$. Unlike a distance metric, it has a directional character: $D_{KL}(P \| Q)$ quantifies the information lost when $Q$ is used to approximate $P$, making it fundamentally asymmetric. This asymmetry is not a deficiency but a feature — it encodes a meaningful distinction between the &amp;ldquo;true&amp;rdquo; distribution and the &amp;ldquo;approximate&amp;rdquo; one, a distinction that maps directly onto the structure of statistical inference.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -6,8 +6,36 @@
     <description>Recent content in Posts on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/post/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Exponential Moving Average: A Technical Introduction</title>
+      <link>https://yo3nglau.github.io/blogs/post/exponential-moving-average/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/exponential-moving-average/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Exponential Moving Average&lt;/strong&gt; (EMA), also known as the &lt;strong&gt;exponentially weighted moving average&lt;/strong&gt;, is a recursive smoothing technique that assigns geometrically decaying weights to past observations. Unlike a simple moving average, which treats every observation within a fixed window equally, EMA gives the most recent data the greatest influence while older observations fade at an exponential rate. The concept originates in signal processing and control engineering, where it was used to track slowly varying physical quantities in the presence of measurement noise, and it now ranks among the most frequently employed numerical primitives in machine learning.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>KL Divergence: A Technical Introduction</title>
+      <link>https://yo3nglau.github.io/blogs/post/kl-divergence/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/kl-divergence/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Kullback-Leibler divergence&lt;/strong&gt;, introduced by Solomon Kullback and Richard Leibler in their 1951 paper on information sufficiency (Kullback &amp;amp; Leibler, 1951), is a measure of how one probability distribution $P$ differs from a reference distribution $Q$. Unlike a distance metric, it has a directional character: $D_{KL}(P \| Q)$ quantifies the information lost when $Q$ is used to approximate $P$, making it fundamentally asymmetric. This asymmetry is not a deficiency but a feature — it encodes a meaningful distinction between the &amp;ldquo;true&amp;rdquo; distribution and the &amp;ldquo;approximate&amp;rdquo; one, a distinction that maps directly onto the structure of statistical inference.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Probability Density Function: A Technical Introduction</title>
+      <link>https://yo3nglau.github.io/blogs/post/probability-density-function/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/probability-density-function/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;A &lt;strong&gt;probability density function&lt;/strong&gt; (PDF) is the fundamental mathematical object through which probability is distributed over a continuous random variable. Where a probability mass function assigns discrete probabilities to individual outcomes, a PDF characterizes the infinitesimal probability rate at every point in a continuous sample space: the probability of the variable falling in any interval is obtained by integrating the PDF over that interval. This shift from summation to integration is not merely notational — it reflects a deeper structural difference between discrete and continuous probability, one that has far-reaching consequences for how models are trained, how data distributions are represented, and how samples are generated.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Softmax: A Technical Introduction</title>
+      <link>https://yo3nglau.github.io/blogs/post/softmax/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/softmax/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Softmax&lt;/strong&gt; is a vector-valued function that maps a vector of real-valued logits to a probability distribution over a finite set of outcomes. Given an input $\mathbf{z} \in \mathbb{R}^K$, softmax produces a vector whose entries are non-negative and sum to one — placing the output on the interior of the $K$-dimensional probability simplex $\Delta^{K-1}$. The function&amp;rsquo;s name reflects its role as a smooth, differentiable alternative to the argmax operation: where argmax returns a one-hot indicator for the largest logit, softmax distributes probability mass continuously across all classes, preserving gradient flow and enabling end-to-end training by backpropagation.&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Mathematical Foundations for Deep Learning: Interview Questions and Answers</title>
       <link>https://yo3nglau.github.io/blogs/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</link>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Probability Theory on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/tags/probability-theory/</link>
+    <description>Recent content in Probability Theory on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>en-us</language>
+    <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/tags/probability-theory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Probability Density Function: A Technical Introduction</title>
+      <link>https://yo3nglau.github.io/blogs/post/probability-density-function/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/post/probability-density-function/</guid>
+      <description>&lt;h2 id=&#34;introduction&#34;&gt;Introduction&lt;/h2&gt;&#xA;&lt;p&gt;A &lt;strong&gt;probability density function&lt;/strong&gt; (PDF) is the fundamental mathematical object through which probability is distributed over a continuous random variable. Where a probability mass function assigns discrete probabilities to individual outcomes, a PDF characterizes the infinitesimal probability rate at every point in a continuous sample space: the probability of the variable falling in any interval is obtained by integrating the PDF over that interval. This shift from summation to integration is not merely notational — it reflects a deeper structural difference between discrete and continuous probability, one that has far-reaching consequences for how models are trained, how data distributions are represented, and how samples are generated.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

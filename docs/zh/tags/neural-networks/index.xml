@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Neural Networks on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/neural-networks/</link>
+    <description>Recent content in Neural Networks on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/neural-networks/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Softmax：技术入门</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/softmax/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/softmax/</guid>
+      <description>&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Softmax&lt;/strong&gt; 是一个向量值函数，将实值 logit 向量映射为有限结果集上的概率分布。给定输入 $\mathbf{z} \in \mathbb{R}^K$，softmax 产生一个各分量非负且之和为一的向量——将输出置于 $K$ 维概率单纯形 $\Delta^{K-1}$ 的内部。该函数的名称反映了它作为 argmax 操作的光滑可微替代的角色：argmax 对最大 logit 返回独热指示向量，而 softmax 则将概率质量连续地分布在所有类别上，保留梯度流动，从而支持通过反向传播进行端到端训练。&lt;/p&gt;&#xA;&lt;p&gt;该函数的起源可追溯至统计物理学，其中&lt;strong&gt;玻尔兹曼分布&lt;/strong&gt;（Boltzmann distribution）将系统处于能量状态 $E_i$、温度为 $T$ 时的概率描述为正比于 $e^{-E_i/T}$。将 logit $z_i$ 与负能量 $-E_i$ 对应，并令 $T = 1$，即可还原出 softmax 公式。同一函数在计量经济学中以&lt;strong&gt;多项 logit 模型&lt;/strong&gt;（multinomial logit model）的形式出现（McFadden, 1974），并由 Bridle (1990) 作为多分类问题的原则性概率输出层引入神经网络文献。&lt;/p&gt;&#xA;&lt;p&gt;Softmax 如今是深度学习中应用最广泛的操作之一。它作为分类器的输出层、Transformer 中注意力机制的归一化算子、强化学习中的策略参数化以及事后可靠性校正中的温度标定目标出现。本文从研究生层次出发，系统阐述其数学性质，并深入考察以上四个应用领域。&lt;/p&gt;&#xA;&lt;h2 id=&#34;数学基础&#34;&gt;数学基础&lt;/h2&gt;&#xA;&lt;p&gt;对于输入向量 $\mathbf{z} = (z_1, \ldots, z_K)^\top \in \mathbb{R}^K$，其中 $K \geq 2$ 为类别数，softmax 函数 $\sigma: \mathbb{R}^K \to \Delta^{K-1}$ 按分量定义为&lt;/p&gt;&#xA;$$\sigma(\mathbf{z})_i = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}, \quad i = 1, \ldots, K$$&lt;p&gt;每个输出 $\sigma(\mathbf{z})_i$ 严格为正，且由构造知 $\sum_{i=1}^K \sigma(\mathbf{z})_i = 1$，因此输出向量位于开概率单纯形内。一个关键的代数性质是&lt;strong&gt;平移不变性&lt;/strong&gt;（translation invariance）：对任意标量 $c \in \mathbb{R}$，$\sigma(\mathbf{z} + c\mathbf{1}) = \sigma(\mathbf{z})$，其中 $\mathbf{1} \in \mathbb{R}^K$ 为全一向量。这是因为对每个指数加 $c$ 会将分子分母同乘 $e^c$，从而相消。平移不变性意味着 softmax 是过参数化的：$K$ 维输入实际上只有 $K - 1$ 个有效自由度。在数值实现中，计算指数前令 $c = -\max_j z_j$ 可防止溢出，且不改变输出——这是标准的数值稳定性技巧。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

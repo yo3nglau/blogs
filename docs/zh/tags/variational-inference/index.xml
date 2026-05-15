@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Variational Inference on yo3nglau academic website</title>
+    <link>https://yo3nglau.github.io/blogs/zh/tags/variational-inference/</link>
+    <description>Recent content in Variational Inference on yo3nglau academic website</description>
+    <generator>Hugo</generator>
+    <language>zh-cn</language>
+    <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/variational-inference/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>KL 散度：技术入门</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/kl-divergence/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/kl-divergence/</guid>
+      <description>&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Kullback-Leibler 散度&lt;/strong&gt;（KL 散度），由 Solomon Kullback 与 Richard Leibler 于 1951 年在其关于信息充分性的论文中提出（Kullback &amp;amp; Leibler, 1951），是衡量概率分布 $P$ 与参考分布 $Q$ 之间差异的度量。与距离度量不同，KL 散度具有方向性：$D_{KL}(P \| Q)$ 量化了用 $Q$ 近似 $P$ 时所损失的信息量，因此从根本上是不对称的。这种不对称性并非缺陷，而是一种特性——它在&amp;quot;真实&amp;quot;分布与&amp;quot;近似&amp;quot;分布之间编码了有意义的区别，这一区别直接对应于统计推断的结构。&lt;/p&gt;&#xA;&lt;p&gt;KL 散度处于信息论、统计学与机器学习的交汇处。它与香农熵的联系使其成为表达模型信念与现实偏差的自然工具，其变分性质则支撑着现代 AI 中一些最具影响力的训练目标。变分自编码器、信任域策略优化、基于人类反馈的强化学习以及知识蒸馏，都将 KL 散度作为损失函数的核心要素——并非偶然，而是结构性的。&lt;/p&gt;&#xA;&lt;p&gt;本文从研究生层次出发，系统阐述 KL 散度的数学基础，建立对其行为的直觉认识，并考察其在四个主要 AI 应用领域中的角色。&lt;/p&gt;&#xA;&lt;h2 id=&#34;数学基础&#34;&gt;数学基础&lt;/h2&gt;&#xA;&lt;p&gt;对于定义在同一支撑集 $\mathcal{X}$ 上的离散分布 $P$ 与 $Q$，其中 $P(x)$ 和 $Q(x)$ 分别表示各分布对结果 $x$ 所赋予的概率，从 $Q$ 到 $P$ 的 KL 散度定义为&lt;/p&gt;&#xA;$$D_{KL}(P \| Q) = \sum_{x \in \mathcal{X}} P(x) \log \frac{P(x)}{Q(x)}$$&lt;p&gt;约定 $0 \log 0 = 0$，若存在某 $x$ 使得 $Q(x) = 0$ 而 $P(x) &gt; 0$，则上式等于 $+\infty$。对于连续分布，求和变为积分：$D_{KL}(P \| Q) = \int p(x) \log \frac{p(x)}{q(x)} \, dx$。本文中对数取自然对数，单位为奈特（nats）；取以 2 为底的对数则单位为比特（bits）。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

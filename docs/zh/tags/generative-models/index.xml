@@ -6,8 +6,15 @@
     <description>Recent content in Generative Models on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/generative-models/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>概率密度函数：技术入门</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/probability-density-function/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/probability-density-function/</guid>
+      <description>&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;概率密度函数&lt;/strong&gt;（probability density function，PDF）是概率在连续随机变量上分布的基本数学对象。概率质量函数为每个离散结果赋予确定的概率，而 PDF 则刻画了连续样本空间中每一点处的无穷小概率率：随机变量落在某区间内的概率，等于 PDF 在该区间上的积分。这一从求和到积分的转变并非仅是符号上的变化——它反映了离散概率与连续概率之间更深层的结构性差异，对模型的训练方式、数据分布的表示方式以及样本的生成方式都有深远影响。&lt;/p&gt;&#xA;&lt;p&gt;PDF 的概念奠定了现代统计推断与机器学习的基础。每种参数化概率模型——高斯分布、指数分布、狄利克雷分布——都由其 PDF 定义，而通过最大似然估计来训练这类模型，本质上就是将 PDF 拟合到观测数据。超越经典统计学，PDF 在生成模型中以性质各异的角色出现：作为被参数化并加以变换的显式对象（归一化流），作为通过学习其梯度来建模的分布（基于分数的模型），或作为从未被写出的隐式目标（生成对抗网络）。&lt;/p&gt;&#xA;&lt;p&gt;本文从研究生层次出发，系统阐述 PDF 的定义与关键性质，建立关于密度与概率之区别的直觉认识，并考察四个 AI 应用场景中 PDF 所扮演的结构性不同角色。&lt;/p&gt;&#xA;&lt;h2 id=&#34;数学基础&#34;&gt;数学基础&lt;/h2&gt;&#xA;&lt;p&gt;设 $X$ 为取值于 $\mathbb{R}$ 的连续随机变量。若存在函数 $f_X: \mathbb{R} \to \mathbb{R}_{\geq 0}$，使得对任意满足 $a \leq b$ 的区间 $[a, b]$，$X$ 落在该区间内的概率为&lt;/p&gt;&#xA;$$P(a \leq X \leq b) = \int_a^b f_X(x)\, dx$$&lt;p&gt;则称 $f_X$ 为 $X$ 的&lt;strong&gt;概率密度函数&lt;/strong&gt;。任意有效 PDF 须满足两个条件：非负性，即对所有 $x \in \mathbb{R}$ 有 $f_X(x) \geq 0$；以及归一性，即 $\int_{-\infty}^{\infty} f_X(x)\, dx = 1$。PDF 与&lt;strong&gt;累积分布函数&lt;/strong&gt;（cumulative distribution function，CDF）$F_X(x) = P(X \leq x)$ 之间的关系由微积分基本定理给出：在 $F_X$ 可微处，$f_X(x) = F_X&#39;(x)$。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>变分自编码器：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/variational-autoencoder-interview-questions-and-answers/</link>

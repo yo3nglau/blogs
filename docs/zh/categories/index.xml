@@ -6,8 +6,15 @@
     <description>Recent content in Categories on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Deep Learning</title>
+      <link>https://yo3nglau.github.io/blogs/zh/categories/deep-learning/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/categories/deep-learning/</guid>
+      <description></description>
+    </item>
     <item>
       <title>Interview</title>
       <link>https://yo3nglau.github.io/blogs/zh/categories/interview/</link>

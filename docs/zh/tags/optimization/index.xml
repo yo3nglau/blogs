@@ -6,8 +6,22 @@
     <description>Recent content in Optimization on yo3nglau academic website</description>
     <generator>Hugo</generator>
     <language>zh-cn</language>
-    <lastBuildDate>Thu, 14 May 2026 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 15 May 2026 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://yo3nglau.github.io/blogs/zh/tags/optimization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Softmax：技术入门</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/softmax/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/softmax/</guid>
+      <description>&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;Softmax&lt;/strong&gt; 是一个向量值函数，将实值 logit 向量映射为有限结果集上的概率分布。给定输入 $\mathbf{z} \in \mathbb{R}^K$，softmax 产生一个各分量非负且之和为一的向量——将输出置于 $K$ 维概率单纯形 $\Delta^{K-1}$ 的内部。该函数的名称反映了它作为 argmax 操作的光滑可微替代的角色：argmax 对最大 logit 返回独热指示向量，而 softmax 则将概率质量连续地分布在所有类别上，保留梯度流动，从而支持通过反向传播进行端到端训练。&lt;/p&gt;&#xA;&lt;p&gt;该函数的起源可追溯至统计物理学，其中&lt;strong&gt;玻尔兹曼分布&lt;/strong&gt;（Boltzmann distribution）将系统处于能量状态 $E_i$、温度为 $T$ 时的概率描述为正比于 $e^{-E_i/T}$。将 logit $z_i$ 与负能量 $-E_i$ 对应，并令 $T = 1$，即可还原出 softmax 公式。同一函数在计量经济学中以&lt;strong&gt;多项 logit 模型&lt;/strong&gt;（multinomial logit model）的形式出现（McFadden, 1974），并由 Bridle (1990) 作为多分类问题的原则性概率输出层引入神经网络文献。&lt;/p&gt;&#xA;&lt;p&gt;Softmax 如今是深度学习中应用最广泛的操作之一。它作为分类器的输出层、Transformer 中注意力机制的归一化算子、强化学习中的策略参数化以及事后可靠性校正中的温度标定目标出现。本文从研究生层次出发，系统阐述其数学性质，并深入考察以上四个应用领域。&lt;/p&gt;&#xA;&lt;h2 id=&#34;数学基础&#34;&gt;数学基础&lt;/h2&gt;&#xA;&lt;p&gt;对于输入向量 $\mathbf{z} = (z_1, \ldots, z_K)^\top \in \mathbb{R}^K$，其中 $K \geq 2$ 为类别数，softmax 函数 $\sigma: \mathbb{R}^K \to \Delta^{K-1}$ 按分量定义为&lt;/p&gt;&#xA;$$\sigma(\mathbf{z})_i = \frac{e^{z_i}}{\sum_{j=1}^K e^{z_j}}, \quad i = 1, \ldots, K$$&lt;p&gt;每个输出 $\sigma(\mathbf{z})_i$ 严格为正，且由构造知 $\sum_{i=1}^K \sigma(\mathbf{z})_i = 1$，因此输出向量位于开概率单纯形内。一个关键的代数性质是&lt;strong&gt;平移不变性&lt;/strong&gt;（translation invariance）：对任意标量 $c \in \mathbb{R}$，$\sigma(\mathbf{z} + c\mathbf{1}) = \sigma(\mathbf{z})$，其中 $\mathbf{1} \in \mathbb{R}^K$ 为全一向量。这是因为对每个指数加 $c$ 会将分子分母同乘 $e^c$，从而相消。平移不变性意味着 softmax 是过参数化的：$K$ 维输入实际上只有 $K - 1$ 个有效自由度。在数值实现中，计算指数前令 $c = -\max_j z_j$ 可防止溢出，且不改变输出——这是标准的数值稳定性技巧。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>指数移动平均：技术入门</title>
+      <link>https://yo3nglau.github.io/blogs/zh/post/exponential-moving-average/</link>
+      <pubDate>Fri, 15 May 2026 00:00:00 +0000</pubDate>
+      <guid>https://yo3nglau.github.io/blogs/zh/post/exponential-moving-average/</guid>
+      <description>&lt;h2 id=&#34;引言&#34;&gt;引言&lt;/h2&gt;&#xA;&lt;p&gt;&lt;strong&gt;指数移动平均&lt;/strong&gt;（Exponential Moving Average，EMA），又称&lt;strong&gt;指数加权移动平均&lt;/strong&gt;，是一种递归平滑技术，对历史观测值赋予按几何级数衰减的权重。与简单移动平均对固定窗口内所有观测一视同仁不同，EMA 赋予最近数据最大的影响权重，而较旧的观测值则以指数速率衰减。这一概念起源于信号处理与控制工程，最初用于在测量噪声存在的情况下追踪缓慢变化的物理量，如今已成为机器学习中使用最为频繁的基础数值算子之一。&lt;/p&gt;&#xA;&lt;p&gt;EMA 能如此自然地从工程迁移至人工智能领域，根本原因在于机器学习始终面临同一基本矛盾：如何将噪声大、变化快的信号与稳定、融合历史信息的基准相结合。训练过程中梯度估计随批次剧烈波动；强化学习中的价值目标随策略改进而移位；编码器产生的表示随权重更新而持续变化。在上述情形中，对目标信号维护一个缓慢演变的 EMA，能够提供一种时间惯性——一个平滑、保守的估计，既能抵抗个别离群值的干扰，又对持续性趋势保持敏感。本文从基本原理出发推导 EMA 的数学基础，并考察其在当代人工智能研究四大领域中的作用：自适应梯度优化、强化学习中的目标网络、自监督学习中的动量编码器，以及生成模型训练中的参数平均。&lt;/p&gt;&#xA;&lt;h2 id=&#34;数学基础&#34;&gt;数学基础&lt;/h2&gt;&#xA;&lt;p&gt;观测序列 $x_1, x_2, \ldots$ 的 EMA 由如下递推式定义&lt;/p&gt;&#xA;$$v_t = \beta \, v_{t-1} + (1 - \beta) \, x_t$$&lt;p&gt;其中 $v_t$ 为第 $t$ 步的平滑估计，$x_t$ 为第 $t$ 步的原始观测值，$\beta \in (0, 1)$ 为&lt;strong&gt;衰减系数&lt;/strong&gt;（也称平滑系数或动量参数）。令 $v_0 = 0$ 并展开递推，可以看出平滑估计实为所有历史观测值的加权叠加：&lt;/p&gt;&#xA;$$v_t = (1 - \beta) \sum_{k=0}^{t-1} \beta^k \, x_{t-k} + \beta^t v_0$$&lt;p&gt;其中 $k$ 表示观测值距当前时刻的步数，分配给 $k$ 步之前的观测值 $x_{t-k}$ 的权重以 $\beta^k$ 的速率衰减。观测值的权重之和为 $1 - \beta^t$，当 $t \to \infty$ 时趋向于 $1$，因此对于较大的 $t$，估计值趋近于历史输入的真正凸组合。接近 $1$ 的衰减系数（例如 $\beta = 0.999$）能产生高度平滑、变化缓慢的估计，在较大的有效窗口上进行平均；而较小的值（例如 $\beta = 0.5$）使估计对最近输入的响应更为灵敏，但代价是对噪声的敏感性也更强。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>深度学习数学基础：面试问题与推荐回答</title>
       <link>https://yo3nglau.github.io/blogs/zh/post/mathematical-foundations-for-deep-learning-interview-questions-and-answers/</link>

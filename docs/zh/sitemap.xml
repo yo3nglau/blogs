@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://yo3nglau.github.io/blogs/zh/categories/</loc>
-    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en-us"
@@ -13,6 +13,201 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/categories/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/categories/deep-learning/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/categories/deep-learning/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/categories/deep-learning/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/generative-models/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/generative-models/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/generative-models/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/information-theory/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/information-theory/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/information-theory/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/kl-divergence/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/kl-divergence/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/kl-divergence/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/mathematics/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/mathematics/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/mathematics/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/neural-networks/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/neural-networks/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/neural-networks/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/optimization/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/optimization/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/optimization/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/probability-theory/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/probability-theory/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/probability-theory/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/signal-processing/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/signal-processing/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/signal-processing/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/softmax/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/softmax/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/softmax/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/tags/variational-inference/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/tags/variational-inference/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/tags/variational-inference/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/probability-density-function/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/probability-density-function/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/probability-density-function/"
+                />
+  </url><url>
+    <loc>https://yo3nglau.github.io/blogs/zh/post/exponential-moving-average/</loc>
+    <lastmod>2026-05-15T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en-us"
+                href="https://yo3nglau.github.io/blogs/post/exponential-moving-average/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh-cn"
+                href="https://yo3nglau.github.io/blogs/zh/post/exponential-moving-average/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/deep-learning/</loc>
@@ -28,19 +223,6 @@
                 href="https://yo3nglau.github.io/blogs/zh/tags/deep-learning/"
                 />
   </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/generative-models/</loc>
-    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/generative-models/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/generative-models/"
-                />
-  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/categories/interview/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -54,19 +236,6 @@
                 href="https://yo3nglau.github.io/blogs/zh/categories/interview/"
                 />
   </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/mathematics/</loc>
-    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/mathematics/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/mathematics/"
-                />
-  </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/model-free-rl/</loc>
     <lastmod>2026-05-14T00:00:00+00:00</lastmod>
     <xhtml:link
@@ -78,19 +247,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/model-free-rl/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/optimization/</loc>
-    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/optimization/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/optimization/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/tags/reinforcement-learning/</loc>
@@ -117,32 +273,6 @@
                 rel="alternate"
                 hreflang="zh-cn"
                 href="https://yo3nglau.github.io/blogs/zh/tags/representation-learning/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/tags/</loc>
-    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/tags/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/tags/"
-                />
-  </url><url>
-    <loc>https://yo3nglau.github.io/blogs/zh/</loc>
-    <lastmod>2026-05-14T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en-us"
-                href="https://yo3nglau.github.io/blogs/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh-cn"
-                href="https://yo3nglau.github.io/blogs/zh/"
                 />
   </url><url>
     <loc>https://yo3nglau.github.io/blogs/zh/post/variational-autoencoder-interview-questions-and-answers/</loc>
